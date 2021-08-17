@@ -2,7 +2,7 @@ USER: Email, Pseudo, Password
 appartenir, 0N MOVIE, 0N USER: Watched, Watchlist, Note,
 MOVIE: Tmdb_id
 
-Possède, 1N MOVIE,1N TAG
+Possède, 1N MOVIE,0N TAG
 
 TAG: Description
 
