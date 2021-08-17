@@ -11,7 +11,7 @@ CREATE TABLE "user" (
 
 CREATE TABLE "movie" (
     "id" int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "tmdb_id" int NOT NULL
+    "tmdb_id" int NOT NULL -- Pas de contrainte UNIQUE pour l"instant, car il semblerait qu"il y ait des doublons .. Ça fait planter la bdd
 );
 
 CREATE TABLE "user_has_movie" (
@@ -30,7 +30,7 @@ CREATE TABLE "question" (
 CREATE TABLE "tag" (
     "id" int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "description" text NOT NULL,
-    "question_id" int NOT NULL REFERENCES "question"("id")
+    "question_id" int REFERENCES "question"("id") -- Pas de contrainte NOT NULL pour l"instant, on y reviendra plus tard (quand j"aurais déterminé l"id des questions)
 );
 
 CREATE TABLE "movie_has_tag" (
