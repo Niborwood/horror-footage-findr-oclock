@@ -1,8 +1,0 @@
-[core]
-	engine = pg
-	# plan_file = sqitch.plan
-	top_dir = [répertoire des dossiers sqitch]
-[engine "pg"]
-	target = db:pg:[database]
-	# registry = sqitch
-	# client = psql
