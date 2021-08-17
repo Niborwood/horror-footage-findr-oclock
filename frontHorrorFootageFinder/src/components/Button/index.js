@@ -18,7 +18,7 @@ Button.propTypes = {
 const mapStateToProps = () => ({
 });
 
-const mapDispatchToProps = (dispatch, action) => ({
+const mapDispatchToProps = (dispatch) => ({
   onClickLogin: () => {
     dispatch(toLoginTrue());
   },

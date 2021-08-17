@@ -6,7 +6,7 @@ const initialState = {
   currentQuestion: 0,
   answers: ['je passe', '42', "déso j'ai aqua-chèvre", 'la réponse D'],
   savedAnswers: [],
-  currentAnswers: '',
+  currentAnswers: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,11 +16,24 @@ const reducer = (state = initialState, action) => {
         ...state,
         isLogged: true,
       };
+
     case CHOOSE_AN_ANSWER:
+      // On vérifie si la réponse à deja était choisis
+      if (state.currentAnswers.includes(action.answer)) {
+        // On créer une copie du tableau en retirant la réponse
+        const reducdedAnswers = state.currentAnswers.filter((answer) => answer !== action.answer);
+        // On met a jour le state
+        return {
+          ...state,
+          currentAnswers: reducdedAnswers,
+        };
+      }
+      // Si la réponse n'avait pas encore était choisis on l'ajoute aux currentAnswers
       return {
         ...state,
         currentAnswers: [...state.currentAnswers, action.answer],
       };
+
     case SWITCH_TO_NEXT_QUESTION:
       return {
         ...state,

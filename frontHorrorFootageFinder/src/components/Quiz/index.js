@@ -9,7 +9,17 @@ export const Quiz = ({
 }) => (
   <div className="quiz">
     <div className="quiz-question">{question}</div>
-    { answers.map((answer) => <button key={answer} onClick={onClickAnswer} type="button" className="quiz-answer" value={answer}>{answer}</button>) }
+    { answers.map((answer) => (
+      <button
+        key={answer}
+        onClick={onClickAnswer}
+        type="button"
+        className="quiz-answer"
+        value={answer}
+      >
+        {answer}
+      </button>
+    )) }
     <div>
       <button onClick={onClickNextQuestion} type="button">Question suivante</button>
     </div>
