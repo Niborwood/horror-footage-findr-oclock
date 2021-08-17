@@ -1,0 +1,10 @@
+.register__form__label {
+display: flex;
+flex-direction: column;
+margin-bottom: 1.5em;
+}
+.register__form__input{
+    border: 1px solid lightgray;
+    padding:1em;
+    border-radius: 1em;
+}
