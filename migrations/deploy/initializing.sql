@@ -11,7 +11,7 @@ CREATE TABLE "user" (
 
 CREATE TABLE "movie" (
     "id" int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "tmdb_id" int NOT NULL UNIQUE
+    "tmdb_id" int NOT NULL
 );
 
 CREATE TABLE "user_has_movie" (
