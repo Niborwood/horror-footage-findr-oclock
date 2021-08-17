@@ -1,0 +1,2 @@
+### Récupération d'un film en fonction de son id
+GET http://localhost:3000/api/v1/movie/1

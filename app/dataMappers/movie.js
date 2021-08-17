@@ -2,6 +2,16 @@ const client = require('../client');
 
 module.exports = {
 
-    // Bon je vais la faire au dataMapper parce que je préfère, mais j'évolue un peu quand même hein, je me sers du async await hein !
+    //! En attente de ma requête en jointure sur les notes d'un film
+    // async getBetterMovies() {
+        // On commence direct dans le dur avec une requête difficile,
+        // jointure, avg, round etc LE BONHEUR !!
+    //     const result = await client.query(`TAPE ICI TA REQUETE AHAH !`);
+    //     return result.rows;
+    // },
 
+    async getTheMovie(movieId) {
+        const result = await client.query(`Select * FROM movie WHERE id = $1`, [movieId]);
+        return result.rows[0];
+    }
 };

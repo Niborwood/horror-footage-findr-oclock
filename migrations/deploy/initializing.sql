@@ -6,7 +6,7 @@ CREATE TABLE "user" (
     "id" int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "pseudo" text NOT NULL,
     "password" text NOT NULL,
-    "email" text NOT NULL UNIQUE CHECK (VALUE ~ `^[0-9a-z._%+-]+@[a-z0-9.-]+\.[a-z]{1,4}}*$`)
+    "email" text NOT NULL UNIQUE CHECK(email ~ '^[0-9a-z._%+-]+@[a-z0-9.-]+\.[a-z]{1,4}}*$')
 );
 
 CREATE TABLE "movie" (
@@ -18,7 +18,8 @@ CREATE TABLE "user_has_movie" (
     "movie_id" int NOT NULL REFERENCES "movie"("id"),
     "user_id" int NOT NULL REFERENCES "user"("id"),
     "watchlist" boolean NOT NULL DEFAULT FALSE,
-    "watched" boolean NOT NULL DEFAULT FALSE
+    "watched" boolean NOT NULL DEFAULT FALSE,
+    "rating" real NOT NULL DEFAULT 0
 );
 
 CREATE TABLE "question" (

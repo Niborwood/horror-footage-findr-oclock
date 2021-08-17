@@ -6,11 +6,15 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 
+const router = require('./app/routers');
+
+app.use(express.json());
+
 app.use(router);
 
-   app.listen(port, _ => {
-      console.log(`http://localhost:${port}`);
-   });
+app.listen(port, _ => {
+   console.log(`http://localhost:${port}`);
+});
 
 
 //! cors pour que les gens accèdent à notre api

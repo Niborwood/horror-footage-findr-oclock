@@ -15,4 +15,9 @@ const ratingController = require('../controllers/ratingController');
 // Puis on require le middleware de gestion du cache (qui sera dans services), et ensuite on glisse le middleware avant le controller dans l'appel des routes, TADA !
 
 
+//! Les routes :
+// router.get('/api/v1/selection', movieController.movieSelection); //! En attente de construction de requête ..
+
+router.get('/api/v1/movie/:id', movieController.movieResult);
+
 module.exports = router;
