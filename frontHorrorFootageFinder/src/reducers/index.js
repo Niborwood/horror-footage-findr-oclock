@@ -1,4 +1,6 @@
-import { TO_LOGIN_TRUE, CHANGE_INPUT_VALUE, SUBMIT_FORM } from '../actions';
+import {
+  TO_LOGIN_TRUE, CHANGE_INPUT_VALUE, SUBMIT_FORM, TOGGLE_MASKED,
+} from '../actions';
 
 const initialState = {
   isLogged: false,
@@ -7,7 +9,7 @@ const initialState = {
   registerConfirmPassword: '',
   textConfirm: '',
   token: '',
-  show_input_password: false,
+  inputMasked: false,
 };
 
 // eslint-disable-next-line consistent-return
@@ -17,6 +19,11 @@ function reducer(state = initialState, { type, name, value }) {
       return {
         ...state,
         isLogged: true,
+      };
+    case TOGGLE_MASKED:
+      return {
+        ...state,
+        inputMasked: !state.inputMasked,
       };
     case CHANGE_INPUT_VALUE: {
       if (name === 'Email') {

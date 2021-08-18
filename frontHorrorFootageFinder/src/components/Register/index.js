@@ -2,19 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
-import { changeInputValue, submitForm } from '../../actions';
+import { changeInputValue, submitForm, toggleMasked } from '../../actions';
 import Field from './Field';
 import './register.scss';
 
 export const Register = ({
-  changeField, registerPassword, registerConfirmPassword, textConfirm, onSubmitForm,
+  changeField,
+  registerEmail,
+  registerPassword,
+  registerConfirmPassword,
+  textConfirm, onSubmitForm,
+  inputMasked,
+  changetoggleMasked,
 }) => {
-  const password = registerPassword;
-  const confirmPassword = registerConfirmPassword;
   const onSubmit = (event) => {
     event.preventDefault();
-    if (password !== confirmPassword) {
+    if (registerPassword !== registerConfirmPassword && registerEmail.length === 0) {
+      onSubmitForm('Un email est nécessaire et la confirmation est incorrecte');
+    } else if (registerPassword !== registerConfirmPassword) {
       onSubmitForm('confirmation incorrecte');
+    } else if (registerEmail.length === 0) {
+      onSubmitForm('Un email est nécessaire');
     } else {
       onSubmitForm('confirmation correcte');
     }
@@ -24,8 +32,17 @@ export const Register = ({
       <h1 className="register___title">Register</h1>
       <form className="register__form" onSubmit={onSubmit}>
         <Field type="email" name="Email" onChange={changeField} />
-        <Field type="password" name="Mot de passe" onChange={changeField} />
-        <Field type="password" name="Confirmation du mot de passe" onChange={changeField} />
+
+        <div className="register__form__confirmPassword__container">
+          <Field type={inputMasked ? 'password' : 'text'} name="Mot de passe" onChange={changeField} />
+          <button className="register__form__button__masked" type="button" onClick={changetoggleMasked}><div className="register__form__button__masked__rond">.</div></button>
+        </div>
+
+        <div className="register__form__confirmPassword__container">
+          <Field type={inputMasked ? 'password' : 'text'} name="Confirmation du mot de passe" onChange={changeField} />
+          <button className="register__form__button__masked" type="button" onClick={changetoggleMasked}><div className="register__form__button__masked__rond">.</div></button>
+        </div>
+
         {textConfirm}
         <button className="register__form__button" type="submit">Valider</button>
       </form>
@@ -35,9 +52,11 @@ export const Register = ({
 };
 
 const mapStateToProps = (state) => ({
+  registerEmail: state.registerEmail,
   registerPassword: state.registerPassword,
   registerConfirmPassword: state.registerConfirmPassword,
   textConfirm: state.textConfirm,
+  inputMasked: state.inputMasked,
 });
 const mapDispatchToProps = (dispatch) => ({
   changeField: (value, name) => {
@@ -48,6 +67,10 @@ const mapDispatchToProps = (dispatch) => ({
     const action = submitForm(value);
     dispatch(action);
   },
+  changetoggleMasked: () => {
+    const action = toggleMasked();
+    dispatch(action);
+  },
 });
 
 Register.propTypes = {
@@ -56,6 +79,9 @@ Register.propTypes = {
   registerConfirmPassword: PropTypes.string.isRequired,
   textConfirm: PropTypes.string.isRequired,
   onSubmitForm: PropTypes.func.isRequired,
+  registerEmail: PropTypes.string.isRequired,
+  inputMasked: PropTypes.bool.isRequired,
+  changetoggleMasked: PropTypes.func.isRequired,
 };
 Field.defaultProps = {
   registerPassword: '',
