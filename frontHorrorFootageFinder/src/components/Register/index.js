@@ -52,11 +52,11 @@ export const Register = ({
 };
 
 const mapStateToProps = (state) => ({
-  registerEmail: state.registerEmail,
-  registerPassword: state.registerPassword,
-  registerConfirmPassword: state.registerConfirmPassword,
-  textConfirm: state.textConfirm,
-  inputMasked: state.inputMasked,
+  registerEmail: state.register.registerEmail,
+  registerPassword: state.register.registerPassword,
+  registerConfirmPassword: state.register.registerConfirmPassword,
+  textConfirm: state.register.textConfirm,
+  inputMasked: state.register.inputMasked,
 });
 const mapDispatchToProps = (dispatch) => ({
   changeField: (value, name) => {

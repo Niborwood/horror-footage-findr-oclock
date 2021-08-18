@@ -41,7 +41,7 @@ MovieInfo.propTypes = {
   getCurrentMovieData: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ currentMovie }) => ({
+const mapStateToProps = ({ ui: { currentMovie } }) => ({
   currentMovie,
 });
 

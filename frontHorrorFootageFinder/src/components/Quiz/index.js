@@ -32,14 +32,19 @@ export const Quiz = ({
 
 Quiz.propTypes = {
   question: PropTypes.string.isRequired,
-  answers: PropTypes.arrayOf.isRequired,
+  answers: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      selected: PropTypes.bool.isRequired,
+    }),
+  ).isRequired,
   onClickAnswer: PropTypes.func.isRequired,
   onClickNextQuestion: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  question: state.questions[state.currentQuestion],
-  answers: state.currentAnswers,
+  question: state.quiz.questions[state.quiz.currentQuestion],
+  answers: state.quiz.currentAnswers,
 });
 
 const mapDispatchToProps = (dispatch) => ({

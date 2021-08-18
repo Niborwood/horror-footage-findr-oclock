@@ -49,7 +49,7 @@ App.propTypes = {
   splashPassed: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ splashPassed }) => ({
+const mapStateToProps = ({ ui: { splashPassed } }) => ({
   splashPassed,
 });
 
