@@ -8,14 +8,19 @@ const port = process.env.PORT || 3000;
 
 const router = require('./app/routers');
 
+
 app.use(express.json());
 
 app.use(router);
 
+app.use(express.urlencoded({
+  extended: true
+}));
+
+
 app.listen(port, _ => {
-   console.log(`http://localhost:${port}`);
+  console.log(`http://localhost:${port}`);
 });
 
 
 //! cors pour que les gens accèdent à notre api
-//! N'oublie pas le truc du url extended : true !!

@@ -2,7 +2,7 @@
 
 BEGIN;
 
-CREATE TABLE "user" (
+CREATE TABLE "horror_user" (
     "id" int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "pseudo" text NOT NULL,
     "password" text NOT NULL,
@@ -14,9 +14,9 @@ CREATE TABLE "movie" (
     "tmdb_id" int NOT NULL -- Pas de contrainte UNIQUE pour l"instant, car il semblerait qu"il y ait des doublons .. Ça fait planter la bdd
 );
 
-CREATE TABLE "user_has_movie" (
+CREATE TABLE "horror_user_has_movie" (
     "movie_id" int NOT NULL REFERENCES "movie"("id"),
-    "user_id" int NOT NULL REFERENCES "user"("id"),
+    "horror_user_id" int NOT NULL REFERENCES "horror_user"("id"),
     "watchlist" boolean NOT NULL DEFAULT FALSE,
     "watched" boolean NOT NULL DEFAULT FALSE,
     "rating" real NOT NULL DEFAULT 0

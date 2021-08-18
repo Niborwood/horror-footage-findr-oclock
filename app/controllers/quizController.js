@@ -1,13 +1,12 @@
-const userDataMapper = require('../dataMappers/user');
+const quizDataMapper = require('../dataMappers/quiz');
+
 
 module.exports = {
 
-    async findUser(request, response) {
+    async quiz(request, response) {
         try {
-
-            const user = await userDataMapper.getUserById(request.params.id);
-            response.json({data:user});
-
+            const quiz = await quizDataMapper.getTheQuiz();
+            response.json({data:quiz});
         } catch (error) {
             console.trace(error);
             response.status(500).json({data: [], error: `Désolé une erreur serveur est survenue, veuillez réessayer ultérieurement.`});
