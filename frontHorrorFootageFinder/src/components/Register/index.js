@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { changeInputValue, submitForm, toggleMasked } from '../../actions';
-import Field from './Field';
+import Field from '../Field';
 import './register.scss';
 
 export const Register = ({
@@ -46,7 +46,7 @@ export const Register = ({
         {textConfirm}
         <button className="register__form__button" type="submit">Valider</button>
       </form>
-      <NavLink to="/login" className="register__form__link">jai déjà un compte</NavLink>
+      <NavLink to="/login" className="register__form__link">j&apos;ai déjà un compte</NavLink>
     </div>
   );
 };
