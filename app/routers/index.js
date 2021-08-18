@@ -30,4 +30,8 @@ router.get('/api/v1/user/:id/details', userController.getAllDetails);
 
 router.get('/api/v1/user/:id/watchlist', userController.userWatchlist);
 
+router.post('/api/v1/user/:id/watchlist/:movieId', userController.editWatchlist);
+
+router.get('/api/v1/user/:id/watched', userController.userWatchedMovie);
+
 module.exports = router;
