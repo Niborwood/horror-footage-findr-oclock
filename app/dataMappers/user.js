@@ -7,6 +7,11 @@ module.exports = {
         return result.rows[0];
     },
 
+    async deleteUser(userId) {
+        await client.query(`DELETE FROM horror_user WHERE horror_user.id = $1`, [userId]);
+        return;
+    },
+
     async userWithDetails(userId) {
         // Pour l'instant je renvoie le nom des films de la watchlist, mais je ne suis pas sur que ce soir utile ici ..
         // ET en fait la requête du dessus suffit à récupérer les infos du user ..

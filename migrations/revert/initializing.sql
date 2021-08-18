@@ -8,10 +8,10 @@ DROP TABLE "tag";
 
 DROP TABLE "question";
 
-DROP TABLE "user_has_movie";
+DROP TABLE "horror_user_has_movie";
 
 DROP TABLE "movie";
 
-DROP TABLE "user";
+DROP TABLE "horror_user";
 
 COMMIT;

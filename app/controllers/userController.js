@@ -12,10 +12,35 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de trouver cette utilisateur, veuillez réessayer ultérieurement.`
+                error: `Désolé une erreur serveur est survenue, impossible de trouver cet utilisateur, veuillez réessayer ultérieurement.`
             });
         }
     },
+
+    async deleteUser(request, response, next) {
+        try {
+
+            const userId = request.params.id;
+            const userToDelete = await userDataMapper.getUserById(request.params.id);
+
+            if (!userToDelete) {
+                return next();
+            } else {
+                await userDataMapper.deleteUser(userId);
+                response.json({message: `Utilisateur supprimé avec succès`});
+            };
+
+        } catch (error) {
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible de supprimer cet utilisateur, veuillez réessayer ultérieurement.`
+            });
+        }
+    },
+
+    // pour ADD un user :
+    // INSERT INTO horror_user ("pseudo", "email", "password") VALUES ('$1', '$2', '$3');
 
     async getAllDetails(request, response) {
         try {
@@ -47,7 +72,7 @@ module.exports = {
         }
     },
 
-    async editWatchlist(request, response) {
+    async editMovieWatchlist(request, response) {
         try {
 
             // Récupérer les infos de la page
@@ -70,9 +95,9 @@ module.exports = {
         try {
             const watchedMovie = await userDataMapper.watchedMovie(request.params.id);
 
-                response.json({
-                    data: watchedMovie
-                });
+            response.json({
+                data: watchedMovie
+            });
 
         } catch (error) {
             console.trace(error);

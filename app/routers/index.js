@@ -25,12 +25,13 @@ router.post('/api/v1/movie/:id', movieController.addMovieToWatchlist); //! A rep
 router.get('/api/v1/quiz', quizController.quiz);
 
 router.get('/api/v1/user/:id', userController.findUser);
+router.delete('/api/v1/user/:id', userController.deleteUser);
 
 router.get('/api/v1/user/:id/details', userController.getAllDetails);
 
 router.get('/api/v1/user/:id/watchlist', userController.userWatchlist);
 
-router.post('/api/v1/user/:id/watchlist/:movieId', userController.editWatchlist);
+router.post('/api/v1/user/:id/watchlist/:movieId', userController.editMovieWatchlist);
 
 router.get('/api/v1/user/:id/watched', userController.userWatchedMovie);
 
