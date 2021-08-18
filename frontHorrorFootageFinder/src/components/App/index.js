@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import './App.scss';
 
+// Arnaud: rassembler tout ça en un seul import {toto, tata, titi} from ???
 import Quiz from '../Quiz';
 import Header from '../Header';
 import Footer from '../Footer';
@@ -12,6 +13,9 @@ import Splash from '../Splash';
 import MovieInfo from '../MovieInfo';
 import Homepage from '../Homepage';
 import Register from '../Register';
+import Profile from '../Profile';
+import Watchlist from '../Watchlist';
+import Settings from '../Settings';
 
 function App({ splashPassed }) {
   return (
@@ -35,6 +39,15 @@ function App({ splashPassed }) {
           </Route>
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/watchlist">
+            <Watchlist />
+          </Route>
+          <Route path="/settings">
+            <Settings />
           </Route>
           <Footer />
         </>

@@ -3,18 +3,18 @@
     flex-direction: column;
     align-items: center;
 
-    &-question {
+    &__question {
         padding: 0.5rem;
     }
 
-    &-answers {
+    &__answers {
         
         &-item {
             margin: 0.1rem;
         }
     }
 
-    &-next-question {
+    &__next-question {
         align-self: center;
         padding: 0.5rem;
     }
