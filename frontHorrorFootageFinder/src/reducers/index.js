@@ -1,7 +1,6 @@
 import { CHOOSE_AN_ANSWER, SWITCH_TO_NEXT_QUESTION } from '../actions';
 
 const initialState = {
-  isLogged: false,
   questions: ["qu'est ce que la vie ?", 'chocolatine ou pain au chocolat ?', 'une 3eme question pour la route ?'],
   currentQuestion: 0,
   savedAnswers: [],
