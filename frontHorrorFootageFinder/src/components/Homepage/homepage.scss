@@ -1,0 +1,19 @@
+@mixin media-min($_min-width) {
+    @media screen and (min-width: $_min-width) {
+        &{ @content; }
+    }
+  }
+
+.homepage {
+    text-align: center;
+
+    &__title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    &__play-button {
+        margin-top: 1rem;
+    }
+}
