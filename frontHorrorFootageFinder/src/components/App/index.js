@@ -12,6 +12,7 @@ import Splash from '../Splash';
 import MovieInfo from '../MovieInfo';
 import Homepage from '../Homepage';
 import Register from '../Register';
+import Login from '../Login';
 
 function App({ splashPassed }) {
   return (
@@ -35,6 +36,9 @@ function App({ splashPassed }) {
           </Route>
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/login">
+            <Login />
           </Route>
           <Footer />
         </>

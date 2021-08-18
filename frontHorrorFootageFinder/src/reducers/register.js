@@ -8,7 +8,6 @@ const initialState = {
   registerPassword: '',
   registerConfirmPassword: '',
   textConfirm: '',
-  token: '',
   inputMasked: false,
 };
 
