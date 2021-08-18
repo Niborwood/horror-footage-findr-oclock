@@ -1,14 +1,17 @@
-import { TO_LOGIN_TRUE, CHANGE_INPUT_VALUE } from '../actions';
+import { TO_LOGIN_TRUE, CHANGE_INPUT_VALUE, SUBMIT_FORM } from '../actions';
 
 const initialState = {
   isLogged: false,
   registerEmail: '',
   registerPassword: '',
   registerConfirmPassword: '',
+  textConfirm: '',
   token: '',
+  show_input_password: false,
 };
 
-const reducer = (state = initialState, { type, name, value }) => {
+// eslint-disable-next-line consistent-return
+function reducer(state = initialState, { type, name, value }) {
   switch (type) {
     case TO_LOGIN_TRUE:
       return {
@@ -16,19 +19,19 @@ const reducer = (state = initialState, { type, name, value }) => {
         isLogged: true,
       };
     case CHANGE_INPUT_VALUE: {
-      if (name === 'email') {
+      if (name === 'Email') {
         return {
           ...state,
           registerEmail: value,
         };
       }
-      if (name === 'password') {
+      if (name === 'Mot de passe') {
         return {
           ...state,
           registerPassword: value,
         };
       }
-      if (name === 'registerConfirmPassword') {
+      if (name === 'Confirmation du mot de passe') {
         return {
           ...state,
           registerConfirmPassword: value,
@@ -36,9 +39,14 @@ const reducer = (state = initialState, { type, name, value }) => {
       }
       break;
     }
+    case SUBMIT_FORM:
+      return {
+        ...state,
+        textConfirm: value,
+      };
     default:
       return state;
   }
-};
+}
 
 export default reducer;
