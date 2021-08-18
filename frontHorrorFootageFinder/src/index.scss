@@ -1,0 +1,33 @@
+@use './assets/styles/vars';
+
+@mixin media-min($_min-width) {
+  @media screen and (min-width: $_min-width) {
+      &{ @content; }
+  }
+}
+
+@font-face {
+  font-family: 'VCRMONO';
+  src: local('VCRMONO'), url('./assets/fonts/VCRMONO.ttf') format('truetype');
+}
+
+html {
+  @include media-min(320px) {
+    font-size: 12px;
+}
+
+@include media-min(768px) {
+    font-size: 16px;
+}
+}
+
+body {
+  margin: 0;
+  font-family: 'VCRMONO', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-red {
+  color: vars.$red-primary;
+}

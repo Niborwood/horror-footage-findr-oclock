@@ -1,9 +1,14 @@
-import { CHOOSE_AN_ANSWER, SWITCH_TO_NEXT_QUESTION } from '../actions';
+import {
+  CHOOSE_AN_ANSWER, SWITCH_TO_NEXT_QUESTION, PASS_SPLASH, SET_CURRENT_MOVIE_DATA,
+} from '../actions';
 
 const initialState = {
   questions: ["qu'est ce que la vie ?", 'chocolatine ou pain au chocolat ?', 'une 3eme question pour la route ?'],
   currentQuestion: 0,
   savedAnswers: [],
+  splashPassed: true,
+  isLogged: false,
+  currentMovie: {},
   currentAnswers: [
     { value: 'je passe', selected: false },
     { value: '42', selected: false },
@@ -44,6 +49,17 @@ const reducer = (state = initialState, action) => {
         currentQuestion: state.currentQuestion + 1,
       };
     }
+
+    case PASS_SPLASH:
+      return {
+        ...state,
+        splashPassed: true,
+      };
+    case SET_CURRENT_MOVIE_DATA:
+      return {
+        ...state,
+        currentMovie: action.currentMovieData,
+      };
 
     default:
       return state;

@@ -1,0 +1,11 @@
+.app {
+  display: flex;
+  text-transform: uppercase;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  box-sizing: border-box;
+  background: #151718;
+  color: white;
+}
