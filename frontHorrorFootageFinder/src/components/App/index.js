@@ -9,7 +9,7 @@ import Quiz from '../Quiz';
 import Header from '../Header';
 import Footer from '../Footer';
 import Splash from '../Splash';
-import MovieInfo from '../MovieInfo';
+import SingleMovie from '../SingleMovie';
 import Homepage from '../Homepage';
 import Register from '../Register';
 
@@ -28,7 +28,7 @@ function App({ splashPassed }) {
             <Homepage />
           </Route>
           <Route path="/movie/:id">
-            <MovieInfo />
+            <SingleMovie />
           </Route>
           <Route path="/quiz">
             <Quiz />

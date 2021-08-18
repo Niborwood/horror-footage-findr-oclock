@@ -1,14 +1,12 @@
-// Pass Splash Action
+// UI Actions
 export const PASS_SPLASH = 'PASS_SPLASH';
 export const passSplash = () => ({
   type: PASS_SPLASH,
 });
 
-// Store the current movie data for MovieInfo component
-export const SET_CURRENT_MOVIE_DATA = 'SET_CURRENT_MOVIE_DATA';
-export const setCurrentMovieData = (currentMovieData) => ({
-  type: SET_CURRENT_MOVIE_DATA,
-  currentMovieData,
+export const TOGGLE_LOADING = 'TOGGLE_LOADING';
+export const toggleLoading = () => ({
+  type: TOGGLE_LOADING,
 });
 
 // Quiz Action
@@ -39,4 +37,11 @@ export const submitForm = (value) => ({
 });
 export const toggleMasked = () => ({
   type: TOGGLE_MASKED,
+});
+
+// MovieInfo Actions
+export const SET_CURRENT_MOVIE_DATA = 'SET_CURRENT_MOVIE_DATA';
+export const setCurrentMovieData = (currentMovieData) => ({
+  type: SET_CURRENT_MOVIE_DATA,
+  currentMovieData,
 });
