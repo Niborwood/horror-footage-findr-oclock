@@ -1,46 +1,51 @@
-import { TO_LOGIN_TRUE, CHOOSE_AN_ANSWER, SWITCH_TO_NEXT_QUESTION } from '../actions';
+import { CHOOSE_AN_ANSWER, SWITCH_TO_NEXT_QUESTION } from '../actions';
 
 const initialState = {
   isLogged: false,
   questions: ["qu'est ce que la vie ?", 'chocolatine ou pain au chocolat ?', 'une 3eme question pour la route ?'],
   currentQuestion: 0,
-  answers: ['je passe', '42', "déso j'ai aqua-chèvre", 'la réponse D'],
   savedAnswers: [],
-  currentAnswers: [],
+  currentAnswers: [
+    { value: 'je passe', selected: false },
+    { value: '42', selected: false },
+    { value: "déso j'ai aqua-chèvre", selected: false },
+    { value: 'la réponse D', selected: false },
+  ],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case TO_LOGIN_TRUE:
-      return {
-        ...state,
-        isLogged: true,
-      };
-
     case CHOOSE_AN_ANSWER:
-      // On vérifie si la réponse à deja était choisis
-      if (state.currentAnswers.includes(action.answer)) {
-        // On créer une copie du tableau en retirant la réponse
-        const reducdedAnswers = state.currentAnswers.filter((answer) => answer !== action.answer);
-        // On met a jour le state
-        return {
-          ...state,
-          currentAnswers: reducdedAnswers,
-        };
+      // On parcours le tableau des réponses fournit par la BDD
+      for (let i = 0; i < state.currentAnswers.length; i += 1) {
+        // Si l'élement du tableau correspond au bouton cliqué ou switch le "selected"
+        if (state.currentAnswers[i].value === action.answer) {
+          // eslint-disable-next-line no-param-reassign
+          state.currentAnswers[i].selected = !state.currentAnswers[i].selected;
+        }
       }
-      // Si la réponse n'avait pas encore était choisis on l'ajoute aux currentAnswers
-      return {
-        ...state,
-        currentAnswers: [...state.currentAnswers, action.answer],
-      };
+      return state;
 
-    case SWITCH_TO_NEXT_QUESTION:
+    case SWITCH_TO_NEXT_QUESTION: {
+      // On garde uniquement les élements selectionés
+      const answers = state.currentAnswers.filter((answer) => answer.selected === true);
+      // On retire les booléens "selected" des tags pour renvoyer seulement leur value
+      const cleanedAnswers = answers.map((answer) => answer.value);
+
+      // JUTSE EN ATTENDANT DE RECEVOIR DE VRAIES DATA ===>
+      // on reinititaliste les currentAnswer à la main
+      for (let i = 0; i < state.currentAnswers.length; i += 1) {
+        // eslint-disable-next-line no-param-reassign
+        state.currentAnswers[i].selected = false;
+      }
+
       return {
         ...state,
+        savedAnswers: [...state.savedAnswers, ...cleanedAnswers],
         currentQuestion: state.currentQuestion + 1,
-        savedAnswers: [...state.savedAnswers, ...state.currentAnswers],
-        currentAnswers: [],
       };
+    }
+
     default:
       return state;
   }

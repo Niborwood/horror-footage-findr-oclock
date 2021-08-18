@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import './Quiz.scss';
+
 import { chooseAnAnswser, switchToNextQuestion } from '../../actions';
 
 export const Quiz = ({
@@ -9,18 +11,20 @@ export const Quiz = ({
 }) => (
   <div className="quiz">
     <div className="quiz-question">{question}</div>
-    { answers.map((answer) => (
-      <button
-        key={answer}
-        onClick={onClickAnswer}
-        type="button"
-        className="quiz-answer"
-        value={answer}
-      >
-        {answer}
-      </button>
-    )) }
-    <div>
+    <div className="quiz-answers">
+      { answers.map((answer) => (
+        <button
+          key={answer.value}
+          onClick={onClickAnswer}
+          type="button"
+          className="quiz-answers-item"
+          value={answer.value}
+        >
+          {answer.value}
+        </button>
+      )) }
+    </div>
+    <div className="quiz-next-question">
       <button onClick={onClickNextQuestion} type="button">Question suivante</button>
     </div>
   </div>
@@ -35,7 +39,7 @@ Quiz.propTypes = {
 
 const mapStateToProps = (state) => ({
   question: state.questions[state.currentQuestion],
-  answers: state.answers,
+  answers: state.currentAnswers,
 });
 
 const mapDispatchToProps = (dispatch) => ({

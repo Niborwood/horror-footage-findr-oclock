@@ -1,0 +1,21 @@
+.quiz {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &-question {
+        padding: 0.5rem;
+    }
+
+    &-answers {
+        
+        &-item {
+            margin: 0.1rem;
+        }
+    }
+
+    &-next-question {
+        align-self: center;
+        padding: 0.5rem;
+    }
+}
