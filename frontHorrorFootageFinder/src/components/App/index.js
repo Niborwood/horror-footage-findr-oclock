@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import './App.scss';
 
-// import Quiz from '../Quiz';
+import Quiz from '../Quiz';
 import Header from '../Header';
 import Footer from '../Footer';
 import Splash from '../Splash';
@@ -28,6 +28,9 @@ function App({ splashPassed }) {
           </Route>
           <Route path="/movie/:id">
             <MovieInfo />
+          </Route>
+          <Route path="/quiz">
+            <Quiz />
           </Route>
           <Footer />
         </>

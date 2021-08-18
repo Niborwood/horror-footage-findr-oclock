@@ -7,7 +7,6 @@ const initialState = {
   currentQuestion: 0,
   savedAnswers: [],
   splashPassed: true,
-  isLogged: false,
   currentMovie: {},
   currentAnswers: [
     { value: 'je passe', selected: false },

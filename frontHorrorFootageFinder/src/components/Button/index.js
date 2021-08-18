@@ -2,26 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { toLoginTrue } from '../../actions';
-
-export const Button = ({ textContent, onClickLogin }) => (
-  <button onClick={onClickLogin} type="button">
+export const Button = ({ textContent }) => (
+  <button onClick={() => {}} type="button">
     {textContent}
   </button>
 );
 
 Button.propTypes = {
   textContent: PropTypes.string.isRequired,
-  onClickLogin: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = () => ({
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onClickLogin: () => {
-    dispatch(toLoginTrue());
-  },
+const mapDispatchToProps = () => ({
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Button);
