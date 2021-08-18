@@ -1,5 +1,6 @@
 import {
   CHOOSE_AN_ANSWER, SWITCH_TO_NEXT_QUESTION, PASS_SPLASH, SET_CURRENT_MOVIE_DATA,
+  CHANGE_INPUT_VALUE, SUBMIT_FORM, TOGGLE_MASKED,
 } from '../actions';
 
 const initialState = {
@@ -7,6 +8,14 @@ const initialState = {
   currentQuestion: 0,
   savedAnswers: [],
   splashPassed: true,
+  // Register
+  isLogged: false,
+  registerEmail: '',
+  registerPassword: '',
+  registerConfirmPassword: '',
+  textConfirm: '',
+  token: '',
+  inputMasked: true,
   currentMovie: {},
   currentAnswers: [
     { value: 'je passe', selected: false },
@@ -58,6 +67,39 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentMovie: action.currentMovieData,
+      };
+
+      // LOGIN-REGISTER
+    case TOGGLE_MASKED:
+      return {
+        ...state,
+        inputMasked: !state.inputMasked,
+      };
+    case CHANGE_INPUT_VALUE: {
+      if (action.name === 'Email') {
+        return {
+          ...state,
+          registerEmail: action.value,
+        };
+      }
+      if (action.name === 'Mot de passe') {
+        return {
+          ...state,
+          registerPassword: action.value,
+        };
+      }
+      if (action.name === 'Confirmation du mot de passe') {
+        return {
+          ...state,
+          registerConfirmPassword: action.value,
+        };
+      }
+      return state;
+    }
+    case SUBMIT_FORM:
+      return {
+        ...state,
+        textConfirm: action.value,
       };
 
     default:
