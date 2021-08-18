@@ -9,7 +9,7 @@ module.exports = {
             response.json({data:quiz});
         } catch (error) {
             console.trace(error);
-            response.status(500).json({data: [], error: `Désolé une erreur serveur est survenue, veuillez réessayer ultérieurement.`});
+            response.status(500).json({data: [], error: `Désolé une erreur serveur est survenue, impossible de trouver le quiz, veuillez réessayer ultérieurement.`});
         }
     }
 

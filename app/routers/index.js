@@ -26,4 +26,8 @@ router.get('/api/v1/quiz', quizController.quiz);
 
 router.get('/api/v1/user/:id', userController.findUser);
 
+router.get('/api/v1/user/:id/details', userController.getAllDetails);
+
+router.get('/api/v1/user/:id/watchlist', userController.userWatchlist);
+
 module.exports = router;

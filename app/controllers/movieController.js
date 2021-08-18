@@ -25,7 +25,7 @@ module.exports = {
             response.json({data:theMovie});
         } catch(error) {
             console.trace(error);
-            response.status(500).json({data: [], error: `Désolé une erreur serveur est survenue, veuillez réessayer ultérieurement.`});
+            response.status(500).json({data: [], error: `Désolé une erreur serveur est survenue, impossible de trouver le film, veuillez réessayer ultérieurement.`});
         }
     },
 
@@ -36,7 +36,7 @@ module.exports = {
             // On verra ça plus tard avec les tokens JWT
         } catch (error) {
             console.trace(error);
-            response.status(500).json({data: [], error: `Désolé une erreur serveur est survenue, veuillez réessayer ultérieurement.`});
+            response.status(500).json({data: [], error: `Désolé une erreur serveur est survenue, impossible d'ajouter le film dans la watchlist, veuillez réessayer ultérieurement.`});
         }
     }
 
