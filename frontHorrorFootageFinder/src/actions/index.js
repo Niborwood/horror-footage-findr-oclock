@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // UI Actions
 export const PASS_SPLASH = 'PASS_SPLASH';
 export const passSplash = () => ({
@@ -45,3 +47,29 @@ export const setCurrentMovieData = (currentMovieData) => ({
   type: SET_CURRENT_MOVIE_DATA,
   currentMovieData,
 });
+// Thunk
+export function fetchMovieData(movieID) {
+  return (dispatch) => {
+    dispatch(toggleLoading());
+    axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=fr-FR`)
+      .then((response) => {
+        dispatch(setCurrentMovieData(response.data));
+      });
+  };
+}
+
+export const SET_CURRENT_MOVIE_PROVIDERS = 'SET_CURRENT_MOVIE_PROVIDERS';
+export const setCurrentMovieProviders = (currentMovieProviders) => ({
+  type: SET_CURRENT_MOVIE_PROVIDERS,
+  currentMovieProviders,
+});
+// Thunk
+export function fetchMovieProviders(movieID) {
+  return (dispatch) => {
+    dispatch(toggleLoading());
+    axios.get(`https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=fr-FR`)
+      .then((response) => {
+        dispatch(setCurrentMovieProviders(response.data.results.FR));
+      });
+  };
+}

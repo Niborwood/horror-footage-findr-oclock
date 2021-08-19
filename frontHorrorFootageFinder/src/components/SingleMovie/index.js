@@ -3,20 +3,25 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import Loading from '../Loading';
+// import Loading from '../Loading';
 import Divider from '../Divider';
 import MovieInfo from '../MovieInfo';
+import MovieProviders from '../MovieProviders';
+
 import './singlemovie.scss';
 
-export const SingleMovie = ({
-  loading,
-}) => {
+export const SingleMovie = () => {
   // On récupère l'id du film à partir de la route
-  const { id: movieID } = useParams();
+  // On le parse pour qu'il soit un nombre et qu'on puisse valider
+  // sa prop-type dans les composants enfants
+  let { id: movieID } = useParams();
+  movieID = parseInt(movieID, 10);
 
   return (
     <div className="single-movie">
-      <MovieInfo movieID={parseInt(movieID, 10)} />
+      <MovieInfo movieID={movieID} />
+      <Divider />
+      <MovieProviders movieID={movieID} />
       <Divider />
     </div>
 
@@ -24,11 +29,9 @@ export const SingleMovie = ({
 };
 
 SingleMovie.propTypes = {
-  loading: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ ui: { loading } }) => ({
-  loading,
+const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = () => ({

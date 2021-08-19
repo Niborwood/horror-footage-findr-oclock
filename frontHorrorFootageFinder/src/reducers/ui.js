@@ -1,4 +1,6 @@
-import { PASS_SPLASH, SET_CURRENT_MOVIE_DATA, TOGGLE_LOADING } from '../actions';
+import {
+  PASS_SPLASH, SET_CURRENT_MOVIE_DATA, SET_CURRENT_MOVIE_PROVIDERS, TOGGLE_LOADING,
+} from '../actions';
 
 const initialState = {
   splashPassed: true,
@@ -11,7 +13,7 @@ const UIreducer = (state = initialState, action) => {
     case TOGGLE_LOADING:
       return {
         ...state,
-        loading: !state.loading,
+        loading: true,
       };
     case PASS_SPLASH:
       return {
@@ -22,6 +24,13 @@ const UIreducer = (state = initialState, action) => {
       return {
         ...state,
         currentMovie: action.currentMovieData,
+        loading: false,
+      };
+    case SET_CURRENT_MOVIE_PROVIDERS:
+      return {
+        ...state,
+        currentMovieProviders: action.currentMovieProviders,
+        loading: false,
       };
 
     default:
