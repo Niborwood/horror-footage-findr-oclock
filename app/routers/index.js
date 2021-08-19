@@ -33,6 +33,9 @@ router.get('/api/v1/allmovies', movieController.getAllMovies);
 // Rooute pour ajouter un user :
 router.post('/api/v1/register', userController.addUser);
 
+// Route pour qu'un utilisateur se connecte :
+router.post('api/v1/login', userController.userLogged);
+
 // Routes pour trouver un utilisateur et pour le supprimer :
 router.get('/api/v1/user/:id', userController.findUser); 
 router.delete('/api/v1/user/:id', userController.deleteUser); //! AJOUTER vérification utilisateur connecté

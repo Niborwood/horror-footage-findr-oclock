@@ -21,6 +21,14 @@ module.exports = {
         return result.rows;
     },
 
+    async logginUser(email, password) {
+        
+        let comparedPassword = await bcrypt.compare(password, hash);
+        // await client.query(`SELECT * FROM horror_user WHERE email=$1 AND password=$2`, [email, comparedPassword]);
+        console.log('DM, password', comparedPassword)
+        return;
+    },
+
     async deleteUser(userId) {
         await client.query(`DELETE FROM horror_user WHERE horror_user.id = $1`, [userId]);
         return;

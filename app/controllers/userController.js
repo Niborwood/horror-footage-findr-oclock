@@ -17,6 +17,23 @@ module.exports = {
         }
     },
 
+    async userLogged(request, response) {
+        try {
+
+            const { email, password } = request.body;
+
+            console.log(email);
+            const logginUser = await userDataMapper.logginUser( email, password );
+
+        } catch (error){
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible de vous connecter, veuillez réessayer ultérieurement.`
+            });
+        }
+    },
+
     async addUser(request, response) {
         try {
             console.log('reqbody',request.body);
