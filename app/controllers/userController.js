@@ -17,6 +17,25 @@ module.exports = {
         }
     },
 
+    async addUser(request, response) {
+        try {
+            console.log('reqbody',request.body);
+            const newUser = request.body;
+            console.log('je passe dans mon controller', newUser);
+            const userToAdd = await userDataMapper.addNewUser(newUser);
+            console.log('je reviens dans le controller', userToAdd);
+            const userAdded = await userDataMapper.getUserById(userToAdd.id);
+            response.json({data: userAdded});
+
+        }catch (error) {
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible de créer cet utilisateur, veuillez réessayer ultérieurement.`
+            });
+        }
+    },
+
     async deleteUser(request, response, next) {
         try {
 

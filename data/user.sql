@@ -1,4 +1,4 @@
-INSERT INTO "horror_user" ("pseudo", "password", "email") VALUES
+INSERT INTO "horror_user" ("pseudo", "email", "password") VALUES
 
     ('sadelena', 'testillon', 'sadelena@truc.fr'),
     ('robinozo', 'jkiffhorror', 'robinozo@truc.fr'),
