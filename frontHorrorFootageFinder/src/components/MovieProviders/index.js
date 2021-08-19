@@ -25,19 +25,30 @@ export const MovieProviders = ({
   const rentProviders = mapProviders(currentMovieProviders.rent);
   const streamProviders = mapProviders(currentMovieProviders.flatrate);
 
-  return (
+  // Si
+  if (Object.keys(currentMovieProviders).length === 1) {
+    return (
+      <div className="movie-providers">
+        <div className="movie-providers-title">
+          Aucune méthode de streaming disponible pour ce film.
+        </div>
+      </div>
+    );
+  }
 
+  // Si tout va bien, on affiche les différents providers
+  return (
     <div className="movie-providers">
       <div className="movie-providers__part">
         <h3 className="movie-providers__title">SVOD</h3>
         <div className="movie-providers__list">
-          {streamProviders}
+          {streamProviders || 'Non disponible en SVOD'}
         </div>
       </div>
       <div className="movie-providers__part">
         <h3 className="movie-providers__title">VOD</h3>
         <div className="movie-providers__list">
-          {rentProviders}
+          {rentProviders || 'Non disponible en VOD'}
         </div>
       </div>
     </div>

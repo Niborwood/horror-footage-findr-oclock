@@ -6,7 +6,6 @@ const dataHorror = (store) => (next) => (action) => {
   switch (action.type) {
     case GET_DATA: {
       const getData = async () => {
-        console.log('salut du middleware');
         try {
           // api = http://localhost:3001/
           const response = await api.get('api/v1/allmovies');
