@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { GET_DATA } from '../actions';
-import api from './utils/api';
+import api from '../utils/api';
 
 const dataHorror = (store) => (next) => (action) => {
   switch (action.type) {

@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducer from '../reducers';
-import dataHorror from '../middelwares/dataHorror';
+import dataHorror from '../middlewares/dataHorror';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

@@ -10,7 +10,7 @@ const initialState = {
 };
 
 // eslint-disable-next-line consistent-return
-function registerReducer(state = initialState, { type, name, value }) {
+function loginReducer(state = initialState, { type, name, value }) {
   switch (type) {
     case CHANGE_INPUT_VALUE_LOGIN: {
       if (name === 'Email') {
@@ -31,4 +31,4 @@ function registerReducer(state = initialState, { type, name, value }) {
       return state;
   }
 }
-export default registerReducer;
+export default loginReducer;

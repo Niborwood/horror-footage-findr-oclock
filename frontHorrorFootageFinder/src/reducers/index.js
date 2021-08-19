@@ -5,7 +5,6 @@ import uiReducer from './ui';
 import settingsReducer from './settings';
 import loginReducer from './login';
 
-
 const rootReducer = combineReducers({
   quiz: quizReducer,
   register: registerReducer,

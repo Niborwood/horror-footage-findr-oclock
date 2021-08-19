@@ -19,7 +19,6 @@ import Watchlist from '../Watchlist';
 import Settings from '../Settings';
 import Login from '../Login';
 
-
 function App({ splashPassed, getData }) {
   useEffect(() => {
     console.log('useEffect');
@@ -56,6 +55,7 @@ function App({ splashPassed, getData }) {
           </Route>
           <Route path="/settings">
             <Settings />
+          </Route>
 
           <Route path="/login">
             <Login />

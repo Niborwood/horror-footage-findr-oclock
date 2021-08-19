@@ -49,7 +49,6 @@ export const toggleMasked = () => ({
   type: TOGGLE_MASKED,
 });
 
-
 // SETTINGS
 // afficher l'input de modificaiton d'une information personnem
 export const TOGGLE_FIELD_INPUT = 'TOGGLE_FIELD_INPUT';
@@ -73,6 +72,7 @@ export const changeSettingsValue = (value, field) => ({
 export const CANCEL_SETTINGS_CHANGE = 'CANCEL_SETTINGS_CHANGE';
 export const cancelSettingsChange = () => ({
   type: CANCEL_SETTINGS_CHANGE,
+});
 
 export const login = () => ({
   type: LOGIN,
