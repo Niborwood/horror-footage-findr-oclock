@@ -10,21 +10,21 @@ export const Quiz = ({
   question, answers, onClickAnswer, onClickNextQuestion,
 }) => (
   <div className="quiz">
-    <div className="quiz-question">{question}</div>
-    <div className="quiz-answers">
+    <div className="quiz__question">{question}</div>
+    <div className="quiz__answers">
       { answers.map((answer) => (
         <button
           key={answer.value}
           onClick={onClickAnswer}
           type="button"
-          className="quiz-answers-item"
+          className="quiz__answers-item"
           value={answer.value}
         >
           {answer.value}
         </button>
       )) }
     </div>
-    <div className="quiz-next-question">
+    <div className="quiz__next-question">
       <button onClick={onClickNextQuestion} type="button">Question suivante</button>
     </div>
   </div>

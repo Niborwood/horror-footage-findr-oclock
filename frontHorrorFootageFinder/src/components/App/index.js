@@ -6,6 +6,7 @@ import { getDataMovies } from '../../actions';
 
 import './App.scss';
 
+// Arnaud: rassembler tout ça en un seul import {toto, tata, titi} from ???
 import Quiz from '../Quiz';
 import Header from '../Header';
 import Footer from '../Footer';
@@ -13,7 +14,11 @@ import Splash from '../Splash';
 import MovieInfo from '../MovieInfo';
 import Homepage from '../Homepage';
 import Register from '../Register';
+import Profile from '../Profile';
+import Watchlist from '../Watchlist';
+import Settings from '../Settings';
 import Login from '../Login';
+
 
 function App({ splashPassed, getData }) {
   useEffect(() => {
@@ -42,6 +47,16 @@ function App({ splashPassed, getData }) {
           <Route path="/register">
             <Register />
           </Route>
+
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/watchlist">
+            <Watchlist />
+          </Route>
+          <Route path="/settings">
+            <Settings />
+
           <Route path="/login">
             <Login />
           </Route>
