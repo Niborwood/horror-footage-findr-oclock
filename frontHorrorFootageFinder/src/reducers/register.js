@@ -1,9 +1,11 @@
 import {
-  CHANGE_INPUT_VALUE, SUBMIT_FORM, TOGGLE_MASKED,
+  CHANGE_INPUT_VALUE,
+  SUBMIT_FORM,
+  TOGGLE_MASKED,
 } from '../actions';
 
 const initialState = {
-  isLogged: false,
+  pseudo: '',
   registerEmail: '',
   registerPassword: '',
   registerConfirmPassword: '',

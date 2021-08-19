@@ -41,7 +41,6 @@ export const Register = ({
       <form className="register__form" onSubmit={onSubmit}>
         <Field type="email" name="Email" onChange={changeField} />
         <Field type="text" name="Pseudo" onChange={changeField} />
-
         <div className="register__form__confirmPassword__container">
           <Field type={inputMasked ? 'password' : 'text'} name="Mot de passe" onChange={changeField} />
           <button className="register__form__button__masked" type="button" onClick={changetoggleMasked}><div className="register__form__button__masked__rond">.</div></button>

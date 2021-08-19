@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { changeInputValueLogin } from '../../actions';
+import { changeInputValueLogin, login } from '../../actions';
 import Field from '../Field';
 import './login.scss';
 
-export function Login({ changeField }) {
+export function Login({ changeField, onLogin }) {
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log('vous etes connecté');
+    onLogin();
   };
   return (
     <div className="login__container">
@@ -26,15 +26,20 @@ export function Login({ changeField }) {
 }
 const mapStateToProps = (state) => ({
   loginEmail: state.login.registerEmail,
-  loginPassword: state.login.registerPassword,
+  onLogin: state.login.registerPassword,
 });
 const mapDispatchToProps = (dispatch) => ({
   changeField: (value, name) => {
     const action = changeInputValueLogin(value, name);
     dispatch(action);
   },
+  onLogin: () => {
+    const action = login();
+    dispatch(action);
+  },
 });
 Login.propTypes = {
   changeField: PropTypes.func.isRequired,
+  onLogin: PropTypes.func.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
