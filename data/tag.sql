@@ -87,8 +87,6 @@ INSERT INTO "tag" ("description") VALUES
     ('webcam'),
     ('Des zombies / infectés'),
     ('zombie'),
-    ('Des vampires'),
-    ('vampires'),
     ('De la fausse télé-réalité'),
     ('reality-show'),
     ('Du drame (oui, c''est possible)'),
@@ -102,4 +100,6 @@ INSERT INTO "tag" ("description") VALUES
     ('Inspiré d''une histoire vraie'),
     ('true-story'),
     ('WTF'),
-    ('wtf');
+    ('wtf'),
+    ('Des vampires'),
+    ('vampires');

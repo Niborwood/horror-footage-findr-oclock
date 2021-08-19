@@ -24,10 +24,11 @@ module.exports = {
             const userToDelete = await userDataMapper.getUserById(request.params.id);
 
             if (!userToDelete) {
+                response.json({message: `Cet utilisateur n'existe pas.`})
                 return next();
             } else {
                 await userDataMapper.deleteUser(userId);
-                response.json({message: `Utilisateur supprimé avec succès`});
+                response.json({message: `Utilisateur supprimé avec succès.`});
             };
 
         } catch (error) {
