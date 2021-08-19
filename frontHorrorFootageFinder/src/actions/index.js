@@ -63,6 +63,10 @@ export const editFieldSettings = (value, field) => ({
   value,
   field,
 });
+export const EDIT_PASSWORD_SETTINGS = 'EDIT_PASSWORD_SETTINGS';
+export const editPasswordSettings = () => ({
+  type: EDIT_PASSWORD_SETTINGS,
+});
 export const CHANGE_SETTINGS_VALUE = 'CHANGE_SETTINGS_VALUE';
 export const changeSettingsValue = (value, field) => ({
   type: CHANGE_SETTINGS_VALUE,
@@ -74,6 +78,7 @@ export const cancelSettingsChange = () => ({
   type: CANCEL_SETTINGS_CHANGE,
 });
 
+//
 export const login = () => ({
   type: LOGIN,
 });

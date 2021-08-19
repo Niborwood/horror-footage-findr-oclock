@@ -6,7 +6,11 @@ import { NavLink } from 'react-router-dom';
 
 import './settings.scss';
 import {
-  toggleFieldInput, editFieldSettings, changeSettingsValue, cancelSettingsChange,
+  toggleFieldInput,
+  editFieldSettings,
+  editPasswordSettings,
+  changeSettingsValue,
+  cancelSettingsChange,
 } from '../../actions';
 
 export const Settings = ({
@@ -15,8 +19,10 @@ export const Settings = ({
   email,
   emailInput,
   password,
+  passwordInput,
   onClickEdit,
   onSubmitSaveChange,
+  onSubmitPasswordChange,
   onChangeEditField,
   onClickCancel,
 }) => (
@@ -38,7 +44,7 @@ export const Settings = ({
         <li className="settings__item">adresse email : {emailInput
           ? (
             <form onSubmit={onSubmitSaveChange} field="email" value="newEmail">
-              <input type="text" field="newEmail" onChange={onChangeEditField} placeholder={email} />
+              <input type="email" field="newEmail" onChange={onChangeEditField} placeholder={email} />
               <button type="submit">valider</button>
               <button type="button" onClick={onClickCancel}>annuler</button>
             </form>
@@ -50,7 +56,18 @@ export const Settings = ({
     <div>
       <h2 className="settings__sub-title">securite</h2>
       <ul>
-        <li>modifier le mot de passe</li>
+        {passwordInput
+          ? (
+            <li>
+              <form onSubmit={onSubmitPasswordChange} field="password" value="newPassword">
+                Nouveau mot de passe : <input type="text" field="newPassword" onChange={onChangeEditField} />
+                Confirmer le mot de passe : <input type="text" field="newPasswordConfirm" onChange={onChangeEditField} />
+                <button type="submit">valider</button>
+                <button type="button" onClick={onClickCancel}>annuler</button>
+              </form>
+            </li>
+          )
+          : <li>modifier le mot de passe<button type="button" value="passwordInput" onClick={onClickEdit} className="settings__edit__button">edit</button></li>}
         <li>deconnexion</li>
         <li>supprimer le compte</li>
       </ul>
@@ -66,8 +83,10 @@ Settings.propTypes = {
   email: PropTypes.string.isRequired,
   emailInput: PropTypes.bool.isRequired,
   password: PropTypes.string.isRequired,
+  passwordInput: PropTypes.bool.isRequired,
   onClickEdit: PropTypes.func.isRequired,
   onSubmitSaveChange: PropTypes.func.isRequired,
+  onSubmitPasswordChange: PropTypes.func.isRequired,
   onChangeEditField: PropTypes.func.isRequired,
   onClickCancel: PropTypes.func.isRequired,
 };
@@ -78,6 +97,7 @@ const mapStateToProps = (state) => ({
   email: state.settings.email,
   emailInput: state.settings.emailInput,
   password: state.settings.password,
+  passwordInput: state.settings.passwordInput,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -90,6 +110,10 @@ const mapDispatchToProps = (dispatch) => ({
       event.nativeEvent.path[0].attributes.value.nodeValue,
       event.nativeEvent.path[0].attributes.field.nodeValue,
     ));
+  },
+  onSubmitPasswordChange: (event) => {
+    event.preventDefault();
+    dispatch(editPasswordSettings());
   },
   onChangeEditField: (event) => {
     dispatch(changeSettingsValue(

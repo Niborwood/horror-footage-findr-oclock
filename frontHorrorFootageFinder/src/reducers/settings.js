@@ -1,5 +1,9 @@
 import {
-  CHANGE_SETTINGS_VALUE, EDIT_FIELD_SETTINGS, TOGGLE_FIELD_INPUT, CANCEL_SETTINGS_CHANGE,
+  CHANGE_SETTINGS_VALUE,
+  EDIT_FIELD_SETTINGS,
+  TOGGLE_FIELD_INPUT,
+  CANCEL_SETTINGS_CHANGE,
+  EDIT_PASSWORD_SETTINGS,
 } from '../actions';
 
 const initialState = {
@@ -10,6 +14,9 @@ const initialState = {
   newEmail: 'titouan@caramail.fr',
   emailInput: false,
   password: '1234',
+  newPassword: '',
+  newPasswordConfirm: '',
+  passwordInput: false,
 };
 
 const settingsReducer = (state = initialState, action) => {
@@ -23,8 +30,10 @@ const settingsReducer = (state = initialState, action) => {
         ...state,
         pseudoInput: false,
         emailInput: false,
+        passwordInput: false,
         newPseudo: state.pseudo,
         newEmail: state.email,
+        newPassword: state.password,
         [action.field]: !state.field,
       };
     }
@@ -33,8 +42,26 @@ const settingsReducer = (state = initialState, action) => {
         ...state,
         emailInput: false,
         pseudoInput: false,
+        passwordInput: false,
         [action.field]: state[action.value],
       };
+    case EDIT_PASSWORD_SETTINGS:
+      if (state.newPassword === state.newPasswordConfirm) {
+        return {
+          ...state,
+          emailInput: false,
+          pseudoInput: false,
+          passwordInput: false,
+          password: state.newPassword,
+        };
+      }
+      return {
+        ...state,
+        emailInput: false,
+        pseudoInput: false,
+        passwordInput: false,
+      };
+
     case CHANGE_SETTINGS_VALUE:
       return {
         ...state,
@@ -45,8 +72,11 @@ const settingsReducer = (state = initialState, action) => {
         ...state,
         pseudoInput: false,
         emailInput: false,
+        passwordInput: false,
         newPseudo: state.pseudo,
         newEmail: state.email,
+        newPassword: '',
+        newPasswordConfirm: '',
       };
     default:
       return state;
