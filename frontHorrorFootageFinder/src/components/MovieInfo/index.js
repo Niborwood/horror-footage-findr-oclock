@@ -8,40 +8,45 @@ import { fetchMovieData } from '../../actions';
 import './movieinfo.scss';
 
 export const MovieInfo = ({
-  movieID, currentMovie, getMovieData, loading,
+  movieID, currentMovie, getMovieData,
 }) => {
   // On récupère le film à partir de l'API
   useEffect(() => {
     getMovieData(movieID);
   }, []);
 
+  // On empêche l'effet de bord si les data du film
+  // ne sont pas encore réupérés
+  if (!currentMovie.loaded) {
+    return <div className="loading-container">Loading...</div>;
+  }
+
   return (
-    loading ? <div>Loading... </div> : (
-      <div className="movie-info">
-        <div className="movie-info__left-side">
-          <img className="movie-info__poster" src={`https://www.themoviedb.org/t/p/w300/${currentMovie.poster_path}`} alt={`${currentMovie.original_title} movie poster`} title={`${currentMovie.original_title} movie poster`} />
+    <div className="movie-info">
+      <div className="movie-info__left-side">
+        <img className="movie-info__poster" src={`https://www.themoviedb.org/t/p/w300/${currentMovie.poster_path}`} alt={`${currentMovie.original_title} movie poster`} title={`${currentMovie.original_title} movie poster`} />
+      </div>
+      <div className="movie-info__tags">
+        00S, COMMON, EUROPE, MOCKUMENTARY, MONSTERS
+      </div>
+      <div className="movie-info__right-side">
+        <div className="movie-info__title">
+          {currentMovie.original_title}
+          {' '}
+          -
+          {' '}
+          {currentMovie.release_date.slice(0, 4)}
         </div>
-        <div className="movie-info__tags">
-          00S, COMMON, EUROPE, MOCKUMENTARY, MONSTERS
+        <div className="movie-info__rating">
+          Note HFF : 4.3/5
+          <br />
+          Note TMDB :
+          {' '}
+          {currentMovie.vote_average / 2}
+          /5
         </div>
-        <div className="movie-info__right-side">
-          <div className="movie-info__title">
-            {currentMovie.original_title}
-            {' '}
-            -
-            {' '}
-            {currentMovie.release_date?.slice(0, 4)}
-          </div>
-          <div className="movie-info__rating">
-            Note HFF : 4.3/5
-            <br />
-            Note TMDB :
-            {' '}
-            {currentMovie.vote_average / 2}
-            /5
-          </div>
-          {/* Affichage conditionnel de la collection si le film en possède une */}
-          {currentMovie.belongs_to_collection
+        {/* Affichage conditionnel de la collection si le film en possède une */}
+        {currentMovie.belongs_to_collection
             && (
             <div className="movie-info__collection">
               Collection :
@@ -49,17 +54,17 @@ export const MovieInfo = ({
               {currentMovie.belongs_to_collection.name}
             </div>
             )}
-          <div className="movie-info__description">
-            {currentMovie.overview}
-          </div>
+        <div className="movie-info__description">
+          {currentMovie.overview}
         </div>
       </div>
-    )
+    </div>
   );
 };
 
 MovieInfo.propTypes = {
   currentMovie: PropTypes.shape({
+    loaded: PropTypes.bool.isRequired,
     original_title: PropTypes.string,
     overview: PropTypes.string,
     release_date: PropTypes.string,
@@ -71,12 +76,10 @@ MovieInfo.propTypes = {
   }).isRequired,
   movieID: PropTypes.number.isRequired,
   getMovieData: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ ui: { currentMovie, loading } }) => ({
+const mapStateToProps = ({ ui: { currentMovie } }) => ({
   currentMovie,
-  loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

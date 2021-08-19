@@ -6,9 +6,10 @@ export const passSplash = () => ({
   type: PASS_SPLASH,
 });
 
-export const TOGGLE_LOADING = 'TOGGLE_LOADING';
-export const toggleLoading = () => ({
-  type: TOGGLE_LOADING,
+export const TMDB_LOADED = 'TMDB_LOADED';
+export const tmdbLoaded = (dataLoaded) => ({
+  type: TMDB_LOADED,
+  dataLoaded,
 });
 
 // Quiz Action
@@ -50,10 +51,12 @@ export const setCurrentMovieData = (currentMovieData) => ({
 // Thunk
 export function fetchMovieData(movieID) {
   return (dispatch) => {
-    dispatch(toggleLoading());
     axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=fr-FR`)
       .then((response) => {
         dispatch(setCurrentMovieData(response.data));
+      })
+      .finally(() => {
+        dispatch(tmdbLoaded('currentMovie'));
       });
   };
 }
@@ -66,10 +69,12 @@ export const setCurrentMovieProviders = (currentMovieProviders) => ({
 // Thunk
 export function fetchMovieProviders(movieID) {
   return (dispatch) => {
-    dispatch(toggleLoading());
     axios.get(`https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=fr-FR`)
       .then((response) => {
         dispatch(setCurrentMovieProviders(response.data.results.FR));
+      })
+      .finally(() => {
+        dispatch(tmdbLoaded('currentMovieProviders'));
       });
   };
 }

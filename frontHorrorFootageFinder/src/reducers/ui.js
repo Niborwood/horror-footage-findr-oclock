@@ -1,19 +1,26 @@
 import {
-  PASS_SPLASH, SET_CURRENT_MOVIE_DATA, SET_CURRENT_MOVIE_PROVIDERS, TOGGLE_LOADING,
+  PASS_SPLASH, SET_CURRENT_MOVIE_DATA, SET_CURRENT_MOVIE_PROVIDERS, TMDB_LOADED,
 } from '../actions';
 
 const initialState = {
   splashPassed: true,
-  currentMovie: {},
-  loading: false,
+  currentMovie: {
+    loaded: false,
+  },
+  currentMovieProviders: {
+    loaded: false,
+  },
 };
 
 const UIreducer = (state = initialState, action) => {
   switch (action.type) {
-    case TOGGLE_LOADING:
+    case TMDB_LOADED:
       return {
         ...state,
-        loading: true,
+        [action.dataLoaded]: {
+          ...state[action.dataLoaded],
+          loaded: true,
+        },
       };
     case PASS_SPLASH:
       return {
@@ -23,14 +30,18 @@ const UIreducer = (state = initialState, action) => {
     case SET_CURRENT_MOVIE_DATA:
       return {
         ...state,
-        currentMovie: action.currentMovieData,
-        loading: false,
+        currentMovie: {
+          ...state.currentMovie,
+          ...action.currentMovieData,
+        },
       };
     case SET_CURRENT_MOVIE_PROVIDERS:
       return {
         ...state,
-        currentMovieProviders: action.currentMovieProviders,
-        loading: false,
+        currentMovieProviders: {
+          ...state.currentMovieProviders,
+          ...action.currentMovieProviders,
+        },
       };
 
     default:
