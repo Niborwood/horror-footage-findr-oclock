@@ -20,6 +20,8 @@ module.exports = {
     async userLogged(request, response) {
         try {
 
+            console.log(request.body);
+
             const { email, password } = request.body;
 
             console.log(email);
