@@ -27,11 +27,13 @@ const dataHorror = (store) => (next) => (action) => {
       const submitRegister = async () => {
         try {
           const state = store.getState();
-          // api = http://localhost:3001/
+          const getPseudo = state.register.registerPseudo;
+          const getEmail = state.register.registerEmail;
+          const getPassword = state.register.registerConfirmPassword;
           const response = await api.post('api/v1/register', {
-            pseudo: state.login.registerPseudo,
-            email: state.login.registerEmail,
-            password: state.login.registerConfirmPassword,
+            pseudo: getPseudo,
+            email: getEmail,
+            password: getPassword,
           });
         } catch (error) {
           console.log('error', error);
@@ -44,12 +46,14 @@ const dataHorror = (store) => (next) => (action) => {
       const login = async () => {
         try {
           const state = store.getState();
+          const getEmail = state.login.loginEmail;
+          const getPassword = state.login.loginPassword;
           const response = await api.post('api/v1/login', {
-            email: state.login.loginEmail,
-            password: action.login.loginPassword,
+            email: getEmail,
+            password: getPassword,
           });
           store.dispatch(toggleConnected());
-          console.log('emailconnect', state);
+          console.log('emailconnect 2', state);
         } catch (error) {
           console.log('error', error);
         }
