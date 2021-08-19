@@ -7,6 +7,7 @@ const initialState = {
   registerEmail: '',
   registerPassword: '',
   registerConfirmPassword: '',
+  registerPseudo: '',
   textConfirm: '',
   inputMasked: false,
 };
@@ -36,6 +37,12 @@ function registerReducer(state = initialState, { type, name, value }) {
         return {
           ...state,
           registerConfirmPassword: value,
+        };
+      }
+      if (name === 'Pseudo') {
+        return {
+          ...state,
+          registerPseudo: value,
         };
       }
       return state;

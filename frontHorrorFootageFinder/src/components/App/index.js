@@ -17,8 +17,7 @@ import Login from '../Login';
 
 function App({ splashPassed, getData }) {
   useEffect(() => {
-    console.log('useEffect');
-    getData();
+    // getData();
   }, []);
   return (
     <div className="app">
