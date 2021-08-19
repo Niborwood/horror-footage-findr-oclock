@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getDataMovies } from '../../actions';
 
 import './App.scss';
 
@@ -16,8 +17,14 @@ import Register from '../Register';
 import Profile from '../Profile';
 import Watchlist from '../Watchlist';
 import Settings from '../Settings';
+import Login from '../Login';
 
-function App({ splashPassed }) {
+
+function App({ splashPassed, getData }) {
+  useEffect(() => {
+    console.log('useEffect');
+    getData();
+  }, []);
   return (
     <div className="app">
       { splashPassed || <Redirect to="/splash" />}
@@ -40,6 +47,7 @@ function App({ splashPassed }) {
           <Route path="/register">
             <Register />
           </Route>
+
           <Route path="/profile">
             <Profile />
           </Route>
@@ -48,6 +56,9 @@ function App({ splashPassed }) {
           </Route>
           <Route path="/settings">
             <Settings />
+
+          <Route path="/login">
+            <Login />
           </Route>
           <Footer />
         </>
@@ -60,14 +71,17 @@ function App({ splashPassed }) {
 
 App.propTypes = {
   splashPassed: PropTypes.bool.isRequired,
+  getData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ ui: { splashPassed } }) => ({
   splashPassed,
 });
 
-const mapDispatchToProps = {
-
-};
+const mapDispatchToProps = (dispatch) => ({
+  getData: () => {
+    dispatch(getDataMovies());
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -26,8 +26,11 @@ export const switchToNextQuestion = () => ({
 
 // REGISTER-LOGIN Actions
 export const CHANGE_INPUT_VALUE = 'CHANGE_INPUT_VALUE';
+export const CHANGE_INPUT_VALUE_LOGIN = 'CHANGE_INPUT_VALUE_LOGIN';
 export const SUBMIT_FORM = 'SUBMIT_FORM';
 export const TOGGLE_MASKED = 'TOGGLE_MASKED';
+export const GET_DATA = 'GET_DATA';
+export const LOGIN = 'LOGIN';
 export const changeInputValue = (value, name) => ({
   type: CHANGE_INPUT_VALUE,
   value,
@@ -37,9 +40,15 @@ export const submitForm = (value) => ({
   type: SUBMIT_FORM,
   value,
 });
+export const changeInputValueLogin = (value, name) => ({
+  type: CHANGE_INPUT_VALUE_LOGIN,
+  value,
+  name,
+});
 export const toggleMasked = () => ({
   type: TOGGLE_MASKED,
 });
+
 
 // SETTINGS
 // afficher l'input de modificaiton d'une information personnem
@@ -64,4 +73,10 @@ export const changeSettingsValue = (value, field) => ({
 export const CANCEL_SETTINGS_CHANGE = 'CANCEL_SETTINGS_CHANGE';
 export const cancelSettingsChange = () => ({
   type: CANCEL_SETTINGS_CHANGE,
+
+export const login = () => ({
+  type: LOGIN,
+});
+export const getDataMovies = () => ({
+  type: GET_DATA,
 });
