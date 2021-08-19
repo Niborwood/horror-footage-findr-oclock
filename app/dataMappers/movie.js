@@ -13,5 +13,10 @@ module.exports = {
     async getTheMovie(movieId) {
         const result = await client.query(`Select * FROM movie WHERE id = $1`, [movieId]);
         return result.rows[0];
+    },
+
+    async allMovies() {
+        const result = await client.query(`SELECT * FROM movie`);
+        return result.rows;
     }
 };

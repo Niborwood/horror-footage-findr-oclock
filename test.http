@@ -1,32 +1,36 @@
 
 ### Récupération du quizz
-GET http://localhost:3000/api/v1/quiz
+GET http://localhost:3001/api/v1/quiz
 
 
 ### Récupération d'un film en fonction de son id
-GET http://localhost:3000/api/v1/movie/98
+GET http://localhost:3001/api/v1/movie/98
+
+
+### Récupérer TOUS les films
+GET http://localhost:3001/api/v1/allmovies
 
 
 ### Ajout d'un film à la watchlist
-POST http://localhost:3000/api/v1/movie/98
+POST http://localhost:3001/api/v1/movie/98
 
 ### Récupération d'un user en fonction de son id
-GET http://localhost:3000/api/v1/user/2
+GET http://localhost:3001/api/v1/user/4
 
 ### Suppression d'un user en fonction de son id
-DELETE http://localhost:3000/api/v1/user/14
+DELETE http://localhost:3001/api/v1/user/14
 
 # ### Ajout d'un user en bdd
 # POST http://localhost:3000/api/v1/user/2
 
 
 ### Récupération d'un user en fonction de son id
-GET http://localhost:3000/api/v1/user/1/details
+GET http://localhost:3001/api/v1/user/1/details
 
 
 ### Récupération de la watchlist d'un user en fonction de son id
-GET http://localhost:3000/api/v1/user/1/watchlist
+GET http://localhost:3001/api/v1/user/1/watchlist
 
 
 ### Récupération des films vus par un user en fonction de son id
-GET http://localhost:3000/api/v1/user/1/watched
+GET http://localhost:3001/api/v1/user/1/watched

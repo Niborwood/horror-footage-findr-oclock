@@ -38,6 +38,19 @@ module.exports = {
             console.trace(error);
             response.status(500).json({data: [], error: `Désolé une erreur serveur est survenue, impossible d'ajouter le film dans la watchlist, veuillez réessayer ultérieurement.`});
         }
+    },
+
+    async getAllMovies(request, response) {
+        try {
+
+            const allMovies = await movieDataMapper.allMovies();
+            response.json({data: allMovies});
+
+        } catch (error) {
+       console.trace(error);
+            response.status(500).json({data: [], error: `Désolé une erreur serveur est survenue, impossible de rappatrier tous les films, veuillez réessayer ultérieurement.`});
+        
+        }
     }
 
 };

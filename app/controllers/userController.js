@@ -20,6 +20,8 @@ module.exports = {
     async deleteUser(request, response, next) {
         try {
 
+            //! Rajouter un check pour vérifier que l'utilisateur est connecté !!
+
             const userId = request.params.id;
             const userToDelete = await userDataMapper.getUserById(request.params.id);
 

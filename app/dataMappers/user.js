@@ -13,9 +13,9 @@ module.exports = {
     },
 
     async userWithDetails(userId) {
-        // Pour l'instant je renvoie le nom des films de la watchlist, mais je ne suis pas sur que ce soir utile ici ..
+        // Pour l'instant je renvoie le nom des films de la watchlist, mais je ne suis pas sur que ce soit utile ici ..
         // ET en fait la requête du dessus suffit à récupérer les infos du user ..
-        const result = await client.query('SELECT movie.name, horror_user.pseudo, horror_user.email, horror_user.password FROM horror_user_has_movie JOIN movie ON horror_user_has_movie.movie_id = movie.id JOIN horror_user ON horror_user.id = horror_user_has_movie.horror_user_id WHERE horror_user_has_movie.horror_user_id = $1', [userId]);
+        const result = await client.query('SELECT movie.*, horror_user.* FROM horror_user_has_movie JOIN movie ON horror_user_has_movie.movie_id = movie.id JOIN horror_user ON horror_user.id = horror_user_has_movie.horror_user_id WHERE horror_user_has_movie.horror_user_id = $1', [userId]);
         return result.rows;
     },
 
