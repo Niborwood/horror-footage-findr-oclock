@@ -17,6 +17,7 @@ const initialState = {
   newPassword: '',
   newPasswordConfirm: '',
   passwordInput: false,
+  textErrorPassword: '',
 };
 
 const settingsReducer = (state = initialState, action) => {
@@ -37,22 +38,15 @@ const settingsReducer = (state = initialState, action) => {
         [action.field]: !state.field,
       };
     }
+    // action au submit
     case EDIT_FIELD_SETTINGS:
-      return {
-        ...state,
-        emailInput: false,
-        pseudoInput: false,
-        passwordInput: false,
-        [action.field]: state[action.value],
-      };
-    case EDIT_PASSWORD_SETTINGS:
-      if (state.newPassword === state.newPasswordConfirm) {
+      if (state[action.value].match(/^\S+$/)) {
         return {
           ...state,
           emailInput: false,
           pseudoInput: false,
           passwordInput: false,
-          password: state.newPassword,
+          [action.field]: state[action.value],
         };
       }
       return {
@@ -60,6 +54,25 @@ const settingsReducer = (state = initialState, action) => {
         emailInput: false,
         pseudoInput: false,
         passwordInput: false,
+      };
+
+    case EDIT_PASSWORD_SETTINGS:
+      if (state.newPassword === state.newPasswordConfirm && state.newPassword.match(/^\S+$/)) {
+        return {
+          ...state,
+          emailInput: false,
+          pseudoInput: false,
+          passwordInput: false,
+          password: state.newPassword,
+          textErrorPassword: '',
+        };
+      }
+      return {
+        ...state,
+        emailInput: false,
+        pseudoInput: false,
+        passwordInput: false,
+        textErrorPassword: 'les champs doivent être identiques',
       };
 
     case CHANGE_SETTINGS_VALUE:

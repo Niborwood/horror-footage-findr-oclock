@@ -18,8 +18,8 @@ export const Settings = ({
   pseudoInput,
   email,
   emailInput,
-  password,
   passwordInput,
+  textErrorPassword,
   onClickEdit,
   onSubmitSaveChange,
   onSubmitPasswordChange,
@@ -60,14 +60,19 @@ export const Settings = ({
           ? (
             <li>
               <form onSubmit={onSubmitPasswordChange} field="password" value="newPassword">
-                Nouveau mot de passe : <input type="text" field="newPassword" onChange={onChangeEditField} />
-                Confirmer le mot de passe : <input type="text" field="newPasswordConfirm" onChange={onChangeEditField} />
-                <button type="submit">valider</button>
-                <button type="button" onClick={onClickCancel}>annuler</button>
+                <div>Nouveau mot de passe :</div>
+                <div><input type="text" field="newPassword" onChange={onChangeEditField} /></div>
+                <div>Confirmer le mot de passe :</div>
+                <div><input type="text" field="newPasswordConfirm" onChange={onChangeEditField} /></div>
+                <div>
+                  <button type="submit">valider</button>
+                  <button type="button" onClick={onClickCancel}>annuler</button>
+                </div>
               </form>
             </li>
           )
           : <li>modifier le mot de passe<button type="button" value="passwordInput" onClick={onClickEdit} className="settings__edit__button">edit</button></li>}
+        <div className="settings__error">{textErrorPassword}</div>
         <li>deconnexion</li>
         <li>supprimer le compte</li>
       </ul>
@@ -82,8 +87,8 @@ Settings.propTypes = {
   pseudoInput: PropTypes.bool.isRequired,
   email: PropTypes.string.isRequired,
   emailInput: PropTypes.bool.isRequired,
-  password: PropTypes.string.isRequired,
   passwordInput: PropTypes.bool.isRequired,
+  textErrorPassword: PropTypes.string.isRequired,
   onClickEdit: PropTypes.func.isRequired,
   onSubmitSaveChange: PropTypes.func.isRequired,
   onSubmitPasswordChange: PropTypes.func.isRequired,
@@ -96,8 +101,8 @@ const mapStateToProps = (state) => ({
   pseudoInput: state.settings.pseudoInput,
   email: state.settings.email,
   emailInput: state.settings.emailInput,
-  password: state.settings.password,
   passwordInput: state.settings.passwordInput,
+  textErrorPassword: state.settings.textErrorPassword,
 });
 
 const mapDispatchToProps = (dispatch) => ({
