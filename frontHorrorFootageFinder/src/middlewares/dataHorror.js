@@ -52,7 +52,6 @@ const dataHorror = (store) => (next) => (action) => {
             password: getPassword,
           });
           store.dispatch(toggleConnected());
-          console.log('emailconnect 2', state);
         } catch (error) {
           console.log('error', error);
         }
