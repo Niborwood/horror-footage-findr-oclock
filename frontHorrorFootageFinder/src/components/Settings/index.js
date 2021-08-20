@@ -28,6 +28,7 @@ export const Settings = ({
 }) => (
   <div className="settings">
     <h1 className="settings__title">settings</h1>
+    <div className={textError !== '' ? 'settings__error' : ''}>{textError}</div>
     <div>
       <h2 className="settings__sub-title">informations utilisateur</h2>
       <ul>
@@ -72,7 +73,6 @@ export const Settings = ({
             </li>
           )
           : <li>modifier le mot de passe<button type="button" value="passwordInput" onClick={onClickEdit} className="settings__edit__button">edit</button></li>}
-        <div className="settings__error">{textError}</div>
         <li>deconnexion</li>
         <li>supprimer le compte</li>
       </ul>

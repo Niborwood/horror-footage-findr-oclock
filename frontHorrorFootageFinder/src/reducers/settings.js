@@ -72,7 +72,7 @@ const settingsReducer = (state = initialState, action) => {
         emailInput: false,
         pseudoInput: false,
         passwordInput: false,
-        textError: 'les champs doivent être identiques',
+        textError: '! les champs doivent être identiques',
       };
 
     case CHANGE_SETTINGS_VALUE:
