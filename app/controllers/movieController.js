@@ -1,4 +1,5 @@
 const movieDataMapper = require('../dataMappers/movie');
+const userDataMapper = require('../dataMappers/user');
 
 module.exports = {
 
@@ -20,23 +21,35 @@ module.exports = {
 
     async movieResult(request, response) {
 
-        try {           
+        try {
             const theMovie = await movieDataMapper.getTheMovie(request.params.id);
-            response.json({data:theMovie});
-        } catch(error) {
+            response.json({
+                data: theMovie
+            });
+        } catch (error) {
             console.trace(error);
-            response.status(500).json({data: [], error: `Désolé une erreur serveur est survenue, impossible de trouver le film, veuillez réessayer ultérieurement.`});
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible de trouver le film, veuillez réessayer ultérieurement.`
+            });
         }
     },
 
     async addMovieToWatchlist(request, response) {
 
         try {
-            const movieIdFromUrl = parseInt(request.params.id, 10);
-            // On verra ça plus tard avec les tokens JWT
+            const movieAdded = await movieDataMapper.movieIntoWatchlist(request.params);
+            response.json({
+                message: 'Le film a bien été ajouté dans la watchlist'
+            });
+            // Si besoin que je renvoie autre chose que ce message me faire signe ;)
+
         } catch (error) {
             console.trace(error);
-            response.status(500).json({data: [], error: `Désolé une erreur serveur est survenue, impossible d'ajouter le film dans la watchlist, veuillez réessayer ultérieurement.`});
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible d'ajouter le film dans la watchlist, veuillez réessayer ultérieurement.`
+            });
         }
     },
 
@@ -44,12 +57,17 @@ module.exports = {
         try {
 
             const allMovies = await movieDataMapper.allMovies();
-            response.json({data: allMovies});
+            response.json({
+                data: allMovies
+            });
 
         } catch (error) {
-       console.trace(error);
-            response.status(500).json({data: [], error: `Désolé une erreur serveur est survenue, impossible de rappatrier tous les films, veuillez réessayer ultérieurement.`});
-        
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible de rappatrier tous les films, veuillez réessayer ultérieurement.`
+            });
+
         }
     }
 
