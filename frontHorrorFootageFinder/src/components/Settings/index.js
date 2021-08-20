@@ -18,8 +18,8 @@ export const Settings = ({
   pseudoInput,
   email,
   emailInput,
-  password,
   passwordInput,
+  textError,
   onClickEdit,
   onSubmitSaveChange,
   onSubmitPasswordChange,
@@ -28,6 +28,7 @@ export const Settings = ({
 }) => (
   <div className="settings">
     <h1 className="settings__title">settings</h1>
+    <div className={textError !== '' ? 'settings__error' : ''}>{textError}</div>
     <div>
       <h2 className="settings__sub-title">informations utilisateur</h2>
       <ul>
@@ -60,10 +61,14 @@ export const Settings = ({
           ? (
             <li>
               <form onSubmit={onSubmitPasswordChange} field="password" value="newPassword">
-                Nouveau mot de passe : <input type="text" field="newPassword" onChange={onChangeEditField} />
-                Confirmer le mot de passe : <input type="text" field="newPasswordConfirm" onChange={onChangeEditField} />
-                <button type="submit">valider</button>
-                <button type="button" onClick={onClickCancel}>annuler</button>
+                <div>Nouveau mot de passe :</div>
+                <div><input type="text" field="newPassword" onChange={onChangeEditField} /></div>
+                <div>Confirmer le mot de passe :</div>
+                <div><input type="text" field="newPasswordConfirm" onChange={onChangeEditField} /></div>
+                <div>
+                  <button type="submit">valider</button>
+                  <button type="button" onClick={onClickCancel}>annuler</button>
+                </div>
               </form>
             </li>
           )
@@ -82,8 +87,8 @@ Settings.propTypes = {
   pseudoInput: PropTypes.bool.isRequired,
   email: PropTypes.string.isRequired,
   emailInput: PropTypes.bool.isRequired,
-  password: PropTypes.string.isRequired,
   passwordInput: PropTypes.bool.isRequired,
+  textError: PropTypes.string.isRequired,
   onClickEdit: PropTypes.func.isRequired,
   onSubmitSaveChange: PropTypes.func.isRequired,
   onSubmitPasswordChange: PropTypes.func.isRequired,
@@ -96,8 +101,8 @@ const mapStateToProps = (state) => ({
   pseudoInput: state.settings.pseudoInput,
   email: state.settings.email,
   emailInput: state.settings.emailInput,
-  password: state.settings.password,
   passwordInput: state.settings.passwordInput,
+  textError: state.settings.textError,
 });
 
 const mapDispatchToProps = (dispatch) => ({
