@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { changeInputValueLogin, login } from '../../actions';
 import Field from '../Field';
+import Button from '../Button';
+import Divider from '../Divider';
 import './login.scss';
 
 export function Login({ changeField, onLogin }) {
@@ -17,10 +19,11 @@ export function Login({ changeField, onLogin }) {
       <form className="login__form" onSubmit={onSubmit}>
         <Field name="Email" type="email" onChange={changeField} />
         <Field name="Mot de passe" type="password" onChange={changeField} />
-        <button className="login__form__button" type="submit">Valider</button>
+        <Button className="" textContent="Valider" type="submit" />
       </form>
-      <NavLink to="/register" className="login__form__link">pas encore de compte ?</NavLink>
-      <NavLink className="login__form__button" to="/"><button type="button">Retour à l&apos;accueil</button></NavLink>
+      <Divider />
+      <NavLink to="/register" className="login__to-register">pas encore de compte ?</NavLink>
+      <Button to="/" textContent="Retour à l'accueil" />
     </div>
   );
 }

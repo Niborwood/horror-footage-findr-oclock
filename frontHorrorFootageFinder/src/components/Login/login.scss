@@ -1,11 +1,11 @@
 .login__container {
-    height: 100vh;
     display:flex;
     flex-direction: column;
     align-items: center;
     justify-items: center;
     padding: 2rem;
     }
+    
 .login___title{
         margin-bottom: 4rem;
         font-size: 2rem;
@@ -18,4 +18,12 @@
         padding: 0.5em;
         margin-bottom: 1rem;
     }
+}
+
+.login__form__link {
+    margin-bottom: 1rem;
+}
+
+.login__to-register {
+    margin-bottom: 1rem;
 }

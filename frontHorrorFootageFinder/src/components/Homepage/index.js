@@ -2,6 +2,8 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import Button from '../Button';
+
 import './homepage.scss';
 
 export const Homepage = () => (
@@ -14,7 +16,7 @@ export const Homepage = () => (
       <br />
       Trouvez le found footage parfait à voir ce soir.
     </p>
-    <button type="button" className="homepage__play-button">Find My Tape</button>
+    <Button to="/quiz" textContent="● Find My Tape ●" className="button-ui__launch" />
   </div>
 );
 

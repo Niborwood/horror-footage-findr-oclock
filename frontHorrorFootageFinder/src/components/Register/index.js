@@ -9,6 +9,8 @@ import {
   submitRegister,
 } from '../../actions';
 import Field from '../Field';
+import Button from '../Button';
+import Divider from '../Divider';
 import './register.scss';
 
 export const Register = ({
@@ -52,8 +54,9 @@ export const Register = ({
         </div>
 
         {textConfirm}
-        <button className="register__form__button" type="submit">Valider</button>
+        <Button type="submit" textContent="Valider" />
       </form>
+      <Divider />
       <NavLink to="/login" className="register__form__link">j&apos;ai déjà un compte</NavLink>
     </div>
   );

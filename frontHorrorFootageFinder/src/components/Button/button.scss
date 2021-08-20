@@ -1,0 +1,24 @@
+@use '../../assets/styles/vars';
+
+.button-ui {
+    width: fit-content;
+    font-size: 1.3rem;
+    background: white;
+    border: 3px solid transparent;
+    font-family: inherit;
+    box-shadow: 4px 4px white;
+    padding: 1rem .5rem;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease, color 0.1s ease, background 0.2s ease;
+    box-sizing: border-box;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    a {
+        color: #333;
+    }
+
+    &__launch {
+        font-size: vars.$h2-font-size;
+    }
+}
