@@ -17,7 +17,7 @@ const initialState = {
   newPassword: '',
   newPasswordConfirm: '',
   passwordInput: false,
-  textErrorPassword: '',
+  textError: '',
 };
 
 const settingsReducer = (state = initialState, action) => {
@@ -64,7 +64,7 @@ const settingsReducer = (state = initialState, action) => {
           pseudoInput: false,
           passwordInput: false,
           password: state.newPassword,
-          textErrorPassword: '',
+          textError: '',
         };
       }
       return {
@@ -72,14 +72,18 @@ const settingsReducer = (state = initialState, action) => {
         emailInput: false,
         pseudoInput: false,
         passwordInput: false,
-        textErrorPassword: 'les champs doivent être identiques',
+        textError: 'les champs doivent être identiques',
       };
 
     case CHANGE_SETTINGS_VALUE:
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
+      if (action.value.match(/^\S+$/)) {
+        return {
+          ...state,
+          [action.field]: action.value,
+        };
+      }
+      return state;
+
     case CANCEL_SETTINGS_CHANGE:
       return {
         ...state,

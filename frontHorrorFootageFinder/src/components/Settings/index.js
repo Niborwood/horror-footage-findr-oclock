@@ -19,7 +19,7 @@ export const Settings = ({
   email,
   emailInput,
   passwordInput,
-  textErrorPassword,
+  textError,
   onClickEdit,
   onSubmitSaveChange,
   onSubmitPasswordChange,
@@ -72,7 +72,7 @@ export const Settings = ({
             </li>
           )
           : <li>modifier le mot de passe<button type="button" value="passwordInput" onClick={onClickEdit} className="settings__edit__button">edit</button></li>}
-        <div className="settings__error">{textErrorPassword}</div>
+        <div className="settings__error">{textError}</div>
         <li>deconnexion</li>
         <li>supprimer le compte</li>
       </ul>
@@ -88,7 +88,7 @@ Settings.propTypes = {
   email: PropTypes.string.isRequired,
   emailInput: PropTypes.bool.isRequired,
   passwordInput: PropTypes.bool.isRequired,
-  textErrorPassword: PropTypes.string.isRequired,
+  textError: PropTypes.string.isRequired,
   onClickEdit: PropTypes.func.isRequired,
   onSubmitSaveChange: PropTypes.func.isRequired,
   onSubmitPasswordChange: PropTypes.func.isRequired,
@@ -102,7 +102,7 @@ const mapStateToProps = (state) => ({
   email: state.settings.email,
   emailInput: state.settings.emailInput,
   passwordInput: state.settings.passwordInput,
-  textErrorPassword: state.settings.textErrorPassword,
+  textError: state.settings.textError,
 });
 
 const mapDispatchToProps = (dispatch) => ({
