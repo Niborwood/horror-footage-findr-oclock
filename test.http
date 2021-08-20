@@ -20,8 +20,11 @@ GET http://localhost:3001/api/v1/user/4
 ### Suppression d'un user en fonction de son id
 DELETE http://localhost:3001/api/v1/user/14
 
-# ### Ajout d'un user en bdd
-# POST http://localhost:3000/api/v1/user/2
+### Ajout d'un user en bdd
+POST http://localhost:3001/api/v1/register
+
+### Ajout d'un user en bdd
+POST http://localhost:3001/api/v1/login
 
 
 ### Récupération d'un user en fonction de son id

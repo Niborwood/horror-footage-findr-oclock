@@ -5,8 +5,8 @@ BEGIN;
 CREATE TABLE "horror_user" (
     "id" int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "pseudo" text NOT NULL,
-    "password" text NOT NULL,
-    "email" text NOT NULL UNIQUE CHECK(email ~ '^[0-9a-z._%+-]+@[a-z0-9.-]+\.[a-z]{1,4}}*$')
+    "email" text NOT NULL UNIQUE CHECK(email ~ '^[0-9a-z._%+-]+@[a-z0-9.-]+\.[a-z]{1,4}}*$'),
+    "password" text NOT NULL
 );
 
 CREATE TABLE "movie" (
