@@ -18,7 +18,6 @@ const quizController = require('../controllers/quizController');
 
 
 //! Les routes :
-// router.get('/api/v1/selection', movieController.movieSelection); //! En attente de construction de requête ..
 
 // Routes pour trouver un film via son ID, et pour l'ajouter à une watchlist :
 router.get('/api/v1/movie/:id', movieController.movieResult);
@@ -51,10 +50,20 @@ router.get('/api/v1/user/:id/watchlist', userController.userWatchlist);
 // Route pour ajouter un film à la watchlist :
 router.post('/api/v1/user/:id/watchlist/:movieId', movieController.addMovieToWatchlist);
 
-// Route pour modifier des infos d'un film de la watchlist (l'enlever, le rajouter) :  //! A FAIRE
-router.post('/api/v1/user/:id/watchlist/:movieId', userController.editMovieWatchlist); //! ATTENTION, ne pas supprimer un film de la watchlist (juste le passer à false) sinon on perd la relation horror_user_has_movie !!
+// Route pour modifier des infos d'un film de la watchlist (l'enlever, le rajouter) :  //! EN COURS ..
+router.patch('/api/v1/user/:id/watchlist/:movieId', movieController.editMovieWatchlist); 
 
 // Route pour afficher les films ayant été vu par l'utilisateur : 
 router.get('/api/v1/user/:id/watched', userController.userWatchedMovie);
+
+// Route pour afficher les infos des films que l'utilisateur a noté + les notes données of course :
+router.get('/api/v1/user/:id/ratings', userController.allRatings); //! A faire dans user
+// Route pour afficher le film et la note correspondante donné par un utilisateur :
+router.get('api/v1/user/:id/ratings/movie/:movieId', userController.oneRating); //! A FAIRE dans user
+// Route pour afficher toutes les notes d'un même film :
+router.get('/api/v1/movie/:movieId/ratings', movieController.allRatingsMovie); //! A FAIRE dans movie
+// Route pour afficher les films selon la moyenne de leurs notes par ordre décroissant, avec en paramètre le nombre de films que je souhaite afficher : :
+router.get('/api/v1/selection/:limit', movieController.movieSelection); //! OK
+
 
 module.exports = router;

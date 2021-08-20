@@ -4,19 +4,34 @@ const userDataMapper = require('../dataMappers/user');
 module.exports = {
 
     //! En attente de ma requête de fou dans le DM
-    // async movieSelection(request, response) {
-    //     try {
+    async movieSelection(request, response) {
+        try {
 
-    //         const betterMovies = await movieDataMapper.getBetterMovies();
-    //         response.json({data: betterMovies});
+            const limit = request.params.limit;
 
-    //     } catch(error) {
+            const betterMovies = await movieDataMapper.getBetterMovies(limit);
+            response.json({
+                data: betterMovies
+            });
 
-    //         console.trace(error);
-    //         response.status(500).json({data: [], error: `Désolé une erreur serveur est survenue, veuillez réessayer ultérieurement.`});
+        } catch (error) {
 
-    //     }
-    // }
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, veuillez réessayer ultérieurement.`
+            });
+
+        }
+    },
+
+    async allRatingsMovie(request, response) {
+        try {
+
+        }catch(error) {
+
+        }
+    },
 
 
     async movieResult(request, response) {
@@ -38,9 +53,12 @@ module.exports = {
     async addMovieToWatchlist(request, response) {
 
         try {
+            // movieAdded renvoie l'id du film ajouté en bdd, si besoin de l'afficher 
+            // Je peux aussi renvoyer l'id du user si vous voulez afficher le user après l'ajout en bdd :)
             const movieAdded = await movieDataMapper.movieIntoWatchlist(request.params);
             response.json({
-                message: 'Le film a bien été ajouté dans la watchlist'
+                message: 'Le film a bien été ajouté dans la watchlist',
+                data: movieAdded
             });
             // Si besoin que je renvoie autre chose que ce message me faire signe ;)
 
@@ -49,6 +67,23 @@ module.exports = {
             response.status(500).json({
                 data: [],
                 error: `Désolé une erreur serveur est survenue, impossible d'ajouter le film dans la watchlist, veuillez réessayer ultérieurement.`
+            });
+        }
+    },
+
+    async editMovieWatchlist(request, response, next) {
+        try {
+            const editWatchlist = await movieDataMapper.editMovieWatchlist(request.params);
+            response.json({
+                message: 'La watchlist a bien été mise à jour',
+                data: editWatchlist
+            });
+            next();
+        } catch (error) {
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible de modifier la watchlist, veuillez réessayer ultérieurement.`
             });
         }
     },

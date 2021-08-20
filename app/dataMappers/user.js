@@ -35,8 +35,14 @@ module.exports = {
 
     //! A TESTER !
     async modifyUser(infos) {
+        const {
+            password
+        } = infos;
+
+        let salt = await bcrypt.genSalt(10);
+        let hash = await bcrypt.hash(password, salt);
         const userUpdated = await client.query(`UPDATE horror_user
-        SET pseudo = $1, email = $2 WHERE id = $3 RETURNING id`, [infos.pseudo, infos.email, infos.id]);
+        SET pseudo = $1, email = $2, password = $3 WHERE id = $4 RETURNING id`, [infos.pseudo, infos.email, hash, infos.id]);
         return userUpdated.rows[0];
     },
 

@@ -170,6 +170,23 @@ module.exports = {
                 error: `Désolé une erreur serveur est survenue, impossible d'accéder aux films déjà vus, veuillez réessayer ultérieurement.`
             });
         }
+    },
+
+    async oneRating(request, response) {
+        try {
+
+        }catch {
+
+        }
+    },
+
+
+    async allRatings(request, response) {
+        try {
+
+        }catch (error) {
+
+        }
     }
 
 };
