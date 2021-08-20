@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { fetchMovieData } from '../../actions';
+
+import MovieButtons from '../MovieButtons';
 
 import './movieinfo.scss';
 
@@ -23,12 +24,15 @@ export const MovieInfo = ({
 
   return (
     <div className="movie-info">
+      {/* LEFT SIDE */}
       <div className="movie-info__left-side">
         <img className="movie-info__poster" src={`https://www.themoviedb.org/t/p/w300/${currentMovie.poster_path}`} alt={`${currentMovie.original_title} movie poster`} title={`${currentMovie.original_title} movie poster`} />
+        <div className="movie-info__tags">
+          00S, COMMON, EUROPE, MOCKUMENTARY, MONSTERS
+        </div>
       </div>
-      <div className="movie-info__tags">
-        00S, COMMON, EUROPE, MOCKUMENTARY, MONSTERS
-      </div>
+
+      {/* RIGHT SIDE */}
       <div className="movie-info__right-side">
         <div className="movie-info__title">
           {currentMovie.original_title}
@@ -45,6 +49,8 @@ export const MovieInfo = ({
           {currentMovie.vote_average / 2}
           /5
         </div>
+        <MovieButtons />
+
         {/* Affichage conditionnel de la collection si le film en possède une */}
         {currentMovie.belongs_to_collection
             && (

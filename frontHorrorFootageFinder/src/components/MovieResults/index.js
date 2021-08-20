@@ -9,11 +9,7 @@ import './movieresults.scss';
 
 export const MovieResults = () => (
   <div className="movie-results">
-    <h2 className="movie-results__title">Autres résultats</h2>
     <p className="movie-results__textinfo">
-      Déjà vu ?
-      {' '}
-      <br />
       20 autres résultats correspondent à vos réponses.
     </p>
     <div className="movie-results__another-result">

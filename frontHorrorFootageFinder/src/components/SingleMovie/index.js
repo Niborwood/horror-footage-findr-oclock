@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ import MovieResults from '../MovieResults';
 
 import './singlemovie.scss';
 
-export const SingleMovie = () => {
+export const SingleMovie = ({ format }) => {
   // On récupère l'id du film à partir de la route
   // On le parse pour qu'il soit un nombre et qu'on puisse valider
   // sa prop-type dans les composants enfants
@@ -30,6 +30,11 @@ export const SingleMovie = () => {
 };
 
 SingleMovie.propTypes = {
+  format: PropTypes.string,
+};
+
+SingleMovie.defaultProps = {
+  format: 'full',
 };
 
 const mapStateToProps = () => ({
