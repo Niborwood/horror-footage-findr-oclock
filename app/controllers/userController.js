@@ -1,4 +1,12 @@
 const userDataMapper = require('../dataMappers/user');
+const jwt = require('express-jwt');
+const jsonwebtoken = require('jsonwebtoken');
+const jwtSecret = 'OurSuperLongRandomSecretToSignOurJWTgre5ezg4jyt5j4ui64gn56bd4sfs5qe4erg5t5yjh46yu6knsw4q';
+const authorizationMiddleware = jwt({ secret: jwtSecret, algorithms: ['HS256'] });
+const jwtOptions = { 
+    algorithm: 'HS256', 
+    expiresIn: '3h' 
+  };
 
 module.exports = {
 
@@ -19,14 +27,13 @@ module.exports = {
 
     async userLogged(request, response) {
         try {
-
-            console.log(request.body);
-
             const { email, password } = request.body;
-
-            console.log(email);
             const logginUser = await userDataMapper.logginUser( email, password );
-
+            const jwtContent = { userId : logginUser.id };
+            response.json({
+                data: logginUser,
+                token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions)
+            });
         } catch (error){
             console.trace(error);
             response.status(500).json({
@@ -38,11 +45,10 @@ module.exports = {
 
     async addUser(request, response) {
         try {
-            console.log('reqbody',request.body);
             const newUser = request.body;
-            console.log('je passe dans mon controller', newUser);
+            // console.log('je passe dans mon controller', newUser);
             const userToAdd = await userDataMapper.addNewUser(newUser);
-            console.log('je reviens dans le controller', userToAdd);
+            // console.log('je reviens dans le controller', userToAdd);
             const userAdded = await userDataMapper.getUserById(userToAdd.id);
             response.json({data: userAdded});
 

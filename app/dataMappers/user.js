@@ -1,6 +1,7 @@
 const client = require('../client');
 const bcrypt = require('bcryptjs');
 
+
 module.exports = {
 
     async getUserById(userId) {
@@ -9,24 +10,27 @@ module.exports = {
     },
 
     async addNewUser(newUser) {
+        // Est-ce que ça devrait pas se faire au niveau du controller ça ?
         const { password } = newUser;
             
         let salt = await bcrypt.genSalt(10);
         let hash = await bcrypt.hash(password, salt);      
           
-        console.log('je suis dans le DM', newUser);
+        // console.log('je suis dans le DM', newUser);
         const result = await client.query(`INSERT INTO horror_user (pseudo, email, password) VALUES
         ($1, $2, $3) RETURNING id`, [newUser.pseudo, newUser.email, hash]);
-        console.log('datamapper',[newUser.pseudo, newUser.email, hash]);
+        // console.log('datamapper',[newUser.pseudo, newUser.email, hash]);
         return result.rows;
     },
 
     async logginUser(email, password) {
+              
+        const userLogged =  await client.query(`SELECT * FROM horror_user WHERE email=$1`, [email]);
+         const comparedPassword = await bcrypt.compare(password, userLogged.rows[0].password);
+         if (comparedPassword === true){
+            return userLogged.rows[0];
+         }
         
-        let comparedPassword = await bcrypt.compare(password, hash);
-        // await client.query(`SELECT * FROM horror_user WHERE email=$1 AND password=$2`, [email, comparedPassword]);
-        console.log('DM, password', comparedPassword)
-        return;
     },
 
     async deleteUser(userId) {
