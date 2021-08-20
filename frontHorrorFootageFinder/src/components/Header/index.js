@@ -18,12 +18,14 @@ const Header = () => (
         ]
       </div>
       <div className="header__app-title">
-        <div>FOUND</div>
-        <div>FOOTAGE</div>
-        <div>
-          FINDR
-          <span className="font-red">.</span>
-        </div>
+        <NavLink to="/">
+          <div>FOUND</div>
+          <div>FOOTAGE</div>
+          <div>
+            FINDR
+            <span className="font-red">.</span>
+          </div>
+        </NavLink>
       </div>
     </h1>
   </header>

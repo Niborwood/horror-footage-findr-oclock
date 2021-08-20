@@ -33,35 +33,36 @@ function App({ splashPassed, getData }) {
         <Route path="/splash" component={Splash} />
         <>
           <Header />
-          <Route exact path="/">
-            <Homepage />
-          </Route>
-          <Route path="/movie/:id">
-            <SingleMovie />
-          </Route>
-          <Route path="/quiz">
-            <Quiz />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
+          <main className="app__content">
+            <Route exact path="/">
+              <Homepage />
+            </Route>
+            <Route path="/movie/:id">
+              <SingleMovie />
+            </Route>
+            <Route path="/quiz">
+              <Quiz />
+            </Route>
+            <Route path="/register">
+              <Register />
+            </Route>
 
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/watchlist">
-            <Watchlist />
-          </Route>
-          <Route path="/settings">
-            <Settings />
-          </Route>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+            <Route path="/watchlist">
+              <Watchlist />
+            </Route>
+            <Route path="/settings">
+              <Settings />
+            </Route>
 
-          <Route path="/login">
-            <Login />
-          </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+          </main>
           <Footer />
         </>
-
       </Switch>
 
     </div>

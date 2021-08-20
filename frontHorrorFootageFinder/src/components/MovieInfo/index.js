@@ -9,7 +9,7 @@ import MovieButtons from '../MovieButtons';
 import './movieinfo.scss';
 
 export const MovieInfo = ({
-  movieID, currentMovie, getMovieData,
+  movieID, currentMovie, getMovieData, format,
 }) => {
   // On récupère le film à partir de l'API
   useEffect(() => {
@@ -49,7 +49,8 @@ export const MovieInfo = ({
           {currentMovie.vote_average / 2}
           /5
         </div>
-        <MovieButtons />
+        {/* On passe le format à MovieButtons pour qu'il affiche ou non les deux boutons de quiz */}
+        <MovieButtons format={format} />
 
         {/* Affichage conditionnel de la collection si le film en possède une */}
         {currentMovie.belongs_to_collection
@@ -60,9 +61,12 @@ export const MovieInfo = ({
               {currentMovie.belongs_to_collection.name}
             </div>
             )}
+        {/* Affichage conditionnel de la description si le format est full */}
+        {format === 'full' && (
         <div className="movie-info__description">
           {currentMovie.overview}
         </div>
+        )}
       </div>
     </div>
   );
@@ -82,6 +86,7 @@ MovieInfo.propTypes = {
   }).isRequired,
   movieID: PropTypes.number.isRequired,
   getMovieData: PropTypes.func.isRequired,
+  format: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({ ui: { currentMovie } }) => ({
