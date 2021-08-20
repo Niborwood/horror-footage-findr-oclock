@@ -13,7 +13,7 @@ export const MovieProviders = ({
   // On récupère les providers du film à partir de l'API TMDB
   useEffect(() => {
     getCurrentMovieProviders(movieID);
-  }, []);
+  }, [movieID]);
 
   // On empêche l'effet de bord si les providers ne sont pas encore récupérés
   if (!currentMovieProviders.loaded) {

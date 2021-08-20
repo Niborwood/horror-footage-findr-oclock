@@ -13,7 +13,7 @@ export const MovieInfo = ({
   // On récupère le film à partir de l'API
   useEffect(() => {
     getMovieData(movieID);
-  }, []);
+  }, [movieID]);
 
   // On empêche l'effet de bord si les data du film
   // ne sont pas encore réupérés

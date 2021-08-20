@@ -1,3 +1,5 @@
+@use '../../assets/styles/vars';
+
 .movie-info {
     margin-top: 1rem;
 
@@ -14,7 +16,7 @@
     }
 
     &__title {
-        font-size: 1.5rem;
+        font-size: vars.$h2-font-size;
         margin-bottom: .25rem;
         font-weight: bold;
     }
