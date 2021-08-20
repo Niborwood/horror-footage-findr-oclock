@@ -12,6 +12,14 @@
 
     &__item{
         display: flex;
+        flex-direction: column;
+        margin: 0.5rem;
+    }
+
+    &__error {
+        color: red;
+        border: 1px solid red;
+        padding: 0.5rem;
     }
 
     &__edit__button{
