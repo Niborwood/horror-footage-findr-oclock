@@ -31,3 +31,8 @@ body {
 .font-red {
   color: vars.$red-primary;
 }
+
+a {
+  text-decoration: none;
+  color: vars.$blue-primary;
+}

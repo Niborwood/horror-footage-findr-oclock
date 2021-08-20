@@ -3,10 +3,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-// import Loading from '../Loading';
 import Divider from '../Divider';
 import MovieInfo from '../MovieInfo';
 import MovieProviders from '../MovieProviders';
+import MovieResults from '../MovieResults';
 
 import './singlemovie.scss';
 
@@ -23,6 +23,7 @@ export const SingleMovie = () => {
       <Divider />
       <MovieProviders movieID={movieID} />
       <Divider />
+      <MovieResults />
     </div>
 
   );
