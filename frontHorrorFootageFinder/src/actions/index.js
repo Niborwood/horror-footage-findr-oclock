@@ -31,7 +31,10 @@ export const CHANGE_INPUT_VALUE_LOGIN = 'CHANGE_INPUT_VALUE_LOGIN';
 export const SUBMIT_FORM = 'SUBMIT_FORM';
 export const TOGGLE_MASKED = 'TOGGLE_MASKED';
 export const GET_DATA = 'GET_DATA';
+export const TOGGLE_CONNECTED = 'TOGGLE_CONNECTED';
 export const LOGIN = 'LOGIN';
+export const CHANGE_PSEUDO = 'CHANGE_PSEUDO';
+export const SUBMITREGISTER = 'SUBMIT_REGISTER';
 export const changeInputValue = (value, name) => ({
   type: CHANGE_INPUT_VALUE,
   value,
@@ -123,3 +126,16 @@ export function fetchMovieProviders(movieID) {
       });
   };
 }
+export const submitRegister = (pseudo, email, password) => ({
+  type: SUBMITREGISTER,
+  pseudo,
+  email,
+  password,
+});
+export const toggleConnected = () => ({
+  type: TOGGLE_CONNECTED,
+});
+export const changePseudo = (value) => ({
+  type: CHANGE_PSEUDO,
+  value,
+});

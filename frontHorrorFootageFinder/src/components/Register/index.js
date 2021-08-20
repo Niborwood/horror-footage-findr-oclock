@@ -2,7 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { changeInputValue, submitForm, toggleMasked } from '../../actions';
+import {
+  changeInputValue,
+  submitForm,
+  toggleMasked,
+  submitRegister,
+} from '../../actions';
 import Field from '../Field';
 import './register.scss';
 
@@ -11,9 +16,11 @@ export const Register = ({
   registerEmail,
   registerPassword,
   registerConfirmPassword,
+  registerPseudo,
   textConfirm, onSubmitForm,
   inputMasked,
   changetoggleMasked,
+  onSubmitRegister,
 }) => {
   const onSubmit = (event) => {
     event.preventDefault();
@@ -25,6 +32,7 @@ export const Register = ({
       onSubmitForm('Un email est nécessaire');
     } else {
       onSubmitForm('confirmation correcte');
+      onSubmitRegister(registerPseudo, registerEmail, registerConfirmPassword);
     }
   };
   return (
@@ -32,7 +40,7 @@ export const Register = ({
       <h1 className="register___title">Register</h1>
       <form className="register__form" onSubmit={onSubmit}>
         <Field type="email" name="Email" onChange={changeField} />
-
+        <Field type="text" name="Pseudo" onChange={changeField} />
         <div className="register__form__confirmPassword__container">
           <Field type={inputMasked ? 'password' : 'text'} name="Mot de passe" onChange={changeField} />
           <button className="register__form__button__masked" type="button" onClick={changetoggleMasked}><div className="register__form__button__masked__rond">.</div></button>
@@ -54,6 +62,7 @@ export const Register = ({
 const mapStateToProps = (state) => ({
   registerEmail: state.register.registerEmail,
   registerPassword: state.register.registerPassword,
+  registerPseudo: state.register.registerPseudo,
   registerConfirmPassword: state.register.registerConfirmPassword,
   textConfirm: state.register.textConfirm,
   inputMasked: state.register.inputMasked,
@@ -71,6 +80,10 @@ const mapDispatchToProps = (dispatch) => ({
     const action = toggleMasked();
     dispatch(action);
   },
+  onSubmitRegister: (pseudo, email, password) => {
+    const action = submitRegister(pseudo, email, password);
+    dispatch(action);
+  },
 });
 
 Register.propTypes = {
@@ -82,10 +95,13 @@ Register.propTypes = {
   registerEmail: PropTypes.string.isRequired,
   inputMasked: PropTypes.bool.isRequired,
   changetoggleMasked: PropTypes.func.isRequired,
+  onSubmitRegister: PropTypes.func.isRequired,
+  registerPseudo: PropTypes.string.isRequired,
 };
 Field.defaultProps = {
   registerPassword: '',
   registerConfirmPassword: '',
+  registerPseudo: '',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

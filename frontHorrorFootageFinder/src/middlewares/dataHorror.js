@@ -1,5 +1,10 @@
 /* eslint-disable no-console */
-import { GET_DATA } from '../actions';
+import {
+  GET_DATA,
+  SUBMITREGISTER,
+  LOGIN,
+  toggleConnected,
+} from '../actions';
 import api from '../utils/api';
 
 const dataHorror = (store) => (next) => (action) => {
@@ -15,6 +20,44 @@ const dataHorror = (store) => (next) => (action) => {
         }
       };
       getData();
+      break;
+    }
+    case SUBMITREGISTER: {
+      const submitRegister = async () => {
+        try {
+          const state = store.getState();
+          const getPseudo = state.register.registerPseudo;
+          const getEmail = state.register.registerEmail;
+          const getPassword = state.register.registerConfirmPassword;
+          const response = await api.post('api/v1/register', {
+            pseudo: getPseudo,
+            email: getEmail,
+            password: getPassword,
+          });
+        } catch (error) {
+          console.log('error', error);
+        }
+      };
+      submitRegister();
+      break;
+    }
+    case LOGIN: {
+      const login = async () => {
+        try {
+          const state = store.getState();
+          const getEmail = state.login.loginEmail;
+          const getPassword = state.login.loginPassword;
+          const response = await api.post('api/v1/login', {
+            email: getEmail,
+            password: getPassword,
+          });
+          store.dispatch(toggleConnected());
+          console.log('emailconnect 2', state);
+        } catch (error) {
+          console.log('error', error);
+        }
+      };
+      login();
       break;
     }
     default:

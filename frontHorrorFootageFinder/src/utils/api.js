@@ -3,7 +3,7 @@ import axios from 'axios';
 // ici on passe le baseUrl, ainsi quand on utilisera "api"
 // on aura pas besoin de préciser cette valeur de baseUrl
 const api = axios.create({
-  baseURL: 'localhost',
+  baseURL: 'https://horror-footage-api.herokuapp.com/',
 });
 
 export default api;

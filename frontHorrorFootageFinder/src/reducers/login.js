@@ -1,11 +1,14 @@
 import {
   CHANGE_INPUT_VALUE_LOGIN,
+  TOGGLE_CONNECTED,
+  CHANGE_PSEUDO,
 } from '../actions';
 
 const initialState = {
   isLogged: false,
   loginEmail: '',
   loginPassword: '',
+  pseudo: '',
   token: '',
 };
 
@@ -27,6 +30,16 @@ function loginReducer(state = initialState, { type, name, value }) {
       }
       return state;
     }
+    case TOGGLE_CONNECTED:
+      return {
+        ...state,
+        isLogged: !state.isLogged,
+      };
+    case CHANGE_PSEUDO:
+      return {
+        ...state,
+        pseudo: value,
+      };
     default:
       return state;
   }

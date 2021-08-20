@@ -1,12 +1,15 @@
 import {
-  CHANGE_INPUT_VALUE, SUBMIT_FORM, TOGGLE_MASKED,
+  CHANGE_INPUT_VALUE,
+  SUBMIT_FORM,
+  TOGGLE_MASKED,
 } from '../actions';
 
 const initialState = {
-  isLogged: false,
+  pseudo: '',
   registerEmail: '',
   registerPassword: '',
   registerConfirmPassword: '',
+  registerPseudo: '',
   textConfirm: '',
   inputMasked: false,
 };
@@ -36,6 +39,12 @@ function registerReducer(state = initialState, { type, name, value }) {
         return {
           ...state,
           registerConfirmPassword: value,
+        };
+      }
+      if (name === 'Pseudo') {
+        return {
+          ...state,
+          registerPseudo: value,
         };
       }
       return state;
