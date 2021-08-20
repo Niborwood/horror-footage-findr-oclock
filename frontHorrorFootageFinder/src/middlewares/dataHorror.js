@@ -4,6 +4,7 @@ import {
   SUBMITREGISTER,
   LOGIN,
   toggleConnected,
+  changeStateWhenConnected,
 } from '../actions';
 import api from '../utils/api';
 
@@ -51,7 +52,12 @@ const dataHorror = (store) => (next) => (action) => {
             email: getEmail,
             password: getPassword,
           });
-          store.dispatch(toggleConnected());
+          console.log('data', response.data.data);
+          console.log('token', response.data.token);
+          store.dispatch(changeStateWhenConnected(response.data.data, response.data.token));
+          if (response.data.data.pseudo) {
+            store.dispatch(toggleConnected());
+          }
         } catch (error) {
           console.log('error', error);
         }

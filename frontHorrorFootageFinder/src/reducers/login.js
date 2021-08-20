@@ -1,7 +1,7 @@
 import {
   CHANGE_INPUT_VALUE_LOGIN,
   TOGGLE_CONNECTED,
-  CHANGE_PSEUDO,
+  CHANGE_STATE_WHEN_CONNECTED,
 } from '../actions';
 
 const initialState = {
@@ -9,11 +9,17 @@ const initialState = {
   loginEmail: '',
   loginPassword: '',
   pseudo: '',
+  id: '',
   token: '',
 };
 
 // eslint-disable-next-line consistent-return
-function loginReducer(state = initialState, { type, name, value }) {
+function loginReducer(state = initialState, {
+  type,
+  name,
+  value,
+  token,
+}) {
   switch (type) {
     case CHANGE_INPUT_VALUE_LOGIN: {
       if (name === 'Email') {
@@ -35,10 +41,12 @@ function loginReducer(state = initialState, { type, name, value }) {
         ...state,
         isLogged: !state.isLogged,
       };
-    case CHANGE_PSEUDO:
+    case CHANGE_STATE_WHEN_CONNECTED:
       return {
         ...state,
-        pseudo: value,
+        pseudo: value.pseudo,
+        id: value.id,
+        token: token.token,
       };
     default:
       return state;

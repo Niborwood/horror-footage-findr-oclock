@@ -33,7 +33,7 @@ export const TOGGLE_MASKED = 'TOGGLE_MASKED';
 export const GET_DATA = 'GET_DATA';
 export const TOGGLE_CONNECTED = 'TOGGLE_CONNECTED';
 export const LOGIN = 'LOGIN';
-export const CHANGE_PSEUDO = 'CHANGE_PSEUDO';
+export const CHANGE_STATE_WHEN_CONNECTED = 'CHANGE_STATE_WHEN_CONNECTED';
 export const SUBMITREGISTER = 'SUBMIT_REGISTER';
 export const changeInputValue = (value, name) => ({
   type: CHANGE_INPUT_VALUE,
@@ -135,7 +135,8 @@ export const submitRegister = (pseudo, email, password) => ({
 export const toggleConnected = () => ({
   type: TOGGLE_CONNECTED,
 });
-export const changePseudo = (value) => ({
-  type: CHANGE_PSEUDO,
+export const changeStateWhenConnected = (value, token) => ({
+  type: CHANGE_STATE_WHEN_CONNECTED,
   value,
+  token,
 });
