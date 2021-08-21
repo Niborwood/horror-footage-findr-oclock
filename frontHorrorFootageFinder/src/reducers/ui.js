@@ -1,12 +1,11 @@
 import {
-  PASS_SPLASH, SET_CURRENT_MOVIE_DATA, SET_CURRENT_MOVIE_PROVIDERS, TMDB_LOADED, SET_MOVIE_UNLOADED,
+  PASS_SPLASH,
+  SET_CURRENT_MOVIE_DATA, SET_CURRENT_MOVIE_PROVIDERS,
+  TMDB_LOADED, SET_MOVIE_UNLOADED, SET_CURRENT_MOVIE,
 } from '../actions';
 
 const initialState = {
   splashPassed: true,
-  currentMovie: {
-    loaded: false,
-  },
   currentMovieProviders: {
     loaded: false,
   },
@@ -15,7 +14,6 @@ const initialState = {
 const UIreducer = (state = initialState, action) => {
   switch (action.type) {
     case TMDB_LOADED:
-      //! Bouger ça vers le movie_id nouvellement créé (passer l'id dans le payload ?)
       return {
         ...state,
         [action.movieID]: {
@@ -32,23 +30,43 @@ const UIreducer = (state = initialState, action) => {
       return {
         ...state,
         [action.movieID]: {
-          loaded: false,
+          [action.dataType]: {
+            loaded: false,
+          },
         },
       };
+    case SET_CURRENT_MOVIE: {
+      return {
+        ...state,
+        [action.movieID]: {
+          ...state[action.movieID],
+          [action.format]: {
+            loaded: true,
+            ...action.tmdbData,
+          },
+        },
+      };
+    }
     case SET_CURRENT_MOVIE_DATA:
       return {
         ...state,
-        [action.currentMovieData.id]: {
-          loaded: true,
-          ...action.currentMovieData,
+        [action.movieID]: {
+          ...state[action.movieID],
+          data: {
+            loaded: true,
+            ...action.currentMovieData,
+          },
         },
       };
     case SET_CURRENT_MOVIE_PROVIDERS:
       return {
         ...state,
-        currentMovieProviders: {
-          ...state.currentMovieProviders,
-          ...action.currentMovieProviders,
+        [action.movieID]: {
+          ...state[action.movieID],
+          providers: {
+            loaded: true,
+            ...action.currentMovieProviders,
+          },
         },
       };
 

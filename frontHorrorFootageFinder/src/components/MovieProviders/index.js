@@ -8,21 +8,30 @@ import mapProviders from '../../utils/mapProviders';
 import './movieprovider.scss';
 
 export const MovieProviders = ({
-  movieID, getCurrentMovieProviders, currentMovieProviders,
+  movieID, getCurrentMovieProviders, ui,
 }) => {
   // On récupère les providers du film à partir de l'API TMDB
   useEffect(() => {
     getCurrentMovieProviders(movieID);
   }, [movieID]);
 
-  // On empêche l'effet de bord si les providers ne sont pas encore récupérés
-  if (!currentMovieProviders.loaded) {
+  // On empêche l'effet de bord si les datas du film
+  // ne sont pas encore récupérées : si les datas d'un film sont vides, on retourne le loading.
+  // Le ?. est là pour vérifier les données spécifiques (data ou providers)
+  // sans faire planter l'application si elles sont undefined.
+  if (!ui[movieID]?.providers) {
     return <div className="loading-container">Loading...</div>;
   }
 
+  // On récupère les providers du film à partir du state
+  // suivant l'ID du film. Par exemple, un film avec l'ID 123
+  // sera récupéré à partir du state : state.movie.123.providers
+  // Le currentMovie n'est jamais un objet vide, car s'il l'est, on returne le Loading ci-dessus.
+  const currentMovieProviders = ui[movieID].providers;
+
   // On mappe chacun des différents providers (Streaming, Location) pour leur affichage.
   // La fonction est factorisée dans utils/mapProviders
-  const rentProviders = mapProviders(currentMovieProviders.rent);
+  const rentProviders = mapProviders(currentMovieProviders?.rent);
   const streamProviders = mapProviders(currentMovieProviders.flatrate);
 
   // Si
@@ -66,10 +75,13 @@ MovieProviders.propTypes = {
     buy: PropTypes.arrayOf(PropTypes.shape),
   }).isRequired,
   getCurrentMovieProviders: PropTypes.func.isRequired,
+  //! Pas trouvé comment vérifier un prop-type sur une propriété dynamique, donc :
+  // eslint-disable-next-line react/forbid-prop-types
+  ui: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ ui: { currentMovieProviders } }) => ({
-  currentMovieProviders,
+const mapStateToProps = ({ ui }) => ({
+  ui,
 });
 
 const mapDispatchToProps = (dispatch) => ({

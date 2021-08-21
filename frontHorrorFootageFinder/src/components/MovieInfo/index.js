@@ -16,18 +16,20 @@ export const MovieInfo = ({
     getMovieData(movieID);
   }, [movieID]);
 
-  // On récupère les informations du film à partir du state
-  // suivant l'ID du film. Par exemple, un film avec l'ID 123
-  // sera récupéré à partir du state : state.movie.123
-  const currentMovie = ui[movieID];
-
-  // On empêche l'effet de bord si les data du film
-  // ne sont pas encore récupérés. Le ?. est là pour empêcher l'application
-  // de renvoyer une erreur vu que le film n'existe pas dans le state
-  // (on ne peut pas anticiper l'id du film avant la requête).
-  if (!currentMovie?.loaded) {
+  // On empêche l'effet de bord si les datas du film
+  // ne sont pas encore récupérées : si les datas d'un film sont vides, on retourne le loading.
+  // Le ?. est là pour vérifier les données spécifiques (data ou providers)
+  // sans faire planter l'application si elles sont undefined.
+  //! Si bug d'affichage, on peut tester la condition : !ui[movieID]?.data.loaded
+  if (!ui[movieID]?.data) {
     return <div className="loading-container">Loading...</div>;
   }
+
+  // On récupère les informations du film à partir du state
+  // suivant l'ID du film. Par exemple, un film avec l'ID 123
+  // sera récupéré à partir du state : state.movie.123.data
+  // Le currentMovie n'est jamais un objet vide, car s'il l'est, on returne le Loading ci-dessus.
+  const currentMovie = ui[movieID].data;
 
   return (
     <div className="movie-info">
@@ -80,17 +82,6 @@ export const MovieInfo = ({
 };
 
 MovieInfo.propTypes = {
-  currentMovie: PropTypes.shape({
-    loaded: PropTypes.bool.isRequired,
-    original_title: PropTypes.string,
-    overview: PropTypes.string,
-    release_date: PropTypes.string,
-    vote_average: PropTypes.number,
-    belongs_to_collection: PropTypes.shape({
-      name: PropTypes.string,
-    }),
-    poster_path: PropTypes.string,
-  }).isRequired,
   movieID: PropTypes.number.isRequired,
   getMovieData: PropTypes.func.isRequired,
   format: PropTypes.string.isRequired,
@@ -99,8 +90,7 @@ MovieInfo.propTypes = {
   ui: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ ui, ui: { currentMovie } }) => ({
-  currentMovie,
+const mapStateToProps = ({ ui }) => ({
   ui,
 });
 
