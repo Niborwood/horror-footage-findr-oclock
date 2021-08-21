@@ -67,4 +67,26 @@ module.exports = {
         return result.rows;
     },
 
+    async userRatings(userId) {
+        const result = await client.query(`SELECT rating,
+        horror_user.pseudo,
+        movie.*
+        FROM horror_user_has_movie
+        JOIN horror_user ON horror_user_has_movie.horror_user_id = horror_user.id
+        JOIN movie ON horror_user_has_movie.movie_id = movie.id
+        WHERE horror_user.id = $1`, [userId]);
+        return result.rows;
+    },
+
+    async getRatingMovie(infos) {
+        const result = await client.query(`SELECT rating,
+        horror_user.pseudo,
+        movie.*
+        FROM horror_user_has_movie
+        JOIN horror_user ON horror_user_has_movie.horror_user_id = horror_user.id
+        JOIN movie ON horror_user_has_movie.movie_id = movie.id
+        WHERE horror_user.id = $1 AND movie.id = $2`, [infos.id, infos.movieId]);
+        return result.rows;
+    }
+
 };

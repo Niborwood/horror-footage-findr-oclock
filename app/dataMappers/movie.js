@@ -2,19 +2,6 @@ const client = require('../client');
 
 module.exports = {
 
-    /*
-    REQUETE notes d'un user:
-    SELECT movie.*,
-    horror_user.pseudo,
-    rating
-    FROM horror_user_has_movie
-    JOIN movie ON horror_user_has_movie.movie_id = movie.id
-    JOIN horror_user ON horror_user_has_movie.horror_user_id = horror_user.id
-    WHERE horror_user_id = 1; 
-    */
-
-
-    //! En attente de ma requête en jointure sur les notes d'un film
     async getBetterMovies(limit) {
         
         const result = await client.query(`SELECT AVG(rating) AS rating,

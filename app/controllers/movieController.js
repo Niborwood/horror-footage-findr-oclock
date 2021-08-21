@@ -27,13 +27,10 @@ module.exports = {
 
     async allRatingsMovie(request, response) {
         try {
-
             const movieId = request.params.movieId;
             const movieWithRatings = await movieDataMapper.movieRatings(movieId);
             response.json({data: movieWithRatings});
-
         }catch(error) {
-
             console.trace(error);
             response.status(500).json({
                 data: [],

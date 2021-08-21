@@ -136,26 +136,7 @@ module.exports = {
         }
     },
 
-    async editMovieWatchlist(request, response) {
-        try {
-
-            // Récupérer les infos de la page
-
-            // Vérifier l'état en BDD ?
-
-            // Effectuer les changements
-
-
-        } catch (error) {
-            console.trace(error);
-            response.status(500).json({
-                data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de modifier la watchlist, veuillez réessayer ultérieurement.`
-            });
-        }
-    },
-
-    async userWatchedMovie(request, response, next) {
+    async userWatchedMovie(request, response) {
         try {
             const watchedMovie = await userDataMapper.watchedMovie(request.params.id);
 
@@ -174,19 +155,30 @@ module.exports = {
 
     async oneRating(request, response) {
         try {
-
+            const infos = request.params;
+            const movieRating = await userDataMapper.getRatingMovie(infos);
+            response.json({data: movieRating});
         }catch {
-
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible de récupérer la note que cet utilisateur a donné au film, veuillez réessayer ultérieurement.`
+            });
         }
     },
 
-
     async allRatings(request, response) {
         try {
-
-        }catch (error) {
-
+            const userId = request.params.id;
+            const allUserRatings = await userDataMapper.userRatings(userId);
+            response.json({data: allUserRatings});
+        } catch(error) {
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible de récupérer les notes données par cet utilisateur veuillez réessayer ultérieurement.`
+            });
         }
-    }
+    },
 
 };

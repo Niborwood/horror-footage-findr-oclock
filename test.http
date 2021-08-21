@@ -57,4 +57,10 @@ PATCH   http://localhost:3001/api/v1/user/2/watchlist/57
 GET http://localhost:3001/api/v1/selection/2
 
 ### Récupération de toutes les notes d'un seul film
-GET http://localhost:3001/api/v1/movie/57/ratings
+GET http://localhost:3001/api/v1/movie/1/ratings
+
+### Récupération de toutes les notes d'un seul utilisateur
+GET http://localhost:3001/api/v1/user/1/ratings
+
+### Récupération de le note d'un film donné par un utilisateur
+GET http://localhost:3001/api/v1/user/1/ratings/movie/1
