@@ -28,8 +28,17 @@ module.exports = {
     async allRatingsMovie(request, response) {
         try {
 
+            const movieId = request.params.movieId;
+            const movieWithRatings = await movieDataMapper.movieRatings(movieId);
+            response.json({data: movieWithRatings});
+
         }catch(error) {
 
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible de récupérer les notes de ce film, veuillez réessayer ultérieurement.`
+            });
         }
     },
 
@@ -60,7 +69,7 @@ module.exports = {
                 message: 'Le film a bien été ajouté dans la watchlist',
                 data: movieAdded
             });
-            // Si besoin que je renvoie autre chose que ce message me faire signe ;)
+            // Si besoin que je renvoie autre chose que ce message, me faire signe ;)
 
         } catch (error) {
             console.trace(error);

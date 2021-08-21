@@ -32,6 +32,15 @@ module.exports = {
         return result.rows[0];
     },
 
+    async movieRatings(movieId) {
+        const result = await client.query(`SELECT rating,
+        movie.*
+        FROM horror_user_has_movie
+        JOIN movie ON horror_user_has_movie.movie_id = movie.id
+        WHERE movie.id = $1`, [movieId]);
+        return result.rows[0];
+    },
+
     async allMovies() {
         const result = await client.query(`SELECT * FROM movie`);
         return result.rows;
