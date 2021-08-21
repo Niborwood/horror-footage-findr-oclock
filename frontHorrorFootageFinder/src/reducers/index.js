@@ -4,7 +4,7 @@ import registerReducer from './register';
 import uiReducer from './ui';
 import settingsReducer from './settings';
 import loginReducer from './login';
-import movieReducer from './movie';
+import movieReducer from './movies';
 
 const rootReducer = combineReducers({
   quiz: quizReducer,
@@ -12,6 +12,6 @@ const rootReducer = combineReducers({
   ui: uiReducer,
   settings: settingsReducer,
   login: loginReducer,
-  movie: movieReducer,
+  movies: movieReducer,
 });
 export default rootReducer;

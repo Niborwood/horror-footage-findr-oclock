@@ -1,11 +1,3 @@
-import axios from 'axios';
-
-// UI Actions
-export const PASS_SPLASH = 'PASS_SPLASH';
-export const passSplash = () => ({
-  type: PASS_SPLASH,
-});
-
 // Quiz Action
 export const CHOOSE_AN_ANSWER = 'CHOOSE_AN_ANSWER';
 export const SWITCH_TO_NEXT_QUESTION = 'SWITCH_TO_NEXT_QUESTION';
@@ -83,66 +75,6 @@ export const login = () => ({
 export const getDataMovies = () => ({
   type: GET_DATA,
 });
-
-// MovieInfo Actions
-export const TMDB_LOADED = 'TMDB_LOADED';
-export const tmdbLoaded = (movieID) => ({
-  type: TMDB_LOADED,
-  movieID,
-});
-
-export const SET_MOVIE_UNLOADED = 'SET_MOVIE_UNLOADED';
-export const setMovieUnloaded = (movieID, dataType) => ({
-  type: SET_MOVIE_UNLOADED,
-  movieID,
-  dataType,
-});
-
-export const SET_CURRENT_MOVIE = 'SET_CURRENT_MOVIE';
-export const setCurrentMovie = (movieID, tmdbData, format) => ({
-  type: SET_CURRENT_MOVIE,
-  movieID,
-  tmdbData,
-  format,
-});
-
-export const SET_CURRENT_MOVIE_DATA = 'SET_CURRENT_MOVIE_DATA';
-export const setCurrentMovieData = (movieID, currentMovieData) => ({
-  type: SET_CURRENT_MOVIE_DATA,
-  movieID,
-  currentMovieData,
-});
-// Thunk
-//! Add catch logic !
-export function fetchMovieData(movieID) {
-  return (dispatch) => {
-    // Check if useless
-    // dispatch(setMovieUnloaded(movieID, 'data'));
-    axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=fr-FR`)
-      .then((response) => {
-        dispatch(setCurrentMovie(movieID, response.data, 'data'));
-      });
-  };
-}
-
-export const SET_CURRENT_MOVIE_PROVIDERS = 'SET_CURRENT_MOVIE_PROVIDERS';
-export const setCurrentMovieProviders = (movieID, currentMovieProviders) => ({
-  type: SET_CURRENT_MOVIE_PROVIDERS,
-  movieID,
-  currentMovieProviders,
-});
-// Thunk
-export function fetchMovieProviders(movieID) {
-  return (dispatch) => {
-    axios.get(`https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=fr-FR`)
-      .then((response) => {
-        dispatch(setCurrentMovie(movieID, response.data.results.FR, 'providers'));
-      })
-      .finally(() => {
-        // dispatch(tmdbLoaded('currentMovieProviders'));
-      });
-  };
-}
 
 // Corentin Register Actions
 export const submitRegister = (pseudo, email, password) => ({

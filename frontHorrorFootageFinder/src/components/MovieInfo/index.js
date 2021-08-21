@@ -2,26 +2,26 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchMovieData } from '../../actions';
+import { fetchMovie } from '../../actions/movies';
 
 import MovieButtons from '../MovieButtons';
 
 import './movieinfo.scss';
 
 export const MovieInfo = ({
-  movieID, getMovieData, format, ui,
+  movieID, getMovie, format, movies,
 }) => {
   // On récupère le film à partir de l'API
   useEffect(() => {
-    getMovieData(movieID);
+    getMovie(movieID);
   }, [movieID]);
 
   // On empêche l'effet de bord si les datas du film
   // ne sont pas encore récupérées : si les datas d'un film sont vides, on retourne le loading.
   // Le ?. est là pour vérifier les données spécifiques (data ou providers)
   // sans faire planter l'application si elles sont undefined.
-  //! Si bug d'affichage, on peut tester la condition : !ui[movieID]?.data.loaded
-  if (!ui[movieID]?.data) {
+  //! Si bug d'affichage, on peut tester la condition : !movies[movieID]?.data.loaded
+  if (!movies[movieID]?.data) {
     return <div className="loading-container">Loading...</div>;
   }
 
@@ -29,7 +29,7 @@ export const MovieInfo = ({
   // suivant l'ID du film. Par exemple, un film avec l'ID 123
   // sera récupéré à partir du state : state.movie.123.data
   // Le currentMovie n'est jamais un objet vide, car s'il l'est, on returne le Loading ci-dessus.
-  const currentMovie = ui[movieID].data;
+  const currentMovie = movies[movieID].data;
 
   return (
     <div className="movie-info">
@@ -83,20 +83,20 @@ export const MovieInfo = ({
 
 MovieInfo.propTypes = {
   movieID: PropTypes.number.isRequired,
-  getMovieData: PropTypes.func.isRequired,
+  getMovie: PropTypes.func.isRequired,
   format: PropTypes.string.isRequired,
   //! Pas trouvé comment vérifier un prop-type sur une propriété dynamique, donc :
   // eslint-disable-next-line react/forbid-prop-types
-  ui: PropTypes.object.isRequired,
+  movies: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ ui }) => ({
-  ui,
+const mapStateToProps = ({ movies }) => ({
+  movies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getMovieData: (movieID) => {
-    dispatch(fetchMovieData(movieID));
+  getMovie: (movieID) => {
+    dispatch(fetchMovie(movieID, 'data'));
   },
 });
 
