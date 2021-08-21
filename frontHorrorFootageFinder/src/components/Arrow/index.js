@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './arrow.scss';
+
 function Arrow({ type, size }) {
   // Déclaration des variables
   let content;
@@ -12,9 +14,9 @@ function Arrow({ type, size }) {
       content = '▸';
       break;
 
-    case 'double':
+    case 'forward':
       content = '▸▸';
-      className = 'arrow-ui__double';
+      className = 'arrow-ui__forward';
       break;
 
     case 'rewind':

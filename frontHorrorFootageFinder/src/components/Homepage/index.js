@@ -35,7 +35,7 @@ export const Homepage = () => {
         <Button onClick={scrollToHomepageSelection} to="/#homepage-selection" textContent="Découvrir" />
       </div>
 
-      <Carousel format="small" />
+      <Carousel format="small" ref={homepageSelection} />
     </div>
   );
 };

@@ -28,7 +28,7 @@ export const Carousel = ({ format }) => {
         {movies}
       </div>
       <div className="carousel__arrow-next">
-        <Arrow type="double" size="md" />
+        <Arrow type="forward" size="md" />
       </div>
     </div>
   );
