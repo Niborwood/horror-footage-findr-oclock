@@ -6,12 +6,6 @@ export const passSplash = () => ({
   type: PASS_SPLASH,
 });
 
-export const TMDB_LOADED = 'TMDB_LOADED';
-export const tmdbLoaded = (dataLoaded) => ({
-  type: TMDB_LOADED,
-  dataLoaded,
-});
-
 // Quiz Action
 export const CHOOSE_AN_ANSWER = 'CHOOSE_AN_ANSWER';
 export const SWITCH_TO_NEXT_QUESTION = 'SWITCH_TO_NEXT_QUESTION';
@@ -82,7 +76,7 @@ export const cancelSettingsChange = () => ({
   type: CANCEL_SETTINGS_CHANGE,
 });
 
-// Corentin ?
+// Corentin Login Actions
 export const login = () => ({
   type: LOGIN,
 });
@@ -91,6 +85,18 @@ export const getDataMovies = () => ({
 });
 
 // MovieInfo Actions
+export const TMDB_LOADED = 'TMDB_LOADED';
+export const tmdbLoaded = (movieID) => ({
+  type: TMDB_LOADED,
+  movieID,
+});
+
+export const SET_MOVIE_UNLOADED = 'SET_MOVIE_UNLOADED';
+export const setMovieUnloaded = (movieID) => ({
+  type: SET_MOVIE_UNLOADED,
+  movieID,
+});
+
 export const SET_CURRENT_MOVIE_DATA = 'SET_CURRENT_MOVIE_DATA';
 export const setCurrentMovieData = (currentMovieData) => ({
   type: SET_CURRENT_MOVIE_DATA,
@@ -99,12 +105,13 @@ export const setCurrentMovieData = (currentMovieData) => ({
 // Thunk
 export function fetchMovieData(movieID) {
   return (dispatch) => {
+    dispatch(setMovieUnloaded(movieID));
     axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=fr-FR`)
       .then((response) => {
         dispatch(setCurrentMovieData(response.data));
       })
       .finally(() => {
-        dispatch(tmdbLoaded('currentMovie'));
+        // dispatch(tmdbLoaded(movieID));
       });
   };
 }
@@ -126,6 +133,8 @@ export function fetchMovieProviders(movieID) {
       });
   };
 }
+
+// Corentin Register Actions
 export const submitRegister = (pseudo, email, password) => ({
   type: SUBMITREGISTER,
   pseudo,

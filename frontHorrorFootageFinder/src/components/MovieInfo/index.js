@@ -9,16 +9,23 @@ import MovieButtons from '../MovieButtons';
 import './movieinfo.scss';
 
 export const MovieInfo = ({
-  movieID, currentMovie, getMovieData, format,
+  movieID, getMovieData, format, ui,
 }) => {
   // On récupère le film à partir de l'API
   useEffect(() => {
     getMovieData(movieID);
   }, [movieID]);
 
+  // On récupère les informations du film à partir du state
+  // suivant l'ID du film. Par exemple, un film avec l'ID 123
+  // sera récupéré à partir du state : state.movie.123
+  const currentMovie = ui[movieID];
+
   // On empêche l'effet de bord si les data du film
-  // ne sont pas encore réupérés
-  if (!currentMovie.loaded) {
+  // ne sont pas encore récupérés. Le ?. est là pour empêcher l'application
+  // de renvoyer une erreur vu que le film n'existe pas dans le state
+  // (on ne peut pas anticiper l'id du film avant la requête).
+  if (!currentMovie?.loaded) {
     return <div className="loading-container">Loading...</div>;
   }
 
@@ -87,10 +94,14 @@ MovieInfo.propTypes = {
   movieID: PropTypes.number.isRequired,
   getMovieData: PropTypes.func.isRequired,
   format: PropTypes.string.isRequired,
+  //! Pas trouvé comment vérifier un prop-type sur une propriété dynamique, donc :
+  // eslint-disable-next-line react/forbid-prop-types
+  ui: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ ui: { currentMovie } }) => ({
+const mapStateToProps = ({ ui, ui: { currentMovie } }) => ({
   currentMovie,
+  ui,
 });
 
 const mapDispatchToProps = (dispatch) => ({

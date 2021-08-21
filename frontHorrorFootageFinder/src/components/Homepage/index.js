@@ -3,8 +3,7 @@ import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 
 import Button from '../Button';
-import SingleMovie from '../SingleMovie';
-import Arrow from '../Arrow';
+import HomeSelection from '../HomeSelection';
 
 import './homepage.scss';
 
@@ -36,25 +35,7 @@ export const Homepage = () => {
         <Button onClick={scrollToHomepageSelection} to="/#homepage-selection" textContent="Découvrir" />
       </div>
 
-      <div id="homepage-selection" className="homepage__selection" ref={homepageSelection}>
-        <div className="homepage__selection-arrow-next">
-          <Arrow type="rewind" />
-        </div>
-        <div className="homepage__selection-list">
-          <div className="homepage__selection-movie">
-            <SingleMovie format="small" movieID={7191} />
-          </div>
-          <div className="homepage__selection-movie">
-            <SingleMovie format="small" movieID={7191} />
-          </div>
-          <div className="homepage__selection-movie">
-            <SingleMovie format="small" movieID={7191} />
-          </div>
-        </div>
-        <div className="homepage__selection-arrow-back">
-          <Arrow type="double" />
-        </div>
-      </div>
+      <HomeSelection />
     </div>
   );
 };
