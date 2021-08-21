@@ -1,6 +1,7 @@
 // Movies Actions
 import { tmdbAPI } from '../utils/api';
 
+// Fonction d'écriture des données API dans le state
 export const SET_MOVIE_DATA = 'SET_MOVIE_DATA';
 export const setCurrentMovie = (movieID, tmdbData, format) => ({
   type: SET_MOVIE_DATA,

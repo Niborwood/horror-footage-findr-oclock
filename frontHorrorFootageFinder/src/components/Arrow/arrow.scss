@@ -2,4 +2,8 @@
     position: relative;
     bottom: 2px;
     user-select: none;
+
+    &__md {
+        font-size: 2rem;
+    }
 }

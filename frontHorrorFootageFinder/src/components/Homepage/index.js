@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 
 import Button from '../Button';
-import HomeSelection from '../HomeSelection';
+import Carousel from '../Carousel';
 
 import './homepage.scss';
 
@@ -35,7 +35,7 @@ export const Homepage = () => {
         <Button onClick={scrollToHomepageSelection} to="/#homepage-selection" textContent="Découvrir" />
       </div>
 
-      <HomeSelection />
+      <Carousel format="small" />
     </div>
   );
 };

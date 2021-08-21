@@ -31,6 +31,19 @@ export const MovieInfo = ({
   // Le currentMovie n'est jamais un objet vide, car s'il l'est, on returne le Loading ci-dessus.
   const currentMovie = movies[movieID].data;
 
+  if (format === 'mini') {
+    return (
+      <div className="movie-info">
+        <div className="movie-info__left-side">
+          <img className="movie-info__poster" src={`https://www.themoviedb.org/t/p/w300/${currentMovie.poster_path}`} alt={`${currentMovie.original_title} movie poster`} title={`${currentMovie.original_title} movie poster`} />
+          <div className="movie-info__tags">
+            00S, COMMON, EUROPE, MOCKUMENTARY, MONSTERS
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="movie-info">
       {/* LEFT SIDE */}
