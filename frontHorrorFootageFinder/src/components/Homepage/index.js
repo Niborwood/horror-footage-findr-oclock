@@ -8,9 +8,9 @@ import Carousel from '../Carousel';
 import './homepage.scss';
 
 export const Homepage = () => {
-  const homepageSelection = useRef(null);
-  const scrollToHomepageSelection = () => {
-    homepageSelection.current.scrollIntoView({
+  const homepageCarousel = useRef(null);
+  const scrollToHomepageCarousel = () => {
+    homepageCarousel.current.scrollIntoView({
       behavior: 'smooth',
     });
   };
@@ -32,10 +32,12 @@ export const Homepage = () => {
           Sélection
         </h2>
         <p className="homepage__subtitle">Découvrez les 3 films qui angoissent notre communauté</p>
-        <Button onClick={scrollToHomepageSelection} to="/#homepage-selection" textContent="Découvrir" />
+        <Button onClick={scrollToHomepageCarousel} to="/#homepage-selection" textContent="Découvrir" />
       </div>
 
-      <Carousel format="small" ref={homepageSelection} />
+      <div id="home-carousel" ref={homepageCarousel}>
+        <Carousel format="small" />
+      </div>
     </div>
   );
 };

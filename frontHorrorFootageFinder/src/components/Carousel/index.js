@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Arrow from '../Arrow';
-import SingleMovie from '../SingleMovie';
+import Movie from '../Movie';
 
 import './carousel.scss';
 
@@ -15,7 +15,7 @@ export const Carousel = ({ format }) => {
   const ids = [186, 227, 221];
   const movies = ids.map((id) => (
     <div key={id} className="carousel__movie">
-      <SingleMovie format={format} movieID={id} />
+      <Movie format={format} movieID={id} />
     </div>
   ));
 

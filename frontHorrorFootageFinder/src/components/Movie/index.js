@@ -8,9 +8,9 @@ import MovieInfo from '../MovieInfo';
 import MovieProviders from '../MovieProviders';
 import MovieResults from '../MovieResults';
 
-import './singlemovie.scss';
+import './movie.scss';
 
-export const SingleMovie = ({ format, movieID }) => {
+export const Movie = ({ format, movieID }) => {
   // On récupère l'id du film soit :
   // - à partir de la route /movie/{id} (résultat de recherche)
   // On le parse pour qu'il soit un nombre et qu'on puisse valider
@@ -42,12 +42,12 @@ export const SingleMovie = ({ format, movieID }) => {
     </div>
   );
 };
-SingleMovie.propTypes = {
+Movie.propTypes = {
   format: PropTypes.string,
   movieID: PropTypes.number,
 };
 
-SingleMovie.defaultProps = {
+Movie.defaultProps = {
   format: 'full',
   movieID: null,
 };
@@ -59,4 +59,4 @@ const mapDispatchToProps = () => ({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleMovie);
+export default connect(mapStateToProps, mapDispatchToProps)(Movie);
