@@ -5,23 +5,15 @@ import { connect } from 'react-redux';
 import Button from '../Button';
 import Carousel from '../Carousel';
 
-import api from '../../utils/api';
-import { setTopMovies } from '../../actions/movies';
+import { getTopMovies } from '../../actions/movies';
 import './homepage.scss';
 
-export const Homepage = ({ getTopMovies, topMovies: { loaded, tmdbIDs } }) => {
+export const Homepage = ({ loadTopMovies, topMovies: { loaded, tmdbIDs } }) => {
   // Appel à l'API interne pour récupérer les 3 films les plus populaires
   // selon les utilisateurs du site
   //! Handle catch !
   useEffect(() => {
-    api.get('https://horror-footage-api.herokuapp.com/api/v1/selection/3')
-      .then((response) => {
-        const { data: { data } } = response;
-        const topTmdbMovies = data.map(({ tmdb_id: tmdbID }) => (tmdbID));
-        getTopMovies(topTmdbMovies);
-      }).catch((error) => {
-        console.log(error);
-      });
+    loadTopMovies(3);
   }, []);
 
   // Gestion du bouton "Découvrir" pour le carousel de sélection
@@ -64,7 +56,7 @@ export const Homepage = ({ getTopMovies, topMovies: { loaded, tmdbIDs } }) => {
 };
 
 Homepage.propTypes = {
-  getTopMovies: PropTypes.func.isRequired,
+  loadTopMovies: PropTypes.func.isRequired,
   topMovies: PropTypes.shape({
     loaded: PropTypes.bool.isRequired,
     tmdbIDs: PropTypes.arrayOf(
@@ -78,8 +70,8 @@ const mapStateToProps = ({ movies: { topMovies } }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getTopMovies: (movies) => {
-    dispatch(setTopMovies(movies));
+  loadTopMovies: (movies) => {
+    dispatch(getTopMovies(movies));
   },
 });
 

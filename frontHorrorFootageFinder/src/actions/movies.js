@@ -1,5 +1,5 @@
 // Movies Actions
-import { tmdbAPI } from '../utils/api';
+import api, { tmdbAPI } from '../utils/api';
 
 // Fonction d'écriture du top 3 de la page d'accueil dans le state
 export const SET_TOP_MOVIES = 'SET_TOP_MOVIES';
@@ -7,6 +7,22 @@ export const setTopMovies = (movies) => ({
   type: SET_TOP_MOVIES,
   movies,
 });
+
+// Middleware pour récupérer le top 3 depuis l'API HFF
+// via Redux-Thunk
+//! Add catch logic !
+export const getTopMovies = (nbOfMovies) => (dispatch) => {
+  api.get(`https://horror-footage-api.herokuapp.com/api/v1/selection/${nbOfMovies}`)
+    .then((response) => {
+      // On récupère la data (id et tmdbId)
+      const { data: { data } } = response;
+      // On filtre pour ne sortir que les tmdbIDs dans un array simple
+      const topTmdbMovies = data.map(({ tmdb_id: tmdbID }) => (tmdbID));
+      dispatch(setTopMovies(topTmdbMovies));
+    }).catch((error) => {
+      console.log(error);
+    });
+};
 
 // Fonction d'écriture des données API des films dans le state
 export const SET_MOVIE_DATA = 'SET_MOVIE_DATA';
