@@ -61,21 +61,41 @@ module.exports = {
         }
     },
 
+    async updateUser(request, response) {
+        try {
+            const infosToModify = request.body;
+            const editUser = await userDataMapper.modifyUser(infosToModify);
+            response.json({data: editUser});
+        } catch (error){
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible de mettre à jour cet utilisateur, veuillez réessayer ultérieurement.`
+            });
+        }
+    },
+
     async deleteUser(request, response, next) {
         try {
 
-            //! Rajouter un check pour vérifier que l'utilisateur est connecté !!
+            //! Sécuriser l'accès direct via URL de l'API ..
+            //! Récupérer token et décrypter pour chopper l'id du mec à supprimer !!
 
-            const userId = request.params.id;
-            const userToDelete = await userDataMapper.getUserById(request.params.id);
+                const userId = request.params.id;
+                const userToDelete = await userDataMapper.getUserById(request.params.id);
 
-            if (!userToDelete) {
-                response.json({message: `Cet utilisateur n'existe pas.`})
-                return next();
-            } else {
-                await userDataMapper.deleteUser(userId);
-                response.json({message: `Utilisateur supprimé avec succès.`});
-            };
+                if (!userToDelete) {
+                    response.json({
+                        message: `Cet utilisateur n'existe pas.`
+                    })
+                    return next();
+                } else {
+                    await userDataMapper.deleteUser(userId);
+                    response.json({
+                        message: `Utilisateur supprimé avec succès.`
+                    });
+                }
+           
 
         } catch (error) {
             console.trace(error);
@@ -85,9 +105,6 @@ module.exports = {
             });
         }
     },
-
-    // pour ADD un user :
-    // INSERT INTO horror_user ("pseudo", "email", "password") VALUES ('$1', '$2', '$3');
 
     async getAllDetails(request, response) {
         try {
@@ -119,26 +136,7 @@ module.exports = {
         }
     },
 
-    async editMovieWatchlist(request, response) {
-        try {
-
-            // Récupérer les infos de la page
-
-            // Vérifier l'état en BDD ?
-
-            // Effectuer les changements
-
-
-        } catch (error) {
-            console.trace(error);
-            response.status(500).json({
-                data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de modifier la watchlist, veuillez réessayer ultérieurement.`
-            });
-        }
-    },
-
-    async userWatchedMovie(request, response, next) {
+    async userWatchedMovie(request, response) {
         try {
             const watchedMovie = await userDataMapper.watchedMovie(request.params.id);
 
@@ -153,6 +151,34 @@ module.exports = {
                 error: `Désolé une erreur serveur est survenue, impossible d'accéder aux films déjà vus, veuillez réessayer ultérieurement.`
             });
         }
-    }
+    },
+
+    async oneRating(request, response) {
+        try {
+            const infos = request.params;
+            const movieRating = await userDataMapper.getRatingMovie(infos);
+            response.json({data: movieRating});
+        }catch {
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible de récupérer la note que cet utilisateur a donné au film, veuillez réessayer ultérieurement.`
+            });
+        }
+    },
+
+    async allRatings(request, response) {
+        try {
+            const userId = request.params.id;
+            const allUserRatings = await userDataMapper.userRatings(userId);
+            response.json({data: allUserRatings});
+        } catch(error) {
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible de récupérer les notes données par cet utilisateur veuillez réessayer ultérieurement.`
+            });
+        }
+    },
 
 };
