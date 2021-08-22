@@ -8,6 +8,7 @@ const api = axios.create({
 
 export const tmdbAPI = axios.create({
   baseURL: 'https://api.themoviedb.org/3/',
+  //! Add language & API_KEY as params
 });
 
 export default api;

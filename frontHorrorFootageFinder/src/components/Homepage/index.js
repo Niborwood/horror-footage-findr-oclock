@@ -1,19 +1,40 @@
-import React, { useRef } from 'react';
-// import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Button from '../Button';
 import Carousel from '../Carousel';
 
+import api from '../../utils/api';
+import { setTopMovies } from '../../actions/movies';
 import './homepage.scss';
 
-export const Homepage = () => {
+export const Homepage = ({ getTopMovies, topMovies: { loaded, tmdbIDs } }) => {
+  // Appel à l'API interne pour récupérer les 3 films les plus populaires
+  // selon les utilisateurs du site
+  //! Handle catch !
+  useEffect(() => {
+    api.get('https://horror-footage-api.herokuapp.com/api/v1/selection/3')
+      .then((response) => {
+        const { data: { data } } = response;
+        const topTmdbMovies = data.map(({ tmdb_id: tmdbID }) => (tmdbID));
+        getTopMovies(topTmdbMovies);
+      }).catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  // Gestion du bouton "Découvrir" pour le carousel de sélection
   const homepageCarousel = useRef(null);
   const scrollToHomepageCarousel = () => {
     homepageCarousel.current.scrollIntoView({
       behavior: 'smooth',
     });
   };
+
+  if (!loaded) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="homepage">
@@ -36,21 +57,30 @@ export const Homepage = () => {
       </div>
 
       <div id="home-carousel" ref={homepageCarousel}>
-        <Carousel format="small" />
+        <Carousel format="small" movies={tmdbIDs} />
       </div>
     </div>
   );
 };
 
 Homepage.propTypes = {
+  getTopMovies: PropTypes.func.isRequired,
+  topMovies: PropTypes.shape({
+    loaded: PropTypes.bool.isRequired,
+    tmdbIDs: PropTypes.arrayOf(
+      PropTypes.number,
+    ),
+  }).isRequired,
 };
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = ({ movies: { topMovies } }) => ({
+  topMovies,
 });
 
-const mapDispatchToProps = {
-
-};
+const mapDispatchToProps = (dispatch) => ({
+  getTopMovies: (movies) => {
+    dispatch(setTopMovies(movies));
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

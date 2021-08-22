@@ -1,7 +1,14 @@
 // Movies Actions
 import { tmdbAPI } from '../utils/api';
 
-// Fonction d'écriture des données API dans le state
+// Fonction d'écriture du top 3 de la page d'accueil dans le state
+export const SET_TOP_MOVIES = 'SET_TOP_MOVIES';
+export const setTopMovies = (movies) => ({
+  type: SET_TOP_MOVIES,
+  movies,
+});
+
+// Fonction d'écriture des données API des films dans le state
 export const SET_MOVIE_DATA = 'SET_MOVIE_DATA';
 export const setCurrentMovie = (movieID, tmdbData, format) => ({
   type: SET_MOVIE_DATA,
@@ -10,7 +17,7 @@ export const setCurrentMovie = (movieID, tmdbData, format) => ({
   format,
 });
 
-// Middleware to fetch TMDB data (movieInfo, movieProviders)
+// Middleware pour récupérer les données depuis l'API tierce TMDB (movieInfo, movieProviders)
 // via Redux-Thunk
 //! Add catch logic !
 export function fetchMovie(movieID, format) {

@@ -1,11 +1,24 @@
 import {
-  SET_MOVIE_DATA,
+  SET_MOVIE_DATA, SET_TOP_MOVIES,
 } from '../actions/movies';
 
-const initialState = {};
+const initialState = {
+  topMovies: {
+    loaded: false,
+  },
+};
 
 const moviesReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_TOP_MOVIES:
+      return {
+        ...state,
+        topMovies: {
+          loaded: true,
+          tmdbIDs: action.movies,
+        },
+      };
+
     // Ce case sert à la fois à enregistrer les datas et les providers de chaque film.
     case SET_MOVIE_DATA: {
       return {

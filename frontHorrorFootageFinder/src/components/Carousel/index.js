@@ -10,10 +10,9 @@ import './carousel.scss';
 // Le Carousel peux prendre deux formats :
 // - format="small", avec l'affiche, les tags, le titre, les notes et les boutons de vues
 // - format="mini", seulement avec l'affiche
-export const Carousel = ({ format }) => {
-  // Fake data
-  const ids = [186, 227, 221];
-  const movies = ids.map((id) => (
+export const Carousel = ({ format, movies }) => {
+  // On mappe la liste d'IDs TMDB reçus pour en afficher chaque composant Movie
+  const movieList = movies.map((id) => (
     <div key={id} className="carousel__movie">
       <Movie format={format} movieID={id} />
     </div>
@@ -25,7 +24,7 @@ export const Carousel = ({ format }) => {
         <Arrow type="rewind" size="md" />
       </div>
       <div className="carousel__list">
-        {movies}
+        {movieList}
       </div>
       <div className="carousel__arrow-next">
         <Arrow type="forward" size="md" />
@@ -36,6 +35,9 @@ export const Carousel = ({ format }) => {
 
 Carousel.propTypes = {
   format: PropTypes.string,
+  movies: PropTypes.arrayOf(
+    PropTypes.number,
+  ).isRequired,
 };
 
 Carousel.defaultProps = {
