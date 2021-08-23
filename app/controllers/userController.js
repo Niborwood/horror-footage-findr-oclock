@@ -67,7 +67,6 @@ module.exports = {
             const infosToModify = request.body;
             console.log(infosToModify);
             const infoId = request.params.id;
-            console.log(infoId);
             const editUser = await userDataMapper.modifyUser(infosToModify, infoId);
             response.json({data: editUser});
         } catch (error){
