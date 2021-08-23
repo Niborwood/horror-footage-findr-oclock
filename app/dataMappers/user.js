@@ -38,9 +38,9 @@ module.exports = {
         let salt = await bcrypt.genSalt(10);
         let hash = await bcrypt.hash(infos.password, salt);
         const userUpdated = await client.query(`UPDATE horror_user
-        SET pseudo = $1, email = $2, password = $3 WHERE id = $4 RETURNING pseudo`, [infos.pseudo, infos.email, hash, infoId.id]);
+        SET pseudo = $1, email = $2, password = $3 WHERE id = $4 RETURNING id, pseudo, email`, [infos.pseudo, infos.email, hash, infoId]);
         console.log('infos id', infoId);
-        return infoId;
+        return userUpdated.rows[0];
     
     },
 
