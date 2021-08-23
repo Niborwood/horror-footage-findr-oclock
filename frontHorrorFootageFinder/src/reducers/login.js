@@ -55,6 +55,8 @@ function loginReducer(state = initialState, {
         pseudo: value.pseudo,
         id: value.id,
         email: value.email,
+        loginEmail: '',
+        loginPassword: '',
         token,
       };
     default:
