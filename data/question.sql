@@ -5,4 +5,5 @@ INSERT INTO "question" ("title") VALUES
     ('Il doit venir d''où, ce film ?'),
     ('On part piocher à quelles époques ?'),
     ('Chaud pour un film de niche, ou on y va doucement ?'),
-    ('Des petites excentricités ?');
+    ('Des petites excentricités ?'),
+    ('fausse question');
