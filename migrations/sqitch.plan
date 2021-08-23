@@ -4,3 +4,5 @@
 initializing 2021-08-17T11:18:13Z Sophie Seignon <sophie.seignon@gmail.com> # Initialisation de la BDD
 movieName 2021-08-17T13:02:02Z Sophie Seignon <sophie.seignon@gmail.com> # Nom du film pour nous faciliter les tests en développement
 modificationToTable 2021-08-20T11:07:13Z Sophie Seignon <sophie.seignon@gmail.com> # Modification de l'une de mes tables
+column_value 2021-08-23T07:41:18Z Sophie Seignon <sophie.seignon@gmail.com> # Ajout d'une colonne 'value' dans la table tag
+VIEWS 2021-08-23T09:46:34Z Sophie Seignon <sophie.seignon@gmail.com> # Quelques VIEW pour les jointures complexes non dynamiques

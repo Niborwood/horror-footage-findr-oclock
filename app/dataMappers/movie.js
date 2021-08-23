@@ -3,7 +3,6 @@ const client = require('../client');
 module.exports = {
 
     async getBetterMovies(limit) {
-        
         const result = await client.query(`SELECT AVG(rating) AS rating,
         movie.tmdb_id
         FROM horror_user_has_movie
@@ -39,20 +38,28 @@ module.exports = {
         return infos.movieId;
     },
 
-    //! A tester !!
+    //! EN COURS ..
     async editMovieWatchlist(infos) {
-        const trueOrFalse = await client.query(`SELECT watchlist FROM horror_user_has_movie WHERE watchlist = true AND movie_id = $1 AND horror_user_id = $2`, [infos.movieId, infos.id]);
+        let watchlistIsTrue = await client.query(`SELECT watchlist FROM horror_user_has_movie WHERE movie_id = $1 AND horror_user_id = $2`, [infos.movieId, infos.id]);
 
-        console.log(trueOrFalse);
+        // watchlistIsTrue = true;
+        // var myWatchlist = watchlistIsTrue); //monBoolen vaut true
 
-        if (trueOrFalse) {
-        const result = await client.query(`UPDATE horror_user_has_movie SET watchlist = true WHERE movie_id = $1 AND horror_user_id = $2 RETURNING $2`, [infos.movieId, infos.id]);
-        
-        return infos.movieId;
+        //! Je n'arrive pas à cibler le cas de watchlist is true ..
+        if (watchlistIsTrue === true) {
+            const result = await client.query(`UPDATE horror_user_has_movie 
+            SET watchlist = false 
+            WHERE movie_id = $1
+            AND horror_user_id = $2`, [infos.movieId, infos.id]);
+
+            return infos.movieId;
 
         } else {
-            const result = await client.query(`UPDATE horror_user_has_movie SET watchlist = false WHERE movie_id = $1 AND horror_user_id = $2 RETURNING $2`, [infos.movieId, infos.id]);
-            
+            const result = await client.query(`UPDATE horror_user_has_movie 
+            SET watchlist = true 
+            WHERE movie_id = $1
+            AND horror_user_id = $2`, [infos.movieId, infos.id]);
+
             return infos.movieId;
         }
 

@@ -33,7 +33,7 @@ module.exports = {
 
     },
 
-    //! A TESTER !
+    //! A TESTER  avec Arnaud
     async modifyUser(infos) {
         const {
             password

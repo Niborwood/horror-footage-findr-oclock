@@ -39,3 +39,4 @@ CREATE TABLE "movie_has_tag" (
 );
 
 COMMIT;
+
