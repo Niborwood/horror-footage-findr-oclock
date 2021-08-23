@@ -25,3 +25,10 @@ export const login = () => ({
 });
 
 // END LOGIN REFACTO
+
+// Arnaud: on sauvegarde les changements de profiles dans le state:
+export const SAVE_NEW_LOGIN_STATE = 'SAVE_NEW_LOGIN_STATE';
+export const saveNewLoginState = (value) => ({
+  type: SAVE_NEW_LOGIN_STATE,
+  value,
+});

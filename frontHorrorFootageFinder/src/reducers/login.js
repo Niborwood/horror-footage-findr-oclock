@@ -2,6 +2,7 @@ import {
   CHANGE_INPUT_VALUE_LOGIN,
   TOGGLE_CONNECTED,
   CHANGE_STATE_WHEN_CONNECTED,
+  SAVE_NEW_LOGIN_STATE,
 } from '../actions/login';
 
 const initialState = {
@@ -9,6 +10,7 @@ const initialState = {
   loginEmail: '',
   loginPassword: '',
   pseudo: '',
+  email: '',
   id: '',
   token: '',
 };
@@ -46,7 +48,14 @@ function loginReducer(state = initialState, {
         ...state,
         pseudo: value.pseudo,
         id: value.id,
+        email: value.email,
         token,
+      };
+    case SAVE_NEW_LOGIN_STATE:
+      return {
+        ...state,
+        pseudo: value.pseudo,
+        loginEmail: value.email,
       };
     default:
       return state;

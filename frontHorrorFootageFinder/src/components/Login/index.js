@@ -24,6 +24,8 @@ export function Login({ changeField, onLogin }) {
       <Divider />
       <NavLink to="/register" className="login__to-register">pas encore de compte ?</NavLink>
       <Button to="/" textContent="Retour à l'accueil" />
+      {/* TEMPORAIRE */}
+      <NavLink to="/settings">settings</NavLink>
     </div>
   );
 }
