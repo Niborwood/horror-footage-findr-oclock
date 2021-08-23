@@ -4,8 +4,13 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { passSplash } from '../../actions/ui';
 
+// SCSS
 import './splash.scss';
 
+// COMPONENTS
+import Toggle from '../Toggle';
+
+// FONCTION
 export const Splash = ({ onPassSplash }) => (
   <div className="splash">
     <div className="splash__launch-app">
@@ -13,7 +18,7 @@ export const Splash = ({ onPassSplash }) => (
     </div>
     <div className="splash__options">
       <div className="splash__options-item">
-        [ ] RETIRER LES ANIMATIONS
+        <Toggle name="toggleAnimations" textContent="Retirer les animations" />
       </div>
     </div>
   </div>
