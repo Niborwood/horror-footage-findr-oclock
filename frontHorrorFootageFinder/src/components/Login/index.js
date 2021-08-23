@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { changeInputValueLogin, login } from '../../actions/login';
 import Field from '../Field';
 import Button from '../Button';
 import Divider from '../Divider';
 import './login.scss';
 
-export function Login({ changeField, onLogin }) {
+export function Login({
+  changeField, onLogin, isLogged, errorMessage,
+}) {
+  let textErrorMessage = '';
+  if (errorMessage) {
+    textErrorMessage = 'Identifiants incorrectes';
+  }
+  if (isLogged) {
+    // redirection sur la page d'accueil si l'utilisateur est logé
+    return <Redirect to="/" />;
+  }
   const onSubmit = (event) => {
     event.preventDefault();
     onLogin();
@@ -23,13 +33,16 @@ export function Login({ changeField, onLogin }) {
       </form>
       <Divider />
       <NavLink to="/register" className="login__to-register">pas encore de compte ?</NavLink>
-      <Button to="/" textContent="Retour à l'accueil" />
+      <Button className="button__home" to="/" textContent="Retour à l'accueil" />
+      {textErrorMessage}
     </div>
   );
 }
 const mapStateToProps = (state) => ({
   loginEmail: state.login.registerEmail,
   onLogin: state.login.registerPassword,
+  isLogged: state.login.isLogged,
+  errorMessage: state.login.errorMessage,
 });
 const mapDispatchToProps = (dispatch) => ({
   changeField: (value, name) => {
@@ -44,5 +57,7 @@ const mapDispatchToProps = (dispatch) => ({
 Login.propTypes = {
   changeField: PropTypes.func.isRequired,
   onLogin: PropTypes.func.isRequired,
+  isLogged: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.bool.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -2,15 +2,18 @@ import {
   CHANGE_INPUT_VALUE_LOGIN,
   TOGGLE_CONNECTED,
   CHANGE_STATE_WHEN_CONNECTED,
+  ERROR_MESSAGE,
 } from '../actions/login';
 
 const initialState = {
   isLogged: false,
+  email: '',
   loginEmail: '',
   loginPassword: '',
   pseudo: '',
   id: '',
   token: '',
+  errorMessage: false,
 };
 
 // eslint-disable-next-line consistent-return
@@ -41,11 +44,17 @@ function loginReducer(state = initialState, {
         ...state,
         isLogged: !state.isLogged,
       };
+    case ERROR_MESSAGE:
+      return {
+        ...state,
+        errorMessage: !state.isLogged,
+      };
     case CHANGE_STATE_WHEN_CONNECTED:
       return {
         ...state,
         pseudo: value.pseudo,
         id: value.id,
+        email: value.email,
         token,
       };
     default:
