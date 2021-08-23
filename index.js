@@ -13,7 +13,7 @@ const router = require('./app/routers');
 app.use(express.json());
 
 app.use((req, res, next) => {
-  const allowedOrigins = ['https://horror-footage-finder.netlify.app/', 'http://localhost:3000'];
+  const allowedOrigins = ['https://horror-footage-finder.netlify.app', 'http://localhost:3000'];
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
        res.setHeader('Access-Control-Allow-Origin', origin);
