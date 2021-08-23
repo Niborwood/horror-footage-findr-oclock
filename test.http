@@ -36,7 +36,7 @@ Content-Type: application/json
 
 
 ### Modification d'un user en bdd
-PATCH http://localhost:3001/api/v1/user/5
+PATCH http://localhost:3001/api/v1/user/3
 Content-Type: application/json
 
 {

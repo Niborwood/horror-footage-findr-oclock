@@ -32,16 +32,9 @@ module.exports = {
 
     //! A TESTER  avec Arnaud
     async modifyUser(infos, infoId) {
-
-        console.log('infos.id', infoId);
-        console.log('infos pseudo', infos.pseudo);
-        let salt = await bcrypt.genSalt(10);
-        let hash = await bcrypt.hash(infos.password, salt);
         const userUpdated = await client.query(`UPDATE horror_user
-        SET pseudo = $1, email = $2, password = $3 WHERE id = $4 RETURNING pseudo`, [infos.pseudo, infos.email, hash, infoId.id]);
-        console.log('infos id', infoId);
-        return infoId;
-    
+        SET pseudo = $1, email = $2 WHERE id = $3 RETURNING id, pseudo, email`, [infos.pseudo, infos.email, infoId]);
+        return userUpdated.rows[0];
     },
 
     async deleteUser(userId) {
