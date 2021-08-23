@@ -3,12 +3,14 @@ import {
   CANCEL_SETTINGS_CHANGE,
   EDIT_PROFILE_INFORMATIONS,
   CLOSE_INPUT,
+  UPDATE_TEXT_INFO,
 } from '../actions/settings';
 import {
   SAVE_NEW_LOGIN_STATE,
 } from '../actions/login';
 
 const initialState = {
+  textInfo: '',
   pseudoInput: false,
   emailInput: false,
   newPseudo: '',
@@ -43,7 +45,6 @@ const SettingsReducer = (state = initialState, action) => {
       }
       return state;
     case SAVE_NEW_LOGIN_STATE:
-      console.log('test');
       return {
         pseudoInput: false,
         emailInput: false,
@@ -53,6 +54,11 @@ const SettingsReducer = (state = initialState, action) => {
         ...state,
         pseudoInput: false,
         emailInput: false,
+      };
+    case UPDATE_TEXT_INFO:
+      return {
+        ...state,
+        textInfo: action.value,
       };
     default:
       return state;

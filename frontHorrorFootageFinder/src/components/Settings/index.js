@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -10,9 +12,11 @@ import {
   editProfileInformations,
   submitSettings,
   closeInput,
+  updateTextInfo,
 } from '../../actions/settings';
 
 export const Settings = ({
+  textInfo,
   pseudo,
   pseudoInput,
   email,
@@ -22,6 +26,7 @@ export const Settings = ({
   onChangeEditField,
   onSubmitSettings,
   onCloseInput,
+  changeTextInfo,
 }) => {
   useEffect(() => () => {
     onCloseInput();
@@ -32,6 +37,7 @@ export const Settings = ({
       <h1 className="settings__title">settings</h1>
       <div>
         <form onSubmit={onSubmitSettings}>
+          <p className="settings__info">{textInfo}</p>
           <h2 className="settings__sub-title">informations utilisateur</h2>
           <div className="settings__item"> pseudo : </div>
           {pseudoInput
@@ -66,7 +72,16 @@ export const Settings = ({
           <h2 className="settings__sub-title">Sécurtié</h2>
           <div>Déconnexion</div>
           <div>supprimer le compte</div>
-          <div className="share__button">partager le site</div>
+          <div
+            className="settings__shared-link"
+            onClick={() => {
+              navigator.clipboard.writeText('http://localhost:3000/');
+              changeTextInfo('lien copié dans le presse-papier');
+            }}
+          >
+            partager le site
+
+          </div>
           <div><NavLink to="/">Retour a la page d&apos;accueil</NavLink></div>
         </form>
 
@@ -76,6 +91,7 @@ export const Settings = ({
 };
 
 Settings.propTypes = {
+  textInfo: PropTypes.string.isRequired,
   pseudo: PropTypes.string.isRequired,
   pseudoInput: PropTypes.bool.isRequired,
   email: PropTypes.string.isRequired,
@@ -85,9 +101,11 @@ Settings.propTypes = {
   onChangeEditField: PropTypes.func.isRequired,
   onSubmitSettings: PropTypes.func.isRequired,
   onCloseInput: PropTypes.func.isRequired,
+  changeTextInfo: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  textInfo: state.settings.textInfo,
   pseudo: state.login.pseudo,
   pseudoInput: state.settings.pseudoInput,
   email: state.login.email,
@@ -114,6 +132,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onCloseInput: () => {
     dispatch(closeInput());
+  },
+  changeTextInfo: (value) => {
+    dispatch(updateTextInfo(value));
   },
 });
 

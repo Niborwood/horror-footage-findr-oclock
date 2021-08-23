@@ -21,3 +21,8 @@ export const CLOSE_INPUT = 'CLOSE_INPUT';
 export const closeInput = () => ({
   type: CLOSE_INPUT,
 });
+export const UPDATE_TEXT_INFO = 'UPDATE_TEXT_INFO';
+export const updateTextInfo = (value) => ({
+  type: UPDATE_TEXT_INFO,
+  value,
+});
