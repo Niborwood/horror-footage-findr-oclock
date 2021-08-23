@@ -3,7 +3,6 @@ const userDataMapper = require('../dataMappers/user');
 
 module.exports = {
 
-    //! En attente de ma requête de fou dans le DM
     async movieSelection(request, response) {
         try {
             const limit = request.params.limit;
