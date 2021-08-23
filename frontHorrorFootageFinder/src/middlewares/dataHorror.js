@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import {
   LOGIN,
+  CHECK_TOKEN,
   toggleConnected,
   changeStateWhenConnected,
   errorMessage,
@@ -12,6 +13,27 @@ import api from '../utils/api';
 
 const dataHorror = (store) => (next) => (action) => {
   switch (action.type) {
+    case CHECK_TOKEN: {
+      const tokkenInLocalStorage = localStorage.getItem('token');
+      if (tokkenInLocalStorage !== undefined) {
+        const showTokken = async () => {
+          try {
+            const response = await api.post('api/v1/tokken', {
+              tokken: tokkenInLocalStorage,
+            });
+            console.log('tokkenresponse', response.data);
+            // store.dispatch(changeStateWhenConnected(response.data.data, response.data.token));
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        showTokken();
+      } else {
+        next(action);
+      }
+
+      break;
+    }
     case SUBMITREGISTER: {
       const submitRegister = async () => {
         try {
@@ -37,7 +59,6 @@ const dataHorror = (store) => (next) => (action) => {
           const state = store.getState();
           const getEmail = state.login.loginEmail;
           const getPassword = state.login.loginPassword;
-          const baseURL = 'http://localhost:3000/';
           const response = await api.post('api/v1/login', {
             email: getEmail,
             password: getPassword,
@@ -48,7 +69,6 @@ const dataHorror = (store) => (next) => (action) => {
           if (response.data.data.pseudo) {
             store.dispatch(toggleConnected());
             localStorage.setItem('token', response.data.token);
-            const headers = new Headers();
           }
         } catch (error) {
           console.log('error', error);
