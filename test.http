@@ -20,14 +20,15 @@ GET http://localhost:3001/api/v1/user/4
 ### Suppression d'un user en fonction de son id
 DELETE http://localhost:3001/api/v1/user/14
 
-# ### Ajout d'un user en bdd
-# POST http://localhost:3001/api/v1/register
-# Content-Type: application/json
-# {
-#     "pseudo": "kikou",
-#     "email": "joie@gmail.fr",
-#     "password": "test"
-# }
+### Ajout d'un user en bdd
+POST http://localhost:3001/api/v1/register
+
+Content-Type: application/json
+{
+    "pseudo": "kikoulol",
+    "email": "joyeux@gmail.fr",
+    "password": "testdeux"
+}
 
 
 # ### Login d'un user en bdd
@@ -35,8 +36,9 @@ DELETE http://localhost:3001/api/v1/user/14
 
 
 ### Modification d'un user en bdd
-PATCH http://localhost:3001/api/v1/user/2
+PATCH http://localhost:3001/api/v1/user/5
 Content-Type: application/json
+
 {
     "pseudo": "kikou",
     "email": "joie@gmail.fr",
