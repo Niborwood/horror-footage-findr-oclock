@@ -2,7 +2,11 @@ import {
   TOGGLE_FIELD_INPUT,
   CANCEL_SETTINGS_CHANGE,
   EDIT_PROFILE_INFORMATIONS,
+  CLOSE_INPUT,
 } from '../actions/settings';
+import {
+  SAVE_NEW_LOGIN_STATE,
+} from '../actions/login';
 
 const initialState = {
   pseudoInput: false,
@@ -38,6 +42,18 @@ const SettingsReducer = (state = initialState, action) => {
         };
       }
       return state;
+    case SAVE_NEW_LOGIN_STATE:
+      console.log('test');
+      return {
+        pseudoInput: false,
+        emailInput: false,
+      };
+    case CLOSE_INPUT:
+      return {
+        ...state,
+        pseudoInput: false,
+        emailInput: false,
+      };
     default:
       return state;
   }

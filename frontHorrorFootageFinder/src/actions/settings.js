@@ -17,3 +17,7 @@ export const SUBMIT_SETTINGS = 'SUBMIT_SETTINGS';
 export const submitSettings = () => ({
   type: SUBMIT_SETTINGS,
 });
+export const CLOSE_INPUT = 'CLOSE_INPUT';
+export const closeInput = () => ({
+  type: CLOSE_INPUT,
+});
