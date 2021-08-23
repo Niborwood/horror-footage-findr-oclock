@@ -34,6 +34,7 @@ const settings = (store) => (next) => (action) => {
             password: getPassword,
           });
           if (response.data) {
+            console.log(response);
             store.dispatch(saveNewLoginState(response.data));
           }
         } catch (error) {
