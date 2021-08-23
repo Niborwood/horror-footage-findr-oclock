@@ -1,5 +1,5 @@
 import {
-  SUBMIT_SETTINGS,
+  SUBMIT_SETTINGS, updateTextInfo,
 } from '../actions/settings';
 import {
   saveNewLoginState,
@@ -32,11 +32,11 @@ const settings = (store) => (next) => (action) => {
             pseudo: getPseudo,
           });
           if (response.data) {
-            console.log(response);
             store.dispatch(saveNewLoginState(response.data.data));
           }
         } catch (error) {
           console.log('error', error);
+          store.dispatch(updateTextInfo('Erreur lors de la modifications des informations personnelles'));
         }
       };
       submitSettings();
