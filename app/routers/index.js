@@ -59,7 +59,7 @@ router.get('/api/v1/user/:id/watched', userController.userWatchedMovie);
 // Route pour afficher les infos des films que l'utilisateur a noté + les notes données of course :
 router.get('/api/v1/user/:id/ratings', userController.allRatings); //! OK
 // Route pour afficher le film et la note correspondante donné par un utilisateur :
-router.get('/api/v1/user/:id/ratings/movie/:movieId', userController.oneRating); //! OK -> Pour l'instant 1 utilisateur peut note plusieurs fois le même film ..
+router.get('/api/v1/user/:id/ratings/movie/:movieId', userController.oneRating); //! OK -> Pour l'instant 1 utilisateur peut noter plusieurs fois le même film ..
 // Route pour afficher toutes les notes d'un même film :
 router.get('/api/v1/movie/:movieId/ratings', movieController.allRatingsMovie); //! OK
 // Route pour afficher les films selon la moyenne de leurs notes par ordre décroissant, avec en paramètre le nombre de films que je souhaite afficher : :
