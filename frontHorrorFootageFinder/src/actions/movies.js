@@ -11,7 +11,7 @@ export const setTopMovies = (movies) => ({
 // Middleware pour récupérer le top 3 depuis l'API HFF
 // via Redux-Thunk
 //! Add catch logic !
-export const getTopMovies = (nbOfMovies) => (dispatch) => {
+export const getTopMovies = (nbOfMovies) => (dispatch, getState) => {
   api.get(`https://horror-footage-api.herokuapp.com/api/v1/selection/${nbOfMovies}`)
     .then((response) => {
       // On récupère la data (id et tmdbId)
@@ -38,19 +38,17 @@ export const setCurrentMovie = (movieID, tmdbData, format) => ({
 //! Add catch logic !
 export function fetchMovie(movieID, format) {
   // On conditionne les paramètres de requêtes (API, langage)
-  const requestAPI = `?api_key=${process.env.REACT_APP_TMDB_API_KEY}`;
-  const requestLocale = '&language=fr-FR';
 
   // On construit le coeur de la requête selon les données qu'on souhaite obtenir
   // et l'ID TMDB du film souhaité
-  let requestData;
+  let request;
   switch (format) {
     case 'data':
-      requestData = `movie/${movieID}`;
+      request = `movie/${movieID}`;
       break;
 
     case 'providers':
-      requestData = `movie/${movieID}/watch/providers`;
+      request = `movie/${movieID}/watch/providers`;
       break;
 
     default:
@@ -58,8 +56,6 @@ export function fetchMovie(movieID, format) {
   }
 
   // On assemble la requête complète
-  const request = requestData + requestAPI + requestLocale;
-
   return (dispatch) => {
     // On execute la requête, grâce au constructeur axios.create()
     tmdbAPI.get(request)

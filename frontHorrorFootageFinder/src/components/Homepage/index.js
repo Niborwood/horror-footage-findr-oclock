@@ -11,7 +11,6 @@ import './homepage.scss';
 export const Homepage = ({ loadTopMovies, topMovies: { loaded, tmdbIDs } }) => {
   // Appel à l'API interne pour récupérer les 3 films les plus populaires
   // selon les utilisateurs du site
-  //! Handle catch !
   useEffect(() => {
     loadTopMovies(3);
   }, []);

@@ -13,7 +13,10 @@ export const MovieInfo = ({
 }) => {
   // On récupère le film à partir de l'API
   useEffect(() => {
-    getMovie(movieID);
+    // On évite de relancer la requête si le film est déjà dans le store
+    if (!movies[movieID]) {
+      getMovie(movieID);
+    }
   }, [movieID]);
 
   // On empêche l'effet de bord si les datas du film

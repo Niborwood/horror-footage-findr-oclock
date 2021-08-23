@@ -12,7 +12,10 @@ export const MovieProviders = ({
 }) => {
   // On récupère les providers du film à partir de l'API TMDB
   useEffect(() => {
-    getMovieProviders(movieID);
+    // On évite de relancer la requête si le film est déjà dans le store
+    if (!movies.movieID) {
+      getMovieProviders(movieID);
+    }
   }, [movieID]);
 
   // On empêche l'effet de bord si les datas du film
