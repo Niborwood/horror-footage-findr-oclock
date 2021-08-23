@@ -10,6 +10,7 @@
     "pg": "^8.7.1"
   },
   "scripts": {
+    "start-dev": "node-dev index.js",
     "start": "node index.js"
   }
 }

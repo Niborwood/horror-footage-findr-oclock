@@ -64,7 +64,8 @@ module.exports = {
     async updateUser(request, response) {
         try {
             const infosToModify = request.body;
-            const editUser = await userDataMapper.modifyUser(infosToModify);
+            const infoId = request.params.id;
+            const editUser = await userDataMapper.modifyUser(infosToModify, infoId);
             response.json({data: editUser});
         } catch (error){
             console.trace(error);
