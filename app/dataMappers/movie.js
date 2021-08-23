@@ -38,31 +38,12 @@ module.exports = {
         return infos.movieId;
     },
 
-    //! EN COURS ..
-    async editMovieWatchlist(infos) {
-        let watchlistIsTrue = await client.query(`SELECT watchlist FROM horror_user_has_movie WHERE movie_id = $1 AND horror_user_id = $2`, [infos.movieId, infos.id]);
-
-        // watchlistIsTrue = true;
-        // var myWatchlist = watchlistIsTrue); //monBoolen vaut true
-
-        //! Je n'arrive pas à cibler le cas de watchlist is true ..
-        if (watchlistIsTrue === true) {
-            const result = await client.query(`UPDATE horror_user_has_movie 
-            SET watchlist = false 
-            WHERE movie_id = $1
-            AND horror_user_id = $2`, [infos.movieId, infos.id]);
-
-            return infos.movieId;
-
-        } else {
-            const result = await client.query(`UPDATE horror_user_has_movie 
-            SET watchlist = true 
-            WHERE movie_id = $1
-            AND horror_user_id = $2`, [infos.movieId, infos.id]);
-
-            return infos.movieId;
-        }
-
+    async editMovieWatchlist(infos) {       
+        const result = await client.query(`UPDATE horror_user_has_movie
+        SET watchlist = NOT watchlist
+        WHERE horror_user_has_movie.movie_id = $1 
+        AND horror_user_has_movie.horror_user_id = $2 RETURNING horror_user_id`, [infos.movieId, infos.id]);        
+        return result.rows[0];
     }
 
 };

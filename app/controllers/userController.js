@@ -43,6 +43,17 @@ module.exports = {
         }
     },
 
+    // async tokenControl(request, response) {
+    //     try {
+
+    //         const tokenPerso = request.body.token;
+    //         const userVerified = jwt.verify(tokenPerso, tokenSecret, authorizationMiddleware)
+
+    //     } catch (error) {
+
+    //     }
+    // },
+
     async addUser(request, response) {
         try {
             const newUser = request.body;
