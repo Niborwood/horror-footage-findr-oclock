@@ -22,9 +22,17 @@ DELETE http://localhost:3001/api/v1/user/14
 
 # ### Ajout d'un user en bdd
 # POST http://localhost:3001/api/v1/register
+# Content-Type: application/json
+# {
+#     "pseudo": "kikou",
+#     "email": "joie@gmail.fr",
+#     "password": "test"
+# }
+
 
 # ### Login d'un user en bdd
 # POST http://localhost:3001/api/v1/login
+
 
 ### Modification d'un user en bdd
 PATCH http://localhost:3001/api/v1/user/2
@@ -43,18 +51,21 @@ GET http://localhost:3001/api/v1/user/1/details
 ### Récupération de la watchlist d'un user en fonction de son id
 GET http://localhost:3001/api/v1/user/1/watchlist
 
-
 ### Récupération des films vus par un user en fonction de son id
 GET http://localhost:3001/api/v1/user/1/watched
 
 ### Ajout d'un film à la watchlist
 POST  http://localhost:3001/api/v1/user/3/watchlist/18
 
-### Ajouter ou supprimer un film de la watchlist
-PATCH   http://localhost:3001/api/v1/user/2/watchlist/57
 
-### Récupération des films vus par un user en fonction de son id
-GET http://localhost:3001/api/v1/selection/2
+
+### Ajouter ou supprimer un film de la watchlist
+PATCH   http://localhost:3001/api/v1/user/3/watchlist/57
+
+
+
+### Récupération des meilleurs films notés
+GET http://localhost:3001/api/v1/selection/3
 
 ### Récupération de toutes les notes d'un seul film
 GET http://localhost:3001/api/v1/movie/1/ratings
