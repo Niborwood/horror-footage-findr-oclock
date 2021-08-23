@@ -11,12 +11,9 @@ module.exports = {
 
     async addNewUser(newUser) {
         // Est-ce que ça devrait pas se faire au niveau du controller ça ?
-        const {
-            password
-        } = newUser;
 
         let salt = await bcrypt.genSalt(10);
-        let hash = await bcrypt.hash(password, salt);
+        let hash = await bcrypt.hash(newUser.password, salt);
 
         const result = await client.query(`INSERT INTO horror_user (pseudo, email, password) VALUES
         ($1, $2, $3) RETURNING id`, [newUser.pseudo, newUser.email, hash]);
@@ -34,16 +31,17 @@ module.exports = {
     },
 
     //! A TESTER  avec Arnaud
-    async modifyUser(infos) {
-        const {
-            password
-        } = infos;
+    async modifyUser(infos, infoId) {
 
+        console.log('infos.id', infoId);
+        console.log('infos pseudo', infos.pseudo);
         let salt = await bcrypt.genSalt(10);
-        let hash = await bcrypt.hash(password, salt);
+        let hash = await bcrypt.hash(infos.password, salt);
         const userUpdated = await client.query(`UPDATE horror_user
-        SET pseudo = $1, email = $2, password = $3 WHERE id = $4 RETURNING id`, [infos.pseudo, infos.email, hash, infos.id]);
-        return userUpdated.rows[0];
+        SET pseudo = $1, email = $2, password = $3 WHERE id = $4 RETURNING pseudo`, [infos.pseudo, infos.email, hash, infoId.id]);
+        console.log('infos id', infoId);
+        return infoId;
+    
     },
 
     async deleteUser(userId) {
