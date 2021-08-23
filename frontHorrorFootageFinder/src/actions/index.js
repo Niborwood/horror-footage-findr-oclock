@@ -1,17 +1,3 @@
-import axios from 'axios';
-
-// UI Actions
-export const PASS_SPLASH = 'PASS_SPLASH';
-export const passSplash = () => ({
-  type: PASS_SPLASH,
-});
-
-export const TMDB_LOADED = 'TMDB_LOADED';
-export const tmdbLoaded = (dataLoaded) => ({
-  type: TMDB_LOADED,
-  dataLoaded,
-});
-
 // Quiz Action
 export const CHOOSE_AN_ANSWER = 'CHOOSE_AN_ANSWER';
 export const SWITCH_TO_NEXT_QUESTION = 'SWITCH_TO_NEXT_QUESTION';
@@ -82,7 +68,7 @@ export const cancelSettingsChange = () => ({
   type: CANCEL_SETTINGS_CHANGE,
 });
 
-// Corentin ?
+// Corentin Login Actions
 export const login = () => ({
   type: LOGIN,
 });
@@ -90,42 +76,7 @@ export const getDataMovies = () => ({
   type: GET_DATA,
 });
 
-// MovieInfo Actions
-export const SET_CURRENT_MOVIE_DATA = 'SET_CURRENT_MOVIE_DATA';
-export const setCurrentMovieData = (currentMovieData) => ({
-  type: SET_CURRENT_MOVIE_DATA,
-  currentMovieData,
-});
-// Thunk
-export function fetchMovieData(movieID) {
-  return (dispatch) => {
-    axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=fr-FR`)
-      .then((response) => {
-        dispatch(setCurrentMovieData(response.data));
-      })
-      .finally(() => {
-        dispatch(tmdbLoaded('currentMovie'));
-      });
-  };
-}
-
-export const SET_CURRENT_MOVIE_PROVIDERS = 'SET_CURRENT_MOVIE_PROVIDERS';
-export const setCurrentMovieProviders = (currentMovieProviders) => ({
-  type: SET_CURRENT_MOVIE_PROVIDERS,
-  currentMovieProviders,
-});
-// Thunk
-export function fetchMovieProviders(movieID) {
-  return (dispatch) => {
-    axios.get(`https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=fr-FR`)
-      .then((response) => {
-        dispatch(setCurrentMovieProviders(response.data.results.FR));
-      })
-      .finally(() => {
-        dispatch(tmdbLoaded('currentMovieProviders'));
-      });
-  };
-}
+// Corentin Register Actions
 export const submitRegister = (pseudo, email, password) => ({
   type: SUBMITREGISTER,
   pseudo,

@@ -1,8 +1,8 @@
 import React from 'react';
 
 /** Cette fonction permet de mapper en strings les providers de chaque film.
- * @param {array} providerData La liste des providers en array (ex: currentMovieProviders.rent)
- * @returns {array} La liste des providers mappés en string.
+ * @param {Array} providerData La liste des providers en Array (ex: currentMovieProviders.rent)
+ * @returns {Array} La liste des providers mappés en string, ou null s'il n'y a pas de provider.
  */
 const mapProviders = (providerData) => {
   // Empêche de crasher si la liste est vide (map ne fonctionne pas avec un tableau vide)

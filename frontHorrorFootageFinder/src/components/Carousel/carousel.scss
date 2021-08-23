@@ -1,0 +1,25 @@
+.carousel {
+    position: relative;
+
+    &__list {
+        width: calc(100vw - 3rem);
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    &__movie {
+        display: inline-block;
+        width: 100%;
+    }
+
+    &__arrow-back {
+        position: absolute;
+        top: 34%;
+    }
+
+    &__arrow-next {
+        position: absolute;
+        top: 34%;
+        right: 1rem;
+    }
+}

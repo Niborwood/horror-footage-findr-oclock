@@ -8,4 +8,9 @@
   box-sizing: border-box;
   background: #151718;
   color: white;
+
+  &__content {
+    margin: auto;
+    max-width: 600px;
+  }
 }

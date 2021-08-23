@@ -2,24 +2,49 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchMovieData } from '../../actions';
+import { fetchMovie } from '../../actions/movies';
 
 import MovieButtons from '../MovieButtons';
 
 import './movieinfo.scss';
 
 export const MovieInfo = ({
-  movieID, currentMovie, getMovieData,
+  movieID, getMovie, format, movies,
 }) => {
   // On récupère le film à partir de l'API
   useEffect(() => {
-    getMovieData(movieID);
+    // On évite de relancer la requête si le film est déjà dans le store
+    if (!movies[movieID]) {
+      getMovie(movieID);
+    }
   }, [movieID]);
 
-  // On empêche l'effet de bord si les data du film
-  // ne sont pas encore réupérés
-  if (!currentMovie.loaded) {
+  // On empêche l'effet de bord si les datas du film
+  // ne sont pas encore récupérées : si les datas d'un film sont vides, on retourne le loading.
+  // Le ?. est là pour vérifier les données spécifiques (data ou providers)
+  // sans faire planter l'application si elles sont undefined.
+  //! Si bug d'affichage, on peut tester la condition : !movies[movieID]?.data.loaded
+  if (!movies[movieID]?.data) {
     return <div className="loading-container">Loading...</div>;
+  }
+
+  // On récupère les informations du film à partir du state
+  // suivant l'ID du film. Par exemple, un film avec l'ID 123
+  // sera récupéré à partir du state : state.movie.123.data
+  // Le currentMovie n'est jamais un objet vide, car s'il l'est, on returne le Loading ci-dessus.
+  const currentMovie = movies[movieID].data;
+
+  if (format === 'mini') {
+    return (
+      <div className="movie-info">
+        <div className="movie-info__left-side">
+          <img className="movie-info__poster" src={`https://www.themoviedb.org/t/p/w300/${currentMovie.poster_path}`} alt={`${currentMovie.original_title} movie poster`} title={`${currentMovie.original_title} movie poster`} />
+          <div className="movie-info__tags">
+            00S, COMMON, EUROPE, MOCKUMENTARY, MONSTERS
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -49,7 +74,8 @@ export const MovieInfo = ({
           {currentMovie.vote_average / 2}
           /5
         </div>
-        <MovieButtons />
+        {/* On passe le format à MovieButtons pour qu'il affiche ou non les deux boutons de quiz */}
+        <MovieButtons format={format} />
 
         {/* Affichage conditionnel de la collection si le film en possède une */}
         {currentMovie.belongs_to_collection
@@ -60,37 +86,33 @@ export const MovieInfo = ({
               {currentMovie.belongs_to_collection.name}
             </div>
             )}
+        {/* Affichage conditionnel de la description si le format est full */}
+        {format === 'full' && (
         <div className="movie-info__description">
           {currentMovie.overview}
         </div>
+        )}
       </div>
     </div>
   );
 };
 
 MovieInfo.propTypes = {
-  currentMovie: PropTypes.shape({
-    loaded: PropTypes.bool.isRequired,
-    original_title: PropTypes.string,
-    overview: PropTypes.string,
-    release_date: PropTypes.string,
-    vote_average: PropTypes.number,
-    belongs_to_collection: PropTypes.shape({
-      name: PropTypes.string,
-    }),
-    poster_path: PropTypes.string,
-  }).isRequired,
   movieID: PropTypes.number.isRequired,
-  getMovieData: PropTypes.func.isRequired,
+  getMovie: PropTypes.func.isRequired,
+  format: PropTypes.string.isRequired,
+  //! Pas trouvé comment vérifier un prop-type sur une propriété dynamique, donc :
+  // eslint-disable-next-line react/forbid-prop-types
+  movies: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ ui: { currentMovie } }) => ({
-  currentMovie,
+const mapStateToProps = ({ movies }) => ({
+  movies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getMovieData: (movieID) => {
-    dispatch(fetchMovieData(movieID));
+  getMovie: (movieID) => {
+    dispatch(fetchMovie(movieID, 'data'));
   },
 });
 
