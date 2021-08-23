@@ -11,7 +11,7 @@ export const setTopMovies = (movies) => ({
 // Middleware pour récupérer le top 3 depuis l'API HFF
 // via Redux-Thunk
 //! Add catch logic !
-export const getTopMovies = (nbOfMovies) => (dispatch, getState) => {
+export const getTopMovies = (nbOfMovies) => (dispatch) => {
   api.get(`https://horror-footage-api.herokuapp.com/api/v1/selection/${nbOfMovies}`)
     .then((response) => {
       // On récupère la data (id et tmdbId)

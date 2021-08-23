@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getDataMovies } from '../../actions';
 
 import './App.scss';
 
@@ -19,10 +18,7 @@ import Watchlist from '../Watchlist';
 import Settings from '../Settings';
 import Login from '../Login';
 
-function App({ splashPassed, getData }) {
-  useEffect(() => {
-    // getData();
-  }, []);
+function App({ splashPassed }) {
   return (
     <div className="app">
       { splashPassed || <Redirect to="/splash" />}
@@ -71,17 +67,13 @@ function App({ splashPassed, getData }) {
 
 App.propTypes = {
   splashPassed: PropTypes.bool.isRequired,
-  getData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ ui: { splashPassed } }) => ({
   splashPassed,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getData: () => {
-    dispatch(getDataMovies());
-  },
+const mapDispatchToProps = (/* dispatch */) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

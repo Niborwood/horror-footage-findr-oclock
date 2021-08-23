@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import './Quiz.scss';
 
-import { chooseAnAnswser, switchToNextQuestion } from '../../actions';
+import { chooseAnAnswser, switchToNextQuestion } from '../../actions/quiz';
 
 export const Quiz = ({
   question, answers, onClickAnswer, onClickNextQuestion,

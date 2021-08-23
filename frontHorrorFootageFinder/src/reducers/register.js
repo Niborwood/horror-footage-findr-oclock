@@ -2,7 +2,7 @@ import {
   CHANGE_INPUT_VALUE,
   SUBMIT_FORM,
   TOGGLE_MASKED,
-} from '../actions';
+} from '../actions/register';
 
 const initialState = {
   pseudo: '',

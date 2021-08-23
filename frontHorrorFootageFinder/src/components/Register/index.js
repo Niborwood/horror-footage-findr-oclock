@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+
 import {
   changeInputValue,
   submitForm,
   toggleMasked,
   submitRegister,
-} from '../../actions';
+} from '../../actions/register';
+
 import Field from '../Field';
 import Button from '../Button';
 import Divider from '../Divider';

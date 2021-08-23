@@ -1,28 +1,16 @@
 /* eslint-disable no-console */
 import {
-  GET_DATA,
-  SUBMITREGISTER,
   LOGIN,
   toggleConnected,
   changeStateWhenConnected,
-} from '../actions';
+} from '../actions/login';
+import {
+  SUBMITREGISTER,
+} from '../actions/register';
 import api from '../utils/api';
 
 const dataHorror = (store) => (next) => (action) => {
   switch (action.type) {
-    case GET_DATA: {
-      const getData = async () => {
-        try {
-          // api = http://localhost:3001/
-          const response = await api.get('api/v1/allmovies');
-          console.log(response.data);
-        } catch (error) {
-          console.log('error', error);
-        }
-      };
-      getData();
-      break;
-    }
     case SUBMITREGISTER: {
       const submitRegister = async () => {
         try {
@@ -30,7 +18,7 @@ const dataHorror = (store) => (next) => (action) => {
           const getPseudo = state.register.registerPseudo;
           const getEmail = state.register.registerEmail;
           const getPassword = state.register.registerConfirmPassword;
-          const response = await api.post('api/v1/register', {
+          await api.post('api/v1/register', {
             pseudo: getPseudo,
             email: getEmail,
             password: getPassword,

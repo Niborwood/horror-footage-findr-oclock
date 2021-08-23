@@ -1,6 +1,6 @@
 import {
   CHOOSE_AN_ANSWER, SWITCH_TO_NEXT_QUESTION,
-} from '../actions';
+} from '../actions/quiz';
 
 export const initialState = {
   questions: ["qu'est ce que la vie ?", 'chocolatine ou pain au chocolat ?', 'une 3eme question pour la route ?'],

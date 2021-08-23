@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { changeInputValueLogin, login } from '../../actions';
+import { changeInputValueLogin, login } from '../../actions/login';
 import Field from '../Field';
 import Button from '../Button';
 import Divider from '../Divider';

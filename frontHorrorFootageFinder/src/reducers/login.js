@@ -2,7 +2,7 @@ import {
   CHANGE_INPUT_VALUE_LOGIN,
   TOGGLE_CONNECTED,
   CHANGE_STATE_WHEN_CONNECTED,
-} from '../actions';
+} from '../actions/login';
 
 const initialState = {
   isLogged: false,
@@ -46,7 +46,7 @@ function loginReducer(state = initialState, {
         ...state,
         pseudo: value.pseudo,
         id: value.id,
-        token: token.token,
+        token,
       };
     default:
       return state;
