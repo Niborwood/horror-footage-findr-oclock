@@ -14,7 +14,7 @@ const settings = (store) => (next) => (action) => {
           const state = store.getState();
           let getPseudo = '';
           let getEmail = '';
-          const getPassword = state.login.password;
+          const getPassword = state.login.loginPassword;
 
           if (state.settings.newPseudo.length > 0) {
             getPseudo = state.settings.newPseudo;
@@ -25,7 +25,7 @@ const settings = (store) => (next) => (action) => {
           if (state.settings.newEmail.length > 0) {
             getPseudo = state.settings.newEmail;
           } else {
-            getEmail = state.login.loginEmail;
+            getEmail = state.login.email;
           }
 
           const response = await api.patch(`api/v1/user/${state.login.id}`, {

@@ -37,7 +37,7 @@ export const Settings = ({
           : (
             <div>
               {pseudo}
-              <button type="button" value="pseudoInput" onClick={onClickEdit} className="settings__adit__button">edit</button>
+              <button type="button" value="pseudoInput" onClick={onClickEdit} className="settings__edit__button">edit</button>
             </div>
           )}
         <div className="settings__item"> email : </div>
@@ -52,7 +52,7 @@ export const Settings = ({
           : (
             <div>
               {email}
-              <button type="button" value="emailInput" onClick={onClickEdit} className="settings__adit__button">edit</button>
+              <button type="button" value="emailInput" onClick={onClickEdit} className="settings__edit__button">edit</button>
             </div>
           )}
       </form>
@@ -81,6 +81,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onClickEdit: (event) => {
+    event.preventDefault();
     dispatch(toggleFieldInput(event.target.value));
   },
   onClickCancel: () => {
