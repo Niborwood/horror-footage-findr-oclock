@@ -25,7 +25,7 @@ export const Quiz = ({
       { answers.map((answer) => (
         <Button
           key={answer.value}
-          textContent={answer.value}
+          textContent={answer.description}
           onClick={onClickAnswer}
           type="button"
           className="quiz__answers-item"

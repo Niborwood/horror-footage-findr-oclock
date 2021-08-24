@@ -1,5 +1,5 @@
 import {
-  SET_MOVIE_DATA, SET_TOP_MOVIES,
+  SET_MOVIE_DATA, SET_TOP_MOVIES, SET_MOVIE_TAGS,
 } from '../actions/movies';
 
 const initialState = {
@@ -36,6 +36,19 @@ const moviesReducer = (state = initialState, action) => {
             // Ex: state.movies.123.data.movie_title | state.movies.123.providers.rent
             ...action.tmdbData,
           },
+        },
+      };
+    }
+
+    // Ce case sert à enregistrer les tags d'un film.
+    case SET_MOVIE_TAGS: {
+      return {
+        ...state,
+        [action.movieID]: {
+          ...state[action.movieID],
+          // On insère les données de notre api dans le state.
+          // Ex: state.movies.123.tags
+          tags: action.tags,
         },
       };
     }

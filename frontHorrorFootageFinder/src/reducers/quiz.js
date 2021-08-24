@@ -7,10 +7,10 @@ export const initialState = {
   currentQuestion: 0,
   savedAnswers: [],
   currentAnswers: [
-    { value: 'je passe', selected: false },
-    { value: 'c\'est 42 !', selected: false },
-    { value: "déso j'ai aqua-chèvre", selected: false },
-    { value: 'la réponse D', selected: false },
+    { description: 'Je passe', value: 'je passe', selected: false },
+    { description: 'C\'est 42', value: 'c\'est 42 !', selected: false },
+    { description: 'Déso aqua-chèvre', value: "déso j'ai aqua-chèvre", selected: false },
+    { description: 'La réponse D', value: 'la réponse D', selected: false },
   ],
 };
 
@@ -33,7 +33,7 @@ const quizReducer = (state = initialState, action) => {
       // On retire les booléens "selected" des tags pour renvoyer seulement leur value
       const cleanedAnswers = answers.map((answer) => answer.value);
 
-      // JUTSE EN ATTENDANT DE RECEVOIR DE VRAIES DATA ===>
+      // JUSTE EN ATTENDANT DE RECEVOIR DE VRAIES DATA ===>
       // on reinititaliste les currentAnswer à la main
       for (let i = 0; i < state.currentAnswers.length; i += 1) {
         // eslint-disable-next-line no-param-reassign

@@ -80,3 +80,22 @@ export function fetchMovie(movieID, format) {
       });
   };
 }
+
+// Fonction d'écriture des tags API des films dans le state
+export const SET_MOVIE_TAGS = 'SET_MOVIE_TAGS';
+export const setMovieTags = (movieID, tags) => ({
+  type: SET_MOVIE_TAGS,
+  movieID,
+  tags,
+});
+
+// Création d'un middleware pour la récupération des tags d'un film
+// et leur inscription dans le state
+export function fetchMovieTags(movieID) {
+  return (dispatch) => {
+    api.get(`api/v1/movie/${movieID}`)
+      .then((response) => {
+        dispatch(setMovieTags(movieID, response.data));
+      });
+  };
+}
