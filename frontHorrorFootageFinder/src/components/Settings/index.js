@@ -72,7 +72,7 @@ export const Settings = ({
                 <button type="button" value="emailInput" onClick={onClickEdit} className="settings__edit__button">edit</button>
               </div>
             )}
-          <h2 className="settings__sub-title">Sécurtié</h2>
+          <h2 className="settings__sub-title">Sécurité</h2>
           <div className="security-container">
             {passwordInput
               ? (
