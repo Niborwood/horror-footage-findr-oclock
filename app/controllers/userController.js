@@ -2,7 +2,7 @@ const userDataMapper = require('../dataMappers/user');
 const bcrypt = require('bcryptjs');
 
 //! TOUT CE TRUC DE TOKEN DEVRA SE FAIRE DANS : services/jwt.js
-const jwt = require('express-jwt');
+// const jwt = require('express-jwt');
 const jsonwebtoken = require('jsonwebtoken');
 //! Déplacement du JWTSecret dans le dotenv pour plus de sécurité, à retester donc !
 const jwtSecret = process.env.JWT_SECRET;
@@ -52,7 +52,7 @@ module.exports = {
                 };
                 response.json({
                     data: logginUser,
-                    token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtSecret)
+                    token: jsonwebtoken.sign(jwtContent, jwtSecret)
                 });
                 return logginUser.id;
             }

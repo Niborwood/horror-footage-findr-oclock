@@ -57,12 +57,12 @@ GET http://localhost:3001/api/v1/user/1/watchlist
 GET http://localhost:3001/api/v1/user/1/watched
 
 ### Ajout d'un film à la watchlist
-POST  http://localhost:3001/api/v1/user/3/watchlist/18
+POST  http://localhost:3001/api/v1/user/6/watchlist/24
 
 
 
 ### Ajouter ou supprimer un film de la watchlist
-PATCH   http://localhost:3001/api/v1/user/4/watchlist/78
+PATCH   http://localhost:3001/api/v1/user/6/watchlist/24
 
 
 

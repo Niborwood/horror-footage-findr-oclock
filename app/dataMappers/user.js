@@ -9,14 +9,12 @@ module.exports = {
     },
 
     async addNewUser(newUser, hash) {
-
         const result = await client.query(`INSERT INTO horror_user (pseudo, email, password) VALUES
         ($1, $2, $3) RETURNING id`, [newUser.pseudo, newUser.email, hash]);
         return result.rows;
     },
 
     async logginUser(email) {
-
         const userLogged = await client.query(`SELECT * FROM horror_user WHERE email=$1`, [email]);
         return userLogged.rows[0];
     },

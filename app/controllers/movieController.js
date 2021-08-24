@@ -1,5 +1,4 @@
 const movieDataMapper = require('../dataMappers/movie');
-const userDataMapper = require('../dataMappers/user');
 
 module.exports = {
 
@@ -54,15 +53,21 @@ module.exports = {
 
     async addMovieToWatchlist(request, response) {
         try {
-            //! Pareil vérifier si le film est déjà dans la table !
-            // movieAdded renvoie l'id du film ajouté en bdd, si besoin de l'afficher 
-            // Je peux aussi renvoyer l'id du user si vous voulez afficher le user après l'ajout en bdd :)
-            const movieAdded = await movieDataMapper.movieIntoWatchlist(request.params);
-            response.json({
-                message: 'Le film a bien été ajouté dans la watchlist',
-                data: movieAdded
-            });
-            // Si besoin que je renvoie autre chose que ce message, me faire signe ;)
+            const alreadyIn = await movieDataMapper.movieInTable(request.params);
+
+            if (!alreadyIn) {
+                const movieInWatchlist = await movieDataMapper.movieIntoWatchlist(request.params);
+                response.json({
+                    message: 'Le film a bien été ajouté à la watchlist',
+                    data: movieInWatchlist
+                });
+            } else {
+                const movieWatchlist = await movieDataMapper.movieWatchlist(request.params);
+                response.json({
+                    message: 'Le film peut tranquillement passer dans la watchlist',
+                    data: movieWatchlist
+                });
+            }
         } catch (error) {
             console.trace(error);
             response.status(500).json({
@@ -90,24 +95,16 @@ module.exports = {
     },
 
     async addWatched(request, response) {
-        //! A TESTER !!
         try {
-            console.log('je passe dans le controller')
-            const movieId= request.params.movieId;
-            // D'abord vérifier s'il est présent dans la table horror_user_has_movie :
             const movieInTable = await movieDataMapper.movieInTable(request.params);
             if (!movieInTable) {
-                console.log('pas de result, relation a faire', request.params);
                 const movieInWatched = await movieDataMapper.movieIntoWatched(request.params);
-                console.log('film ajoute', movieInWatched);
                 response.json({
                     message: 'Le film a bien été ajouté à la liste des films vus',
                     data: movieInWatched
                 });
             } else {
-                console.log('la relation existe');
                 const movieWatched = await movieDataMapper.movieWatched(request.params);
-                console.log('movieWatched', movieWatched);
                 response.json({
                     message: 'Le film peut tranquillement passer à "vu"',
                     data: movieWatched
@@ -122,7 +119,7 @@ module.exports = {
         }
     },
 
-    async editWatchedMovie(request, response){
+    async editWatchedMovie(request, response) {
         try {
             const changeWatched = await movieDataMapper.changeValueWatched(request.params);
             response.json({
@@ -130,7 +127,7 @@ module.exports = {
                 data: changeWatched
             })
 
-        } catch(error) {
+        } catch (error) {
             console.trace(error);
             response.status(500).json({
                 data: [],
@@ -139,7 +136,7 @@ module.exports = {
         }
     },
 
-    async getAllMovies(request, response) {
+    async getAllMovies(_, response) {
         try {
             const allMovies = await movieDataMapper.allMovies();
             response.json({
