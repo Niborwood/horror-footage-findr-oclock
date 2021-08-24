@@ -3,6 +3,7 @@ import {
   TOGGLE_CONNECTED,
   CHANGE_STATE_WHEN_CONNECTED,
   ERROR_MESSAGE,
+  SAVE_NEW_LOGIN_STATE,
 } from '../actions/login';
 
 const initialState = {
@@ -31,6 +32,7 @@ function loginReducer(state = initialState, {
           loginEmail: value,
         };
       }
+      // Hello
       if (name === 'Mot de passe') {
         return {
           ...state,
@@ -58,6 +60,12 @@ function loginReducer(state = initialState, {
         loginEmail: '',
         loginPassword: '',
         token,
+      };
+    case SAVE_NEW_LOGIN_STATE:
+      return {
+        ...state,
+        pseudo: value.pseudo,
+        loginEmail: value.email,
       };
     default:
       return state;
