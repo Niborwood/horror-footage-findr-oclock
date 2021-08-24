@@ -27,10 +27,8 @@ module.exports = {
         if (comparedPassword === true) {
             return userLogged.rows[0];
         }
-
     },
 
-    //! A TESTER  avec Arnaud
     async modifyUser(infos, infoId) {
         const userUpdated = await client.query(`UPDATE horror_user
         SET pseudo = $1, email = $2 WHERE id = $3 RETURNING id, pseudo, email`, [infos.pseudo, infos.email, infoId]);

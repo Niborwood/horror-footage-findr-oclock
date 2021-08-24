@@ -19,6 +19,9 @@ const quizController = require('../controllers/quizController');
 
 //! Les routes :
 
+// vérification de la présence d'un token :
+// router.post('api/v1/token', userController.tokenControl);
+
 // Routes pour trouver un film via son ID, et pour l'ajouter à une watchlist :
 router.get('/api/v1/movie/:id', movieController.movieResult);
 
