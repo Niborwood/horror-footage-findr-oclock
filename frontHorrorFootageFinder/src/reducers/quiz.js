@@ -1,5 +1,5 @@
 import {
-  CHOOSE_AN_ANSWER, SWITCH_TO_NEXT_QUESTION,
+  CHOOSE_AN_ANSWER, SWITCH_TO_NEXT_QUESTION, RESET_QUIZ,
 } from '../actions/quiz';
 
 export const initialState = {
@@ -46,6 +46,20 @@ const quizReducer = (state = initialState, action) => {
         currentQuestion: state.currentQuestion + 1,
       };
     }
+
+    // reset du quizz (action dispatch depuis le MovieButtons)
+    case RESET_QUIZ:
+      return {
+        questions: ["qu'est ce que la vie ?", 'chocolatine ou pain au chocolat ?', 'une 3eme question pour la route ?'],
+        currentQuestion: 3,
+        savedAnswers: ['test'],
+        currentAnswers: [
+          { value: 'je passe', selected: false },
+          { value: 'c\'est 42 !', selected: false },
+          { value: "déso j'ai aqua-chèvre", selected: false },
+          { value: 'la réponse D', selected: false },
+        ],
+      };
 
     default:
       return state;
