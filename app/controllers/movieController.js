@@ -1,5 +1,5 @@
 const movieDataMapper = require('../dataMappers/movie');
-const userDataMapper = require('../dataMappers/user');
+// const userDataMapper = require('../dataMappers/user');
 
 module.exports = {
 
@@ -15,7 +15,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, veuillez réessayer ultérieurement.`
+                error: 'Désolé une erreur serveur est survenue, veuillez réessayer ultérieurement.'
             });
         }
     },
@@ -29,7 +29,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de récupérer les notes de ce film, veuillez réessayer ultérieurement.`
+                error: 'Désolé une erreur serveur est survenue, impossible de récupérer les notes de ce film, veuillez réessayer ultérieurement.'
             });
         }
     },
@@ -37,15 +37,18 @@ module.exports = {
 
     async movieResult(request, response) {
         try {
-            const theMovie = await movieDataMapper.getTheMovie(request.params.id);
-            response.json({
-                data: theMovie
-            });
+            const rawMovie = await movieDataMapper.getTheMovie(request.params.tmdbId);
+            // On reprend le tmdb_id à partir de rawMovie et on ajoute un array des value
+            const movie = {
+                tmdb_id: rawMovie[0].tmdb_id,
+                tags: [...rawMovie.map(movie => movie.value)]
+            };
+            response.json(movie);
         } catch (error) {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de trouver le film, veuillez réessayer ultérieurement.`
+                error: 'Désolé une erreur serveur est survenue, impossible de trouver le film, veuillez réessayer ultérieurement.'
             });
         }
     },
@@ -64,7 +67,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible d'ajouter le film dans la watchlist, veuillez réessayer ultérieurement.`
+                error: 'Désolé une erreur serveur est survenue, impossible d\'ajouter le film dans la watchlist, veuillez réessayer ultérieurement.'
             });
         }
     },
@@ -81,7 +84,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de modifier la watchlist, veuillez réessayer ultérieurement.`
+                error: 'Désolé une erreur serveur est survenue, impossible de modifier la watchlist, veuillez réessayer ultérieurement.'
             });
         }
     },
@@ -96,7 +99,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de rappatrier tous les films, veuillez réessayer ultérieurement.`
+                error: 'Désolé une erreur serveur est survenue, impossible de rappatrier tous les films, veuillez réessayer ultérieurement.'
             });
         }
     }

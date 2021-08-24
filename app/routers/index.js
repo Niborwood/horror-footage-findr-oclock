@@ -5,7 +5,7 @@ const router = express.Router();
 // J'importe mes controllers :
 const movieController = require('../controllers/movieController');
 const userController = require('../controllers/userController');
-const ratingController = require('../controllers/ratingController');
+// const ratingController = require('../controllers/ratingController');
 const quizController = require('../controllers/quizController');
 
 // S'il y a des validations et schémas de validation on les exporte ici, comme les controllers :
@@ -22,11 +22,14 @@ const quizController = require('../controllers/quizController');
 // vérification de la présence d'un token :
 // router.post('api/v1/token', userController.tokenControl);
 
-// Routes pour trouver un film via son ID, et pour l'ajouter à une watchlist :
-router.get('/api/v1/movie/:id', movieController.movieResult);
+// Routes pour trouver un film via son tmdbID, avec ses tags :
+router.get('/api/v1/movie/:tmdbId', movieController.movieResult);
+
+// Route pour trouver tous les films suivant des critères :
+router.get('/api/v1/searchmovies', quizController.searchMovies); // Anciennement quiz, route de vue. Robin, à tester
 
 // Route pour récupérer toutes les questions du quiz :
-router.get('/api/v1/quiz', quizController.quiz);
+router.post('/api/v1/quiz', quizController.getAnswersToAQuestion); // Robin, à tester
 
 // Route pour récupérer TOUS les films de la base de données :
 router.get('/api/v1/allmovies', movieController.getAllMovies);
