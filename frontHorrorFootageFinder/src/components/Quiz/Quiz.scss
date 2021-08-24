@@ -1,3 +1,5 @@
+@use '../../assets/styles/vars';
+
 .quiz {
     display: flex;
     flex-direction: column;
@@ -5,17 +7,27 @@
 
     &__question {
         padding: 0.5rem;
+        font-size: vars.$h2-font-size;
+        white-space: pre;
+        margin-bottom: 1rem;
     }
 
     &__answers {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 1rem;
         
         &-item {
             margin: 0.1rem;
+            padding: 1rem;
         }
     }
 
     &__next-question {
         align-self: center;
         padding: 0.5rem;
+
     }
 }
