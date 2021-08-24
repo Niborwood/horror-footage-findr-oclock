@@ -10,3 +10,9 @@ export const chooseAnAnswser = (answer) => ({
 export const switchToNextQuestion = () => ({
   type: SWITCH_TO_NEXT_QUESTION,
 });
+
+// reset quiz (en test)
+export const RESET_QUIZ = 'RESET_QUIZ';
+export const resetQuiz = () => ({
+  type: RESET_QUIZ,
+});
