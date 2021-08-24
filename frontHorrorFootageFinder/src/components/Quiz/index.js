@@ -1,11 +1,21 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+// SCSS
 import './Quiz.scss';
 
+// ACTIONS FROM REDUX
 import { chooseAnAnswser, switchToNextQuestion } from '../../actions/quiz';
 
+// COMPONENT IMPORTS
+import Button from '../Button';
+import Divider from '../Divider';
+
+// QUIZ COMPONENT
 export const Quiz = ({
   question, answers, onClickAnswer, onClickNextQuestion,
 }) => (
@@ -13,19 +23,21 @@ export const Quiz = ({
     <div className="quiz__question">{question}</div>
     <div className="quiz__answers">
       { answers.map((answer) => (
-        <button
+        <Button
           key={answer.value}
+          textContent={answer.value}
           onClick={onClickAnswer}
           type="button"
           className="quiz__answers-item"
           value={answer.value}
         >
           {answer.value}
-        </button>
+        </Button>
       )) }
     </div>
+    <Divider />
     <div className="quiz__next-question">
-      <button onClick={onClickNextQuestion} type="button">Question suivante</button>
+      <a onClick={onClickNextQuestion} type="button">Question suivante</a>
     </div>
   </div>
 );
