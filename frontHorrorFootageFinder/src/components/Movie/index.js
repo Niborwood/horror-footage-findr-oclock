@@ -10,7 +10,9 @@ import MovieResults from '../MovieResults';
 
 import './movie.scss';
 
-export const Movie = ({ format, movieID }) => {
+export const Movie = ({
+  format, movieID,
+}) => {
   // On récupère l'id du film soit :
   // - à partir de la route /movie/{id} (résultat de recherche)
   // On le parse pour qu'il soit un nombre et qu'on puisse valider
@@ -43,6 +45,7 @@ export const Movie = ({ format, movieID }) => {
   );
 };
 Movie.propTypes = {
+  // FROM PARENT
   format: PropTypes.string,
   movieID: PropTypes.number,
 };
@@ -56,7 +59,6 @@ const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = () => ({
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Movie);

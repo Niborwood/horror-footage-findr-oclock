@@ -7,6 +7,7 @@ const initialState = {
   splashPassed: true,
   toggles: {
     toggleAnimations: false,
+    toggleSound: false,
     // chaque nouvel état par défaut de toggle s'ajoute ici
   },
 };
