@@ -76,11 +76,14 @@ export const Settings = ({
           <div className="security-container">
             {passwordInput
               ? (
-                <div>
+                <>
+                  Nouveau mot de passe :
                   <input type="text" field="newPassword" onChange={onChangeEditField} />
+                  Confirmer le mot de passe :
+                  <input type="text" field="newPasswordConfirm" onChange={onChangeEditField} />
                   <button type="submit">valider</button>
                   <button type="button" onClick={onClickCancel}>annuler</button>
-                </div>
+                </>
               )
               : (
                 <Button onClick={onClickEdit} textContent="Modifier le mot de passe" value="passwordInput" className="setting-button" />

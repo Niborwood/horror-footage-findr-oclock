@@ -14,9 +14,11 @@ const initialState = {
   pseudoInput: false,
   emailInput: false,
   passwordInput: false,
+  passwordConfirmInput: false,
   newPseudo: '',
   newEmail: '',
   newPassword: '',
+  newPasswordConfirm: '',
 };
 
 const SettingsReducer = (state = initialState, action) => {
@@ -27,9 +29,11 @@ const SettingsReducer = (state = initialState, action) => {
         pseudoInput: false,
         emailInput: false,
         passwordInput: false,
+        passwordConfirmInput: false,
         newPseudo: '',
         newEmail: '',
         newPassword: '',
+        newPasswordConfirm: '',
         [action.field]: !state.field,
       };
     case CANCEL_SETTINGS_CHANGE:
@@ -38,9 +42,11 @@ const SettingsReducer = (state = initialState, action) => {
         pseudoInput: false,
         emailInput: false,
         passwordInput: false,
+        passwordConfirmInput: false,
         newPseudo: '',
         newEmail: '',
         newPassword: '',
+        newPasswordConfirm: '',
       };
     case EDIT_PROFILE_INFORMATIONS:
       if (action.value.match(/^\S+$/)) {
@@ -59,6 +65,7 @@ const SettingsReducer = (state = initialState, action) => {
         pseudoInput: false,
         emailInput: false,
         passwordInput: false,
+        passwordConfirmInput: false,
       };
     case CLOSE_INPUT:
       return {
@@ -67,6 +74,7 @@ const SettingsReducer = (state = initialState, action) => {
         pseudoInput: false,
         emailInput: false,
         passwordInput: false,
+        passwordConfirmInput: false,
       };
     case UPDATE_TEXT_INFO:
       return {
