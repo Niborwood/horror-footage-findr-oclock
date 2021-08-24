@@ -39,10 +39,7 @@ module.exports = {
         try {
             const rawMovie = await movieDataMapper.getTheMovie(request.params.tmdbId);
             // On reprend le tmdb_id à partir de rawMovie et on ajoute un array des value
-            const movie = {
-                tmdb_id: rawMovie[0].tmdb_id,
-                tags: [...rawMovie.map(movie => movie.value)]
-            };
+            const movie = rawMovie.map(movie => movie.value);
             response.json(movie);
         } catch (error) {
             console.trace(error);
