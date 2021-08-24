@@ -51,8 +51,8 @@ const quizReducer = (state = initialState, action) => {
     case RESET_QUIZ:
       return {
         questions: ["qu'est ce que la vie ?", 'chocolatine ou pain au chocolat ?', 'une 3eme question pour la route ?'],
-        currentQuestion: 3,
-        savedAnswers: ['test'],
+        currentQuestion: 0,
+        savedAnswers: [],
         currentAnswers: [
           { value: 'je passe', selected: false },
           { value: 'c\'est 42 !', selected: false },

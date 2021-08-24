@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import Button from '../Button';
+
 import './settings.scss';
 import {
   toggleFieldInput,
@@ -21,6 +23,7 @@ export const Settings = ({
   pseudoInput,
   email,
   emailInput,
+  passwordInput,
   onClickEdit,
   onClickCancel,
   onChangeEditField,
@@ -70,21 +73,31 @@ export const Settings = ({
               </div>
             )}
           <h2 className="settings__sub-title">Sécurtié</h2>
-          <div>Déconnexion</div>
-          <div>supprimer le compte</div>
-          <div
-            className="settings__shared-link"
-            onClick={() => {
-              navigator.clipboard.writeText('http://localhost:3000/');
-              changeTextInfo('lien copié dans le presse-papier');
-            }}
-          >
-            partager le site
-
+          <div className="security-container">
+            {passwordInput
+              ? (
+                <div>
+                  <input type="text" field="newPassword" onChange={onChangeEditField} />
+                  <button type="submit">valider</button>
+                  <button type="button" onClick={onClickCancel}>annuler</button>
+                </div>
+              )
+              : (
+                <Button onClick={onClickEdit} textContent="Modifier le mot de passe" value="passwordInput" className="setting-button" />
+              )}
+            <Button textContent="Déconnexion" className="setting-button" />
+            <Button textContent="Supprimer le compte" className="setting-button" />
+            <Button
+              onClick={() => {
+                navigator.clipboard.writeText('http://localhost:3000/');
+                changeTextInfo('lien copié dans le presse-papier');
+              }}
+              textContent="Partager le site"
+              className="setting-button"
+            />
+            <div><NavLink to="/">Retour a la page d&apos;accueil</NavLink></div>
           </div>
-          <div><NavLink to="/">Retour a la page d&apos;accueil</NavLink></div>
         </form>
-
       </div>
     </div>
   );
@@ -96,6 +109,7 @@ Settings.propTypes = {
   pseudoInput: PropTypes.bool.isRequired,
   email: PropTypes.string.isRequired,
   emailInput: PropTypes.bool.isRequired,
+  passwordInput: PropTypes.bool.isRequired,
   onClickEdit: PropTypes.func.isRequired,
   onClickCancel: PropTypes.func.isRequired,
   onChangeEditField: PropTypes.func.isRequired,
@@ -110,6 +124,7 @@ const mapStateToProps = (state) => ({
   pseudoInput: state.settings.pseudoInput,
   email: state.login.email,
   emailInput: state.settings.emailInput,
+  passwordInput: state.settings.passwordInput,
 });
 
 const mapDispatchToProps = (dispatch) => ({

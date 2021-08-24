@@ -13,8 +13,10 @@ const initialState = {
   textInfo: '',
   pseudoInput: false,
   emailInput: false,
+  passwordInput: false,
   newPseudo: '',
   newEmail: '',
+  newPassword: '',
 };
 
 const SettingsReducer = (state = initialState, action) => {
@@ -24,8 +26,10 @@ const SettingsReducer = (state = initialState, action) => {
         ...state,
         pseudoInput: false,
         emailInput: false,
+        passwordInput: false,
         newPseudo: '',
         newEmail: '',
+        newPassword: '',
         [action.field]: !state.field,
       };
     case CANCEL_SETTINGS_CHANGE:
@@ -33,8 +37,10 @@ const SettingsReducer = (state = initialState, action) => {
         ...state,
         pseudoInput: false,
         emailInput: false,
+        passwordInput: false,
         newPseudo: '',
         newEmail: '',
+        newPassword: '',
       };
     case EDIT_PROFILE_INFORMATIONS:
       if (action.value.match(/^\S+$/)) {
@@ -43,17 +49,24 @@ const SettingsReducer = (state = initialState, action) => {
           [action.field]: action.value,
         };
       }
-      return state;
-    case SAVE_NEW_LOGIN_STATE:
       return {
-        pseudoInput: false,
-        emailInput: false,
+        ...state,
+        textInfo: 'Les espaces ne sont pas autorisés',
       };
-    case CLOSE_INPUT:
+    case SAVE_NEW_LOGIN_STATE:
       return {
         ...state,
         pseudoInput: false,
         emailInput: false,
+        passwordInput: false,
+      };
+    case CLOSE_INPUT:
+      return {
+        ...state,
+        textInfo: '',
+        pseudoInput: false,
+        emailInput: false,
+        passwordInput: false,
       };
     case UPDATE_TEXT_INFO:
       return {
