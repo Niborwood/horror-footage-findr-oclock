@@ -3,11 +3,12 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from '../reducers';
 import dataHorror from '../middlewares/dataHorror';
+import watchList from '../middlewares/watchList';
 
 const store = createStore(
   reducer,
   composeWithDevTools(
-    applyMiddleware(dataHorror, thunk),
+    applyMiddleware(dataHorror, watchList, thunk),
   ),
 );
 

@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 
 import {
   changeInputValue,
   submitForm,
   toggleMasked,
   submitRegister,
+  onChangeConfirmRegister,
 } from '../../actions/register';
 
 import Field from '../Field';
@@ -25,6 +26,8 @@ export const Register = ({
   inputMasked,
   changetoggleMasked,
   onSubmitRegister,
+  HandleOnChangeConfirmRegister,
+  confirmationRegister,
 }) => {
   const onSubmit = (event) => {
     event.preventDefault();
@@ -35,10 +38,13 @@ export const Register = ({
     } else if (registerEmail.length === 0) {
       onSubmitForm('Un email est nécessaire');
     } else {
-      onSubmitForm('confirmation correcte');
       onSubmitRegister(registerPseudo, registerEmail, registerConfirmPassword);
+      HandleOnChangeConfirmRegister();
     }
   };
+  if (confirmationRegister) {
+    return <Redirect to="/login" />;
+  }
   return (
     <div className="register___container">
       <h1 className="register___title">Register</h1>
@@ -71,6 +77,7 @@ const mapStateToProps = (state) => ({
   registerConfirmPassword: state.register.registerConfirmPassword,
   textConfirm: state.register.textConfirm,
   inputMasked: state.register.inputMasked,
+  confirmationRegister: state.register.confirmationRegister,
 });
 const mapDispatchToProps = (dispatch) => ({
   changeField: (value, name) => {
@@ -89,6 +96,10 @@ const mapDispatchToProps = (dispatch) => ({
     const action = submitRegister(pseudo, email, password);
     dispatch(action);
   },
+  HandleOnChangeConfirmRegister: () => {
+    const action = onChangeConfirmRegister();
+    dispatch(action);
+  },
 });
 
 Register.propTypes = {
@@ -102,6 +113,8 @@ Register.propTypes = {
   changetoggleMasked: PropTypes.func.isRequired,
   onSubmitRegister: PropTypes.func.isRequired,
   registerPseudo: PropTypes.string.isRequired,
+  HandleOnChangeConfirmRegister: PropTypes.func.isRequired,
+  confirmationRegister: PropTypes.bool.isRequired,
 };
 Field.defaultProps = {
   registerPassword: '',
