@@ -14,15 +14,17 @@ import './button.scss';
 // - className (string, facultatif) : le nom de la(les) classe(s) CSS à appliquer au bouton
 // - type (string, facultatif) : le type de bouton à afficher (ex: 'submit').
 // Par défaut, type='button'.
+// - value (string, facultatif) : la valeur du bouton (ex: 'mockumentary').
 export function Button({
-  textContent, onClick, to, className, type,
+  textContent, onClick, to, className, type, value,
 }) {
   return (
     <button
       className={`button-ui ${className}`}
       onClick={onClick}
       // eslint-disable-next-line react/button-has-type
-      type={type}
+      type={type || 'button'}
+      value={value}
     >
       {to ? <NavLink to={to}>{textContent}</NavLink> : textContent }
     </button>
@@ -35,6 +37,7 @@ Button.propTypes = {
   to: PropTypes.string,
   className: PropTypes.string,
   type: PropTypes.string,
+  value: PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -42,6 +45,7 @@ Button.defaultProps = {
   to: null,
   className: null,
   type: 'button',
+  value: null,
 };
 
 const mapStateToProps = () => ({

@@ -8,7 +8,7 @@ export const initialState = {
   savedAnswers: [],
   currentAnswers: [
     { value: 'je passe', selected: false },
-    { value: '42', selected: false },
+    { value: 'c\'est 42 !', selected: false },
     { value: "déso j'ai aqua-chèvre", selected: false },
     { value: 'la réponse D', selected: false },
   ],
