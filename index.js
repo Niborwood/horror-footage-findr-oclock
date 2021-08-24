@@ -30,11 +30,13 @@ app.use((req, res, next) => {
   }
 });
 
-app.use(router);
 
 app.use(express.urlencoded({
   extended: true
 }));
+
+
+app.use(router);
 
 
 app.listen(port, _ => {

@@ -1,12 +1,20 @@
 const userDataMapper = require('../dataMappers/user');
+const bcrypt = require('bcryptjs');
+
+//! TOUT CE TRUC DE TOKEN DEVRA SE FAIRE DANS : services/jwt.js
 const jwt = require('express-jwt');
 const jsonwebtoken = require('jsonwebtoken');
-const jwtSecret = 'OurSuperLongRandomSecretToSignOurJWTgre5ezg4jyt5j4ui64gn56bd4sfs5qe4erg5t5yjh46yu6knsw4q';
-const authorizationMiddleware = jwt({ secret: jwtSecret, algorithms: ['HS256'] });
-const jwtOptions = { 
-    algorithm: 'HS256', 
-    expiresIn: '3h' 
-  };
+//! Déplacement du JWTSecret dans le dotenv pour plus de sécurité, à retester donc !
+const jwtSecret = process.env.JWT_SECRET;
+//! On l'utilise comment ce middleware ensuite ?
+const authorizationMiddleware = jwt({
+    secret: jwtSecret,
+    algorithms: ['HS256']
+});
+const jwtOptions = {
+    algorithm: 'HS256',
+    expiresIn: '3h'
+};
 
 module.exports = {
 
@@ -27,14 +35,29 @@ module.exports = {
 
     async userLogged(request, response) {
         try {
-            const { email, password } = request.body;
-            const logginUser = await userDataMapper.logginUser( email, password );
-            const jwtContent = { userId : logginUser.id };
-            response.json({
-                data: logginUser,
-                token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions)
-            });
-        } catch (error){
+            const {
+                email,
+                password
+            } = request.body;
+
+            const logginUser = await userDataMapper.logginUser(email);
+            console.log('logginUser.password', logginUser.password);
+            console.log('password', password);
+            const comparedPassword = await bcrypt.compare(password, logginUser.password);
+            console.log('comparedPassword', comparedPassword);
+            if (comparedPassword === true) {
+
+                const jwtContent = {
+                    userId: logginUser.id
+                };
+                response.json({
+                    data: logginUser,
+                    token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtSecret)
+                });
+                return logginUser.id;
+            }
+
+        } catch (error) {
             console.trace(error);
             response.status(500).json({
                 data: [],
@@ -43,27 +66,43 @@ module.exports = {
         }
     },
 
-    // async tokenControl(request, response) {
-    //     try {
+    async tokenControl(request, response) {
+        try {
+            //! Dans le body ou dans header le token ??
+            console.log('ce que je recois', request.body);
+            const tokenPerso = request.body.token;
+            console.log(jwtSecret);
+            const userVerified = jsonwebtoken.verify(tokenPerso, jwtSecret, (error, user)=> {
+                if(error){
+                        console.log('error');
+                    }
+                        request.user = user;
+                    });
+                    console.log('verified', userVerified);
 
-    //         const tokenPerso = request.body.token;
-    //         const userVerified = jwt.verify(tokenPerso, tokenSecret, authorizationMiddleware)
-
-    //     } catch (error) {
-
-    //     }
-    // },
+        } catch (error) {
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible de vérifier le token, veuillez réessayer ultérieurement.`
+            });
+        }
+    },
 
     async addUser(request, response) {
         try {
             const newUser = request.body;
-            // console.log('je passe dans mon controller', newUser);
-            const userToAdd = await userDataMapper.addNewUser(newUser);
-            // console.log('je reviens dans le controller', userToAdd);
-            const userAdded = await userDataMapper.getUserById(userToAdd.id);
-            response.json({data: userAdded});
+            let salt = await bcrypt.genSalt(10);
+            let hash = await bcrypt.hash(newUser.password, salt);
 
-        }catch (error) {
+            const userToAdd = await userDataMapper.addNewUser(newUser, hash);
+
+            const userAdded = await userDataMapper.getUserById(userToAdd.id);
+            response.json({
+                data: userAdded
+            });
+
+        } catch (error) {
             console.trace(error);
             response.status(500).json({
                 data: [],
@@ -76,10 +115,12 @@ module.exports = {
         try {
             const infosToModify = request.body;
             const infoId = request.params.id;
-            
+
             const editUser = await userDataMapper.modifyUser(infosToModify, infoId);
-            response.json({data: editUser});
-        } catch (error){
+            response.json({
+                data: editUser
+            });
+        } catch (error) {
             console.trace(error);
             response.status(500).json({
                 data: [],
@@ -94,21 +135,21 @@ module.exports = {
             //! Sécuriser l'accès direct via URL de l'API ..
             //! Récupérer token et décrypter pour chopper l'id du mec à supprimer !!
 
-                const userId = request.params.id;
-                const userToDelete = await userDataMapper.getUserById(request.params.id);
+            const userId = request.params.id;
+            const userToDelete = await userDataMapper.getUserById(request.params.id);
 
-                if (!userToDelete) {
-                    response.json({
-                        message: `Cet utilisateur n'existe pas.`
-                    })
-                    return next();
-                } else {
-                    await userDataMapper.deleteUser(userId);
-                    response.json({
-                        message: `Utilisateur supprimé avec succès.`
-                    });
-                }
-           
+            if (!userToDelete) {
+                response.json({
+                    message: `Cet utilisateur n'existe pas.`
+                })
+                return next();
+            } else {
+                await userDataMapper.deleteUser(userId);
+                response.json({
+                    message: `Utilisateur supprimé avec succès.`
+                });
+            }
+
 
         } catch (error) {
             console.trace(error);
@@ -170,8 +211,10 @@ module.exports = {
         try {
             const infos = request.params;
             const movieRating = await userDataMapper.getRatingMovie(infos);
-            response.json({data: movieRating});
-        }catch {
+            response.json({
+                data: movieRating
+            });
+        } catch {
             console.trace(error);
             response.status(500).json({
                 data: [],
@@ -184,8 +227,10 @@ module.exports = {
         try {
             const userId = request.params.id;
             const allUserRatings = await userDataMapper.userRatings(userId);
-            response.json({data: allUserRatings});
-        } catch(error) {
+            response.json({
+                data: allUserRatings
+            });
+        } catch (error) {
             console.trace(error);
             response.status(500).json({
                 data: [],
