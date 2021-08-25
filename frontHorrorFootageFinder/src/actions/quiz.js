@@ -15,15 +15,15 @@ export const switchToNextQuestion = () => ({
 
 // -------------- Chargement d'une question et de ses réponses --------------
 // On enregistre dans le store les questions et les réponses correspondants à la question actuelle
-export const SAVE_QUESTION_AND_ANSWERS = 'SAVE_QUESTION_AND_ANSWERS';
-export const saveQuestionAndAnswers = (question, answers) => ({
-  type: SAVE_QUESTION_AND_ANSWERS,
+export const LOAD_QUESTION_AND_ANSWERS = 'LOAD_QUESTION_AND_ANSWERS';
+export const loadQuestionAndAnswers = (question, answers) => ({
+  type: LOAD_QUESTION_AND_ANSWERS,
   question,
   answers,
 });
 // Grâce à Redux-Thunk, on appelle l'API et on enregistre les données
-// dans le store grâce à l'action SAVE_QUESTION_AND_ANSWERS
-export const loadQuestionAndAnswers = (questionId, answers) => (dispatch) => {
+// dans le store grâce à l'action LOAD_QUESTION_AND_ANSWERS
+export const fetchQuestionAndAnswers = (questionId, answers) => (dispatch) => {
   api.post('/quiz/', {
     questionToAsk: questionId,
     answers,
@@ -36,7 +36,7 @@ export const loadQuestionAndAnswers = (questionId, answers) => (dispatch) => {
         ...answer,
         selected: false,
       }));
-      dispatch(saveQuestionAndAnswers(question, controlledAnswers));
+      dispatch(loadQuestionAndAnswers(question, controlledAnswers));
     })
     .catch((error) => {
       console.log(error);
@@ -55,8 +55,32 @@ export const saveQuestionsNumber = (nbOfQuestions) => ({
 export const loadQuestionsNumber = () => (dispatch) => {
   api.get('questions/')
     .then((response) => {
-      const nbOfQuestions = response.data;
-      dispatch(loadQuestionsNumber(nbOfQuestions));
+      const { data: nbOfQuestions } = response;
+      dispatch(saveQuestionsNumber(nbOfQuestions));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+// -------------- Chargement des réponses --------------
+// On enregistre dans le store les ids TMDB des résultats du quiz et on nettoie le state
+export const END_QUIZ = 'END_QUIZ';
+export const endQuiz = (tmdbIDs) => ({
+  type: END_QUIZ,
+  tmdbIDs,
+});
+// Grâce à Redux-Thunk, on appelle l'API TMDB et on enregistre les réponses
+// dans le store grâce à l'action END_QUIZ
+export const fetchQuizResults = (tags) => (dispatch) => {
+  api.get('/searchmovies/', {
+    params: {
+      tags,
+    },
+  })
+    .then((response) => {
+      const { data: tmdbIDs } = response;
+      dispatch(endQuiz(tmdbIDs));
     })
     .catch((error) => {
       console.log(error);

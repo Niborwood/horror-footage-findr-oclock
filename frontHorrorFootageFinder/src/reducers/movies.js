@@ -2,10 +2,15 @@ import {
   SET_MOVIE_DATA, SET_TOP_MOVIES, SET_MOVIE_TAGS,
 } from '../actions/movies';
 
+import {
+  END_QUIZ,
+} from '../actions/quiz';
+
 const initialState = {
   topMovies: {
     loaded: false,
   },
+  quizResults: [],
 };
 
 const moviesReducer = (state = initialState, action) => {
@@ -50,6 +55,14 @@ const moviesReducer = (state = initialState, action) => {
           // Ex: state.movies.123.tags
           tags: action.tags,
         },
+      };
+    }
+
+    // On gère l'intégration des IDs TMDB dans le state.
+    case END_QUIZ: {
+      return {
+        ...state,
+        quizResults: action.tmdbIDs,
       };
     }
 

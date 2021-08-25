@@ -1,6 +1,7 @@
 import {
   CHOOSE_AN_ANSWER, SWITCH_TO_NEXT_QUESTION,
-  SAVE_QUESTION_AND_ANSWERS,
+  LOAD_QUESTION_AND_ANSWERS, SAVE_QUESTIONS_NUMBER,
+  END_QUIZ,
 } from '../actions/quiz';
 
 export const initialState = {
@@ -12,6 +13,9 @@ export const initialState = {
   savedAnswers: [],
   // Tableau des réponses à la question en cours (envoyées par l'API)
   currentAnswers: [],
+  numberOfQuestions: 1,
+  numberOfAnswers: 0,
+  quizCompleted: false,
 };
 
 const quizReducer = (state = initialState, action) => {
@@ -35,25 +39,56 @@ const quizReducer = (state = initialState, action) => {
       };
     }
 
-    case SAVE_QUESTION_AND_ANSWERS:
+    case LOAD_QUESTION_AND_ANSWERS:
       return {
         ...state,
         question: action.question,
         currentAnswers: action.answers,
+        numberOfAnswers: action.answers.length,
+      };
+
+    case SAVE_QUESTIONS_NUMBER:
+      return {
+        ...state,
+        numberOfQuestions: action.nbOfQuestions,
       };
 
     case SWITCH_TO_NEXT_QUESTION: {
+      let answers;
       // On garde uniquement les élements selectionés
-      const answers = state.currentAnswers.filter((answer) => answer.selected === true);
-      // On retire les booléens "selected" des tags pour renvoyer seulement leur value
+      answers = state.currentAnswers.filter((answer) => answer.selected === true);
+      // Si aucune réponse n'est sélectionnée, on les sélectionne toutes
+      if (answers.length === 0) {
+        //! Version pour sélectionner plusieurs bonnes réponses
+        // answers = state.currentAnswers.map((answer) => ({ ...answer, selected: true }));
+        //! Version simplifiée à effacer : on sélectionne la 1ere réponse
+        answers = state.currentAnswers.map((answer, index) => {
+          if (index === 0) {
+            return { ...answer, selected: !answer.selected };
+          }
+          return answer;
+        });
+      }
+
+      // On retire les paramètres superflus des tags pour renvoyer seulement leur value
       const cleanedAnswers = answers.map((answer) => answer.value);
 
       return {
         ...state,
         savedAnswers: [...state.savedAnswers, ...cleanedAnswers],
         currentQuestion: state.currentQuestion + 1,
+        numberOfAnswers: 0,
       };
     }
+
+    case END_QUIZ:
+      return {
+        ...state,
+        currentAnswers: [],
+        currentQuestion: 1,
+        question: '',
+        quizCompleted: true,
+      };
 
     default:
       return state;

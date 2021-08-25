@@ -11,7 +11,8 @@ import './Quiz.scss';
 // ACTIONS FROM REDUX
 import {
   chooseAnAnswser, switchToNextQuestion,
-  loadQuestionAndAnswers, loadQuestionsNumber,
+  fetchQuestionAndAnswers, loadQuestionsNumber,
+  fetchQuizResults,
 } from '../../actions/quiz';
 
 // COMPONENT IMPORTS
@@ -22,24 +23,39 @@ import Divider from '../Divider';
 export const Quiz = ({
   question, onClickAnswer, onClickNextQuestion,
   currentQuestion, currentAnswers, savedAnswers, getQuestionAndAnswers,
-  getNumberOfQuestions,
+  getNumberOfQuestions, numberOfQuestions,
+  numberOfAnswers, getQuizResults, quizCompleted, firstResult,
 }) => {
+  console.log(numberOfQuestions);
+  // On charge le nombre de questions une fois
+  useEffect(() => {
+    getNumberOfQuestions();
+  }, []);
+
   // A chaque fois que la question change, on relance une requête à l'API
   // qui nous retourne les réponses/tags en fonction des filtres précédents
   useEffect(() => {
-    // Si la currentQuestion est la première,
-    // on fait enregistre le nombre de questions dans le state
-    if (currentQuestion === 1) {
-      getNumberOfQuestions();
+    console.log('Question numéro :', currentQuestion);
+    // Si la currentQuestion ne dépasse pas le nombre de questions,
+    // on charge une question et ses réponses dans le state
+    //! A retravailler, pour l'instant la condition ne passe
+    //! que parce que le reducer de numberOfQuestions = 1...
+    if (currentQuestion <= numberOfQuestions) {
+      console.log('appel api');
+      getQuestionAndAnswers(currentQuestion, savedAnswers);
+    } else {
+      getQuizResults(savedAnswers);
     }
-    getQuestionAndAnswers(currentQuestion, savedAnswers);
-  }, [currentQuestion]);
+  }, [currentQuestion, numberOfQuestions]);
 
   // Si la question ne contient qu'une seule réponse, c'est qu'elle n'a pas besoin
   // d'être posée : on peut directement passer à la prochaine question
-  if (currentAnswers.length === 1) {
-    onClickNextQuestion();
-  }
+  useEffect(() => {
+    if (numberOfAnswers === 1) {
+      console.log('question', currentQuestion, 'skipped !');
+      onClickNextQuestion();
+    }
+  }, [numberOfAnswers]);
 
   // On mappe sur les réponses de l'API pour leur donner forme avec le composant Button
   const answersList = currentAnswers.map((answer) => (
@@ -53,22 +69,24 @@ export const Quiz = ({
     />
   ));
 
-  // On retourne les données traitées
+  // On retourne les données traitées, suivant que l'utilisateur ait complété
+  // ou non le quiz (quizCompleted)
   return (
     <div className="quiz">
-      <div className="quiz__question">{question}</div>
+      <div className="quiz__question">{quizCompleted ? 'Votre found footage n\'attend que vous.' : question}</div>
       <div className="quiz__answers">
-        {answersList}
+        {quizCompleted ? 'Cliquez sur le bouton pour voir le résultat.' : answersList}
       </div>
       <Divider />
       <div className="quiz__next-question">
-        <a onClick={onClickNextQuestion} type="button">Question suivante</a>
+        {quizCompleted ? (<Button to={`/movie/${firstResult}`} textContent="Découvrir" />) : (<a onClick={onClickNextQuestion} type="button">Question suivante</a>)}
       </div>
     </div>
   );
 };
 
 Quiz.propTypes = {
+  // Question & Réponses
   question: PropTypes.string.isRequired,
   currentAnswers: PropTypes.arrayOf(
     PropTypes.shape({
@@ -79,17 +97,38 @@ Quiz.propTypes = {
   savedAnswers: PropTypes.arrayOf(
     PropTypes.string,
   ).isRequired,
+  // Données du quiz
+  currentQuestion: PropTypes.number.isRequired,
+  numberOfQuestions: PropTypes.number.isRequired,
+  numberOfAnswers: PropTypes.number.isRequired,
+  quizCompleted: PropTypes.bool.isRequired,
+  firstResult: PropTypes.number,
+  // Gestions des clics
   onClickAnswer: PropTypes.func.isRequired,
   onClickNextQuestion: PropTypes.func.isRequired,
-  currentQuestion: PropTypes.number.isRequired,
+  // Fonctions de dispatch
   getQuestionAndAnswers: PropTypes.func.isRequired,
   getNumberOfQuestions: PropTypes.func.isRequired,
+  getQuizResults: PropTypes.func.isRequired,
+};
+
+Quiz.defaultProps = {
+  firstResult: null,
 };
 
 const mapStateToProps = (
   {
     quiz: {
-      question, currentQuestion, currentAnswers, savedAnswers,
+      question,
+      currentQuestion,
+      currentAnswers,
+      savedAnswers,
+      numberOfQuestions,
+      numberOfAnswers,
+      quizCompleted,
+    },
+    movies: {
+      quizResults: [firstResult],
     },
   },
 ) => ({
@@ -97,6 +136,10 @@ const mapStateToProps = (
   currentQuestion,
   currentAnswers,
   savedAnswers,
+  numberOfQuestions,
+  numberOfAnswers,
+  quizCompleted,
+  firstResult,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -108,10 +151,15 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(switchToNextQuestion());
   },
   getQuestionAndAnswers: (currentQuestion, savedAnswers) => {
-    dispatch(loadQuestionAndAnswers(currentQuestion, savedAnswers));
+    dispatch(fetchQuestionAndAnswers(currentQuestion, savedAnswers));
   },
   getNumberOfQuestions: () => {
     dispatch(loadQuestionsNumber());
+  },
+  getQuizResults: (savedAnswers) => {
+    // On transforme le tableau de réponses en une chaine de caractères
+    const answers = savedAnswers.join(',');
+    dispatch(fetchQuizResults(answers));
   },
 });
 
