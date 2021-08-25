@@ -27,7 +27,7 @@ export function Button({
       value={value}
       selected={selected}
     >
-      {to ? <NavLink to={to}>{textContent}</NavLink> : textContent }
+      {to ? <NavLink to={to}>{textContent}</NavLink> : <div className="button-ui__content">{textContent}</div> }
     </button>
   );
 }

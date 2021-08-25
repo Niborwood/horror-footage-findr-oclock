@@ -90,6 +90,8 @@ const quizReducer = (state = initialState, action) => {
         quizCompleted: true,
       };
 
+      //! Prévoir un reset
+
     default:
       return state;
   }

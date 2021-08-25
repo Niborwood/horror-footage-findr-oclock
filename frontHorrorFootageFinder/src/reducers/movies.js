@@ -1,5 +1,5 @@
 import {
-  SET_MOVIE_DATA, SET_TOP_MOVIES, SET_MOVIE_TAGS,
+  SET_MOVIE_DATA, SET_TOP_MOVIES, SET_MOVIE_TAGS, UPDATE_QUIZ_RESULT_INDEX,
 } from '../actions/movies';
 
 import {
@@ -10,7 +10,10 @@ const initialState = {
   topMovies: {
     loaded: false,
   },
-  quizResults: [],
+  quizResults: {
+    tmdbIDs: [],
+    currentIndex: 0,
+  },
 };
 
 const moviesReducer = (state = initialState, action) => {
@@ -62,7 +65,20 @@ const moviesReducer = (state = initialState, action) => {
     case END_QUIZ: {
       return {
         ...state,
-        quizResults: action.tmdbIDs,
+        quizResults: {
+          tmdbIDs: action.tmdbIDs,
+          currentIndex: 0,
+        },
+      };
+    }
+
+    case UPDATE_QUIZ_RESULT_INDEX: {
+      return {
+        ...state,
+        quizResults: {
+          ...state.quizResults,
+          currentIndex: state.quizResults.currentIndex + 1,
+        },
       };
     }
 

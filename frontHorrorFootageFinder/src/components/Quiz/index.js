@@ -69,6 +69,7 @@ export const Quiz = ({
     />
   ));
 
+  // --------------------- RETURN COMPONENT ---------------------
   // On retourne les données traitées, suivant que l'utilisateur ait complété
   // ou non le quiz (quizCompleted)
   return (
@@ -128,7 +129,9 @@ const mapStateToProps = (
       quizCompleted,
     },
     movies: {
-      quizResults: [firstResult],
+      quizResults: {
+        tmdbIDs: [firstResult],
+      },
     },
   },
 ) => ({

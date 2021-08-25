@@ -6,14 +6,25 @@ import Button from '../Button';
 
 import './moviebuttons.scss';
 
-export const MovieButtons = ({ format }) => (
+import { updateQuizResultIndex } from '../../actions/movies';
+
+export const MovieButtons = ({
+  format, quizResults, resultsLength, currentIndex, updateResultsIndex,
+}) => (
   <div className="movie-buttons">
     <Button textContent="Déjà vu" />
     <Button textContent="Ajouter à ma liste" />
     {/* Affichage conditionnel si le format = full seulement */}
     {format === 'full' && (
       <>
-        <Button textContent="Autre résultat" />
+        {/* Si le currentIndex dépasse le nombre de résultats, on n'affiche pas le bouton */}
+        {currentIndex < resultsLength - 1 && (
+        <Button
+          to={`/movie/${quizResults[currentIndex + 1]}`}
+          onClick={updateResultsIndex}
+          textContent="Autre résultat"
+        />
+        )}
         <Button to="/quiz" textContent="Relancer le quiz" />
       </>
     )}
@@ -22,14 +33,27 @@ export const MovieButtons = ({ format }) => (
 
 MovieButtons.propTypes = {
   format: PropTypes.string.isRequired,
+  quizResults: PropTypes.arrayOf(PropTypes.number).isRequired,
+  resultsLength: PropTypes.number.isRequired,
+  updateResultsIndex: PropTypes.func.isRequired,
+  currentIndex: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = ({
+  movies: {
+    quizResults: {
+      tmdbIDs: quizResults,
+      currentIndex,
+    },
+  },
+}) => ({
+  quizResults,
+  resultsLength: quizResults.length,
+  currentIndex,
 });
 
-const mapDispatchToProps = {
-
-};
+const mapDispatchToProps = (dispatch) => ({
+  updateResultsIndex: () => dispatch(updateQuizResultIndex()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieButtons);

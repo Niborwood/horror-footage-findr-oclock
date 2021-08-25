@@ -7,7 +7,6 @@
     border: 3px solid transparent;
     font-family: inherit;
     box-shadow: 4px 4px white;
-    padding: 1rem;
     cursor: pointer;
     transition: box-shadow 0.2s ease, color 0.1s ease, background 0.2s ease;
     box-sizing: border-box;
@@ -17,6 +16,12 @@
 
     a {
         color: #333;
+        display: inline-block;
+        padding: 1rem;
+    }
+
+    &__content {
+        padding: 1rem;
     }
 
     &__launch {
