@@ -53,7 +53,7 @@ router.patch('/api/v1/user/:id', jwtMiddleware.authenticateToken, userController
 router.get('/api/v1/user/:id/details', userController.getAllDetails);
 
 // Route pour consulter les films présents dans la watchlist d'un utilisateur :
-router.get('/api/v1/user/:id/watchlist', userController.userWatchlist);
+// router.get('/api/v1/user/:id/watchlist', userController.userWatchlist);
 
 // Route pour ajouter un film à la watchlist :
 router.post('/api/v1/user/:id/watchlist/:movieId', watchlistController.addMovieToWatchlist);
@@ -68,7 +68,7 @@ router.post('/api/v1/user/:id/watched/:movieId', watchedMovieController.addWatch
 router.patch('/api/v1/user/:id/watched/:movieId', watchedMovieController.editWatchedMovie);
 
 // Route pour afficher les films ayant été vu par l'utilisateur : 
-router.get('/api/v1/user/:id/watched', userController.userWatchedMovie);
+// router.get('/api/v1/user/:id/watched', userController.userWatchedMovie);
 
 // Route pour afficher les infos des films que l'utilisateur a noté + les notes données of course :
 router.get('/api/v1/user/:id/ratings', userController.allRatings);
