@@ -97,11 +97,15 @@ export const Settings = ({
                 <MenuItem onClick={onClickEdit} textContent="Modifier le mot de passe" value="passwordInput" className="setting-button" />
               )}
             <MenuItem textContent="Déconnexion" />
-            {/* ATTENTION !!! Aucune sécurité sur la suppresion du compte
-            le compte est supprimé au click sans aucune vérif pour le moment */}
+            {/* Simple modale de confirmation pour la supressoin du compte.
+            Ca fait pas très pro, comment améliorer ça ?
+            Envoyer un mail à l'utilisateur qui permettrai de valider la suppression du compte ? */}
             <MenuItem
               textContent="Supprimer le compte"
-              onClick={onDeleteAccount}
+              onClick={() => {
+                const confirm = window.confirm('ATTENTION ! Voulez vous confirmer la supression du compte ?');
+                if (confirm) { onDeleteAccount(); }
+              }}
             />
             <div className="settings__section__separator" />
             <MenuItem
