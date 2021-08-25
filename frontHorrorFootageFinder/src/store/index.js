@@ -4,12 +4,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from '../reducers';
 import dataHorror from '../middlewares/dataHorror';
 import settings from '../middlewares/settings';
-import watchList from '../middlewares/watchList';
 
 const store = createStore(
   reducer,
   composeWithDevTools(
-    applyMiddleware(dataHorror, settings, watchList, thunk),
+    applyMiddleware(dataHorror, settings, thunk),
   ),
 );
 

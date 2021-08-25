@@ -4,8 +4,7 @@ import {
   TOGGLE_MODAL,
 } from '../actions/ui';
 import {
-  SUBMIT_WATCHED,
-  SUBMIT_WATCHLIST,
+  SUBMIT_WATCHLIST_AND_WATCHED,
 } from '../actions/watchlist';
 
 const initialState = {
@@ -27,18 +26,13 @@ const UIreducer = (state = initialState, action) => {
         ...state,
         splashPassed: true,
       };
-    case SUBMIT_WATCHED:
-      return {
-        ...state,
-        watched: action.watched,
-      };
-
-    case SUBMIT_WATCHLIST:
+    case SUBMIT_WATCHLIST_AND_WATCHED:
+      console.log('yo');
       return {
         ...state,
         watchList: action.watchlist,
+        watched: action.watched,
       };
-
     case TOGGLE_ACTION:
       return {
         ...state,
