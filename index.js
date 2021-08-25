@@ -30,10 +30,6 @@ app.use((req, res, next) => {
     }
 });
 
-<<<<<<< HEAD
-=======
-
->>>>>>> f56bea917b5249237beb9ea39c9c2ca83e967f49
 app.use(express.urlencoded({
     extended: true
 }));
@@ -41,14 +37,6 @@ app.use(express.urlencoded({
 app.use(router);
 
 
-<<<<<<< HEAD
 app.listen(port, () => {
     console.log(`http://localhost:${port}`);
-=======
-app.use(router);
-
-
-app.listen(port, _ => {
-  console.log(`http://localhost:${port}`);
->>>>>>> f56bea917b5249237beb9ea39c9c2ca83e967f49
 });
