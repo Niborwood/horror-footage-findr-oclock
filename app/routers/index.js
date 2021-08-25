@@ -34,6 +34,8 @@ router.get('/api/v1/searchmovies', quizController.searchMovies); // Anciennement
 // Route pour récupérer toutes les questions du quiz :
 router.post('/api/v1/quiz', quizController.getAnswersToAQuestion); // Robin, à tester
 
+router.get('/api/v1/questions', quizController.getNumberOfQuestions); // Robin, à tester
+
 // Route pour récupérer TOUS les films de la base de données :
 router.get('/api/v1/allmovies', movieController.getAllMovies);
 
