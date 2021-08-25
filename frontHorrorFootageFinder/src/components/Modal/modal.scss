@@ -10,9 +10,10 @@
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 
     &__wrapper {
+        min-height: 40vh;
         text-align: center;
-        background-color: #fff;
-        color: black;
+        background-color: #0827F5;
+        color: #fff;
         margin: 15% auto; /* 15% from the top and centered */
         padding: 20px;
         width: 80%; /* Could be more or less, depending on screen size */
@@ -28,17 +29,17 @@
         cursor: pointer;
         font-family: inherit;
         font-size: 1.3rem;
+        font-weight: bold;
         text-transform: uppercase;
         border: none;
-        background-color: black;
-        color: #fff;
-        box-shadow: 4px 4px 1px black;
+        background-color: #fff;
+        color: black;
+        box-shadow: 4px 4px 1px #fff;
         padding: 0.5rem;
         margin: 1rem 2rem;
 
         &:hover {
-            color: rgb(99, 99, 99);
-            box-shadow: 4px 4px 1px rgb(99, 99, 99); 
+            background-color: rgb(99, 99, 99);
         }
     }
 }

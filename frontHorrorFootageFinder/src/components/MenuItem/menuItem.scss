@@ -10,8 +10,18 @@
     padding: 0.5rem 0.25rem;
     cursor: pointer;
 
+    a {
+        color: #fff;
+    }
+
     &:hover {
         background-color: #fff;
         color: black;
+
+        & a {
+            color: black;
+        }
     }
+
+
 }
