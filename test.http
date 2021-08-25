@@ -1,0 +1,79 @@
+
+### Récupération du quizz
+GET http://localhost:3001/api/v1/quiz
+
+
+### Récupération d'un film en fonction de son id
+GET http://localhost:3001/api/v1/movie/98
+
+
+### Récupérer TOUS les films
+GET http://localhost:3001/api/v1/allmovies
+
+
+### Ajout d'un film à la watchlist
+POST http://localhost:3001/api/v1/movie/98
+
+### Récupération d'un user en fonction de son id
+GET http://localhost:3001/api/v1/user/4
+
+### Suppression d'un user en fonction de son id
+DELETE http://localhost:3001/api/v1/user/14
+
+### Ajout d'un user en bdd
+POST http://localhost:3001/api/v1/register
+
+Content-Type: application/json
+{
+    "pseudo": "kikoulol",
+    "email": "joyeux@gmail.fr",
+    "password": "testdeux"
+}
+
+
+# ### Login d'un user en bdd
+# POST http://localhost:3001/api/v1/login
+
+
+### Modification d'un user en bdd
+PATCH http://localhost:3001/api/v1/user/3
+Content-Type: application/json
+
+{
+    "pseudo": "kikou",
+    "email": "joie@gmail.fr",
+    "password": "test"
+}
+
+
+### Récupération d'un user en fonction de son id
+GET http://localhost:3001/api/v1/user/1/details
+
+
+### Récupération de la watchlist d'un user en fonction de son id
+GET http://localhost:3001/api/v1/user/1/watchlist
+
+### Récupération des films vus par un user en fonction de son id
+GET http://localhost:3001/api/v1/user/1/watched
+
+### Ajout d'un film à la watchlist
+POST  http://localhost:3001/api/v1/user/3/watchlist/18
+
+
+
+### Ajouter ou supprimer un film de la watchlist
+PATCH   http://localhost:3001/api/v1/user/3/watchlist/57
+
+
+
+### Récupération des meilleurs films notés
+GET http://localhost:3001/api/v1/selection/3
+
+### Récupération de toutes les notes d'un seul film
+GET http://localhost:3001/api/v1/movie/1/ratings
+
+### Récupération de toutes les notes d'un seul utilisateur
+GET http://localhost:3001/api/v1/user/1/ratings
+
+### Récupération de le note d'un film donné par un utilisateur
+GET http://localhost:3001/api/v1/user/1/ratings/movie/1

@@ -1,0 +1,11 @@
+USER: Email, Pseudo, Password
+appartenir, 0N MOVIE, 0N USER: Watched, Watchlist, Note,
+MOVIE: Tmdb_id
+
+Possède, 1N MOVIE,0N TAG
+
+TAG: Description
+
+Appartient, 11 TAG, 1N QUESTION
+
+QUESTION: Title
