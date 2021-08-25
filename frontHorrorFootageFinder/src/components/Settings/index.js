@@ -14,6 +14,7 @@ import {
   submitSettings,
   closeInput,
   updateTextInfo,
+  deleteAccount,
 } from '../../actions/settings';
 
 export const Settings = ({
@@ -28,6 +29,7 @@ export const Settings = ({
   onChangeEditField,
   onSubmitSettings,
   onCloseInput,
+  onDeleteAccount,
   changeTextInfo,
 }) => {
   // On ferme les inputs quand on change de page
@@ -52,7 +54,6 @@ export const Settings = ({
               <div>
                 <input type="text" className="settings__input" placeholder={pseudo} field="newPseudo" onChange={onChangeEditField} />
                 <button type="submit" className="settings__button">valider</button>
-                {/* bouton qui vide les champs dans le state et ferme les inputs */}
                 <button type="button" className="settings__button" onClick={onClickCancel}>annuler</button>
               </div>
             )
@@ -96,7 +97,12 @@ export const Settings = ({
                 <MenuItem onClick={onClickEdit} textContent="Modifier le mot de passe" value="passwordInput" className="setting-button" />
               )}
             <MenuItem textContent="Déconnexion" />
-            <MenuItem textContent="Supprimer le compte" />
+            {/* ATTENTION !!! Aucune sécurité sur la suppresion du compte
+            le compte est supprimé au click sans aucune vérif pour le moment */}
+            <MenuItem
+              textContent="Supprimer le compte"
+              onClick={onDeleteAccount}
+            />
             <div className="settings__section__separator" />
             <MenuItem
               onClick={() => {
@@ -125,6 +131,7 @@ Settings.propTypes = {
   onChangeEditField: PropTypes.func.isRequired,
   onSubmitSettings: PropTypes.func.isRequired,
   onCloseInput: PropTypes.func.isRequired,
+  onDeleteAccount: PropTypes.func.isRequired,
   changeTextInfo: PropTypes.func.isRequired,
 };
 
@@ -157,6 +164,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onCloseInput: () => {
     dispatch(closeInput());
+  },
+  onDeleteAccount: () => {
+    dispatch(deleteAccount());
   },
   changeTextInfo: (value) => {
     dispatch(updateTextInfo(value));

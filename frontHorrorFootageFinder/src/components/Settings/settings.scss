@@ -14,12 +14,6 @@
         margin: 1rem 0 0.5rem 0;
     }
 
-    &__error {
-        color: red;
-        border: 1px solid red;
-        padding: 0.5rem;
-    }
-
     &__button{
         font-family: inherit;
         text-transform: uppercase;
@@ -41,6 +35,7 @@
 
     &__info{
         color: red;
+        margin-top: 1rem;
     }
 
     &__section__separator {

@@ -1,5 +1,5 @@
 import {
-  SUBMIT_SETTINGS, updateTextInfo,
+  SUBMIT_SETTINGS, DELETE_ACCOUNT, updateTextInfo,
 } from '../actions/settings';
 import {
   saveNewLoginState,
@@ -44,6 +44,10 @@ const settings = (store) => (next) => (action) => {
         }
       };
       submitSettings();
+      break;
+    }
+    case DELETE_ACCOUNT: {
+      console.log('compte supprimé');
       break;
     }
     default:
