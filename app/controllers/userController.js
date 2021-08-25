@@ -23,11 +23,13 @@ module.exports = {
 
     async userLogged(request, response) {
         try {
+            console.log('je passe dans mon loggin controller');
             const {
                 email,
                 password
             } = request.body;
 
+            console.log('details du mec', email, password);
             const logginUser = await userDataMapper.logginUser(email);
             const comparedPassword = await bcrypt.compare(password, logginUser.password);
             console.log('userLogged', logginUser);
@@ -134,10 +136,10 @@ module.exports = {
     async getAllDetails(request, response) {
         try {
             const userDetails = await userDataMapper.userWithDetails(request.params.id);
-            const result = [...userDetails.map(result => result.tmdb_id)];
-            response.json(
-                result
-            );
+            
+            response.json({
+                data: userDetails
+            });
         } catch (error) {
             console.trace(error);
             response.status(500).json({
