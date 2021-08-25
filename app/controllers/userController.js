@@ -126,9 +126,10 @@ module.exports = {
     async getAllDetails(request, response) {
         try {
             const userDetails = await userDataMapper.userWithDetails(request.params.id);
-            response.json({
-                data: userDetails
-            });
+            const result = [...userDetails.map(result => result.tmdb_id)]
+            response.json(
+                result
+            );
         } catch (error) {
             console.trace(error);
             response.status(500).json({

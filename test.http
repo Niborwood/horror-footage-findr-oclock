@@ -15,10 +15,10 @@ GET http://localhost:3001/api/v1/allmovies
 POST http://localhost:3001/api/v1/movie/98
 
 ### Récupération d'un user en fonction de son id
-GET http://localhost:3001/api/v1/user/4
+GET http://localhost:3001/api/v1/user/7/details
 
 ### Suppression d'un user en fonction de son id
-DELETE http://localhost:3001/api/v1/user/14
+DELETE http://localhost:3001/api/v1/user/10
 
 ### Ajout d'un user en bdd
 POST http://localhost:3001/api/v1/register

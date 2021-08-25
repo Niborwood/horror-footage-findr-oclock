@@ -22,9 +22,6 @@ const jwtMiddleware = require('../services/jwt');
 
 //! Les routes :
 
-// vérification de la présence d'un token :
-// router.post('/api/v1/token', userController.tokenControl);
-
 // Routes pour trouver un film via son tmdbID, avec ses tags :
 router.get('/api/v1/movie/:tmdbId', movieController.movieResult);
 
@@ -45,7 +42,7 @@ router.post('/api/v1/login', userController.userLogged);
 
 // Routes pour trouver un utilisateur et pour le supprimer :
 router.get('/api/v1/user/:id', userController.findUser); 
-router.delete('/api/v1/user/:id', userController.deleteUser); //! Vérification sur la route API .. avec le token !!
+router.delete('/api/v1/user/:id', jwtMiddleware.authenticateToken, userController.deleteUser); //! EN COURS
 
 //! Middleware OK
 // Route pour modifier des infos du user :
@@ -59,16 +56,16 @@ router.get('/api/v1/user/:id/details', userController.getAllDetails);
 router.get('/api/v1/user/:id/watchlist', userController.userWatchlist);
 
 // Route pour ajouter un film à la watchlist :
-router.post('/api/v1/user/:id/watchlist/:movieId', movieController.addMovieToWatchlist);
+router.post('/api/v1/user/:id/watchlist/:movieId', watchlistController.addMovieToWatchlist);
 
 // Route pour modifier des infos d'un film de la watchlist (l'enlever, le rajouter) :
-router.patch('/api/v1/user/:id/watchlist/:movieId', movieController.editMovieWatchlist); 
+router.patch('/api/v1/user/:id/watchlist/:movieId', watchlistController.editMovieWatchlist); 
 
 // Route pour indiquer qu'un film a été vu : 
-router.post('/api/v1/user/:id/watched/:movieId', movieController.addWatchedMovie);
+router.post('/api/v1/user/:id/watched/:movieId', watchedMovieController.addWatchedMovie);
 
 // Route pour modifier les films watched (ajouter/enlever) :
-router.patch('/api/v1/user/:id/watched/:movieId', movieController.editWatchedMovie);
+router.patch('/api/v1/user/:id/watched/:movieId', watchedMovieController.editWatchedMovie);
 
 // Route pour afficher les films ayant été vu par l'utilisateur : 
 router.get('/api/v1/user/:id/watched', userController.userWatchedMovie);
@@ -81,6 +78,11 @@ router.get('/api/v1/user/:id/ratings/movie/:movieId', userController.oneRating);
 router.get('/api/v1/movie/:movieId/ratings', movieController.allRatingsMovie);
 // Route pour afficher les films selon la moyenne de leurs notes par ordre décroissant, avec en paramètre le nombre de films que je souhaite afficher : :
 router.get('/api/v1/selection/:limit', movieController.movieSelection);
+
+// Route pour ajouter une note à un film (crée donc une relation entre l'utilisateur et le film):
+router.post('/api/v1/user/:id/rating/movie/:movieId', ratingController.addRating);
+// Route pour modifier la note qu'un utilisateur connecté é donné à un film :
+router.patch('/api/v1/user/:id/rating/movie/:movieId', ratingController.editRating);
 
 
 module.exports = router;
