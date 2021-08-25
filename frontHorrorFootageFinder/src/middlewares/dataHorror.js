@@ -4,6 +4,7 @@ import {
   toggleConnected,
   changeStateWhenConnected,
   errorMessage,
+  CHECK_TOKEN,
 } from '../actions/login';
 import {
   SUBMITREGISTER,
@@ -37,7 +38,6 @@ const dataHorror = (store) => (next) => (action) => {
           const state = store.getState();
           const getEmail = state.login.loginEmail;
           const getPassword = state.login.loginPassword;
-          const baseURL = 'http://localhost:3000/';
           const response = await api.post('api/v1/login', {
             email: getEmail,
             password: getPassword,
@@ -45,10 +45,17 @@ const dataHorror = (store) => (next) => (action) => {
           console.log('data', response.data.data);
           console.log('token', response.data.token);
           store.dispatch(changeStateWhenConnected(response.data.data, response.data.token));
+
+          // eslint-disable-next-line dot-notation
+          api.defaults.headers.common['authorization'] = `Bearer ${response.data.token}`;
+
           if (response.data.data.pseudo) {
             store.dispatch(toggleConnected());
-            localStorage.setItem('token', response.data.token);
-            const headers = new Headers();
+            localStorage.setItem({
+              token: response.data.token,
+              pseudo: response.data.data.pseudo,
+              email: response.data.data.email,
+            });
           }
         } catch (error) {
           console.log('error', error);
