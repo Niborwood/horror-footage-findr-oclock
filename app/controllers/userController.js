@@ -39,7 +39,7 @@ module.exports = {
                 //! Appel à la fonction dans jwt.js, qui me renvoie mon token tout chaud :)
                 const token = jwtMiddleware.generateAccessToken(logginUser);
 
-                console.log('id du mec', logginuser.id);
+                console.log('id du mec', logginUser.id);
                 const watchlist = await userDataMapper.watchlist(logginUser.id);
                 const resultWatchlist = [...watchlist.map(resultWatchlist => resultWatchlist.tmdb_id)];
                 const watchedMovie = await userDataMapper.watchedMovie(logginUser.id);

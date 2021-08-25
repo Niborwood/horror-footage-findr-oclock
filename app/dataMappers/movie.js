@@ -35,6 +35,7 @@ module.exports = {
     },
 
     async allMovies() {
+        console.log('blop');
         const result = await client.query('SELECT * FROM movie');
         return result.rows;
     },
