@@ -7,12 +7,13 @@
     border: 3px solid transparent;
     font-family: inherit;
     box-shadow: 4px 4px white;
-    padding: 1rem .5rem;
+    padding: 1rem;
     cursor: pointer;
     transition: box-shadow 0.2s ease, color 0.1s ease, background 0.2s ease;
     box-sizing: border-box;
     font-weight: bold;
     text-transform: uppercase;
+    transition: .3s ease;
 
     a {
         color: #333;
@@ -20,5 +21,15 @@
 
     &__launch {
         font-size: vars.$h2-font-size;
+    }
+
+    &__selected, &:hover {
+        background: transparent;
+        border: 3px solid white;
+        color: white;
+
+        a {
+            color: white;
+        }
     }
 }

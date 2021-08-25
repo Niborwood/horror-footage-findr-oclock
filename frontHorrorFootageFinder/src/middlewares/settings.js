@@ -27,7 +27,7 @@ const settings = (store) => (next) => (action) => {
             getEmail = state.login.email;
           }
 
-          const response = await api.patch(`api/v1/user/${state.login.id}`, {
+          const response = await api.patch(`user/${state.login.id}`, {
             email: getEmail,
             pseudo: getPseudo,
           });

@@ -12,7 +12,7 @@ export const setTopMovies = (movies) => ({
 // via Redux-Thunk
 //! Add catch logic !
 export const getTopMovies = (nbOfMovies) => (dispatch) => {
-  api.get(`https://horror-footage-api.herokuapp.com/api/v1/selection/${nbOfMovies}`)
+  api.get(`selection/${nbOfMovies}`)
     .then((response) => {
       // On récupère la data (id et tmdbId)
       const { data: { data } } = response;
@@ -93,7 +93,7 @@ export const setMovieTags = (movieID, tags) => ({
 // et leur inscription dans le state
 export function fetchMovieTags(movieID) {
   return (dispatch) => {
-    api.get(`api/v1/movie/${movieID}`)
+    api.get(`movie/${movieID}`)
       .then((response) => {
         dispatch(setMovieTags(movieID, response.data));
       });

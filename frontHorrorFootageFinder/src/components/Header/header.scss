@@ -34,6 +34,12 @@
             width: 100%;
         }
     }
+    
+    &__account-link {
+        a {
+            word-break: break-word;
+        }
+    }
 
     &__title {
         font-size: 2rem;

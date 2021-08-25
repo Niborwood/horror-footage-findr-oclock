@@ -1,44 +1,52 @@
 import {
   CHOOSE_AN_ANSWER, SWITCH_TO_NEXT_QUESTION,
+  SAVE_QUESTION_AND_ANSWERS,
 } from '../actions/quiz';
 
 export const initialState = {
-  questions: ["qu'est ce que la vie ?", 'chocolatine ou pain au chocolat ?', 'une 3eme question pour la route ?'],
-  currentQuestion: 0,
+  // Intitulé de la question en cours (envoyée par l'API)
+  question: '',
+  // Etape du quiz
+  currentQuestion: 1,
+  // Tableau des réponses déjà prononcées par l'utilisateur
   savedAnswers: [],
-  currentAnswers: [
-    { description: 'Je passe', value: 'je passe', selected: false },
-    { description: 'C\'est 42', value: 'c\'est 42 !', selected: false },
-    { description: 'Déso aqua-chèvre', value: "déso j'ai aqua-chèvre", selected: false },
-    { description: 'La réponse D', value: 'la réponse D', selected: false },
-  ],
+  // Tableau des réponses à la question en cours (envoyées par l'API)
+  currentAnswers: [],
 };
 
 const quizReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CHOOSE_AN_ANSWER:
-      // On parcours le tableau des réponses fournit par la BDD
-      for (let i = 0; i < state.currentAnswers.length; i += 1) {
-        // Si l'élement du tableau correspond au bouton cliqué ou switch le "selected"
-        if (state.currentAnswers[i].value === action.answer) {
-          // eslint-disable-next-line no-param-reassign
-          state.currentAnswers[i].selected = !state.currentAnswers[i].selected;
+    case CHOOSE_AN_ANSWER: {
+    // On mappe sur les réponses du state pour retourner
+    // les réponses avec la sélection de l'utilisateur suivant l'id de l'élément
+    // passé en paramètre
+      const updatedAnswers = state.currentAnswers.map((answer) => {
+        // Si l'ID matche avec l'élément de la liste, on inverse sa propriété selected
+        if (answer.id === action.updatedAnswerID) {
+          return { ...answer, selected: !answer.selected };
         }
-      }
-      return state;
+        // Sinon, on retourne l'élément de la liste brut
+        return answer;
+      });
+
+      return {
+        ...state,
+        currentAnswers: updatedAnswers,
+      };
+    }
+
+    case SAVE_QUESTION_AND_ANSWERS:
+      return {
+        ...state,
+        question: action.question,
+        currentAnswers: action.answers,
+      };
 
     case SWITCH_TO_NEXT_QUESTION: {
       // On garde uniquement les élements selectionés
       const answers = state.currentAnswers.filter((answer) => answer.selected === true);
       // On retire les booléens "selected" des tags pour renvoyer seulement leur value
       const cleanedAnswers = answers.map((answer) => answer.value);
-
-      // JUSTE EN ATTENDANT DE RECEVOIR DE VRAIES DATA ===>
-      // on reinititaliste les currentAnswer à la main
-      for (let i = 0; i < state.currentAnswers.length; i += 1) {
-        // eslint-disable-next-line no-param-reassign
-        state.currentAnswers[i].selected = false;
-      }
 
       return {
         ...state,

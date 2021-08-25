@@ -13,7 +13,7 @@ const Header = ({ pseudo }) => (
       <div className="header__accountmenu">
         {/* Lien conditionnel si l'utilisateur est connecté */}
         {pseudo ? (
-          <NavLink to="/settings">{`${pseudo}'S CAMERA/:??`}</NavLink>
+          <NavLink className="header__account-link" to="/settings">{`${pseudo}'S CAMERA/:`}</NavLink>
         ) : (
           <NavLink to="/login">CAMERA INCONNUE/:?? LOGIN?</NavLink>
         )}
@@ -27,7 +27,7 @@ const Header = ({ pseudo }) => (
       </div>
       <div className="header__app-title">
         <NavLink to="/">
-          <div>FOUND</div>
+          <div>HORROR</div>
           <div>FOOTAGE</div>
           <div>
             FINDR

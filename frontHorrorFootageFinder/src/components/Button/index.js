@@ -16,15 +16,16 @@ import './button.scss';
 // Par défaut, type='button'.
 // - value (string, facultatif) : la valeur du bouton (ex: 'mockumentary').
 export function Button({
-  textContent, onClick, to, className, type, value,
+  textContent, onClick, to, className, type, value, selected,
 }) {
   return (
     <button
-      className={`button-ui ${className}`}
+      className={`button-ui ${className} ${selected ? 'button-ui__selected' : ''}`}
       onClick={onClick}
       // eslint-disable-next-line react/button-has-type
       type={type || 'button'}
       value={value}
+      selected={selected}
     >
       {to ? <NavLink to={to}>{textContent}</NavLink> : textContent }
     </button>
@@ -38,6 +39,7 @@ Button.propTypes = {
   className: PropTypes.string,
   type: PropTypes.string,
   value: PropTypes.string,
+  selected: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -46,6 +48,7 @@ Button.defaultProps = {
   className: null,
   type: 'button',
   value: null,
+  selected: false,
 };
 
 const mapStateToProps = () => ({
