@@ -3,9 +3,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 
-import Button from '../Button';
+import MenuItem from '../MenuItem';
 
 import './settings.scss';
 import {
@@ -15,6 +14,7 @@ import {
   submitSettings,
   closeInput,
   updateTextInfo,
+  deleteAccount,
 } from '../../actions/settings';
 
 export const Settings = ({
@@ -29,8 +29,10 @@ export const Settings = ({
   onChangeEditField,
   onSubmitSettings,
   onCloseInput,
+  onDeleteAccount,
   changeTextInfo,
 }) => {
+  // On ferme les inputs quand on change de page
   useEffect(() => () => {
     onCloseInput();
   }, []);
@@ -43,62 +45,77 @@ export const Settings = ({
           <p className="settings__info">{textInfo}</p>
           <h2 className="settings__sub-title">informations utilisateur</h2>
           <div className="settings__item"> pseudo : </div>
+          {/* le même schéma se reproduit 3 fois
+          (pour le pseudo, le mail, le password) à factoriser ?
+          on check le bool input false > on affiche un bouton edit
+                                 true  > on affiche l'input pour modif le profile */}
           {pseudoInput
             ? (
               <div>
-                <input type="text" placeholder={pseudo} field="newPseudo" onChange={onChangeEditField} />
-                <button type="submit">valider</button>
-                <button type="button" onClick={onClickCancel}>annuler</button>
+                <input type="text" className="settings__input" placeholder={pseudo} field="newPseudo" onChange={onChangeEditField} />
+                <button type="submit" className="settings__button">valider</button>
+                <button type="button" className="settings__button" onClick={onClickCancel}>annuler</button>
               </div>
             )
             : (
               <div>
                 {pseudo}
-                <button type="button" value="pseudoInput" onClick={onClickEdit} className="settings__edit__button">edit</button>
+                <button type="button" value="pseudoInput" onClick={onClickEdit} className="settings__button">edit</button>
               </div>
             )}
           <div className="settings__item"> email : </div>
           {emailInput
             ? (
               <div>
-                <input type="text" placeholder={email} field="newEmail" onChange={onChangeEditField} />
-                <button type="submit">valider</button>
-                <button type="button" onClick={onClickCancel}>annuler</button>
+                <input type="text" className="settings__input" placeholder={email} field="newEmail" onChange={onChangeEditField} />
+                <button type="submit" className="settings__button">valider</button>
+                <button type="button" className="settings__button" onClick={onClickCancel}>annuler</button>
               </div>
             )
             : (
               <div>
                 {email}
-                <button type="button" value="emailInput" onClick={onClickEdit} className="settings__edit__button">edit</button>
+                <button type="button" value="emailInput" onClick={onClickEdit} className="settings__button">edit</button>
               </div>
             )}
-          <h2 className="settings__sub-title">Sécurité</h2>
+          <h2 className="settings__sub-title">Securite</h2>
           <div className="security-container">
             {passwordInput
               ? (
                 <>
                   Nouveau mot de passe :
-                  <input type="text" field="newPassword" onChange={onChangeEditField} />
+                  <input type="text" className="settings__input" field="newPassword" onChange={onChangeEditField} />
                   Confirmer le mot de passe :
-                  <input type="text" field="newPasswordConfirm" onChange={onChangeEditField} />
-                  <button type="submit">valider</button>
-                  <button type="button" onClick={onClickCancel}>annuler</button>
+                  <input type="text" className="settings__input" field="newPasswordConfirm" onChange={onChangeEditField} />
+                  <div>
+                    <button type="submit" className="settings__button">valider</button>
+                    <button type="button" className="settings__button" onClick={onClickCancel}>annuler</button>
+                  </div>
                 </>
               )
               : (
-                <Button onClick={onClickEdit} textContent="Modifier le mot de passe" value="passwordInput" className="setting-button" />
+                <MenuItem onClick={onClickEdit} textContent="Modifier le mot de passe" value="passwordInput" className="setting-button" />
               )}
-            <Button textContent="Déconnexion" className="setting-button" />
-            <Button textContent="Supprimer le compte" className="setting-button" />
-            <Button
+            <MenuItem textContent="Déconnexion" />
+            {/* Simple modale de confirmation pour la supressoin du compte.
+            Ca fait pas très pro, comment améliorer ça ?
+            Envoyer un mail à l'utilisateur qui permettrai de valider la suppression du compte ? */}
+            <MenuItem
+              textContent="Supprimer le compte"
+              onClick={() => {
+                const confirm = window.confirm('ATTENTION ! Voulez vous confirmer la supression du compte ?');
+                if (confirm) { onDeleteAccount(); }
+              }}
+            />
+            <div className="settings__section__separator" />
+            <MenuItem
               onClick={() => {
                 navigator.clipboard.writeText('http://localhost:3000/');
                 changeTextInfo('lien copié dans le presse-papier');
               }}
               textContent="Partager le site"
-              className="setting-button"
             />
-            <div><NavLink to="/">Retour a la page d&apos;accueil</NavLink></div>
+            <MenuItem to="/" textContent="Retour a la page d'accueil" />
           </div>
         </form>
       </div>
@@ -118,6 +135,7 @@ Settings.propTypes = {
   onChangeEditField: PropTypes.func.isRequired,
   onSubmitSettings: PropTypes.func.isRequired,
   onCloseInput: PropTypes.func.isRequired,
+  onDeleteAccount: PropTypes.func.isRequired,
   changeTextInfo: PropTypes.func.isRequired,
 };
 
@@ -150,6 +168,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onCloseInput: () => {
     dispatch(closeInput());
+  },
+  onDeleteAccount: () => {
+    dispatch(deleteAccount());
   },
   changeTextInfo: (value) => {
     dispatch(updateTextInfo(value));
