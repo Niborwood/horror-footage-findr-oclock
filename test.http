@@ -83,3 +83,21 @@ POST http://localhost:3001/api/v1/user/3/watched/89
 
 ### Modifier films watched : 
 PATCH   http://localhost:3001/api/v1/user/3/watched/89
+
+
+
+### Ajout d'une note à un film :
+POST http://localhost:3001/api/v1/user/3/rating/movie/5
+Content-Type: application/json
+
+{
+    "rating": "1"
+}
+
+### Modification d'une note donné à un film par un user :
+PATCH http://localhost:3001/api/v1/user/3/rating/movie/5
+Content-Type: application/json
+
+{
+    "rating": "5"
+}

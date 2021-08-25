@@ -36,7 +36,22 @@ module.exports = {
     },
 
     async editRating(request, response) {
+        try {
+            const rating = request.body.rating;
+            const infos = request.params;
 
+            const editRating = await ratingDataMapper.addMovieRating(infos, rating);
+            response.json({
+                message: 'La note a bien été mise à jour',
+                data: editRating
+            });
+        } catch (error) {
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: 'Désolé une erreur serveur est survenue, impossible de modifier la note de ce film, veuillez réessayer ultérieurement.'
+            });
+        }
     }
 
 };

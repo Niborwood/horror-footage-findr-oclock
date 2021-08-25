@@ -7,7 +7,7 @@ module.exports = {
         ($1, $2, false, false, $3) RETURNING movie_id`, [infos.movieId, infos.id, rating]);
         return result.rows[0];
     },
-
+    
     async addMovieRating(infos, rating) {
         const result = await client.query(`UPDATE horror_user_has_movie
         SET rating = $3
