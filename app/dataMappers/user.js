@@ -3,10 +3,10 @@ const client = require('../client');
 
 module.exports = {
 
-    // async getUserById(userId) {
-    //     const result = await client.query(`SELECT pseudo FROM horror_user WHERE id = $1`, [userId]);
-    //     return result.rows[0];
-    // },
+    async getUserById(userId) {
+        const result = await client.query(`SELECT pseudo FROM horror_user WHERE id = $1`, [userId]);
+        return result.rows[0];
+    },
 
     async addNewUser(newUser, hash) {
         const result = await client.query(`INSERT INTO horror_user (pseudo, email, password) VALUES
