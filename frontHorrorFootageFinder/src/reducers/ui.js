@@ -1,6 +1,7 @@
 import {
   PASS_SPLASH,
   TOGGLE_ACTION,
+  TOGGLE_MODAL,
 } from '../actions/ui';
 import {
   SUBMIT_WATCHED,
@@ -16,6 +17,7 @@ const initialState = {
   },
   watchList: [],
   watched: [],
+  modal: false,
 };
 
 const UIreducer = (state = initialState, action) => {
@@ -44,6 +46,12 @@ const UIreducer = (state = initialState, action) => {
           ...state.toggles,
           [action.toggleName]: !state.toggles[action.toggleName],
         },
+      };
+
+    case TOGGLE_MODAL:
+      return {
+        ...state,
+        modal: !state.modal,
       };
 
     default:
