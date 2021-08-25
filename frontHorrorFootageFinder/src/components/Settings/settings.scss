@@ -1,19 +1,17 @@
 .settings{
 
     &__title {
-        margin-bottom: 1rem;
         font-size: 2rem    
     }
 
     &__sub-title {
-        margin: 1rem;
+        margin: 2rem 0 1rem 0.5rem;
         font-size: 1.4rem    
     }
 
     &__item{
         display: flex;
-        flex-direction: column;
-        margin: 0.5rem;
+        margin: 1rem 0 0.5rem 0;
     }
 
     &__error {
@@ -22,8 +20,18 @@
         padding: 0.5rem;
     }
 
-    &__edit__button{
+    &__button{
+        font-family: inherit;
+        text-transform: uppercase;
+        border: none;
+        margin: 0 0.2rem 0 0.2rem;
+    }
 
+    &__input {
+        font-family: inherit;
+        border: none;
+        padding: 0.1rem;
+        margin-right: 0.2rem;
     }
 
     &__shared-link{
@@ -34,10 +42,25 @@
     &__info{
         color: red;
     }
+
+    &__section__separator {
+        margin-top: 1.5rem;
+    }
 }
 
 .security-container {
     display: flex;
     flex-direction: column;
+
+    & .settings__button {
+        margin: 0.4rem 1rem 0.4rem 0rem;
+    }
+
+    & .settings__input {
+        margin: 0.2rem 0 0.2rem 0;
+    }
 }
 
+.security-container:nth-child(6) {
+    color: red;
+}

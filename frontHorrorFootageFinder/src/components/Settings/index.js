@@ -3,9 +3,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 
-import Button from '../Button';
+import MenuItem from '../MenuItem';
 
 import './settings.scss';
 import {
@@ -51,60 +50,62 @@ export const Settings = ({
           {pseudoInput
             ? (
               <div>
-                <input type="text" placeholder={pseudo} field="newPseudo" onChange={onChangeEditField} />
-                <button type="submit">valider</button>
+                <input type="text" className="settings__input" placeholder={pseudo} field="newPseudo" onChange={onChangeEditField} />
+                <button type="submit" className="settings__button">valider</button>
                 {/* bouton qui vide les champs dans le state et ferme les inputs */}
-                <button type="button" onClick={onClickCancel}>annuler</button>
+                <button type="button" className="settings__button" onClick={onClickCancel}>annuler</button>
               </div>
             )
             : (
               <div>
                 {pseudo}
-                <button type="button" value="pseudoInput" onClick={onClickEdit} className="settings__edit__button">edit</button>
+                <button type="button" value="pseudoInput" onClick={onClickEdit} className="settings__button">edit</button>
               </div>
             )}
           <div className="settings__item"> email : </div>
           {emailInput
             ? (
               <div>
-                <input type="text" placeholder={email} field="newEmail" onChange={onChangeEditField} />
-                <button type="submit">valider</button>
-                <button type="button" onClick={onClickCancel}>annuler</button>
+                <input type="text" className="settings__input" placeholder={email} field="newEmail" onChange={onChangeEditField} />
+                <button type="submit" className="settings__button">valider</button>
+                <button type="button" className="settings__button" onClick={onClickCancel}>annuler</button>
               </div>
             )
             : (
               <div>
                 {email}
-                <button type="button" value="emailInput" onClick={onClickEdit} className="settings__edit__button">edit</button>
+                <button type="button" value="emailInput" onClick={onClickEdit} className="settings__button">edit</button>
               </div>
             )}
-          <h2 className="settings__sub-title">Sécurité</h2>
+          <h2 className="settings__sub-title">Securite</h2>
           <div className="security-container">
             {passwordInput
               ? (
                 <>
                   Nouveau mot de passe :
-                  <input type="text" field="newPassword" onChange={onChangeEditField} />
+                  <input type="text" className="settings__input" field="newPassword" onChange={onChangeEditField} />
                   Confirmer le mot de passe :
-                  <input type="text" field="newPasswordConfirm" onChange={onChangeEditField} />
-                  <button type="submit">valider</button>
-                  <button type="button" onClick={onClickCancel}>annuler</button>
+                  <input type="text" className="settings__input" field="newPasswordConfirm" onChange={onChangeEditField} />
+                  <div>
+                    <button type="submit" className="settings__button">valider</button>
+                    <button type="button" className="settings__button" onClick={onClickCancel}>annuler</button>
+                  </div>
                 </>
               )
               : (
-                <Button onClick={onClickEdit} textContent="Modifier le mot de passe" value="passwordInput" className="setting-button" />
+                <MenuItem onClick={onClickEdit} textContent="Modifier le mot de passe" value="passwordInput" className="setting-button" />
               )}
-            <Button textContent="Déconnexion" className="setting-button" />
-            <Button textContent="Supprimer le compte" className="setting-button" />
-            <Button
+            <MenuItem textContent="Déconnexion" />
+            <MenuItem textContent="Supprimer le compte" />
+            <div className="settings__section__separator" />
+            <MenuItem
               onClick={() => {
                 navigator.clipboard.writeText('http://localhost:3000/');
                 changeTextInfo('lien copié dans le presse-papier');
               }}
               textContent="Partager le site"
-              className="setting-button"
             />
-            <div><NavLink to="/">Retour a la page d&apos;accueil</NavLink></div>
+            <MenuItem to="/" textContent="Retour a la page d'accueil" />
           </div>
         </form>
       </div>
