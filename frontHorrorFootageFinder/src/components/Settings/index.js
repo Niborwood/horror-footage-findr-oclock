@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import MenuItem from '../MenuItem';
+import Modal from '../Modal';
 
 import './settings.scss';
 import {
@@ -16,6 +17,9 @@ import {
   updateTextInfo,
   deleteAccount,
 } from '../../actions/settings';
+import {
+  toggleModal,
+} from '../../actions/ui';
 
 export const Settings = ({
   textInfo,
@@ -24,12 +28,14 @@ export const Settings = ({
   email,
   emailInput,
   passwordInput,
+  modal,
   onClickEdit,
   onClickCancel,
   onChangeEditField,
   onSubmitSettings,
   onCloseInput,
   onDeleteAccount,
+  onToggleModal,
   changeTextInfo,
 }) => {
   // On ferme les inputs quand on change de page
@@ -39,6 +45,16 @@ export const Settings = ({
 
   return (
     <div className="settings">
+      {modal
+        ? (
+          <Modal
+            title="Suppression du compte"
+            onCancel={onToggleModal}
+            onConfirm={onDeleteAccount}
+            textContent="Etes-vous sur de vouloir supprimer votre compte ?"
+          />
+        )
+        : null}
       <h1 className="settings__title">settings</h1>
       <div>
         <form onSubmit={onSubmitSettings}>
@@ -103,8 +119,7 @@ export const Settings = ({
             <MenuItem
               textContent="Supprimer le compte"
               onClick={() => {
-                const confirm = window.confirm('ATTENTION ! Voulez vous confirmer la supression du compte ?');
-                if (confirm) { onDeleteAccount(); }
+                onToggleModal();
               }}
             />
             <div className="settings__section__separator" />
@@ -114,6 +129,7 @@ export const Settings = ({
                 changeTextInfo('lien copié dans le presse-papier');
               }}
               textContent="Partager le site"
+              to="/"
             />
             <MenuItem to="/" textContent="Retour a la page d'accueil" />
           </div>
@@ -130,6 +146,7 @@ Settings.propTypes = {
   email: PropTypes.string.isRequired,
   emailInput: PropTypes.bool.isRequired,
   passwordInput: PropTypes.bool.isRequired,
+  modal: PropTypes.bool.isRequired,
   onClickEdit: PropTypes.func.isRequired,
   onClickCancel: PropTypes.func.isRequired,
   onChangeEditField: PropTypes.func.isRequired,
@@ -137,6 +154,7 @@ Settings.propTypes = {
   onCloseInput: PropTypes.func.isRequired,
   onDeleteAccount: PropTypes.func.isRequired,
   changeTextInfo: PropTypes.func.isRequired,
+  onToggleModal: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -146,6 +164,7 @@ const mapStateToProps = (state) => ({
   email: state.login.email,
   emailInput: state.settings.emailInput,
   passwordInput: state.settings.passwordInput,
+  modal: state.ui.modal,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -174,6 +193,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeTextInfo: (value) => {
     dispatch(updateTextInfo(value));
+  },
+  onToggleModal: () => {
+    dispatch(toggleModal());
   },
 });
 
