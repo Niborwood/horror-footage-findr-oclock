@@ -3,33 +3,32 @@ const JWT_SIGN_SECRET = process.env.JWT_SECRET;
 
 
 module.exports = {
-
-  generateTokenForUser(userData) {
-    return jwt.sign({
-      userId: userData.id,
-      isAdmin: userData.isAdmin
-    },
-    JWT_SIGN_SECRET,
-    {
-      algorithm: 'HS256', 
-      expiresIn: '1h'
+  
+  generateAccessToken(user) {
+    console.log('je suis dans le middleware qui crée le token, user:', user);
+    return jwt.sign(user, JWT_SIGN_SECRET, {
+      expiresIn: '10800s'
     })
   },
 
-  parseAuthorization(authorization) {
-    return (authorization != null) ? authorization.replace('Bearer ', '') : null;
-  },
+  authenticateToken(request, response, next) {
+    console.log('je passe dans le middleware authenticate, request', request.header);
+    const authHeader = request.headers['authorization'];
+    console.log('header', authHeader);
+    const token = authHeader && authHeader.split(' ')[1];
 
-  getUserId(authorization) {
-    var userId = -1;
-    var token = module.exports.parseAuthorization(authorization);
-    if(token != null) {
-      try {
-        var jwtToken = jwt.verify(token, JWT_SIGN_SECRET);
-        if(jwtToken != null)
-          userId = jwtToken.userId;
-      } catch(err) { }
+    if (!token) {
+      return response.sendStatus(401);
     }
-    return userId;
+
+    jwt.verify(token, JWT_SIGN_SECRET, (error, userDetokenise) => {
+      if (error) {
+        return response.sendStatus(401)
+      }
+      console.log('je test mon user', userDetokenise);
+      request.user = userDetokenise;
+      next();
+    })
   }
-}
+
+};

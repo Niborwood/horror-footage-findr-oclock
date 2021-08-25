@@ -1,0 +1,1 @@
+const watchlistDataMapper = require('../dataMappers/watchlist');

@@ -94,7 +94,7 @@ module.exports = {
         }
     },
 
-    async addWatched(request, response) {
+    async addWatchedMovie(request, response) {
         try {
             const movieInTable = await movieDataMapper.movieInTable(request.params);
             if (!movieInTable) {

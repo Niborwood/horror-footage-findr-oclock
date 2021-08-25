@@ -1,20 +1,8 @@
 const userDataMapper = require('../dataMappers/user');
 const bcrypt = require('bcryptjs');
 
-//! TOUT CE TRUC DE TOKEN DEVRA SE FAIRE DANS : services/jwt.js
-// const jwt = require('express-jwt');
-const jsonwebtoken = require('jsonwebtoken');
-//! Déplacement du JWTSecret dans le dotenv pour plus de sécurité, à retester donc !
-const jwtSecret = process.env.JWT_SECRET;
-//! On l'utilise comment ce middleware ensuite ?
-const authorizationMiddleware = jwt({
-    secret: jwtSecret,
-    algorithms: ['HS256']
-});
-const jwtOptions = {
-    algorithm: 'HS256',
-    expiresIn: '3h'
-};
+const jwtMiddleware = require('../services/jwt');
+
 
 module.exports = {
 
@@ -41,20 +29,19 @@ module.exports = {
             } = request.body;
 
             const logginUser = await userDataMapper.logginUser(email);
-            console.log('logginUser.password', logginUser.password);
-            console.log('password', password);
             const comparedPassword = await bcrypt.compare(password, logginUser.password);
             console.log('comparedPassword', comparedPassword);
             if (comparedPassword === true) {
-
-                const jwtContent = {
-                    userId: logginUser.id
-                };
+                console.log('je passe dans mon if positif');
+                //! Appel à la fonction dans jwt.js, qui me renvoie mon token tout chaud :)
+                const token = jwtMiddleware.generateAccessToken(logginUser);
+                console.log('token', {
+                    data: token
+                });
                 response.json({
                     data: logginUser,
-                    token: jsonwebtoken.sign(jwtContent, jwtSecret)
+                    token: token
                 });
-                return logginUser.id;
             }
 
         } catch (error) {
@@ -62,29 +49,6 @@ module.exports = {
             response.status(500).json({
                 data: [],
                 error: `Désolé une erreur serveur est survenue, impossible de vous connecter, veuillez réessayer ultérieurement.`
-            });
-        }
-    },
-
-    async tokenControl(request, response) {
-        try {
-            //! Dans le body ou dans header le token ??
-            console.log('ce que je recois', request.body);
-            const tokenPerso = request.body.token;
-            console.log(jwtSecret);
-            const userVerified = jsonwebtoken.verify(tokenPerso, jwtSecret, (error, user)=> {
-                if(error){
-                        console.log('error');
-                    }
-                        request.user = user;
-                    });
-                    console.log('verified', userVerified);
-
-        } catch (error) {
-            console.trace(error);
-            response.status(500).json({
-                data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de vérifier le token, veuillez réessayer ultérieurement.`
             });
         }
     },

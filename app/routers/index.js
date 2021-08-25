@@ -5,12 +5,15 @@ const router = express.Router();
 // J'importe mes controllers :
 const movieController = require('../controllers/movieController');
 const userController = require('../controllers/userController');
+const watchlistController = require('../controllers/watchlistController');
+const watchedMovieController = require('../controllers/watchedMovieController');
 const ratingController = require('../controllers/ratingController');
 const quizController = require('../controllers/quizController');
 
 // S'il y a des validations et schémas de validation on les exporte ici, comme les controllers :
 // ...
 
+const jwtMiddleware = require('../services/jwt');
 
 // Si on veut stocker des infos en cache avec redis pour renvoyer des infos plus rapidement, on peut require redis ici et lui indiquer diverses choses :
 // host, port, auth_pass, prefix, expire ..
@@ -20,7 +23,7 @@ const quizController = require('../controllers/quizController');
 //! Les routes :
 
 // vérification de la présence d'un token :
-router.post('/api/v1/token', userController.tokenControl);
+// router.post('/api/v1/token', userController.tokenControl);
 
 // Routes pour trouver un film via son ID, et pour l'ajouter à une watchlist :
 router.get('/api/v1/movie/:id', movieController.movieResult);
@@ -41,8 +44,10 @@ router.post('/api/v1/login', userController.userLogged);
 router.get('/api/v1/user/:id', userController.findUser); 
 router.delete('/api/v1/user/:id', userController.deleteUser); //! Vérification sur la route API .. avec le token !!
 
+//! Middleware OK
 // Route pour modifier des infos du user :
-router.patch('/api/v1/user/:id', userController.updateUser);
+router.patch('/api/v1/user/:id', jwtMiddleware.authenticateToken, userController.updateUser);
+
 
 // Route pour obtenir tous les détails d'un utilisateur, ainsi que toutes les infosde s films présents dans sa watchlist :
 router.get('/api/v1/user/:id/details', userController.getAllDetails);
@@ -57,7 +62,7 @@ router.post('/api/v1/user/:id/watchlist/:movieId', movieController.addMovieToWat
 router.patch('/api/v1/user/:id/watchlist/:movieId', movieController.editMovieWatchlist); 
 
 // Route pour indiquer qu'un film a été vu : 
-router.post('/api/v1/user/:id/watched/:movieId', movieController.addWatched);
+router.post('/api/v1/user/:id/watched/:movieId', movieController.addWatchedMovie);
 
 // Route pour modifier les films watched (ajouter/enlever) :
 router.patch('/api/v1/user/:id/watched/:movieId', movieController.editWatchedMovie);
