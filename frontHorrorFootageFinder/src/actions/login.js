@@ -25,6 +25,7 @@ export const login = () => ({
 });
 
 export const ERROR_MESSAGE = 'ERROR_MESSAGE';
+
 export const errorMessage = () => ({
   type: ERROR_MESSAGE,
 });
