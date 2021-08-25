@@ -47,18 +47,15 @@ const settings = (store) => (next) => (action) => {
       break;
     }
     case DELETE_ACCOUNT: {
-      console.log('dans le middleware delete');
       const deleteAccount = async () => {
         const state = store.getState();
         try {
-          console.log('dans le try du middleware delete');
           await api.delete(`api/v1/user/${state.login.id}`);
         } catch (error) {
           console.log('error', error);
         }
       };
       deleteAccount();
-      console.log('compte supprimé');
       break;
     }
     default:
