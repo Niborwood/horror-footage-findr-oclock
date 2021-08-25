@@ -1,5 +1,4 @@
 const movieDataMapper = require('../dataMappers/movie');
-// const userDataMapper = require('../dataMappers/user');
 
 module.exports = {
 
@@ -24,8 +23,10 @@ module.exports = {
         try {
             const movieId = request.params.movieId;
             const movieWithRatings = await movieDataMapper.movieRatings(movieId);
-            response.json({data: movieWithRatings});
-        }catch(error) {
+            response.json({
+                data: movieWithRatings
+            });
+        } catch (error) {
             console.trace(error);
             response.status(500).json({
                 data: [],
@@ -52,14 +53,21 @@ module.exports = {
 
     async addMovieToWatchlist(request, response) {
         try {
-            // movieAdded renvoie l'id du film ajouté en bdd, si besoin de l'afficher 
-            // Je peux aussi renvoyer l'id du user si vous voulez afficher le user après l'ajout en bdd :)
-            const movieAdded = await movieDataMapper.movieIntoWatchlist(request.params);
-            response.json({
-                message: 'Le film a bien été ajouté dans la watchlist',
-                data: movieAdded
-            });
-            // Si besoin que je renvoie autre chose que ce message, me faire signe ;)
+            const alreadyIn = await movieDataMapper.movieInTable(request.params);
+
+            if (!alreadyIn) {
+                const movieInWatchlist = await movieDataMapper.movieIntoWatchlist(request.params);
+                response.json({
+                    message: 'Le film a bien été ajouté à la watchlist',
+                    data: movieInWatchlist
+                });
+            } else {
+                const movieWatchlist = await movieDataMapper.movieWatchlist(request.params);
+                response.json({
+                    message: 'Le film peut tranquillement passer dans la watchlist',
+                    data: movieWatchlist
+                });
+            }
         } catch (error) {
             console.trace(error);
             response.status(500).json({
@@ -86,7 +94,49 @@ module.exports = {
         }
     },
 
-    async getAllMovies(request, response) {
+    async addWatchedMovie(request, response) {
+        try {
+            const movieInTable = await movieDataMapper.movieInTable(request.params);
+            if (!movieInTable) {
+                const movieInWatched = await movieDataMapper.movieIntoWatched(request.params);
+                response.json({
+                    message: 'Le film a bien été ajouté à la liste des films vus',
+                    data: movieInWatched
+                });
+            } else {
+                const movieWatched = await movieDataMapper.movieWatched(request.params);
+                response.json({
+                    message: 'Le film peut tranquillement passer à "vu"',
+                    data: movieWatched
+                });
+            }
+        } catch (error) {
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible d'indiquer que le film a été vu, veuillez réessayer ultérieurement.`
+            });
+        }
+    },
+
+    async editWatchedMovie(request, response) {
+        try {
+            const changeWatched = await movieDataMapper.changeValueWatched(request.params);
+            response.json({
+                message: 'La valeur de watched a bien été modifiée',
+                data: changeWatched
+            })
+
+        } catch (error) {
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible d'indiquer de mettre à jour la valeur de watched, veuillez réessayer ultérieurement.`
+            });
+        }
+    },
+
+    async getAllMovies(_, response) {
         try {
             const allMovies = await movieDataMapper.allMovies();
             response.json({
