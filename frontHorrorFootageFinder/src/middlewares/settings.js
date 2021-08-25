@@ -15,6 +15,10 @@ const settings = (store) => (next) => (action) => {
           let getPseudo = '';
           let getEmail = '';
 
+          // on vérifie que les modifs reçus soit ok pour les changer en BDD
+          // actuellement on vérifie seulement que les champs ne soit pas vide.
+          // on pourrait éventuellement vérifier plus de choses ?
+          // (notament pour le password à l'avenir)
           if (state.settings.newPseudo.length > 0) {
             getPseudo = state.settings.newPseudo;
           } else {

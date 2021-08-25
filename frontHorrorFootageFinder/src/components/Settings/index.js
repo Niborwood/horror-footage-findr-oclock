@@ -31,6 +31,7 @@ export const Settings = ({
   onCloseInput,
   changeTextInfo,
 }) => {
+  // On ferme les inputs quand on change de page
   useEffect(() => () => {
     onCloseInput();
   }, []);
@@ -43,11 +44,16 @@ export const Settings = ({
           <p className="settings__info">{textInfo}</p>
           <h2 className="settings__sub-title">informations utilisateur</h2>
           <div className="settings__item"> pseudo : </div>
+          {/* le même schéma se reproduit 3 fois
+          (pour le pseudo, le mail, le password) à factoriser ?
+          on check le bool input false > on affiche un bouton edit
+                                 true  > on affiche l'input pour modif le profile */}
           {pseudoInput
             ? (
               <div>
                 <input type="text" placeholder={pseudo} field="newPseudo" onChange={onChangeEditField} />
                 <button type="submit">valider</button>
+                {/* bouton qui vide les champs dans le state et ferme les inputs */}
                 <button type="button" onClick={onClickCancel}>annuler</button>
               </div>
             )
