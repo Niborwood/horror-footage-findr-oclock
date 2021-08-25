@@ -6,13 +6,18 @@ import Button from '../Button';
 import Carousel from '../Carousel';
 
 import { getTopMovies } from '../../actions/movies';
+import { checkToken } from '../../actions/login';
+
 import './homepage.scss';
 
-export const Homepage = ({ loadTopMovies, topMovies: { loaded, tmdbIDs } }) => {
+export const Homepage = ({ loadTopMovies, startCheckToken, topMovies: { loaded, tmdbIDs } }) => {
   // Appel à l'API interne pour récupérer les 3 films les plus populaires
   // selon les utilisateurs du site
+
   useEffect(() => {
     loadTopMovies(3);
+    startCheckToken();
+    console.log('useeffect');
   }, []);
 
   // Gestion du bouton "Découvrir" pour le carousel de sélection
@@ -56,6 +61,7 @@ export const Homepage = ({ loadTopMovies, topMovies: { loaded, tmdbIDs } }) => {
 
 Homepage.propTypes = {
   loadTopMovies: PropTypes.func.isRequired,
+  startCheckToken: PropTypes.func.isRequired,
   topMovies: PropTypes.shape({
     loaded: PropTypes.bool.isRequired,
     tmdbIDs: PropTypes.arrayOf(
@@ -71,6 +77,10 @@ const mapStateToProps = ({ movies: { topMovies } }) => ({
 const mapDispatchToProps = (dispatch) => ({
   loadTopMovies: (movies) => {
     dispatch(getTopMovies(movies));
+  },
+  startCheckToken: () => {
+    const action = checkToken();
+    dispatch(action);
   },
 });
 
