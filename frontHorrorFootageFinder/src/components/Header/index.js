@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import PropTypes from 'prop-types';
 // import PropTypes from 'prop-types';
@@ -10,7 +11,15 @@ const Header = ({ pseudo }) => (
   <header className="header">
     <div className="header__leftmenu">
       <div className="header__stby">STBY</div>
-      <div className="header__accountmenu"><NavLink to="/login">{pseudo ? `${pseudo}'S CAMERA` : 'CAMERA INCONNUE/:?? LOGIN?'}</NavLink></div>
+      <div className="header__accountmenu">
+        {pseudo ? (
+          <NavLink to="/profile">
+            {pseudo}
+            'S CAMERA
+          </NavLink>
+        ) : <NavLink to="/login">CAMERA INCONNUE/:?? LOGIN?</NavLink> }
+
+      </div>
     </div>
     <h1 className="header__title">
       <div className="header__logo">
