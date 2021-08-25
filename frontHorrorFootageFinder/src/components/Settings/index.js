@@ -20,6 +20,7 @@ import {
 import {
   toggleModal,
 } from '../../actions/ui';
+import { clearState } from '../../actions/login';
 
 export const Settings = ({
   textInfo,
@@ -37,10 +38,12 @@ export const Settings = ({
   onDeleteAccount,
   onToggleModal,
   changeTextInfo,
+  signOut,
 }) => {
   // On ferme les inputs quand on change de page
   useEffect(() => () => {
     onCloseInput();
+    if (modal) onToggleModal();
   }, []);
 
   return (
@@ -51,6 +54,7 @@ export const Settings = ({
             title="Suppression du compte"
             onCancel={onToggleModal}
             onConfirm={onDeleteAccount}
+            redirect="/"
             textContent="Etes-vous sur de vouloir supprimer votre compte ?"
           />
         )
@@ -83,7 +87,7 @@ export const Settings = ({
           {emailInput
             ? (
               <div>
-                <input type="text" className="settings__input" placeholder={email} field="newEmail" onChange={onChangeEditField} />
+                <input type="email" className="settings__input" placeholder={email} field="newEmail" onChange={onChangeEditField} />
                 <button type="submit" className="settings__button">valider</button>
                 <button type="button" className="settings__button" onClick={onClickCancel}>annuler</button>
               </div>
@@ -112,7 +116,7 @@ export const Settings = ({
               : (
                 <MenuItem onClick={onClickEdit} textContent="Modifier le mot de passe" value="passwordInput" className="setting-button" />
               )}
-            <MenuItem textContent="Déconnexion" />
+            <MenuItem textContent="Déconnexion" onClick={signOut} to="/" />
             {/* Simple modale de confirmation pour la supressoin du compte.
             Ca fait pas très pro, comment améliorer ça ?
             Envoyer un mail à l'utilisateur qui permettrai de valider la suppression du compte ? */}
@@ -129,7 +133,6 @@ export const Settings = ({
                 changeTextInfo('lien copié dans le presse-papier');
               }}
               textContent="Partager le site"
-              to="/"
             />
             <MenuItem to="/" textContent="Retour a la page d'accueil" />
           </div>
@@ -155,6 +158,7 @@ Settings.propTypes = {
   onDeleteAccount: PropTypes.func.isRequired,
   changeTextInfo: PropTypes.func.isRequired,
   onToggleModal: PropTypes.func.isRequired,
+  signOut: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -196,6 +200,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onToggleModal: () => {
     dispatch(toggleModal());
+  },
+  signOut: () => {
+    dispatch(clearState());
   },
 });
 

@@ -3,6 +3,7 @@ import {
 } from '../actions/settings';
 import {
   saveNewLoginState,
+  clearState,
 } from '../actions/login';
 import api from '../utils/api';
 
@@ -23,6 +24,7 @@ const settings = (store) => (next) => (action) => {
             getPseudo = state.settings.newPseudo;
           } else {
             getPseudo = state.login.pseudo;
+            store.dispatch(updateTextInfo('le champ ne doit pas etre vide'));
           }
 
           if (state.settings.newEmail.length > 0) {
@@ -51,6 +53,7 @@ const settings = (store) => (next) => (action) => {
         const state = store.getState();
         try {
           await api.delete(`api/v1/user/${state.login.id}`);
+          store.dispatch(clearState());
         } catch (error) {
           console.log('error', error);
         }

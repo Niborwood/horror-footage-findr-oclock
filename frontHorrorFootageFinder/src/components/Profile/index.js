@@ -3,14 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import MenuItem from '../MenuItem';
+
+import './profile.scss';
+
 export const Profile = () => (
   <div>
-    <h1>Compte Utilisateur</h1>
-    <ol>
-      <li><NavLink to="/watchlist" className="">watchlist</NavLink></li>
-      <li><NavLink to="/settings" className="">settings</NavLink></li>
-    </ol>
-    <div><NavLink to="/" className="">Retour à la page d&apos;accueil</NavLink></div>
+    <h1 className="profile__main-title">Compte Utilisateur</h1>
+    <div className="profile__container">
+      <MenuItem to="/watchlist" textContent="watchlist" />
+      <MenuItem to="/settings" textContent="settings" />
+      <MenuItem to="/" textContent="Retour à la page d'accueil" />
+    </div>
   </div>
 );
 
