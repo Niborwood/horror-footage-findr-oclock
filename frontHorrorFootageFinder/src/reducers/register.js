@@ -2,6 +2,7 @@ import {
   CHANGE_INPUT_VALUE,
   SUBMIT_FORM,
   TOGGLE_MASKED,
+  ON_CHANGE_CONFIRMREGISTER,
 } from '../actions/register';
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   registerPseudo: '',
   textConfirm: '',
   inputMasked: false,
+  confirmationRegister: false,
 };
 
 // eslint-disable-next-line consistent-return
@@ -21,6 +23,11 @@ function registerReducer(state = initialState, { type, name, value }) {
       return {
         ...state,
         inputMasked: !state.inputMasked,
+      };
+    case ON_CHANGE_CONFIRMREGISTER:
+      return {
+        ...state,
+        confirmationRegister: true,
       };
     case CHANGE_INPUT_VALUE: {
       if (name === 'Email') {

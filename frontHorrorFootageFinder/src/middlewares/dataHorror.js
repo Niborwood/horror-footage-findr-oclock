@@ -6,6 +6,7 @@ import {
   errorMessage,
   CHECK_TOKEN,
 } from '../actions/login';
+import { submitWatchlistAndWatched } from '../actions/watchlist';
 import {
   SUBMITREGISTER,
 } from '../actions/register';
@@ -56,6 +57,7 @@ const dataHorror = (store) => (next) => (action) => {
               pseudo: response.data.data.pseudo,
               email: response.data.data.email,
             });
+            submitWatchlistAndWatched();
           }
         } catch (error) {
           console.log('error', error);
