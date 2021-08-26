@@ -14,6 +14,10 @@ const errorController = require('../controllers/errorController');
 // Le middleware de vérification du token avant l'accès au route :
 const jwtMiddleware = require('../services/jwt');
 
+// Mon schema de vérification des infos du user avec joi :
+const validate = require('../validations/validate');
+const userSchema = require('../validations/schema/user');
+
 
 // Les routes :
 
@@ -26,7 +30,7 @@ router.get('/api/v1/allmovies', movieController.getAllMovies);
 
 router.get('/api/v1/selection/:limit', movieController.movieSelection);
 
-router.post('/api/v1/register', userController.addUser);
+router.post('/api/v1/register', validate('body', userSchema), userController.addUser);
 
 router.post('/api/v1/login', userController.userLogged);
 
@@ -46,8 +50,7 @@ router.route('/api/v1/user/:id/watched/:movieId')
     .patch(jwtMiddleware.authenticateToken, watchedMovieController.editWatchedMovie);
 
 router.route('/api/v1/user/:id/rating/movie/:movieId')
-    .post(jwtMiddleware.authenticateToken, ratingController.addRating)
-    .patch(jwtMiddleware.authenticateToken, ratingController.editRating);
+    .put(jwtMiddleware.authenticateToken, ratingController.addRating);
 
 router.get('/api/v1/user/:id/ratings', userController.allRatings);
 

@@ -16,7 +16,7 @@ module.exports = {
      * Add a rating to a movie given by the user
      * @returns {Object}
      */
-    async addMovieRating(infos, rating) {
+    async editMovieRating(infos, rating) {
         const result = await client.query(`UPDATE horror_user_has_movie
         SET rating = $3
         WHERE horror_user_has_movie.movie_id = $1 

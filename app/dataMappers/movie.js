@@ -24,7 +24,6 @@ module.exports = {
      */
     async getTheMovie(movieId) {
         const result = await client.query(`SELECT tmdb_id, 
-        id, 
         tag.value 
         FROM movie
         INNER JOIN movie_has_tag mt 

@@ -77,10 +77,11 @@ module.exports = {
      */
     async addUser(request, response) {
         try {
-            const newUser = request.body;
+            console.log('request', request.body);
+            const newUser = await request.body;
             let salt = await bcrypt.genSalt(10);
             let hash = await bcrypt.hash(newUser.password, salt);
-
+            console.log('hash', hash);
             const userToAdd = await userDataMapper.addNewUser(newUser, hash);
 
             const userAdded = await userDataMapper.getUserById(userToAdd.id);
