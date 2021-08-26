@@ -4,12 +4,13 @@ import {
   toggleConnected,
   changeStateWhenConnected,
   errorMessage,
-  CHECK_TOKEN,
 } from '../actions/login';
-import { submitWatchlistAndWatched } from '../actions/watchlist';
 import {
   SUBMITREGISTER,
 } from '../actions/register';
+import {
+  submitWatchlistAndWatched,
+} from '../actions/watchlist';
 import api from '../utils/api';
 
 const dataHorror = (store) => (next) => (action) => {
@@ -21,7 +22,7 @@ const dataHorror = (store) => (next) => (action) => {
           const getPseudo = state.register.registerPseudo;
           const getEmail = state.register.registerEmail;
           const getPassword = state.register.registerConfirmPassword;
-          await api.post('api/v1/register', {
+          await api.post('register/', {
             pseudo: getPseudo,
             email: getEmail,
             password: getPassword,
@@ -39,13 +40,17 @@ const dataHorror = (store) => (next) => (action) => {
           const state = store.getState();
           const getEmail = state.login.loginEmail;
           const getPassword = state.login.loginPassword;
-          const response = await api.post('api/v1/login', {
+          const response = await api.post('login', {
             email: getEmail,
             password: getPassword,
           });
-          console.log('data', response.data.data);
+          console.log('data', response.data);
           console.log('token', response.data.token);
+          console.log('response watched', response.data.watched);
+          console.log('response watchlist', response.data.watchlist);
           store.dispatch(changeStateWhenConnected(response.data.data, response.data.token));
+          store.dispatch(submitWatchlistAndWatched(response.data.watchlist,
+            response.data.watched));
 
           // eslint-disable-next-line dot-notation
           api.defaults.headers.common['authorization'] = `Bearer ${response.data.token}`;
@@ -57,7 +62,6 @@ const dataHorror = (store) => (next) => (action) => {
               pseudo: response.data.data.pseudo,
               email: response.data.data.email,
             });
-            submitWatchlistAndWatched();
           }
         } catch (error) {
           console.log('error', error);

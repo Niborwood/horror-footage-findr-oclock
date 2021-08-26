@@ -31,34 +31,38 @@ const Header = ({ pseudo }) => {
 
         </div>
       </div>
-      <h1 className="header__title">
-        <div className="header__logo">
-          [
-          <span className="font-red">●</span>
-          ]
-        </div>
-        <div className="header__app-title">
-          <NavLink to="/">
-            <div>FOUND</div>
-            <div>FOOTAGE</div>
-            <div>
-              FINDR
-              <span className="font-red">.</span>
-            </div>
-          </NavLink>
-        </div>
-      </h1>
-    </header>
-  );
-};
+
+    </div>
+    <h1 className="header__title">
+      <div className="header__logo">
+        [
+        <span className="font-red">●</span>
+        ]
+      </div>
+      <div className="header__app-title">
+        <NavLink to="/">
+          <div>HORROR</div>
+          <div>FOOTAGE</div>
+          <div>
+            FINDR
+            <span className="font-red">.</span>
+          </div>
+        </NavLink>
+      </div>
+    </h1>
+  </header>
+);
 
 Header.propTypes = {
-  pseudo: PropTypes.string.isRequired,
+  pseudo: PropTypes.string,
+};
+
+Header.defaultProps = {
+  pseudo: '',
 };
 
 const mapStateToProps = (state) => ({
   pseudo: state.login.pseudo,
-
 });
 
 const mapDispatchToProps = {

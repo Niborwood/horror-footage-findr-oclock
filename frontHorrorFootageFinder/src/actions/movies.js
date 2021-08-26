@@ -1,18 +1,23 @@
 // Movies Actions
 import api, { tmdbAPI } from '../utils/api';
 
+// Gestion du nombre de films vus dans les résultats de quiz
+export const UPDATE_QUIZ_RESULT_INDEX = 'UPDATE_QUIZ_RESULT_INDEX';
+export const updateQuizResultIndex = () => ({
+  type: UPDATE_QUIZ_RESULT_INDEX,
+});
+
 // Fonction d'écriture du top 3 de la page d'accueil dans le state
 export const SET_TOP_MOVIES = 'SET_TOP_MOVIES';
 export const setTopMovies = (movies) => ({
   type: SET_TOP_MOVIES,
   movies,
 });
-
 // Middleware pour récupérer le top 3 depuis l'API HFF
 // via Redux-Thunk
 //! Add catch logic !
 export const getTopMovies = (nbOfMovies) => (dispatch) => {
-  api.get(`https://horror-footage-api.herokuapp.com/api/v1/selection/${nbOfMovies}`)
+  api.get(`selection/${nbOfMovies}`)
     .then((response) => {
       // On récupère la data (id et tmdbId)
       const { data: { data } } = response;
@@ -32,7 +37,6 @@ export const setCurrentMovie = (movieID, tmdbData, format) => ({
   tmdbData,
   format,
 });
-
 // Middleware pour récupérer les données depuis l'API tierce TMDB (movieInfo, movieProviders)
 // via Redux-Thunk
 //! Add catch logic !
@@ -93,7 +97,7 @@ export const setMovieTags = (movieID, tags) => ({
 // et leur inscription dans le state
 export function fetchMovieTags(movieID) {
   return (dispatch) => {
-    api.get(`api/v1/movie/${movieID}`)
+    api.get(`movie/${movieID}`)
       .then((response) => {
         dispatch(setMovieTags(movieID, response.data));
       });

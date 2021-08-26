@@ -34,7 +34,7 @@ const settings = (store) => (next) => (action) => {
             store.dispatch(updateTextInfo('le champ ne doit pas etre vide'));
           }
 
-          const response = await api.patch(`api/v1/user/${state.login.id}`, {
+          const response = await api.patch(`user/${state.login.id}`, {
             email: getEmail,
             pseudo: getPseudo,
           });
@@ -53,7 +53,7 @@ const settings = (store) => (next) => (action) => {
       const deleteAccount = async () => {
         const state = store.getState();
         try {
-          await api.delete(`api/v1/user/${state.login.id}`);
+          await api.delete(`user/${state.login.id}`);
           store.dispatch(clearState());
         } catch (error) {
           console.log('error', error);

@@ -1,10 +1,18 @@
 import {
-  SET_MOVIE_DATA, SET_TOP_MOVIES, SET_MOVIE_TAGS,
+  SET_MOVIE_DATA, SET_TOP_MOVIES, SET_MOVIE_TAGS, UPDATE_QUIZ_RESULT_INDEX,
 } from '../actions/movies';
+
+import {
+  END_QUIZ,
+} from '../actions/quiz';
 
 const initialState = {
   topMovies: {
     loaded: false,
+  },
+  quizResults: {
+    tmdbIDs: [],
+    currentIndex: 0,
   },
 };
 
@@ -49,6 +57,27 @@ const moviesReducer = (state = initialState, action) => {
           // On insère les données de notre api dans le state.
           // Ex: state.movies.123.tags
           tags: action.tags,
+        },
+      };
+    }
+
+    // On gère l'intégration des IDs TMDB dans le state.
+    case END_QUIZ: {
+      return {
+        ...state,
+        quizResults: {
+          tmdbIDs: action.tmdbIDs,
+          currentIndex: 0,
+        },
+      };
+    }
+
+    case UPDATE_QUIZ_RESULT_INDEX: {
+      return {
+        ...state,
+        quizResults: {
+          ...state.quizResults,
+          currentIndex: state.quizResults.currentIndex + 1,
         },
       };
     }
