@@ -21,13 +21,21 @@ module.exports = {
     async getAnswersToAQuestion(request, response) {
         try {
             const { questionToAsk, answers } = request.body;
-            const rawQuizData = await quizDataMapper.getAnswersToAQuestion(questionToAsk, answers.length, answers);
+            let rawQuizData;
+            // Si la question posée est la première, on appelle la méthode getAnswersToFirstQuestion
+            if (questionToAsk === 1) {
+                rawQuizData = await quizDataMapper.getAnswersToFirstQuestion();
+            }
+            // Sinon, on appelle la méthode getAnswersToQuestion
+            else {
+                rawQuizData = await quizDataMapper.getAnswersToAQuestion(questionToAsk, answers.length, answers);
+            }
             const currentQuizData = { 
                 question: rawQuizData[0].title,
-                answers: rawQuizData.map(answer => ({
-                    id: answer.id,
-                    description: answer.description,
-                    value: answer.value,
+                answers: rawQuizData.map(({id, description, value}) => ({
+                    id,
+                    description,
+                    value,
                 }))
             };
 
@@ -36,6 +44,19 @@ module.exports = {
             console.trace(error);
             response.status(500).json({data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver les réponses, veuillez réessayer ultérieurement.'});
         }
-    }
+    },
+
+    async getNumberOfQuestions(request, response) {
+        try {
+            // Split request.query.tags into an array of strings
+            const rawResults = await quizDataMapper.getNumbersOfAnswers();
+            const result = parseInt(rawResults, 10);
+            const fakeResult = 6;
+            response.json(fakeResult);
+        } catch (error) {
+            console.trace(error);
+            response.status(500).json({data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver le quiz, veuillez réessayer ultérieurement.'});
+        }
+    },
 
 };

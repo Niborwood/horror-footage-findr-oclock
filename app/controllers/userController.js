@@ -158,7 +158,7 @@ module.exports = {
             response.json({
                 data: movieRating
             });
-        } catch {
+        } catch (error) {
             console.trace(error);
             response.status(500).json({
                 data: [],
