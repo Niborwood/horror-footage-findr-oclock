@@ -46,6 +46,8 @@ const dataHorror = (store) => (next) => (action) => {
           });
           console.log('data', response.data);
           console.log('token', response.data.token);
+          console.log('response watched', response.data.watched);
+          console.log('response watchlist', response.data.watchlist);
           store.dispatch(changeStateWhenConnected(response.data.data, response.data.token));
           store.dispatch(submitWatchlistAndWatched(response.data.watchlist,
             response.data.watched));

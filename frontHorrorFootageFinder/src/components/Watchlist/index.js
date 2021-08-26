@@ -15,7 +15,6 @@ export const Watchlist = ({ watchlist, watched }) => {
       <div className="container__watchlist">
         <h1>WatchList</h1>
         <Carousel format="small" movies={watchlist[0]} />
-
       </div>
       <div className="container__watched">
         <h1>Watched</h1>
