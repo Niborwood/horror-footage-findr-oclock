@@ -5,7 +5,7 @@ module.exports = {
 
     /**
      * Controller to add movie into watched movies of a user
-     * @param {Numbers} request userId and movieId in params
+     * @param {Numbers} request userId and tmdbId in params
      * @param {Object} response 
      */
     async addWatchedMovie(request, response) {
@@ -35,7 +35,7 @@ module.exports = {
 
     /**
      * Controller to edit movies watched (true <-> false)
-     * @param {Numbers} request userId and movieId in params
+     * @param {Numbers} request userId and tmdbId in params
      * @param {Object} response 
      */
     async editWatchedMovie(request, response) {

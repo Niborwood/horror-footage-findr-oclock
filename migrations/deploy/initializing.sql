@@ -10,8 +10,7 @@ CREATE TABLE "horror_user" (
 );
 
 CREATE TABLE "movie" (
-    "id" int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "tmdb_id" int NOT NULL -- Pas de contrainte UNIQUE pour l"instant, car il semblerait qu"il y ait des doublons .. Ça fait planter la bdd
+    "id" int NOT NULL PRIMARY KEY
 );
 
 CREATE TABLE "horror_user_has_movie" (
@@ -24,13 +23,14 @@ CREATE TABLE "horror_user_has_movie" (
 
 CREATE TABLE "question" (
     "id" int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "title" text NOT NULL
+    "title" text NOT NULL,
+    "name" text NOT NULL
 );
 
 CREATE TABLE "tag" (
     "id" int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "description" text NOT NULL,
-    "question_id" int REFERENCES "question"("id") -- Pas de contrainte NOT NULL pour l"instant, on y reviendra plus tard (quand j"aurais déterminé l"id des questions)
+    "question_id" int NOT NULL REFERENCES "question"("id")
 );
 
 CREATE TABLE "movie_has_tag" (

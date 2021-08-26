@@ -6,7 +6,7 @@ module.exports = {
 
     /**
      * Controller to add movie into watchlist of a user
-     * @param {Numbers} request userId and movieId in params
+     * @param {Numbers} request userId and tmdbId in params
      * @param {Object} response 
      */
     async addMovieToWatchlist(request, response) {
@@ -37,7 +37,7 @@ module.exports = {
 
     /**
      * Controller to edit the watchlist (true <-> false)
-     * @param {Numbers} request userId and movieId in params
+     * @param {Numbers} request userId and tmdbId in params
      * @param {*} response
      */
     async editMovieWatchlist(request, response) {

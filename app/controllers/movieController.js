@@ -26,12 +26,12 @@ module.exports = {
 
     /**
      * Controller to have all ratings of one movie
-     * @param {Number} request movieId in params
+     * @param {Number} request tmdbId in params
      * @param {Object} response 
      */
     async allRatingsMovie(request, response) {
         try {
-            const movieId = request.params.movieId;
+            const movieId = request.params.tmdbId;
             const movieWithRatings = await movieDataMapper.movieRatings(movieId);
             response.json({
                 data: movieWithRatings

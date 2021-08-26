@@ -55,7 +55,7 @@ module.exports = {
      * @returns {Object[]}
      */
     async userWithDetails(userId) {
-        const result = await client.query('SELECT movie.tmdb_id FROM horror_user_has_movie JOIN movie ON horror_user_has_movie.movie_id = movie.id WHERE horror_user_has_movie.horror_user_id = $1 AND (watchlist = true OR watched = true)', [userId]);
+        const result = await client.query('SELECT movie.id FROM horror_user_has_movie WHERE horror_user_has_movie.horror_user_id = $1 AND (watchlist = true OR watched = true)', [userId]);
         return result.rows;
     },
 
@@ -64,7 +64,7 @@ module.exports = {
      * @returns {Object[]}
      */
     async watchlist(userId) {
-        const result = await client.query('SELECT horror_user_has_movie.*, movie.tmdb_id, movie.name FROM horror_user_has_movie JOIN movie ON horror_user_has_movie.movie_id = movie.id JOIN horror_user ON horror_user.id = horror_user_has_movie.horror_user_id WHERE horror_user_has_movie.horror_user_id = $1 AND horror_user_has_movie.watchlist=true', [userId]);
+        const result = await client.query('SELECT horror_user_has_movie.*, movie.name FROM horror_user_has_movie JOIN movie ON horror_user_has_movie.movie_id = movie.id WHERE horror_user_has_movie.horror_user_id = $1 AND horror_user_has_movie.watchlist=true', [userId]);
         return result.rows;
     },
 
@@ -73,7 +73,7 @@ module.exports = {
      * @returns {Object[]}
      */
     async watchedMovie(userId) {
-        const result = await client.query('SELECT watched, rating, movie.tmdb_id, movie.name FROM horror_user_has_movie JOIN movie ON horror_user_has_movie.movie_id = movie.id JOIN horror_user ON horror_user.id = horror_user_has_movie.horror_user_id WHERE horror_user_has_movie.horror_user_id = $1 AND horror_user_has_movie.watched=true', [userId]);
+        const result = await client.query('SELECT watched, rating, movie.id, movie.name FROM horror_user_has_movie JOIN movie ON horror_user_has_movie.movie_id = movie.id WHERE horror_user_has_movie.horror_user_id = $1 AND horror_user_has_movie.watched=true', [userId]);
         return result.rows;
     },
 

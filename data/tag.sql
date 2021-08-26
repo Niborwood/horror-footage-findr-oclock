@@ -1,5 +1,3 @@
---! Pas de question_id pour l'instant car je ne l'est pas encore déterminé ..
-
 INSERT INTO "tag" ("description", "value", "question_id") VALUES
 
     -- 'Niveau horreur, vos kinks, c'est plutôt...', 

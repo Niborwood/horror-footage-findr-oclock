@@ -182,7 +182,7 @@ module.exports = {
 
     /**
      * Controller to have movie and rating given by a user
-     * @param {Numbers} request userId and movieId in params
+     * @param {Numbers} request userId and tmdbId in params
      * @param {Object} response 
      */
     async oneRating(request, response) {

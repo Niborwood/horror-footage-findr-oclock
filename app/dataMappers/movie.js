@@ -8,10 +8,10 @@ module.exports = {
      */
     async getBetterMovies(limit) {
         const result = await client.query(`SELECT AVG(rating) AS rating,
-        movie.tmdb_id
+        movie.id
         FROM horror_user_has_movie
         JOIN movie ON horror_user_has_movie.movie_id = movie.id
-        GROUP BY movie.tmdb_id
+        GROUP BY movie.id
         ORDER BY AVG(rating) DESC
         LIMIT $1`, [limit]);
         return result.rows;
@@ -19,18 +19,18 @@ module.exports = {
 
     // Robin !
     /**
-     * Get the movie depending of his tmdb_id
+     * Get the movie depending of his id
      * @returns {Object[]}
      */
     async getTheMovie(movieId) {
-        const result = await client.query(`SELECT tmdb_id, 
+        const result = await client.query(`SELECT movie.id, 
         tag.value 
         FROM movie
         INNER JOIN movie_has_tag mt 
         ON movie.id = mt.movie_id 
         INNER JOIN tag 
         ON tag.id = mt.tag_id
-        WHERE tmdb_id = $1`, [movieId]);
+        WHERE id = $1`, [movieId]);
         return result.rows;
     },
 
@@ -42,13 +42,14 @@ module.exports = {
         const result = await client.query(`SELECT rating, 
         movie.*
         FROM horror_user_has_movie
-        JOIN movie ON horror_user_has_movie.movie_id = movie.id
+        JOIN movie 
+        ON horror_user_has_movie.movie_id = movie.id
         WHERE movie.id = $1`, [movieId]);
         return result.rows[0];
     },
 
     /**
-     * Ge t all movie in the database
+     * Get all movie in the database
      * @returns {Object[]}
      */
     async allMovies() {
@@ -61,7 +62,10 @@ module.exports = {
      * @returns {Object}
      */
     async movieInTable(infos) {
-        const result = await client.query(`SELECT * FROM horror_user_has_movie WHERE horror_user_id = $1 AND movie_id = $2`, [infos.id, infos.movieId]);
+        const result = await client.query(`SELECT horror_user_has_movie
+        FROM horror_user_has_movie
+        WHERE horror_user_id = $1
+        AND movie_id = $2`, [infos.id, infos.movieId]);
         return result.rows[0];
     }
 

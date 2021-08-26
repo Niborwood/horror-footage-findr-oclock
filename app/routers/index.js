@@ -62,7 +62,7 @@ router.post('/api/v1/quiz', quizController.getAnswersToAQuestion); // Robin, à 
 
 router.get('/api/v1/searchmovies', quizController.searchMovies); // Anciennement quiz, route de vue. Robin, à tester
 
-router.get('/api/v1/movie/:tmdbId', movieController.movieResult);
+router.get('/api/v1/movie/:movieId', movieController.movieResult);
 
 router.use(errorController.resourceNotFound);
 

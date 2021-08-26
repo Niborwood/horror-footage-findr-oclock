@@ -5,7 +5,7 @@ module.exports = {
 
     /**
      * Controller to add and edit rating to a movie 
-     * @param {Numbers} request userId and movieId in params
+     * @param {Numbers} request userId and tmdbId in params
      * @param {Object} request the rating of the movie in body
      * @param {Object} response 
      */
