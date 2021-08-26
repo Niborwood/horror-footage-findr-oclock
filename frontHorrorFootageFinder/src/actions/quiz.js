@@ -45,9 +45,10 @@ export const fetchQuestionAndAnswers = (questionId, answers) => (dispatch) => {
 
 // -------------- Chargement du nombre des questions --------------
 // On enregistre dans le store le nombre de questions
-export const SAVE_QUESTIONS_NUMBER = 'SAVE_QUESTIONS_NUMBER';
-export const saveQuestionsNumber = (nbOfQuestions) => ({
-  type: SAVE_QUESTIONS_NUMBER,
+export const QUIZ_INIT = 'QUIZ_INIT';
+// On passe le nbOfQuestions à 1 dans le cas où on réinitialise sans appel à l'API
+export const quizInit = (nbOfQuestions = 1) => ({
+  type: QUIZ_INIT,
   nbOfQuestions,
 });
 // Grâce à Redux-Thunk, on appelle l'API et on enregistre le nombre de questions
@@ -56,7 +57,7 @@ export const loadQuestionsNumber = () => (dispatch) => {
   api.get('questions/')
     .then((response) => {
       const { data: nbOfQuestions } = response;
-      dispatch(saveQuestionsNumber(nbOfQuestions));
+      dispatch(quizInit(nbOfQuestions));
     })
     .catch((error) => {
       console.log(error);

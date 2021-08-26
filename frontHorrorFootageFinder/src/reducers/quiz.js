@@ -1,6 +1,6 @@
 import {
   CHOOSE_AN_ANSWER, SWITCH_TO_NEXT_QUESTION,
-  LOAD_QUESTION_AND_ANSWERS, SAVE_QUESTIONS_NUMBER,
+  LOAD_QUESTION_AND_ANSWERS, QUIZ_INIT,
   END_QUIZ, RESET_QUIZ,
 } from '../actions/quiz';
 
@@ -47,9 +47,9 @@ const quizReducer = (state = initialState, action) => {
         numberOfAnswers: action.answers.length,
       };
 
-    case SAVE_QUESTIONS_NUMBER:
+    case QUIZ_INIT:
       return {
-        ...state,
+        ...initialState,
         numberOfQuestions: action.nbOfQuestions,
       };
 
@@ -89,8 +89,6 @@ const quizReducer = (state = initialState, action) => {
         question: '',
         quizCompleted: true,
       };
-
-      //! Prévoir un reset
 
     // reset du quizz (action dispatch depuis le MovieButtons)
     case RESET_QUIZ:

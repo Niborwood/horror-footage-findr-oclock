@@ -38,12 +38,12 @@ export const Quiz = ({
     console.log('Question numéro :', currentQuestion);
     // Si la currentQuestion ne dépasse pas le nombre de questions,
     // on charge une question et ses réponses dans le state
-    //! A retravailler, pour l'instant la condition ne passe
-    //! que parce que le reducer de numberOfQuestions = 1...
-    if (currentQuestion <= numberOfQuestions) {
+    //! A retravailler pour éviter un appel inutile en fin de quiz
+    if (numberOfQuestions && (currentQuestion <= numberOfQuestions)) {
       console.log('appel api');
       getQuestionAndAnswers(currentQuestion, savedAnswers);
     } else {
+      console.log('plop :(');
       getQuizResults(savedAnswers);
     }
   }, [currentQuestion, numberOfQuestions]);
