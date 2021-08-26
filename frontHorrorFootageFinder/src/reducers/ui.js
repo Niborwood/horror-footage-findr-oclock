@@ -57,7 +57,7 @@ const UIreducer = (state = initialState, action) => {
       }
       return {
         ...state,
-        watchList: [...state.watchList[0], action.newWatchlistId],
+        watchList: [...state.watchList, action.newWatchlistId],
       };
 
     case ADD_MOVIE_IN_WATCHED:
@@ -68,7 +68,7 @@ const UIreducer = (state = initialState, action) => {
       }
       return {
         ...state,
-        watched: [...state.watched[0], action.newWatchedId],
+        watched: [...state.watched, action.newWatchedId],
       };
 
     default:
