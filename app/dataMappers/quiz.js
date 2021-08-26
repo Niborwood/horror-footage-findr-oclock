@@ -3,18 +3,15 @@ const client = require('../client');
 module.exports = {
 
     async getQuizResults(tags, nbOfTags) {
-        const result = await client.query(`
-    SELECT tmdb_id
-    FROM movie_has_tag 
-    INNER JOIN tag 
+        const result = await client.query(`SELECT tmdb_id
+        FROM movie_has_tag 
+        INNER JOIN tag 
         ON tag.id = movie_has_tag.tag_id 
-    INNER JOIN movie 
+        INNER JOIN movie 
         ON movie.id = movie_has_tag.movie_id 
-    WHERE tag.value = ANY($1)
-    GROUP BY tmdb_id
-    HAVING COUNT(DISTINCT tag.value) >= $2;
-    `,
-        [tags, nbOfTags]);
+        WHERE tag.value = ANY($1)
+        GROUP BY tmdb_id
+        HAVING COUNT(DISTINCT tag.value) >= $2`, [tags, nbOfTags]);
         return result.rows;
     },
 
@@ -56,7 +53,7 @@ module.exports = {
             AND tag.question_id = $3;
         `,
         [answers, nbOfAnswers, questionToAsk]);
-        
+       
         return result.rows;
     },
 

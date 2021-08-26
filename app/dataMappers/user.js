@@ -4,7 +4,7 @@ const client = require('../client');
 module.exports = {
 
     async getUserById(userId) {
-        const result = await client.query(`SELECT * FROM horror_user WHERE id = $1`, [userId]);
+        const result = await client.query(`SELECT pseudo FROM horror_user WHERE id = $1`, [userId]);
         return result.rows[0];
     },
 
@@ -31,8 +31,8 @@ module.exports = {
     },
 
     async userWithDetails(userId) {
-        // User + Films (et liens entre les deux) :
-        const result = await client.query('SELECT movie.*, horror_user.* FROM horror_user_has_movie JOIN movie ON horror_user_has_movie.movie_id = movie.id JOIN horror_user ON horror_user.id = horror_user_has_movie.horror_user_id WHERE horror_user_has_movie.horror_user_id = $1', [userId]);
+        // Films vus ou dans la watchlist (et liens entre les deux) :
+        const result = await client.query('SELECT movie.tmdb_id FROM horror_user_has_movie JOIN movie ON horror_user_has_movie.movie_id = movie.id WHERE horror_user_has_movie.horror_user_id = $1 AND (watchlist = true OR watched = true)', [userId]);
         return result.rows;
     },
 
