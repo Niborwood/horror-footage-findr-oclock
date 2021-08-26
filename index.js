@@ -5,6 +5,36 @@ const express = require('express');
 
 const app = express();
 
+const expressSwagger = require('express-swagger-generator')(app);
+
+const options = {
+    swaggerDefinition: {
+        info: {
+            description: 'Propose une liste de films à voir',
+            title: 'Horror footage finder',
+            version: '1.0.0',
+        },
+        host: 'horror-footage-api.herokuapp.com',
+        basePath: '/api/v1',
+        produces: [
+            "application/json"
+        ],
+        schemes: ['http', 'https'],
+        securityDefinitions: {
+            JWT: {
+                type: 'apiKey',
+                in: 'header',
+                name: 'Authorization',
+                description: "",
+            }
+        }
+    },
+    basedir: __dirname, //app absolute path
+    files: ['./app/routers/*.js']
+};
+
+expressSwagger(options);
+
 const port = process.env.PORT || 3001;
 
 const router = require('./app/routers');

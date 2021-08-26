@@ -23,7 +23,10 @@ module.exports = {
      * @returns {Object[]}
      */
     async getTheMovie(movieId) {
-        const result = await client.query(`SELECT tmdb_id, tag.value FROM movie
+        const result = await client.query(`SELECT tmdb_id, 
+        id, 
+        tag.value 
+        FROM movie
         INNER JOIN movie_has_tag mt 
         ON movie.id = mt.movie_id 
         INNER JOIN tag 
@@ -37,7 +40,8 @@ module.exports = {
      * @returns {Object}
      */
     async movieRatings(movieId) {
-        const result = await client.query(`SELECT rating, movie.*
+        const result = await client.query(`SELECT rating, 
+        movie.*
         FROM horror_user_has_movie
         JOIN movie ON horror_user_has_movie.movie_id = movie.id
         WHERE movie.id = $1`, [movieId]);

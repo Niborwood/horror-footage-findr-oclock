@@ -16,6 +16,12 @@ const jwtMiddleware = require('../services/jwt');
 
 
 // Les routes :
+
+/**
+ * Return all movies of the API
+ * @route GET /allmovies
+ * @returns {object} 200 - All movies
+ */
 router.get('/api/v1/allmovies', movieController.getAllMovies);
 
 router.get('/api/v1/selection/:limit', movieController.movieSelection);
