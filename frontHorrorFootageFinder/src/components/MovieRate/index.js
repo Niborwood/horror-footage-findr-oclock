@@ -26,7 +26,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onRateMovie: (value, movieID) => {
-    console.log('component', value);
     dispatch(rateMovie(value, movieID));
   },
 });
