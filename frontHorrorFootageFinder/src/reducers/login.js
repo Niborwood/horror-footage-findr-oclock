@@ -4,6 +4,7 @@ import {
   CHANGE_STATE_WHEN_CONNECTED,
   ERROR_MESSAGE,
   SAVE_NEW_LOGIN_STATE,
+  CLEAR_STATE,
 } from '../actions/login';
 
 const initialState = {
@@ -66,6 +67,10 @@ function loginReducer(state = initialState, {
         ...state,
         pseudo: value.pseudo,
         loginEmail: value.email,
+      };
+    case CLEAR_STATE:
+      return {
+        initialState,
       };
     default:
       return state;

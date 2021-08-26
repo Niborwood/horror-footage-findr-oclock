@@ -42,12 +42,15 @@ const Header = ({ pseudo }) => (
 );
 
 Header.propTypes = {
-  pseudo: PropTypes.string.isRequired,
+  pseudo: PropTypes.string,
+};
+
+Header.defaultProps = {
+  pseudo: '',
 };
 
 const mapStateToProps = (state) => ({
   pseudo: state.login.pseudo,
-
 });
 
 const mapDispatchToProps = {

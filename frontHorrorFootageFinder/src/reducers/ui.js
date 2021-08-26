@@ -1,10 +1,10 @@
 import {
   PASS_SPLASH,
   TOGGLE_ACTION,
+  TOGGLE_MODAL,
 } from '../actions/ui';
 import {
-  SUBMIT_WATCHED,
-  SUBMIT_WATCHLIST,
+  SUBMIT_WATCHLIST_AND_WATCHED,
 } from '../actions/watchlist';
 
 const initialState = {
@@ -16,6 +16,7 @@ const initialState = {
   },
   watchList: [],
   watched: [],
+  modal: false,
 };
 
 const UIreducer = (state = initialState, action) => {
@@ -25,18 +26,13 @@ const UIreducer = (state = initialState, action) => {
         ...state,
         splashPassed: true,
       };
-    case SUBMIT_WATCHED:
-      return {
-        ...state,
-        watched: action.watched,
-      };
-
-    case SUBMIT_WATCHLIST:
+    case SUBMIT_WATCHLIST_AND_WATCHED:
+      console.log('yo');
       return {
         ...state,
         watchList: action.watchlist,
+        watched: action.watched,
       };
-
     case TOGGLE_ACTION:
       return {
         ...state,
@@ -44,6 +40,12 @@ const UIreducer = (state = initialState, action) => {
           ...state.toggles,
           [action.toggleName]: !state.toggles[action.toggleName],
         },
+      };
+
+    case TOGGLE_MODAL:
+      return {
+        ...state,
+        modal: !state.modal,
       };
 
     default:

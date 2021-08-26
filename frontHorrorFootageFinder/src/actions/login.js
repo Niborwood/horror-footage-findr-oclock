@@ -32,14 +32,15 @@ export const errorMessage = () => ({
 
 // END LOGIN REFACTO
 
-// Arnaud: on sauvegarde les changements de profiles dans le state:
+// on sauvegarde les changements de profiles dans le state:
 export const SAVE_NEW_LOGIN_STATE = 'SAVE_NEW_LOGIN_STATE';
 export const saveNewLoginState = (value) => ({
   type: SAVE_NEW_LOGIN_STATE,
   value,
 });
 
-export const CHECK_TOKEN = 'CHECK_TOKEN';
-export const checkToken = () => ({
-  type: CHECK_TOKEN,
+// on vide le state à la supression du compte ou à la déconnexion:
+export const CLEAR_STATE = 'CLEAR_STATE';
+export const clearState = () => ({
+  type: CLEAR_STATE,
 });

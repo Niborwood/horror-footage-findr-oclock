@@ -4,12 +4,13 @@ import {
   toggleConnected,
   changeStateWhenConnected,
   errorMessage,
-  CHECK_TOKEN,
 } from '../actions/login';
-import { submitWatchlistAndWatched } from '../actions/watchlist';
 import {
   SUBMITREGISTER,
 } from '../actions/register';
+import {
+  submitWatchlistAndWatched,
+} from '../actions/watchlist';
 import api from '../utils/api';
 
 const dataHorror = (store) => (next) => (action) => {
@@ -43,9 +44,11 @@ const dataHorror = (store) => (next) => (action) => {
             email: getEmail,
             password: getPassword,
           });
-          console.log('data', response.data.data);
+          console.log('data', response.data);
           console.log('token', response.data.token);
           store.dispatch(changeStateWhenConnected(response.data.data, response.data.token));
+          store.dispatch(submitWatchlistAndWatched(response.data.watchlist,
+            response.data.watched));
 
           // eslint-disable-next-line dot-notation
           api.defaults.headers.common['authorization'] = `Bearer ${response.data.token}`;
@@ -57,7 +60,6 @@ const dataHorror = (store) => (next) => (action) => {
               pseudo: response.data.data.pseudo,
               email: response.data.data.email,
             });
-            submitWatchlistAndWatched();
           }
         } catch (error) {
           console.log('error', error);
