@@ -1,334 +1,342 @@
-INSERT INTO "movie" ("name", "tmdb_id") VALUES
+INSERT INTO "movie" ("name", "id") VALUES
 
     ('01 - C''EST ARRIVE PRES DE CHEZ VOUS', '10086'),
-    -- "tag": ["mockumentary' "common' "europe' "90s' "thriller' ["serial-killer' "reality-show' "gore' "old"]], 
+    -- "tag": ["6' "20' "11' "16' "1' ["25' "38' "31' "40"]], 
 
     ('02 - V/H/S 2', '159117'),
-    -- "tag": ["sketch' "common' "usa' "10s' "paranormal' ["gore' "cult' "apocalypse' "demon"]], 
+    -- "tag": ["7' "20' "12' "18' "2' ["31' "33' "26' "21"]], 
 
     ('03 - The Poughkeepsie Tapes', '38410'),
-    -- "tag": ["mockumentary' "rare' "usa' "00s' "thriller' ["serial-killer"]], 
+    -- "tag": ["6' "19' "12' "17' "1' ["25"]], 
 
-    ('04 - The Blair Witch Project (witch)', '2667'),
-    -- "tag": ["ff' "common' "usa' "90s' "paranormal' ["witch' "woods' "demon"]], 
+    ('04 - The Blair 22 Project (22)', '2667'),
+    -- "tag": ["5' "20' "12' "16' "2' ["22' "32' "21"]], 
 
     ('05 - Cannibal Holocaust', '8689'),
-    -- "tag": ["mockumentary' "common' "europe' "70-80s' "thriller' ["gore"]], 
+    -- "tag": ["6' "20' "11' "15' "1' ["31"]], 
 
     ('06 - Marble Hornets', '124380'),
-    -- "tag": ["series' "rare' "usa' "10s' "paranormal' ["demon"]], 
+    -- "tag": ["8' "19' "12' "18' "2' ["21"]], 
 
     ('07 - Trolljegeren', '46146'),
-    -- "tag": ["mockumentary' "common' "europe' "10s' "monsters' ["mythology' "woods"]], 
+    -- "tag": ["6' "20' "11' "18' "4' ["35' "32"]], 
 
     ('08 - Noroi: The Curse', '21506'),
-    -- "tag": ["ff' "common' "asia' "00s' "paranormal' ["demon' "possession"]], 
+    -- "tag": ["5' "20' "13' "17' "2' ["21' "24"]], 
 
     ('09 - Les Documents Interdits', '116684'),
-    -- "tag": ["series' "rare' "france' "70-80s' "paranormal' ["alien"]], 
+    -- "tag": ["8' "19' "10' "15' "2' ["23"]], 
 
     ('10 - Murder Death Koreatown', '675522'),
-    -- "tag": ["ff' "rare' "usa' "10s' "paranormal' ["loser' "true-story"]], 
+    -- "tag": ["5' "19' "12' "18' "2' ["27' "43"]], 
 
     ('11 - Grave Encounters', '50698'),
-    -- "tag": ["mockumentary' "common' "usa' "00s' "paranormal' ["demon' "reality-show' "hospital"]], 
+    -- "tag": ["6' "20' "12' "17' "2' ["21' "38' "28"]], 
 
     ('12 - [REC]', '8329'),
-    -- "tag": ["mockumentary' "common' "europe' "00s' "monsters' ["reality-show' "zombie"]], 
+    -- "tag": ["6' "20' "11' "17' "4' ["38' "37"]], 
 
     ('13 - Host', '723072'),
-    -- "tag": ["screen' "common' "usa' "10s' "paranormal' ["demon' "webcam"]], 
+    -- "tag": ["9' "20' "12' "18' "2' ["21' "36"]], 
 
     ('14 - Butterfly Kisses', '480733'),
-    -- "tag": ["ff' "rare' "usa' "10s' "paranormal' ["demon"]], 
+    -- "tag": ["5' "19' "12' "18' "2' ["21"]], 
 
     ('15 - Resolution', '121606'),
-    -- "tag": ["ff' "rare' "usa' "10s' "monsters' ["woods' "loser"]], 
+    -- "tag": ["5' "19' "12' "18' "4' ["32' "27"]], 
 
     ('16 - Home Movie', '27258'),
-    -- "tag": ["ff' "rare' "usa' "00s' "paranormal' ["demon, drama"]], 
+    -- "tag": ["5' "19' "12' "17' "2' ["21, 39"]], 
 
     ('17 - What We Do In The Shadows', '246741'),
-    -- "tag": ["mockumentary' "common' "other' "10s' "monsters' ["comedy' "vampires' "mythology"]], 
+    -- "tag": ["6' "20' "14' "18' "4' ["41' "45' "35"]], 
 
     ('18 - The Visit', '298312'),
-    -- "tag": ["ff' "common' "usa' "10s' "thriller' ["old' "comedy"]], 
+    -- "tag": ["5' "20' "12' "18' "1' ["40' "41"]], 
 
     ('19 - The Good Neighbor', '339994'),
-    -- "tag": ["ff' "common' "usa' "10s' "thriller' ["old' "drama"]], 
+    -- "tag": ["5' "20' "12' "18' "1' ["40' "39"]], 
 
     ('20 - Open Windows', '151368'),
-    -- "tag": ["screen' "rare' "usa' "10s' "thriller' ["serial-killer' "webcam"]], 
+    -- "tag": ["9' "19' "12' "18' "1' ["25' "36"]], 
 
     ('21 - V/H/S', '84348'),
-    -- "tag": ["sketch' "common' "usa' "10s' "paranormal' ["demon' "gore"]], 
+    -- "tag": ["7' "20' "12' "18' "2' ["21' "31"]], 
 
     ('22 - Chronicle', '76726'),
-    -- "tag": ["ff' "common' "usa' "10s' "sf' ["drama' "blockbuster"]], 
+    -- "tag": ["5' "20' "12' "18' "3' ["39' "30"]], 
 
     ('23 - Hell House LLC', '359246'),
-    -- "tag": ["ff' "common' "usa' "10s' "paranormal' ["clown' "demon"]], 
+    -- "tag": ["5' "20' "12' "18' "2' ["29' "21"]], 
 
     ('24 - The Bay', '123105'),
-    -- "tag": ["mockumentary' "common' "usa' "10s' "thriller' ["water"]], 
+    -- "tag": ["6' "20' "12' "18' "1' ["42"]], 
 
     ('25 - The Dark Tapes', '390883'),
-    -- "tag": ["sketch' "rare' "usa' "10s' "paranormal' ["gore"]], 
+    -- "tag": ["7' "19' "12' "18' "2' ["31"]], 
 
     ('26 - Phoenix Forgotten', '443319'),
-    -- "tag": ["ff' "rare' "usa' "10s' "sf' ["alien"]], 
+    -- "tag": ["5' "19' "12' "18' "3' ["23"]], 
 
     ('27 - As Above, So Below', '256274'),
-    -- "tag": ["ff' "common' "usa' "10s' "paranormal' ["demon' "mythology"]], 
+    -- "tag": ["5' "20' "12' "18' "2' ["21' "35"]], 
 
     ('28 - The Sacrament', '211067'),
-    -- "tag": ["ff' "common' "usa' "10s' "thriller' ["drama' "cult' "true-story"]], 
+    -- "tag": ["5' "20' "12' "18' "1' ["39' "33' "43"]], 
 
-    ('29 - Paranormal Activity : The Marked Ones', '227348'),
-    -- "tag": ["ff' "common' "usa' "10s' "paranormal' ["demon' "possession' "blockbuster"]], 
+    ('29 - 2 Activity : The Marked Ones', '227348'),
+    -- "tag": ["5' "20' "12' "18' "2' ["21' "24' "30"]], 
 
-    ('30 - Grave Encounters 2', '50698'),
-    -- "tag": ["mockumentary' "common' "usa' "10s' "paranormal' ["demon' "hospital"]], 
+    ('30 - Grave Encounters 2', '134366'),
+    -- "tag": ["6' "20' "12' "18' "2' ["21' "28"]], 
+
+
+    -- ARNAUD
 
     ('31 - Searching', '489999'),
-    -- "tag": ["screen' "common' "usa' "10s' "thriller' ["drama' "webcam"]], 
+    -- "tag": ["9' "20' "12' "18' "1' ["39' "36"]], 
 
-    ('32 - The Possession Of Michael King', '272692'),
-    -- "tag": ["ff' "rare' "usa' "10s' "paranormal' ["drama' "possession"]], 
+    ('32 - The 24 Of Michael King', '272692'),
+    -- "tag": ["5' "19' "12' "18' "2' ["39' "24"]], 
 
-    ('33 - Paranormal Activity 3', '72571'),
-    -- "tag": ["ff' "common' "usa' "10s' "paranormal' ["demon' "possession' "blockbuster"]], 
+    ('33 - 2 Activity 3', '72571'),
+    -- "tag": ["5' "20' "12' "18' "2' ["21' "24' "30"]], 
 
-    ('34 - The Taking Of Deborah Logan (drama, demon, possession)', '297608'),
-    -- "tag": ["mockumentary' "common' "usa' "10s' "paranormal' ["drama' "demon' "possession' "old"]], 
+    ('34 - The Taking Of Deborah Logan (39, 21, 24)', '297608'),
+    -- "tag": ["6' "20' "12' "18' "2' ["39' "21' "24' "40"]], 
 
-    ('35 - Cloverfield (drama, blockbuster, apocalypse)', '7191'),
-    -- "tag": ["ff' "common' "usa' "00s' "monsters' ["drama' "blockbuster' "apocalypse"]], 
+    ('35 - Cloverfield (39, 30, 26)', '7191'),
+    -- "tag": ["5' "20' "12' "17' "4' ["39' "30' "26"]], 
 
     ('36 - Gonjiam: Haunted Asylum', '508642'),
-    -- "tag": ["mockumentary' "rare' "asia' "10s' "paranormal' ["demon' "hospital"]], 
+    -- "tag": ["6' "19' "13' "18' "2' ["21' "28"]], 
 
     ('37 - Apollo 18', '50357'),
-    -- "tag": ["ff' "rare' "usa' "10s' "sf' ["alien"]], 
+    -- "tag": ["5' "19' "12' "18' "3' ["23"]], 
 
     ('38 - Ghostwatch', '46633'),
-    -- "tag": ["mockumentary' "rare' "europe' "90s' "paranormal' ["reality-show' "demon' "possession"]], 
+    -- "tag": ["6' "19' "11' "16' "2' ["38' "21' "24"]], 
 
     ('39 - Hell House 2', '532973'),
-    -- "tag": ["mockumentary' "common' "usa' "10s' "paranormal' ["clown' "demon"]], 
+    -- "tag": ["6' "20' "12' "18' "2' ["29' "21"]], 
 
     ('40 - Hell House 3', '614722'),
-    -- "tag": ["mockumentary' "common' "usa' "10s' "paranormal' ["clown' "demon"]], 
+    -- "tag": ["6' "20' "12' "18' "2' ["29' "21"]], 
 
     ('41 - Behind The Mask', '10961'),
-    -- "tag": ["mockumentary' "common' "usa' "00s' "thriller' ["serial-killer' "comedy"]], 
+    -- "tag": ["6' "20' "12' "17' "1' ["25' "41"]], 
 
     ('42 - Creep', '250574'),
-    -- "tag": ["ff' "common' "usa' "10s' "thriller' ["woods' "serial-killer' "loser"]], 
+    -- "tag": ["5' "20' "12' "18' "1' ["32' "25' "27"]], 
 
     ('43 - Creep 2', '396493'),
-    -- "tag": ["ff' "common' "usa' "10s' "thriller' ["woods' "serial-killer' "loser"]], 
+    -- "tag": ["5' "20' "12' "18' "1' ["32' "25' "27"]], 
 
     ('44 - Digging Up The Marrow', '279972'),
-    -- "tag": ["mockumentary' "common' "usa' "10s' "monsters' ["comedy"]], 
+    -- "tag": ["6' "20' "12' "18' "4' ["41"]], 
 
     ('45 - Savageland', '326446'),
-    -- "tag": ["mockumentary' "rare' "usa' "10s' "monsters' ["zombie"]], 
+    -- "tag": ["6' "19' "12' "18' "4' ["37"]], 
 
     ('46 - The Houses October Built', '293572'),
-    -- "tag": ["mockumentary' "common' "usa' "10s' "paranormal' ["serial-killer' "clown"]], 
+    -- "tag": ["6' "20' "12' "18' "2' ["25' "29"]], 
 
     ('47 - The Den', '244610'),
-    -- "tag": ["ff' "common' "usa' "10s' "thriller' ["serial-killer' "webcam"]], 
+    -- "tag": ["5' "20' "12' "18' "1' ["25' "36"]], 
 
-    ('48 - There Are Monsters', '320508'),
-    -- "tag": ["ff' "rare' "usa' "10s' "monsters' ["wtf' "alien"]], 
+    ('48 - There Are 4', '320508'),
+    -- "tag": ["5' "19' "12' "18' "4' ["44' "23"]], 
 
-    ('49 - Paranormal Activity 4', '82990'),
-    -- "tag": ["ff' "common' "usa' "10s' "paranormal' ["demon' "possession' "paranormal"]], 
+    ('49 - 2 Activity 4', '82990'),
+    -- "tag": ["5' "20' "12' "18' "2' ["21' "24' "2"]], 
 
     ('50 - Be My Cat', '328216'),
-    -- "tag": ["ff' "rare' "europe' "10s' "thriller' ["wtf' "serial-killer"]], 
+    -- "tag": ["5' "19' "11' "18' "1' ["44' "25"]], 
 
     ('51 - Preservation', '265019'),
-    -- "tag": ["ff' "common' "usa' "00s' "paranormal' ["serial-killer' "woods"]], 
+    -- "tag": ["5' "20' "12' "17' "2' ["25' "32"]], 
 
     ('52 - Lake Mungo', '27374'),
-    -- "tag": ["mockumentary' "common' "other' "00s' "paranormal' ["demon' "drama"]], 
+    -- "tag": ["6' "20' "14' "17' "2' ["21' "39"]], 
 
     ('53 - Diary Of The Dead', '13025'),
-    -- "tag": ["ff' "common' "usa' "00s' "monsters' ["blockbuster' "zombie' "apocalypse"]], 
+    -- "tag": ["5' "20' "12' "17' "4' ["30' "37' "26"]], 
 
-    ('54 - Afflicted', '210947'),
-    -- "tag": ["ff' "common' "usa' "10s' "monsters' ["zombie"]], 
+    ('54 - A5licted', '210947'),
+    -- "tag": ["5' "20' "12' "18' "4' ["37"]], 
 
     ('55 - A Haunted House', '139038'),
-    -- "tag": ["ff' "common' "usa' "10s' "paranormal' ["comedy"]], 
+    -- "tag": ["5' "20' "12' "18' "2' ["41"]], 
 
     ('56 - Megan Is Missing', '63197'),
-    -- "tag": ["ff' "common' "usa' "10s' "thriller' ["serial-killer' "webcam"]], 
+    -- "tag": ["5' "20' "12' "18' "1' ["25' "36"]], 
 
-    ('57 - Leaving D.C ', '46146'),
-    -- "tag": ["ff' "rare' "usa' "10s' "paranormal' ["woods' "loser"]], 
+    ('57 - Leaving D.C ', '413469'),
+    -- "tag": ["5' "19' "12' "18' "2' ["32' "27"]], 
 
     ('58 - Man vs', '343112'),
-    -- "tag": ["mockumentary' "rare' "usa' "10s' "monsters' ["woods' "reality-show"]], 
+    -- "tag": ["6' "19' "12' "18' "4' ["32' "38"]], 
 
     ('59 - Shooting The Warwicks', '176074'),
-    -- "tag": ["mockumentary' "rare' "usa' "10s' "thriller' ["reality-show' "comedy"]], 
+    -- "tag": ["6' "19' "12' "18' "1' ["38' "41"]], 
 
-    ('60 - Paranormal Activity', '23827'),
-    -- "tag": ["ff' "common' "usa' "00s' "paranormal' ["blockbuster' "demon' "possession"]], 
+    ('60 - 2 Activity', '23827'),
+    -- "tag": ["5' "20' "12' "17' "2' ["30' "21' "24"]], 
+
+
+    -- CORENTIN
 
     ('61 - Death Of A Vlogger', '614196'),
-    -- "tag": ["mockumentary' "rare' "europe' "10s' "paranormal' ["comedy' "demon' "reality-show"]], 
+    -- "tag": ["6' "19' "11' "18' "2' ["41' "21' "38"]], 
 
     ('62 - Mockingbird', '289712'),
-    -- "tag": ["ff' "common' "usa' "10s' "thriller' ["serial-killer' "clown"]], 
+    -- "tag": ["5' "20' "12' "18' "1' ["25' "29"]], 
 
-    ('63 - Occult', '118315'),
-    -- "tag": ["mockumentary' "rare' "asia' "00s' "paranormal' ["serial-killer' "demon' "possession' "cult"]], 
+    ('63 - Oc33', '118315'),
+    -- "tag": ["6' "19' "13' "17' "2' ["25' "21' "24' "33"]], 
 
     ('64 - Bad Ben', '821660'),
-    -- "tag": ["ff' "rare' "usa' "10s' "paranormal' ["demon' "loser"]], 
+    -- "tag": ["5' "19' "12' "18' "2' ["21' "27"]], 
 
     ('65 - Quarantine', '13812'),
-    -- "tag": ["mockumentary' "common' "usa' "00s' "monsters' ["zombie"]], 
+    -- "tag": ["6' "20' "12' "17' "4' ["37"]], 
 
     ('66 - Unfriended', '277685'),
-    -- "tag": ["screen' "common' "usa' "10s' "paranormal' ["demon"]], 
+    -- "tag": ["9' "20' "12' "18' "2' ["21"]], 
 
     ('67 - Jeruzalem', '339547'),
-    -- "tag": ["ff' "common' "other' "10s' "monsters' ["mythology' "zombie"]], 
+    -- "tag": ["5' "20' "14' "18' "4' ["35' "37"]], 
 
     ('68 - Sorgoï Prakov', '359642'),
-    -- "tag": ["ff' "rare' "france' "10s' "thriller' ["serial-killer' "wtf' "comedy"]], 
+    -- "tag": ["5' "19' "10' "18' "1' ["25' "44' "41"]], 
 
     ('69 - Frazier Park Recut', '480635'),
-    -- "tag": ["ff' "rare' "usa' "10s' "thriller' ["woods' "serial-killer"]], 
+    -- "tag": ["5' "19' "12' "18' "1' ["32' "25"]], 
 
     ('70 - The Lost Footage of Leah Sullivan', '555559'),
-    -- "tag": ["ff' "rare' "usa' "10s' "paranormal' ["demon"]], 
+    -- "tag": ["5' "19' "12' "18' "2' ["21"]], 
 
     ('71 - Exhibit A', '49341'),
-    -- "tag": ["ff' "rare' "europe' "00s' "thriller' ["serial-killer' "drama"]], 
+    -- "tag": ["5' "19' "11' "17' "1' ["25' "39"]], 
 
-    ('72 - Alien Abduction', '258193'),
-    -- "tag": ["ff' "common' "usa' "10s' "sf' ["alien"]], 
+    ('72 - 23 Abduction', '258193'),
+    -- "tag": ["5' "20' "12' "18' "3' ["23"]], 
 
     ('73 - The Tunnel', '46221'),
-    -- "tag": ["mockumentary' "rare' "other' "10s' "paranormal' ["demon"]], 
+    -- "tag": ["6' "19' "14' "18' "2' ["21"]], 
 
-    ('74 - Paranormal Activity 5', '146301'),
-    -- "tag": ["ff' "common' "usa' "10s' "paranormal' ["demon' "possession' "blockbuster"]], 
+    ('74 - 2 Activity 5', '146301'),
+    -- "tag": ["5' "20' "12' "18' "2' ["21' "24' "30"]], 
 
     ('75 - The Dyatlov Pass Incident', '169219'),
-    -- "tag": ["mockumentary' "rare' "europe' "10s' "monsters' ["mythology' "true-story"]], 
+    -- "tag": ["6' "19' "11' "18' "4' ["35' "43"]], 
 
     ('76 - Amber Alert', '135670'),
-    -- "tag": ["ff' "rare' "usa' "10s' "thriller' ["serial-killer"]], 
+    -- "tag": ["5' "19' "12' "18' "1' ["25"]], 
 
     ('77 - Exists', '124470'),
-    -- "tag": ["ff' "common' "usa' "10s' "monsters' ["mythology' "bigfoot' "woods"]], 
+    -- "tag": ["5' "20' "12' "18' "4' ["35' "34' "32"]], 
 
     ('78 - Unfriended : Dark Web', '505058'),
-    -- "tag": ["screen' "common' "usa' "10s' "paranormal' ["demon' "webcam"]], 
+    -- "tag": ["9' "20' "12' "18' "2' ["21' "36"]], 
 
     ('79 - The River', '39336'),
-    -- "tag": ["series' "rare' "usa' "10s' "paranormal' ["reality-show' "demon' "drama' "water"]], 
+    -- "tag": ["8' "19' "12' "18' "2' ["38' "21' "39' "42"]], 
 
     ('80 - The McPherson Tape', '204611'),
-    -- "tag": ["ff' "rare' "usa' "70-80s' "sf' ["alien"]], 
+    -- "tag": ["5' "19' "12' "15' "3' ["23"]], 
 
     ('81 - The Borderlands', '207774'),
-    -- "tag": ["ff' "rare' "europe' "10s' "paranormal' ["demon' "possession"]], 
+    -- "tag": ["5' "19' "11' "18' "2' ["21' "24"]], 
 
     ('82 - Die Präsenz', '303856'),
-    -- "tag": ["ff' "rare' "europe' "10s' "paranormal' ["demon"]], 
+    -- "tag": ["5' "19' "11' "18' "2' ["21"]], 
 
     ('83 - Night Shot', '574466'),
-    -- "tag": ["mockumentary' "rare' "france' "10s' "paranormal' ["demon' "reality-show' "hospital"]], 
+    -- "tag": ["6' "19' "10' "18' "2' ["21' "38' "28"]], 
 
     ('84 - Followed', '521531'),
-    -- "tag": ["mockumentary' "common' "usa' "10s' "paranormal' ["demon' "reality-show"]], 
+    -- "tag": ["6' "20' "12' "18' "2' ["21' "38"]], 
 
     ('85 - Pyramide', '282813'),
-    -- "tag": ["ff' "common' "usa' "10s' "paranormal' ["mythology' "demon"]], 
+    -- "tag": ["5' "20' "12' "18' "2' ["35' "21"]], 
 
     ('86 - The Monster project', '462036'),
-    -- "tag": ["ff' "rare' "usa' "10s' "monsters' ["demon' "vampire"]], 
+    -- "tag": ["5' "19' "12' "18' "4' ["21' "45"]], 
 
     ('87 - The Fear Footage', '551412'),
-    -- "tag": ["sketch' "rare' "usa' "10s' "paranormal' ["demon"]], 
+    -- "tag": ["7' "19' "12' "18' "2' ["21"]], 
 
     ('88 - The Fear Footage 2', '658829'),
-    -- "tag": ["sketch' "rare' "usa' "10s' "paranormal' ["demon"]], 
+    -- "tag": ["7' "19' "12' "18' "2' ["21"]], 
 
     ('89 - The Fear Footage 3', '790509'),
-    -- "tag": ["sketch' "rare' "usa' "10s' "paranormal' ["demon"]], 
+    -- "tag": ["7' "19' "12' "18' "2' ["21"]], 
 
     ('90 - Survive The Hollow Shoals', '506986'),
-    -- "tag": ["mockumentary' "rare' "usa' "10s' "paranormal' ["woods' "reality-show' "demon"]], 
+    -- "tag": ["6' "19' "12' "18' "2' ["32' "38' "21"]], 
+
+    -- SOPHIE
 
     ('91 - Willow Creek', '185460'),
-    -- "tag": ["ff' "common' "usa' "10s' "monsters' ["woods' "bigfoot"]], 
+    -- "tag": ["5' "20' "12' "18' "4' ["32' "34"]], 
 
     ('92 - The Conspiracy', '133369'),
-    -- "tag": ["ff' "rare' "usa' "10s' "thriller' ["cult"]], 
+    -- "tag": ["5' "19' "12' "18' "1' ["33"]], 
 
     ('93 - Steelmanville Road', '810263'),
-    -- "tag": ["ff' "rare' "usa' "10s' "paranormal' ["demon"]], 
+    -- "tag": ["5' "19' "12' "18' "2' ["21"]], 
 
-    ('94 - Paranormal Activity 2', '41436'),
-    -- "tag": ["ff' "common' "usa' "10s' "paranormal' ["demon' "possession' "blockbuster"]], 
+    ('94 - 2 Activity 2', '41436'),
+    -- "tag": ["5' "20' "12' "18' "2' ["21' "24' "30"]], 
 
-    ('95 - Cold Ground', '472591'),
-    -- "tag": ["ff' "rare' "france' "10s' "monsters' ["woods"]], 
+    ('95 - C40 Ground', '472591'),
+    -- "tag": ["5' "19' "10' "18' "4' ["32"]], 
 
     ('96 - A Haunted House 2', '184345'),
-    -- "tag": ["ff' "common' "usa' "10s' "paranormal' ["comedy"]], 
+    -- "tag": ["5' "20' "12' "18' "2' ["41"]], 
 
     ('97 - Rorschach', '419464'),
-    -- "tag": ["ff' "rare' "usa' "10s' "paranormal' ["demon' "possession"]], 
+    -- "tag": ["5' "19' "12' "18' "2' ["21' "24"]], 
 
     ('98 - The Devil’s Doorway', '524789'),
-    -- "tag": ["ff' "rare' "europe' "10s' "paranormal' ["demon' "possession"]], 
+    -- "tag": ["5' "19' "11' "18' "2' ["21' "24"]], 
 
     ('99 - V/H/S/ Viral', '267806'),
-    -- "tag": ["sketch' "common' "usa' "10s' "paranormal' ["demon"]], 
+    -- "tag": ["7' "20' "12' "18' "2' ["21"]], 
 
     ('100 - A Record Of Sweet Murder', '291492'),
-    -- "tag": ["ff' "rare' "asia' "10s' "monsters' ["serial-killer' "alien"]], 
+    -- "tag": ["5' "19' "13' "18' "4' ["25' "23"]], 
 
     ('101 - The Houses October Built 2', '466344'),
-    -- "tag": ["mockumentary' "common' "usa' "10s' "paranormal' ["serial-killer' "clown"]], 
+    -- "tag": ["6' "20' "12' "18' "2' ["25' "29"]], 
 
     ('102 - The Gallows', '299245'),
-    -- "tag": ["ff' "common' "usa' "10s' "paranormal' ["demon' "blockbuster"]], 
+    -- "tag": ["5' "20' "12' "18' "2' ["21' "30"]], 
 
     ('103 - Area 51', '57876'),
-    -- "tag": ["ff' "common' "usa' "10s' "sf' ["alien"]], 
+    -- "tag": ["5' "20' "12' "18' "3' ["23"]], 
 
     ('104 - The Darkest Dawn', '423733'),
-    -- "tag": ["ff' "rare' "europe' "10s' "sf' ["alien' "apocalypse"]], 
+    -- "tag": ["5' "19' "11' "18' "3' ["23' "26"]], 
 
-    ('105 - Blair Witch', '351211'),
-    -- "tag": ["ff' "common' "usa' "10s' "paranormal' ["blockbuster' "witch' "woods"]], 
+    ('105 - Blair 22', '351211'),
+    -- "tag": ["5' "20' "12' "18' "2' ["30' "22' "32"]], 
 
     ('106 - The Last Exorcism', '38358'),
-    -- "tag": ["ff' "common' "usa' "10s' "paranormal' ["demon' "possession"]], 
+    -- "tag": ["5' "20' "12' "18' "2' ["21' "24"]], 
 
     ('107 - The Last Exorcism 2', '146203'),
-    -- "tag": ["ff' "common' "usa' "10s' "paranormal' ["demon' "possession"]], 
+    -- "tag": ["5' "20' "12' "18' "2' ["21' "24"]], 
 
     ('108 - Rec 2', '10664'),
-    -- "tag": ["ff' "common' "europe' "00s' "monsters' ["zombie' "blockbuster"]], 
+    -- "tag": ["5' "20' "11' "17' "4' ["37' "30"]], 
 
     ('109 - The Collingswood Story', '54511'),
-    -- "tag": ["ff' "rare' "ysa' "00s' "monsters' ["webcam"]], 
+    -- "tag": ["5' "19' "12' "17' "4' ["36"]], 
 
     ('110 - Long Pigs', '74727'),
-    -- "tag": ["mockumentary' "rare' "usa' "00s' "monsters' ["gore' "serial-killer"]], 
+    -- "tag": ["6' "19' "12' "17' "4' ["31' "25"]], 
 
     ('111 - One Cut Of The Dead', '513434');
-    -- "tag": ["mockumentary' "common' "asia' "10s' "monsters' ["zombie' "comedy"]],  
+    -- "tag": ["6' "20' "13' "18' "4' ["37' "41"]],  
