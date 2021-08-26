@@ -7,19 +7,31 @@ import { NavLink } from 'react-router-dom';
 
 import './header.scss';
 
-const Header = ({ pseudo }) => (
-  <header className="header">
-    <div className="header__leftmenu">
-      <div className="header__stby">STBY</div>
-      <div className="header__accountmenu">
-        {pseudo ? (
-          <NavLink to="/profile">
-            {pseudo}
-            'S CAMERA
-          </NavLink>
-        ) : <NavLink to="/login">CAMERA INCONNUE/:?? LOGIN?</NavLink> }
+const Header = ({ pseudo }) => {
+  let cameraDisplay;
+  if (pseudo !== undefined) {
+    if (pseudo.slice(-1).toLowerCase() === 's') {
+      cameraDisplay = "' CAMERA";
+    } else {
+      cameraDisplay = "'S CAMERA";
+    }
+  }
 
+  return (
+    <header className="header">
+      <div className="header__leftmenu">
+        <div className="header__stby">STBY</div>
+        <div className="header__accountmenu">
+          {pseudo ? (
+            <NavLink to="/profile">
+              {pseudo}
+              {cameraDisplay}
+            </NavLink>
+          ) : <NavLink to="/login">CAMERA INCONNUE/:?? LOGIN?</NavLink> }
+
+        </div>
       </div>
+
     </div>
     <h1 className="header__title">
       <div className="header__logo">

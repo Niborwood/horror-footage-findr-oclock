@@ -31,6 +31,7 @@ const settings = (store) => (next) => (action) => {
             getPseudo = state.settings.newEmail;
           } else {
             getEmail = state.login.email;
+            store.dispatch(updateTextInfo('le champ ne doit pas etre vide'));
           }
 
           const response = await api.patch(`user/${state.login.id}`, {
