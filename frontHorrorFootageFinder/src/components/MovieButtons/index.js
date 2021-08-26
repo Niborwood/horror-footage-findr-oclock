@@ -2,35 +2,57 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Button from '../Button';
-
+// SCSS
 import './moviebuttons.scss';
 
+// COMPOSANTS EXTERNES
+import Button from '../Button';
+import Divider from '../Divider';
+
+// IMPORTS D'ACTIONS
 import { updateQuizResultIndex } from '../../actions/movies';
-import { resetQuiz } from '../../actions/quiz';
+import { quizInit } from '../../actions/quiz';
 
 export const MovieButtons = ({
   format, quizResults, resultsLength, currentIndex, updateResultsIndex, onResetQuizz,
-}) => (
-  <div className="movie-buttons">
-    <Button textContent="Déjà vu" />
-    <Button textContent="Ajouter à ma liste" />
-    {/* Affichage conditionnel si le format = full seulement */}
-    {format === 'full' && (
-      <>
-        {/* Si le currentIndex dépasse le nombre de résultats, on n'affiche pas le bouton */}
-        {currentIndex < resultsLength - 1 && (
-        <Button
-          to={`/movie/${quizResults[currentIndex + 1]}`}
-          onClick={updateResultsIndex}
-          textContent="Autre résultat"
-        />
+}) => {
+  // Affichage conditionnel du texte du nombre de résultats
+  const numberOfResultsLeft = (resultsLength - currentIndex - 1);
+  const moreResultsText = `${numberOfResultsLeft} ${numberOfResultsLeft > 1 ? 'autres résultats correspondent' : 'autre résultat correspond'} à vos crtières.`;
+
+  return (
+    <>
+      {/* Buttons Holder */}
+      <div className="movie-buttons">
+        <Button textContent="Déjà vu" />
+        <Button textContent="Ajouter à ma liste" />
+        {/* Affichage conditionnel si le format = full seulement */}
+        {format === 'full' && (
+        <>
+          {/* Si le currentIndex dépasse le nombre de résultats, on n'affiche pas le bouton */}
+          {currentIndex < resultsLength - 1 && (
+          <Button
+            to={`/movie/${quizResults[currentIndex + 1]}`}
+            onClick={updateResultsIndex}
+            textContent="Autre résultat"
+          />
+          )}
+          <Button to="/quiz" textContent="Relancer le quiz" onClick={onResetQuizz} />
+        </>
         )}
-        <Button to="/quiz" textContent="Relancer le quiz" onClick={onResetQuizz} />
-      </>
-    )}
-  </div>
-);
+      </div>
+      {/* Nombre de résultats restants */}
+      {numberOfResultsLeft > 0 ? (
+        <>
+          <div className="movie-buttons__count">
+            {moreResultsText}
+          </div>
+          <Divider />
+        </>
+      ) : <Divider />}
+    </>
+  );
+};
 
 MovieButtons.propTypes = {
   format: PropTypes.string.isRequired,
@@ -57,7 +79,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = (dispatch) => ({
   updateResultsIndex: () => dispatch(updateQuizResultIndex()),
   onResetQuizz: () => {
-    dispatch(resetQuiz());
+    dispatch(quizInit());
   },
 });
 

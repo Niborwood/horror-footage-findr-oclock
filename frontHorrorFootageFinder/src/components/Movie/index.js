@@ -37,8 +37,8 @@ export const Movie = ({
       <>
         <Divider />
         <MovieProviders movieID={tmdbID} />
-        <Divider />
-        <MovieResults />
+        {/* <Divider />
+        <MovieResults /> */}
       </>
       )}
     </div>
