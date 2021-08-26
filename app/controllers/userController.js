@@ -6,6 +6,11 @@ const jwtMiddleware = require('../services/jwt');
 
 module.exports = {
 
+    /**
+     * Controller to found a user with his id
+     * @param {Number} request userId in params
+     * @param {Object} response 
+     */
     async findUser(request, response) {
         try {
             const user = await userDataMapper.getUserById(request.params.id);
@@ -65,6 +70,11 @@ module.exports = {
         }
     },
 
+    /**
+     * Controller to add new user in database
+     * @param {Oject} request Infos to create new user in body (pseudo, email and password)
+     * @param {Oject} response 
+     */
     async addUser(request, response) {
         try {
             const newUser = request.body;
@@ -87,6 +97,12 @@ module.exports = {
         }
     },
 
+    /**
+     * Controller to update user infos (pseudo or/and email)
+     * @param {Number} request userId in params
+     * @param {Object} request new infos of the user in body
+     * @param {Object} response 
+     */
     async updateUser(request, response) {
         try {
             const infosToModify = request.body;
@@ -104,6 +120,13 @@ module.exports = {
         }
     },
 
+    /**
+     * Controller to delete a user 
+     * @param {Number} request userId in params
+     * @param {Oject} response 
+     * @param {*} next to exit of the function if the user doesn't exist
+     * @returns 
+     */
     async deleteUser(request, response, next) {
         try {
 
@@ -135,6 +158,11 @@ module.exports = {
         }
     },
 
+    /**
+     * Controller to get details of a user (watched movies or watchlist)
+     * @param {Number} request userId in params
+     * @param {Object} response 
+     */
     async getAllDetails(request, response) {
         try {
             const userDetails = await userDataMapper.userWithDetails(request.params.id);
@@ -151,6 +179,11 @@ module.exports = {
         }
     },
 
+    /**
+     * Controller to have movie and rating given by a user
+     * @param {Numbers} request userId and movieId in params
+     * @param {Object} response 
+     */
     async oneRating(request, response) {
         try {
             const infos = request.params;
@@ -167,6 +200,11 @@ module.exports = {
         }
     },
 
+    /**
+     * Controlle to have all ratings given by one user
+     * @param {Number} request userId in params
+     * @param {Object} response 
+     */
     async allRatings(request, response) {
         try {
             const userId = request.params.id;

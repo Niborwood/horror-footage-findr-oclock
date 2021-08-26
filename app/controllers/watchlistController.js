@@ -4,6 +4,11 @@ const movieDataMapper = require('../dataMappers/movie');
 
 module.exports = {
 
+    /**
+     * Controller to add movie into watchlist of a user
+     * @param {Numbers} request userId and movieId in params
+     * @param {Object} response 
+     */
     async addMovieToWatchlist(request, response) {
         try {
             const alreadyIn = await movieDataMapper.movieInTable(request.params);
@@ -30,14 +35,18 @@ module.exports = {
         }
     },
 
-    async editMovieWatchlist(request, response, next) {
+    /**
+     * Controller to edit the watchlist (true <-> false)
+     * @param {Numbers} request userId and movieId in params
+     * @param {*} response
+     */
+    async editMovieWatchlist(request, response) {
         try {
             const editWatchlist = await watchlistDataMapper.editMovieWatchlist(request.params);
             response.json({
                 message: 'La watchlist a bien été mise à jour',
                 data: editWatchlist
             });
-            next();
         } catch (error) {
             console.trace(error);
             response.status(500).json({

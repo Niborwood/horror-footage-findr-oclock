@@ -3,7 +3,12 @@ const quizDataMapper = require('../dataMappers/quiz');
 
 module.exports = {
 
-    async searchMovies(request, response) {
+    /**
+     * Controller to search movie with tags in params
+     * @param {String} request tags to find movie(s) in params
+     * @param {Object} response 
+     */
+     async searchMovies(request, response) {
         try {
             // Split request.query.tags into an array of strings
             const tags = request.query.tags.split(',');
@@ -18,16 +23,29 @@ module.exports = {
         }
     },
 
+    /**
+     * Controller to get question depending on the answers already received
+     * @param {Object} request answers' tag, number of answers and questionId
+     * @param {Object} response 
+     */
     async getAnswersToAQuestion(request, response) {
         try {
             const { questionToAsk, answers } = request.body;
-            const rawQuizData = await quizDataMapper.getAnswersToAQuestion(questionToAsk, answers.length, answers);
+            let rawQuizData;
+            // Si la question posée est la première, on appelle la méthode getAnswersToFirstQuestion
+            if (questionToAsk === 1) {
+                rawQuizData = await quizDataMapper.getAnswersToFirstQuestion();
+            }
+            // Sinon, on appelle la méthode getAnswersToQuestion
+            else {
+                rawQuizData = await quizDataMapper.getAnswersToAQuestion(questionToAsk, answers.length, answers);
+            }
             const currentQuizData = { 
                 question: rawQuizData[0].title,
-                answers: rawQuizData.map(answer => ({
-                    id: answer.id,
-                    description: answer.description,
-                    value: answer.value,
+                answers: rawQuizData.map(({id, description, value}) => ({
+                    id,
+                    description,
+                    value,
                 }))
             };
 
@@ -36,6 +54,25 @@ module.exports = {
             console.trace(error);
             response.status(500).json({data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver les réponses, veuillez réessayer ultérieurement.'});
         }
+    },
+
+    /**
+     * Controller to know how much questions are in database
+     * @param {_} request no request
+     * @param {Object} response 
+     */
+    async getNumberOfQuestions(_, response) {
+        try {
+            // Split request.query.tags into an array of strings
+            const rawResults = await quizDataMapper.getNumbersOfAnswers();
+            const result = parseInt(rawResults, 10);
+            const fakeResult = 6;
+            response.json(fakeResult);
+        } catch (error) {
+            console.trace(error);
+            response.status(500).json({data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver le quiz, veuillez réessayer ultérieurement.'});
+        }
     }
+
 
 };

@@ -3,7 +3,11 @@ const movieDataMapper = require('../dataMappers/movie');
 
 module.exports = {
 
-
+    /**
+     * Controller to add movie into watched movies of a user
+     * @param {Numbers} request userId and movieId in params
+     * @param {Object} response 
+     */
     async addWatchedMovie(request, response) {
         try {
             const movieInTable = await movieDataMapper.movieInTable(request.params);
@@ -29,6 +33,11 @@ module.exports = {
         }
     },
 
+    /**
+     * Controller to edit movies watched (true <-> false)
+     * @param {Numbers} request userId and movieId in params
+     * @param {Object} response 
+     */
     async editWatchedMovie(request, response) {
         try {
             const changeWatched = await watchedDataMapper.changeValueWatched(request.params);
