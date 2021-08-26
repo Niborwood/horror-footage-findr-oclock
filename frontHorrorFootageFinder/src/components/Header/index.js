@@ -29,7 +29,7 @@ const Header = ({ pseudo }) => (
       </div>
       <div className="header__app-title">
         <NavLink to="/">
-          <div>FOUND</div>
+          <div>HORROR</div>
           <div>FOOTAGE</div>
           <div>
             FINDR
@@ -42,12 +42,15 @@ const Header = ({ pseudo }) => (
 );
 
 Header.propTypes = {
-  pseudo: PropTypes.string.isRequired,
+  pseudo: PropTypes.string,
+};
+
+Header.defaultProps = {
+  pseudo: '',
 };
 
 const mapStateToProps = (state) => ({
   pseudo: state.login.pseudo,
-
 });
 
 const mapDispatchToProps = {

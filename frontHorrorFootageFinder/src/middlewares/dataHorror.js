@@ -22,7 +22,7 @@ const dataHorror = (store) => (next) => (action) => {
           const getPseudo = state.register.registerPseudo;
           const getEmail = state.register.registerEmail;
           const getPassword = state.register.registerConfirmPassword;
-          await api.post('api/v1/register', {
+          await api.post('register/', {
             pseudo: getPseudo,
             email: getEmail,
             password: getPassword,
@@ -40,7 +40,7 @@ const dataHorror = (store) => (next) => (action) => {
           const state = store.getState();
           const getEmail = state.login.loginEmail;
           const getPassword = state.login.loginPassword;
-          const response = await api.post('api/v1/login', {
+          const response = await api.post('login', {
             email: getEmail,
             password: getPassword,
           });

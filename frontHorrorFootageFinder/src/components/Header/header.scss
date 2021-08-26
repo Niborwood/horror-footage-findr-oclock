@@ -25,6 +25,7 @@
     &__accountmenu {
         background: white;
         width: 120px;
+        word-break: break-all;
 
         a {
             color: #333;
@@ -32,6 +33,12 @@
 
         @include media-min(768px) {
             width: 100%;
+        }
+    }
+    
+    &__account-link {
+        a {
+            word-break: break-word;
         }
     }
 

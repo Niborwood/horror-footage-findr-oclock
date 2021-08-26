@@ -1,65 +1,100 @@
 import {
-  CHOOSE_AN_ANSWER, SWITCH_TO_NEXT_QUESTION, RESET_QUIZ,
+  CHOOSE_AN_ANSWER, SWITCH_TO_NEXT_QUESTION,
+  LOAD_QUESTION_AND_ANSWERS, SAVE_QUESTIONS_NUMBER,
+  END_QUIZ, RESET_QUIZ,
 } from '../actions/quiz';
 
 export const initialState = {
-  questions: ["qu'est ce que la vie ?", 'chocolatine ou pain au chocolat ?', 'une 3eme question pour la route ?'],
-  currentQuestion: 0,
+  // Intitulé de la question en cours (envoyée par l'API)
+  question: '',
+  // Etape du quiz
+  currentQuestion: 1,
+  // Tableau des réponses déjà prononcées par l'utilisateur
   savedAnswers: [],
-  currentAnswers: [
-    { description: 'Je passe', value: 'je passe', selected: false },
-    { description: 'C\'est 42', value: 'c\'est 42 !', selected: false },
-    { description: 'Déso aqua-chèvre', value: "déso j'ai aqua-chèvre", selected: false },
-    { description: 'La réponse D', value: 'la réponse D', selected: false },
-  ],
+  // Tableau des réponses à la question en cours (envoyées par l'API)
+  currentAnswers: [],
+  numberOfQuestions: 1,
+  numberOfAnswers: 0,
+  quizCompleted: false,
 };
 
 const quizReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CHOOSE_AN_ANSWER:
-      // On parcours le tableau des réponses fournit par la BDD
-      for (let i = 0; i < state.currentAnswers.length; i += 1) {
-        // Si l'élement du tableau correspond au bouton cliqué ou switch le "selected"
-        if (state.currentAnswers[i].value === action.answer) {
-          // eslint-disable-next-line no-param-reassign
-          state.currentAnswers[i].selected = !state.currentAnswers[i].selected;
+    case CHOOSE_AN_ANSWER: {
+    // On mappe sur les réponses du state pour retourner
+    // les réponses avec la sélection de l'utilisateur suivant l'id de l'élément
+    // passé en paramètre
+      const updatedAnswers = state.currentAnswers.map((answer) => {
+        // Si l'ID matche avec l'élément de la liste, on inverse sa propriété selected
+        if (answer.id === action.updatedAnswerID) {
+          return { ...answer, selected: !answer.selected };
         }
-      }
-      return state;
+        // Sinon, on retourne l'élément de la liste brut
+        return answer;
+      });
+
+      return {
+        ...state,
+        currentAnswers: updatedAnswers,
+      };
+    }
+
+    case LOAD_QUESTION_AND_ANSWERS:
+      return {
+        ...state,
+        question: action.question,
+        currentAnswers: action.answers,
+        numberOfAnswers: action.answers.length,
+      };
+
+    case SAVE_QUESTIONS_NUMBER:
+      return {
+        ...state,
+        numberOfQuestions: action.nbOfQuestions,
+      };
 
     case SWITCH_TO_NEXT_QUESTION: {
+      let answers;
       // On garde uniquement les élements selectionés
-      const answers = state.currentAnswers.filter((answer) => answer.selected === true);
-      // On retire les booléens "selected" des tags pour renvoyer seulement leur value
-      const cleanedAnswers = answers.map((answer) => answer.value);
-
-      // JUSTE EN ATTENDANT DE RECEVOIR DE VRAIES DATA ===>
-      // on reinititaliste les currentAnswer à la main
-      for (let i = 0; i < state.currentAnswers.length; i += 1) {
-        // eslint-disable-next-line no-param-reassign
-        state.currentAnswers[i].selected = false;
+      answers = state.currentAnswers.filter((answer) => answer.selected === true);
+      // Si aucune réponse n'est sélectionnée, on les sélectionne toutes
+      if (answers.length === 0) {
+        //! Version pour sélectionner plusieurs bonnes réponses
+        // answers = state.currentAnswers.map((answer) => ({ ...answer, selected: true }));
+        //! Version simplifiée à effacer : on sélectionne la 1ere réponse
+        answers = state.currentAnswers.map((answer, index) => {
+          if (index === 0) {
+            return { ...answer, selected: !answer.selected };
+          }
+          return answer;
+        });
       }
+
+      // On retire les paramètres superflus des tags pour renvoyer seulement leur value
+      const cleanedAnswers = answers.map((answer) => answer.value);
 
       return {
         ...state,
         savedAnswers: [...state.savedAnswers, ...cleanedAnswers],
         currentQuestion: state.currentQuestion + 1,
+        numberOfAnswers: 0,
       };
     }
 
+    case END_QUIZ:
+      return {
+        ...state,
+        currentAnswers: [],
+        currentQuestion: 1,
+        question: '',
+        quizCompleted: true,
+      };
+
+      //! Prévoir un reset
+
     // reset du quizz (action dispatch depuis le MovieButtons)
     case RESET_QUIZ:
-      return {
-        questions: ["qu'est ce que la vie ?", 'chocolatine ou pain au chocolat ?', 'une 3eme question pour la route ?'],
-        currentQuestion: 0,
-        savedAnswers: [],
-        currentAnswers: [
-          { value: 'je passe', selected: false },
-          { value: 'c\'est 42 !', selected: false },
-          { value: "déso j'ai aqua-chèvre", selected: false },
-          { value: 'la réponse D', selected: false },
-        ],
-      };
+      return initialState;
 
     default:
       return state;
