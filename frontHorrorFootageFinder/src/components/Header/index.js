@@ -32,7 +32,6 @@ const Header = ({ pseudo }) => {
         </div>
       </div>
 
-    </div>
     <h1 className="header__title">
       <div className="header__logo">
         [
