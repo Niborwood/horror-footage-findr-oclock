@@ -3,6 +3,12 @@ const movieDataMapper = require('../dataMappers/movie');
 
 module.exports = {
 
+    /**
+     * Controller to add rating to a movie 
+     * @param {Numbers} request userId and movieId in params
+     * @param {Object} request the rating of the movie in body
+     * @param {Object} response 
+     */
     async addRating(request, response) {
 
         try {
@@ -35,6 +41,12 @@ module.exports = {
         }
     },
 
+    /**
+     * Controller to edit the rating of a movie
+     * @param {Number} request userId and movieId in params
+     * @param {Object} request rating of the movie in body
+     * @param {Object} response 
+     */
     async editRating(request, response) {
         try {
             const rating = request.body.rating;

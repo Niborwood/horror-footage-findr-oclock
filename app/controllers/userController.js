@@ -21,6 +21,11 @@ module.exports = {
         }
     },
 
+    /** 
+     * Controller to have user with details (userId, token, watchlist and movies watched)
+     * @param {Object} request email and password in body
+     * @param {Object} response 
+     */
     async userLogged(request, response) {
         try {
             console.log('je passe dans mon loggin controller');
@@ -29,17 +34,14 @@ module.exports = {
                 password
             } = request.body;
 
-            console.log('details du mec', email, password);
             const logginUser = await userDataMapper.logginUser(email);
             const comparedPassword = await bcrypt.compare(password, logginUser.password);
-            console.log('userLogged', logginUser);
             
             if (comparedPassword === true) {
                 
                 //! Appel à la fonction dans jwt.js, qui me renvoie mon token tout chaud :)
                 const token = jwtMiddleware.generateAccessToken(logginUser);
 
-                console.log('id du mec', logginUser.id);
                 const watchlist = await userDataMapper.watchlist(logginUser.id);
                 const resultWatchlist = [...watchlist.map(resultWatchlist => resultWatchlist.tmdb_id)];
                 const watchedMovie = await userDataMapper.watchedMovie(logginUser.id);
@@ -179,40 +181,6 @@ module.exports = {
                 error: `Désolé une erreur serveur est survenue, impossible de récupérer les notes données par cet utilisateur veuillez réessayer ultérieurement.`
             });
         }
-    },
-
-
-    //! Useless pour l'instant :
-    // async userWatchlist(request, response) {
-    //     try {
-    //         const watchlist = await userDataMapper.watchlist(request.params.id);
-    //         response.json({
-    //             data: watchlist
-    //         });
-    //     } catch (error) {
-    //         console.trace(error);
-    //         response.status(500).json({
-    //             data: [],
-    //             error: `Désolé une erreur serveur est survenue, impossible d'ouvrir la watchlist, veuillez réessayer ultérieurement.`
-    //         });
-    //     }
-    // },
-
-    // async userWatchedMovie(request, response) {
-    //     try {
-    //         const watchedMovie = await userDataMapper.watchedMovie(request.params.id);
-
-    //         response.json({
-    //             data: watchedMovie
-    //         });
-
-    //     } catch (error) {
-    //         console.trace(error);
-    //         response.status(500).json({
-    //             data: [],
-    //             error: `Désolé une erreur serveur est survenue, impossible d'accéder aux films déjà vus, veuillez réessayer ultérieurement.`
-    //         });
-    //     }
-    // },
+    }
 
 };

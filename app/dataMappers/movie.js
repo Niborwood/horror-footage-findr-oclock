@@ -15,19 +15,17 @@ module.exports = {
 
     // Robin !
     async getTheMovie(movieId) {
-        const result = await client.query(`
-        SELECT tmdb_id, tag.value FROM movie
+        const result = await client.query(`SELECT tmdb_id, tag.value FROM movie
         INNER JOIN movie_has_tag mt 
-            ON movie.id = mt.movie_id 
+        ON movie.id = mt.movie_id 
         INNER JOIN tag 
-            ON tag.id = mt.tag_id
+        ON tag.id = mt.tag_id
         WHERE tmdb_id = $1`, [movieId]);
         return result.rows;
     },
 
     async movieRatings(movieId) {
-        const result = await client.query(`SELECT rating,
-        movie.*
+        const result = await client.query(`SELECT rating, movie.*
         FROM horror_user_has_movie
         JOIN movie ON horror_user_has_movie.movie_id = movie.id
         WHERE movie.id = $1`, [movieId]);

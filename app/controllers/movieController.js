@@ -2,6 +2,11 @@ const movieDataMapper = require('../dataMappers/movie');
 
 module.exports = {
 
+    /**
+     * Controller to have the movies with best ratings
+     * @param {Number} request with the number of Best Movies to send in params
+     * @param {Object} response 
+     */
     async movieSelection(request, response) {
         try {
             const limit = request.params.limit;
@@ -19,6 +24,11 @@ module.exports = {
         }
     },
 
+    /**
+     * Controller to have all ratings of one movie
+     * @param {Number} request movieId in params
+     * @param {Object} response 
+     */
     async allRatingsMovie(request, response) {
         try {
             const movieId = request.params.movieId;
@@ -35,7 +45,11 @@ module.exports = {
         }
     },
 
-
+    /**
+     * Controller to have the movie(s) result of the quiz
+     * @param {Number} request tmdb_id of the movie in params (tmdbId)
+     * @param {Object} response 
+     */
     async movieResult(request, response) {
         try {
             const rawMovie = await movieDataMapper.getTheMovie(request.params.tmdbId);
@@ -51,7 +65,11 @@ module.exports = {
         }
     },
 
-    
+    /**
+     * Controller to get all movies 
+     * @param {*} _ Request not used
+     * @param {Object} response 
+     */
     async getAllMovies(_, response) {
         try {
             const allMovies = await movieDataMapper.allMovies();
