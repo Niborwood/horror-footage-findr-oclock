@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import PropTypes from 'prop-types';
 // import PropTypes from 'prop-types';
@@ -11,12 +12,13 @@ const Header = ({ pseudo }) => (
     <div className="header__leftmenu">
       <div className="header__stby">STBY</div>
       <div className="header__accountmenu">
-        {/* Lien conditionnel si l'utilisateur est connecté */}
         {pseudo ? (
-          <NavLink className="header__account-link" to="/settings">{`${pseudo}'S CAMERA/:`}</NavLink>
-        ) : (
-          <NavLink to="/login">CAMERA INCONNUE/:?? LOGIN?</NavLink>
-        )}
+          <NavLink to="/profile">
+            {pseudo}
+            'S CAMERA
+          </NavLink>
+        ) : <NavLink to="/login">CAMERA INCONNUE/:?? LOGIN?</NavLink> }
+
       </div>
     </div>
     <h1 className="header__title">

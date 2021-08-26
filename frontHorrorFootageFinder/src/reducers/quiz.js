@@ -1,7 +1,7 @@
 import {
   CHOOSE_AN_ANSWER, SWITCH_TO_NEXT_QUESTION,
   LOAD_QUESTION_AND_ANSWERS, SAVE_QUESTIONS_NUMBER,
-  END_QUIZ,
+  END_QUIZ, RESET_QUIZ,
 } from '../actions/quiz';
 
 export const initialState = {
@@ -91,6 +91,10 @@ const quizReducer = (state = initialState, action) => {
       };
 
       //! Prévoir un reset
+
+    // reset du quizz (action dispatch depuis le MovieButtons)
+    case RESET_QUIZ:
+      return initialState;
 
     default:
       return state;

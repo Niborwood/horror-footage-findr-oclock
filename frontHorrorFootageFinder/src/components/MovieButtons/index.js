@@ -7,9 +7,10 @@ import Button from '../Button';
 import './moviebuttons.scss';
 
 import { updateQuizResultIndex } from '../../actions/movies';
+import { resetQuiz } from '../../actions/quiz';
 
 export const MovieButtons = ({
-  format, quizResults, resultsLength, currentIndex, updateResultsIndex,
+  format, quizResults, resultsLength, currentIndex, updateResultsIndex, onResetQuizz,
 }) => (
   <div className="movie-buttons">
     <Button textContent="Déjà vu" />
@@ -25,7 +26,7 @@ export const MovieButtons = ({
           textContent="Autre résultat"
         />
         )}
-        <Button to="/quiz" textContent="Relancer le quiz" />
+        <Button to="/quiz" textContent="Relancer le quiz" onClick={onResetQuizz} />
       </>
     )}
   </div>
@@ -37,6 +38,7 @@ MovieButtons.propTypes = {
   resultsLength: PropTypes.number.isRequired,
   updateResultsIndex: PropTypes.func.isRequired,
   currentIndex: PropTypes.number.isRequired,
+  onResetQuizz: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({
@@ -54,6 +56,9 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch) => ({
   updateResultsIndex: () => dispatch(updateQuizResultIndex()),
+  onResetQuizz: () => {
+    dispatch(resetQuiz());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieButtons);

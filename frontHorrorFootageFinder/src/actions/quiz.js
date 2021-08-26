@@ -86,3 +86,8 @@ export const fetchQuizResults = (tags) => (dispatch) => {
       console.log(error);
     });
 };
+// reset quiz (en test)
+export const RESET_QUIZ = 'RESET_QUIZ';
+export const resetQuiz = () => ({
+  type: RESET_QUIZ,
+});

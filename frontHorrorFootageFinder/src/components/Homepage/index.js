@@ -6,11 +6,13 @@ import Button from '../Button';
 import Carousel from '../Carousel';
 
 import { getTopMovies } from '../../actions/movies';
+
 import './homepage.scss';
 
 export const Homepage = ({ loadTopMovies, topMovies: { loaded, tmdbIDs } }) => {
   // Appel à l'API interne pour récupérer les 3 films les plus populaires
   // selon les utilisateurs du site
+
   useEffect(() => {
     loadTopMovies(3);
   }, []);
