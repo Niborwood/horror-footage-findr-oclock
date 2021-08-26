@@ -10,6 +10,9 @@
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 
     &__wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         min-height: 40vh;
         text-align: center;
         background-color: #0827F5;
@@ -22,7 +25,13 @@
     &__title {
         font-size: 1.3rem;
         font-weight: bold;
-        margin: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    &__button__container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
     }
 
     &__button {

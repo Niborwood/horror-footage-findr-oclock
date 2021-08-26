@@ -11,6 +11,9 @@ import {
 import {
   submitWatchlistAndWatched,
 } from '../actions/watchlist';
+import {
+  RATE_MOVIE,
+} from '../actions/rating';
 import api from '../utils/api';
 
 const dataHorror = (store) => (next) => (action) => {
@@ -69,6 +72,22 @@ const dataHorror = (store) => (next) => (action) => {
         }
       };
       login();
+      break;
+    }
+    case RATE_MOVIE: {
+      const rateMovieDataBase = async () => {
+        try {
+          const state = store.getState();
+          const { value } = action;
+          const { movieID } = action;
+          await api.put(`user/${state.login.id}/rating/movie/${movieID}`, {
+            rating: value,
+          });
+        } catch (error) {
+          console.log('error', error);
+        }
+      };
+      rateMovieDataBase();
       break;
     }
     default:
