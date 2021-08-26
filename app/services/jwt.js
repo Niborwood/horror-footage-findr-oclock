@@ -4,17 +4,26 @@ const JWT_SIGN_SECRET = process.env.JWT_SECRET;
 
 module.exports = {
   
+  /**
+   *  Function to generate Token 
+   * @param {Object} user Infos about the user (id, email, password)
+   * @returns {Object} the token
+   */
   generateAccessToken(user) {
-    console.log('je suis dans le middleware qui crée le token, user:', user);
     return jwt.sign(user, JWT_SIGN_SECRET, {
       expiresIn: '10800s'
     })
   },
 
+  /**
+   * Function to authenticate the token that we receive
+   * @param {Object} request token in headers ['authorization']
+   * @param {*} response 
+   * @param {*} next to exit of the function
+   * @returns 
+   */
   authenticateToken(request, response, next) {
-    console.log('je passe dans le middleware authenticate, request', request.header);
     const authHeader = request.headers['authorization'];
-    console.log('header', authHeader);
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
@@ -25,7 +34,7 @@ module.exports = {
       if (error) {
         return response.sendStatus(401)
       }
-      console.log('je test mon user', userDetokenise);
+    
       request.user = userDetokenise;
       next();
     })

@@ -1,8 +1,3 @@
-// flou flou flou
-
-/*
-EXEMPLE :
-
 module.exports = (prop, schema) => {
 
     return async (request, response, next) => {
@@ -14,4 +9,4 @@ module.exports = (prop, schema) => {
         }
     }
 
-}*/
+}

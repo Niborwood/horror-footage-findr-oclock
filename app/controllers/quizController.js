@@ -3,14 +3,20 @@ const quizDataMapper = require('../dataMappers/quiz');
 
 module.exports = {
 
-    async searchMovies(request, response) {
+    /**
+     * Controller to search movie with tags in params
+     * @param {String} request tags to find movie(s) in params
+     * @param {Object} response 
+     */
+     async searchMovies(request, response) {
         try {
             // Split request.query.tags into an array of strings
             const tags = request.query.tags.split(',');
             const rawResults = await quizDataMapper.getQuizResults(tags, tags.length);
+            console.log(rawResults);
 
-            // On retravaille les données pour qu'il n'y ait plus qu'un array de tmdb_id simple (ex: [1,2,3,4,5])
-            const results = [...rawResults.map(result => result.tmdb_id)];
+            // On retravaille les données pour qu'il n'y ait plus qu'un array d'IDs simple (ex: [1,2,3,4,5])
+            const results = [...rawResults.map(result => result.id)];
             response.json(results);
         } catch (error) {
             console.trace(error);
@@ -18,6 +24,11 @@ module.exports = {
         }
     },
 
+    /**
+     * Controller to get question depending on the answers already received
+     * @param {Object} request answers' tag, number of answers and questionId
+     * @param {Object} response 
+     */
     async getAnswersToAQuestion(request, response) {
         try {
             const { questionToAsk, answers } = request.body;
@@ -46,7 +57,12 @@ module.exports = {
         }
     },
 
-    async getNumberOfQuestions(request, response) {
+    /**
+     * Controller to know how much questions are in database
+     * @param {_} request no request
+     * @param {Object} response 
+     */
+    async getNumberOfQuestions(_, response) {
         try {
             // Split request.query.tags into an array of strings
             const rawResults = await quizDataMapper.getNumbersOfAnswers();
@@ -57,6 +73,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver le quiz, veuillez réessayer ultérieurement.'});
         }
-    },
+    }
+
 
 };
