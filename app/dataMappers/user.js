@@ -42,6 +42,16 @@ module.exports = {
     },
 
     /**
+     * Edit password of the user
+     * @returns {Object}
+     */
+    async editPassword(userId, hash) {
+        const userUpdated = await client.query(`UPDATE horror_user
+        SET password=$1 WHERE id=$2`, [userId, hash]);
+        return userUpdated.rows[0];
+    },
+
+    /**
      * Delete user in databse
      * @returns nothing
      */

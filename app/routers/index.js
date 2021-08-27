@@ -48,6 +48,8 @@ router.route('/api/v1/user/:id')
     .patch(jwtMiddleware.authenticateToken, userController.updateUser)
     .delete(jwtMiddleware.authenticateToken, userController.deleteUser);
 
+router.patch('/api/v1/user/:id/change', jwtMiddleware.authenticateToken, userController.changePasseword);
+
 router.get('/api/v1/user/:id/details', userController.getAllDetails);
 
 router.route('/api/v1/user/:id/watchlist/:movieId')
