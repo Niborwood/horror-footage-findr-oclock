@@ -22,7 +22,7 @@ export const getTopMovies = (nbOfMovies) => (dispatch) => {
       // On récupère la data (id et tmdbId)
       const { data: { data } } = response;
       // On filtre pour ne sortir que les tmdbIDs dans un array simple
-      const topTmdbMovies = data.map(({ tmdb_id: tmdbID }) => (tmdbID));
+      const topTmdbMovies = data.map(({ id: tmdbID }) => (tmdbID));
       dispatch(setTopMovies(topTmdbMovies));
     }).catch((error) => {
       console.log(error);

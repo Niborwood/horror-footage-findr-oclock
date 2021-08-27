@@ -10,6 +10,10 @@ import {
 } from '../actions/register';
 import {
   submitWatchlistAndWatched,
+  ADD_MOVIE_IN_WATCHED,
+  ADD_MOVIE_IN_WATCHLIST,
+  REMOVE_MOVIE_IN_WATCHED,
+  REMOVE_MOVIE_IN_WATCHLIST,
 } from '../actions/watchlist';
 import {
   RATE_MOVIE,
@@ -52,8 +56,8 @@ const dataHorror = (store) => (next) => (action) => {
           console.log('response watched', response.data.watched);
           console.log('response watchlist', response.data.watchlist);
           store.dispatch(changeStateWhenConnected(response.data.data, response.data.token));
-          store.dispatch(submitWatchlistAndWatched(response.data.watchlist,
-            response.data.watched));
+          store.dispatch(submitWatchlistAndWatched(response.data.watchlist[0],
+            response.data.watched[0]));
 
           // eslint-disable-next-line dot-notation
           api.defaults.headers.common['authorization'] = `Bearer ${response.data.token}`;
@@ -88,6 +92,85 @@ const dataHorror = (store) => (next) => (action) => {
         }
       };
       rateMovieDataBase();
+      break;
+    }
+
+    case ADD_MOVIE_IN_WATCHED: {
+      const submitAddMovieInWatched = async () => {
+        try {
+          const state = store.getState();
+          const getWatched = state.ui.watched;
+          const getIdUser = state.login.id;
+          if (!getWatched.includes(action.newWatchedId)) {
+            const response = await api.post(`/user/${getIdUser}/watched/${action.newWatchedId}`);
+            response();
+            console.log('add movie watchlist', response);
+          }
+        } catch (error) {
+          console.log('error', error);
+        }
+      };
+
+      submitAddMovieInWatched();
+      break;
+    }
+
+    case ADD_MOVIE_IN_WATCHLIST: {
+      const submitAddMovieInWatchlist = async () => {
+        try {
+          const state = store.getState();
+          const getWatchList = state.ui.watchList;
+          if (!getWatchList.includes(action.newWatchlistId)) {
+            const getIdUser = state.login.id;
+            console.log('getiduser', getIdUser);
+            const response = await api.post(`/user/${getIdUser}/watched/${action.newWatchlistId}`);
+            response();
+            console.log('add movie watchlist', response);
+          }
+        } catch (error) {
+          console.log('error', error);
+        }
+      };
+      submitAddMovieInWatchlist();
+      break;
+    }
+
+    case REMOVE_MOVIE_IN_WATCHED: {
+      const submitRemoveMovieInWatched = async () => {
+        try {
+          const state = store.getState();
+          const getWatched = state.ui.watched;
+          console.log('getwatched', getWatched);
+          console.log('newWatchlistId', action.movieID);
+          const getIdUser = state.login.id;
+          console.log('getiduser', getIdUser);
+          const response = await api.patch(`/user/${getIdUser}/watched/${action.movieID}`);
+          response();
+          console.log('remove watched', response);
+        } catch (error) {
+          console.log('error', error);
+        }
+      };
+      submitRemoveMovieInWatched();
+      break;
+    }
+    case REMOVE_MOVIE_IN_WATCHLIST: {
+      const submitRemoveMovieInWatchlist = async () => {
+        try {
+          const state = store.getState();
+          const getWatched = state.ui.watched;
+          console.log('getwatched', getWatched);
+          console.log('newWatchlistId', action.movieID);
+          const getIdUser = state.login.id;
+          console.log('getiduser', getIdUser);
+          const response = await api.patch(`/user/${getIdUser}/watched/${action.movieID}`);
+          response();
+          console.log('remove watchlist', response);
+        } catch (error) {
+          console.log('error', error);
+        }
+      };
+      submitRemoveMovieInWatchlist();
       break;
     }
     default:
