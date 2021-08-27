@@ -6,6 +6,8 @@ export const rateMovie = (value, movieID) => ({
 });
 
 export const SAVE_RATE_IN_STATE = 'SAVE_RATE_IN_STATE';
-export const saveRateInState = () => ({
+export const saveRateInState = (movieID, value) => ({
   type: SAVE_RATE_IN_STATE,
+  movieID,
+  value,
 });

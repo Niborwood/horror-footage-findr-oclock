@@ -6,6 +6,10 @@ import {
   END_QUIZ,
 } from '../actions/quiz';
 
+import {
+  SAVE_RATE_IN_STATE,
+} from '../actions/rating';
+
 const initialState = {
   topMovies: {
     loaded: false,
@@ -57,6 +61,17 @@ const moviesReducer = (state = initialState, action) => {
           // On insère les données de notre api dans le state.
           // Ex: state.movies.123.tags
           tags: action.tags,
+        },
+      };
+    }
+
+    // Arnaud WIP: on enregistre dans le state
+    case SAVE_RATE_IN_STATE: {
+      return {
+        ...state,
+        [action.movieID]: {
+          ...state[action.movieID],
+          userRating: action.value,
         },
       };
     }

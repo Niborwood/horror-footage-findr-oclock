@@ -16,7 +16,7 @@ import {
   REMOVE_MOVIE_IN_WATCHLIST,
 } from '../actions/watchlist';
 import {
-  RATE_MOVIE,
+  RATE_MOVIE, saveRateInState,
 } from '../actions/rating';
 import api from '../utils/api';
 
@@ -87,6 +87,8 @@ const dataHorror = (store) => (next) => (action) => {
           await api.put(`user/${state.login.id}/rating/movie/${movieID}`, {
             rating: value,
           });
+          // TODO dispatch une action pour mettre la note du user dans le state.
+          store.dispatch(saveRateInState(movieID, value));
         } catch (error) {
           console.log('error', error);
         }
