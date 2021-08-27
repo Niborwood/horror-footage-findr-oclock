@@ -51,8 +51,8 @@ module.exports = {
                 // const resultWatchlist = [...watchlist.map(resultWatchlist => resultWatchlist)];
                 const watchedMovie = await userDataMapper.watchedMovie(logginUser.id);
                 // const resultWatched = [...watchedMovie.map(resultWatched => resultWatched)];
-                console.log('watchlist', resultWatchlist);
-                console.log('watched', resultWatched);
+                console.log('watchlist', watchlist);
+                console.log('watched', watchedMovie);
     
                 response.json({
                     data: logginUser,
