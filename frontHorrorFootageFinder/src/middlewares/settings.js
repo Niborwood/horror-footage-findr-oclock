@@ -15,32 +15,49 @@ const settings = (store) => (next) => (action) => {
           const state = store.getState();
           let getPseudo = '';
           let getEmail = '';
+          let getPassword = '';
+          let response;
 
+          // on verifie si le password a etait modifié.
+          // Si oui, on envoie un requête patch sur la route de modification du password.
+          if (state.settings.newPassword.length > 0) {
+            // On vérifie que le password et la confirmation correspondent
+            // sinon on ne lance pas la requête
+            if (state.settings.newPassword === state.settings.newPasswordConfirm) {
+              getPassword = state.settings.newPassword;
+              response = await api.patch(`user/${state.login.id}/change`, {
+                password: getPassword,
+              });
+            } else {
+              store.dispatch(updateTextInfo('Le mot de passe doit correspondre à la confirmation'));
+            }
+          } else {
+          // Si non, c'est que ce sont le mail/pseudo qui ont été modifié.
           // on vérifie que les modifs reçus soit ok pour les changer en BDD
-          // actuellement on vérifie seulement que les champs ne soit pas vide.
-          // on pourrait éventuellement vérifier plus de choses ?
-          // (notament pour le password à l'avenir)
-          if (state.settings.newPseudo.length > 0) {
-            getPseudo = state.settings.newPseudo;
-          } else {
-            getPseudo = state.login.pseudo;
-            // Ne fonctionne pas >
-            // store.dispatch(updateTextInfo('le champ ne doit pas etre vide'));
-          }
+            if (state.settings.newPseudo.length > 0) {
+              getPseudo = state.settings.newPseudo;
+            } else {
+              getPseudo = state.login.pseudo;
+            }
 
-          if (state.settings.newEmail.length > 0) {
-            getEmail = state.settings.newEmail;
-          } else {
-            getEmail = state.login.email;
-            // store.dispatch(updateTextInfo('le champ ne doit pas etre vide'));
-          }
+            if (state.settings.newEmail.length > 0) {
+              getEmail = state.settings.newEmail;
+            } else {
+              getEmail = state.login.email;
+            }
 
-          const response = await api.patch(`user/${state.login.id}`, {
-            pseudo: getPseudo,
-            email: getEmail,
-          });
-          if (response.data) {
-            store.dispatch(saveNewLoginState(response.data.data));
+            response = await api.patch(`user/${state.login.id}`, {
+              pseudo: getPseudo,
+              email: getEmail,
+            });
+          }
+          // on vérifie qu'il y a une réponse (utilise pour renvoyer
+          // un message d'erreur sur la foncirmation du password)
+          if (response) {
+            // on vérifie que la réponse contient des datas pour un update le state
+            if (response.data) {
+              store.dispatch(saveNewLoginState(response.data.data));
+            }
           }
         } catch (error) {
           console.log('error', error);
