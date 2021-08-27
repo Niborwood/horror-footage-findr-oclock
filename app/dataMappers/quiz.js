@@ -7,15 +7,69 @@ module.exports = {
      * @returns {Object[]}
      */
     async getQuizResults(tags, nbOfTags) {
-        const result = await client.query(`SELECT movie.id
-        FROM movie_has_tag 
+        // ----- La logique complète est expliquée dans getAnswersToAQuestion, on en reprend une partie ici
+
+        // On initialise l'index des variables à échapper
+        let escapedIndex = 0;
+        // On initialise les contenus à échapper à donner à client.query
+        const escapedData = [];
+
+        let query = `SELECT DISTINCT movie.id 
+        FROM movie_has_tag as mt
         INNER JOIN tag 
-        ON tag.id = movie_has_tag.tag_id 
+            ON tag.id = mt.tag_id 
         INNER JOIN movie 
-        ON movie.id = movie_has_tag.movie_id 
-        WHERE tag.value = ANY($1)
-        GROUP BY movie.id
-        HAVING COUNT(DISTINCT tag.value) >= $2`, [tags, nbOfTags]);
+            ON movie.id = mt.movie_id
+        WHERE mt.movie_id IN (
+        `;
+
+        // On boucle sur l'objet des réponses pour incrémenter les variables
+        for (tag in tags) {
+            escapedData.unshift(tags[tag]);
+
+            escapedIndex++;
+
+            query += `
+            SELECT movie_id 
+                FROM movie_has_tag 
+            INNER JOIN tag 
+                ON tag.id = movie_has_tag.tag_id 
+            WHERE tag.value = ANY($${escapedIndex})
+            GROUP BY movie_id`;
+
+            if (escapedIndex < nbOfTags) {
+                query += `
+                INTERSECT
+                `;
+            }
+        }
+
+        // On ajoute enfin la fin de la requête : on referme le WHERE IN
+        query += `)`;
+
+        const result = await client.query(query, escapedData);
+
+        return result.rows;
+    },
+
+    /**
+     * Get tags/answers to the first question of the quiz
+     * @returns {Object[]}
+     */
+    async getAnswersToFirstQuestion() {
+        const result = await client.query(`SELECT DISTINCT tag.description, tag.value, tag.id, question.title, question.name 
+            FROM movie_has_tag as mt
+            INNER JOIN tag 
+            ON tag.id = mt.tag_id 
+            INNER JOIN question 
+            ON question.id = tag.question_id
+            WHERE mt.movie_id IN (
+                SELECT movie_id FROM movie_has_TAG 
+                INNER JOIN tag 
+                ON tag.id = movie_has_tag.tag_id 
+                )
+            AND tag.question_id = 1`);
+
         return result.rows;
     },
 

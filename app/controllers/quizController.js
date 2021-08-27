@@ -10,10 +10,18 @@ module.exports = {
      */
     async searchMovies(request, response) {
         try {
-            // Split request.query.tags into an array of strings
-            const tags = request.query.tags.split(',');
-            const rawResults = await quizDataMapper.getQuizResults(tags, tags.length);
-            console.log(rawResults);
+            // On transforme le string de chaque tag, séparé par des virgules, en tableau
+            const tags = request.query;
+            for (const key in tags) {
+                if (tags.hasOwnProperty(key)) {
+                    tags[key] = tags[key].split(',');
+                }
+            }
+            // On récupère la longueur de l'objet de tags
+            const nbOfTags = Object.keys(tags).length;
+
+            // On envoie les infos au datamapper
+            const rawResults = await quizDataMapper.getQuizResults(tags, nbOfTags);
 
             // On retravaille les données pour qu'il n'y ait plus qu'un array d'IDs simple (ex: [1,2,3,4,5])
             const results = [...rawResults.map(result => result.id)];
@@ -33,10 +41,14 @@ module.exports = {
         try {
             const { questionToAsk, answers } = request.body;
             let rawQuizData;
-
-            rawQuizData = await quizDataMapper.getAnswersToAQuestion(questionToAsk, answers);
-
-            // On reformatte la réponse de la BDD pour qu'elle soit facilement exploitable par le front
+            // Si la question posée est la première, on appelle la méthode getAnswersToFirstQuestion
+            if (parseInt(questionToAsk, 10) === 1) {
+                rawQuizData = await quizDataMapper.getAnswersToFirstQuestion();
+            }
+            // Sinon, on appelle la méthode getAnswersToQuestion
+            else {
+                rawQuizData = await quizDataMapper.getAnswersToAQuestion(questionToAsk, answers);
+            }
             const currentQuizData = {
                 question: {
                     title: rawQuizData[0].title,
@@ -48,6 +60,7 @@ module.exports = {
                     value,
                 }))
             };
+
 
             response.json(currentQuizData);
         } catch (error) {
