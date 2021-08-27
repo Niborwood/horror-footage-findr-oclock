@@ -25,16 +25,16 @@ module.exports = {
     },
 
     /**
-     * Controller to have all ratings of one movie
+     * Controller to have average of all ratings of one movie
      * @param {Number} request tmdbId in params
      * @param {Object} response 
      */
     async allRatingsMovie(request, response) {
         try {
             const movieId = request.params.tmdbId;
-            const movieWithRatings = await movieDataMapper.movieRatings(movieId);
+            const movieRatings = await movieDataMapper.movieRatings(movieId);
             response.json({
-                data: movieWithRatings
+                data: movieRatings
             });
         } catch (error) {
             console.trace(error);
@@ -46,16 +46,23 @@ module.exports = {
     },
 
     /**
-     * Controller to have the movie(s) result of the quiz
+     * Controller to have the movie(s) result of the quiz with the average of its ratings
      * @param {Number} request id of the movie in params (tmdbId)
      * @param {Object} response 
      */
     async movieResult(request, response) {
         try {
-            const rawMovie = await movieDataMapper.getTheMovie(request.params.movieId);
+            const movieId = request.params.movieId;
+            const rawMovie = await movieDataMapper.getTheMovie(movieId);
             // On reprend le movie.id à partir de rawMovie et on ajoute un array des value
             const movie = rawMovie.map(movie => movie.value);
-            response.json(movie);
+
+            const movieRatings = await movieDataMapper.movieRatings(movieId);
+
+            response.json({
+                id: movie, 
+                avgRatings: movieRatings
+            });
         } catch (error) {
             console.trace(error);
             response.status(500).json({
