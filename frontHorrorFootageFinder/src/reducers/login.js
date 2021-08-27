@@ -66,7 +66,7 @@ function loginReducer(state = initialState, {
       return {
         ...state,
         pseudo: value.pseudo,
-        loginEmail: value.email,
+        email: value.email,
       };
     case CLEAR_STATE:
       return {
