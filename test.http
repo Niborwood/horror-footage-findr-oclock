@@ -25,9 +25,9 @@ POST http://localhost:3001/api/v1/register
 Content-Type: application/json
 
 {
-    "pseudo": "poupilou",
-    "email": "poupilou@gmail.fr",
-    "password": "test5"
+    "pseudo": "patate",
+    "email": "patate@gmail.fr",
+    "password": "test6"
 }
 
 
@@ -36,7 +36,7 @@ Content-Type: application/json
 
 
 ### Modification d'un user en bdd
-PATCH http://localhost:3001/api/v1/user/3
+PATCH http://localhost:3001/api/v1/user/1
 Content-Type: application/json
 
 {

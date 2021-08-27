@@ -48,10 +48,11 @@ module.exports = {
                 const token = jwtMiddleware.generateAccessToken(logginUser);
 
                 const watchlist = await userDataMapper.watchlist(logginUser.id);
-                const resultWatchlist = [...watchlist.map(resultWatchlist => resultWatchlist.tmdb_id)];
+                const resultWatchlist = [...watchlist.map(resultWatchlist => resultWatchlist.id)];
                 const watchedMovie = await userDataMapper.watchedMovie(logginUser.id);
-                const resultWatched = [...watchedMovie.map(resultWatched => resultWatched.tmdb_id)];
-                console.log('watchlist', resultWatched);
+                const resultWatched = [...watchedMovie.map(resultWatched => resultWatched.id)];
+                console.log('watchlist', resultWatchlist);
+                console.log('watched', resultWatched);
     
                 response.json({
                     data: logginUser,
@@ -106,6 +107,7 @@ module.exports = {
      */
     async updateUser(request, response) {
         try {
+            console.log('controller', request.body);
             const infosToModify = request.body;
             const infoId = request.params.id;
             const editUser = await userDataMapper.modifyUser(infosToModify, infoId);
