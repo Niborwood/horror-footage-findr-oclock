@@ -99,7 +99,8 @@ export function fetchMovieTags(movieID) {
   return (dispatch) => {
     api.get(`movie/${movieID}`)
       .then((response) => {
-        dispatch(setMovieTags(movieID, response.data));
+        const { tags, movieRatings } = response.data;
+        dispatch(setMovieTags(movieID, tags, movieRatings));
       });
   };
 }
