@@ -20,27 +20,6 @@ module.exports = {
     },
 
     /**
-     * Get tags/answers to the first question of the quiz
-     * @returns {Object[]}
-     */
-    async getAnswersToFirstQuestion() {
-        const result = await client.query(`SELECT DISTINCT tag.description, tag.value, tag.id, question.title 
-            FROM movie_has_tag as mt
-            INNER JOIN tag 
-            ON tag.id = mt.tag_id 
-            INNER JOIN question 
-            ON question.id = tag.question_id
-            WHERE mt.movie_id IN (
-                SELECT movie_id FROM movie_has_TAG 
-                INNER JOIN tag 
-                ON tag.id = movie_has_tag.tag_id 
-                )
-            AND tag.question_id = 1`);
-
-        return result.rows;
-    },
-
-    /**
      * Get tags/answers to the current question
      * @returns {Object[]}
      */
@@ -58,7 +37,7 @@ module.exports = {
         // Cela aura pour effet de ne garder que les IDs de films qui croisent les tags de chaque question, et donc de pouvoir choisir 1 ou plusieurs réponses par question.
         // Par exemple, si la question 1 me renvoie les IDs 1,2,3, et que la question 2 me renvoie les IDs 1,5,6, et que la question 3 me renvoie les IDs 2,8,9...
         // ...le where mt.movie_id IN possèdera uniquement (1,2) puisque ce sont les deux seules valeurs communent entre les 3 listes d'IDs des 3 questions.
-        let query = `SELECT DISTINCT tag.description, tag.value, tag.id, question.title 
+        let query = `SELECT DISTINCT tag.description, tag.value, tag.id, question.title, question.name 
         FROM movie_has_tag as mt
         INNER JOIN tag 
             ON tag.id = mt.tag_id 
@@ -66,8 +45,6 @@ module.exports = {
             ON question.id = tag.question_id
         WHERE mt.movie_id IN (
         `;
-
-
 
         // On boucle sur l'objet des réponses pour incrémenter les variables
         for (tag in answers) {
@@ -95,12 +72,10 @@ module.exports = {
             }
         }
 
+        // On ajoute enfin la fin de la requête : on referme le WHERE IN et on précise la question dont on a besoin
         query += `
             )
             AND tag.question_id = $${escapedIndex + 1}`;
-
-        console.log(query);
-        console.log(escapedData);
 
         const result = await client.query(query, escapedData);
 

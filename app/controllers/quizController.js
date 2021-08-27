@@ -8,7 +8,7 @@ module.exports = {
      * @param {String} request tags to find movie(s) in params
      * @param {Object} response 
      */
-     async searchMovies(request, response) {
+    async searchMovies(request, response) {
         try {
             // Split request.query.tags into an array of strings
             const tags = request.query.tags.split(',');
@@ -20,7 +20,7 @@ module.exports = {
             response.json(results);
         } catch (error) {
             console.trace(error);
-            response.status(500).json({data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver le quiz, veuillez réessayer ultérieurement.'});
+            response.status(500).json({ data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver le quiz, veuillez réessayer ultérieurement.' });
         }
     },
 
@@ -33,17 +33,16 @@ module.exports = {
         try {
             const { questionToAsk, answers } = request.body;
             let rawQuizData;
-            // Si la question posée est la première, on appelle la méthode getAnswersToFirstQuestion
-            if (questionToAsk === 1) {
-                rawQuizData = await quizDataMapper.getAnswersToFirstQuestion();
-            }
-            // Sinon, on appelle la méthode getAnswersToQuestion
-            else {
-                rawQuizData = await quizDataMapper.getAnswersToAQuestion(questionToAsk, answers.length, answers);
-            }
-            const currentQuizData = { 
-                question: rawQuizData[0].title,
-                answers: rawQuizData.map(({id, description, value}) => ({
+
+            rawQuizData = await quizDataMapper.getAnswersToAQuestion(questionToAsk, answers);
+
+            // On reformatte la réponse de la BDD pour qu'elle soit facilement exploitable par le front
+            const currentQuizData = {
+                question: {
+                    title: rawQuizData[0].title,
+                    name: rawQuizData[0].name,
+                },
+                answers: rawQuizData.map(({ id, description, value }) => ({
                     id,
                     description,
                     value,
@@ -53,7 +52,7 @@ module.exports = {
             response.json(currentQuizData);
         } catch (error) {
             console.trace(error);
-            response.status(500).json({data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver les réponses, veuillez réessayer ultérieurement.'});
+            response.status(500).json({ data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver les réponses, veuillez réessayer ultérieurement.' });
         }
     },
 
@@ -71,7 +70,7 @@ module.exports = {
             response.json(fakeResult);
         } catch (error) {
             console.trace(error);
-            response.status(500).json({data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver le quiz, veuillez réessayer ultérieurement.'});
+            response.status(500).json({ data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver le quiz, veuillez réessayer ultérieurement.' });
         }
     }
 
