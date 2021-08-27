@@ -21,12 +21,14 @@ export function Modal({
         <p>{textContent}</p>
         {/* Pas le choix ici de nest une ternaire ici ?
         si la modal contient un redirect on render un Navlink, sinon on rendre un bouton */}
-        { onConfirm
-          ? (redirect.length > 0
-            ? <NavLink type="button" className="modal__button" onClick={onConfirm} to={redirect}>Valider</NavLink>
-            : <button type="button" className="modal__button" onClick={onCancel}>Annuler</button>)
-          : null }
-        { onCancel ? <button type="button" className="modal__button" onClick={onCancel}>Annuler</button> : null}
+        <div className="modal__button__container">
+          { onConfirm
+            ? (redirect.length > 0
+              ? <NavLink type="button" className="modal__button" onClick={onConfirm} to={redirect}>Valider</NavLink>
+              : <button type="button" className="modal__button" onClick={onCancel}>Annuler</button>)
+            : null }
+          { onCancel ? <button type="button" className="modal__button" onClick={onCancel}>Annuler</button> : null}
+        </div>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { fetchMovie, fetchMovieTags } from '../../actions/movies';
 
 import MovieButtons from '../MovieButtons';
+import MovieRate from '../MovieRate';
 
 import './movieinfo.scss';
 
@@ -39,6 +40,9 @@ export const MovieInfo = ({
       <div className="movie-info">
         <div className="movie-info__left-side">
           <img className="movie-info__poster" src={`https://www.themoviedb.org/t/p/w300/${currentData.poster_path}`} alt={`${currentData.original_title} movie poster`} title={`${currentData.original_title} movie poster`} />
+          <div>
+            <MovieRate movieID={movieID} />
+          </div>
           <div className="movie-info__tags">
             {currentTags}
           </div>
@@ -52,6 +56,9 @@ export const MovieInfo = ({
       {/* LEFT SIDE */}
       <div className="movie-info__left-side">
         <img className="movie-info__poster" src={`https://www.themoviedb.org/t/p/w300/${currentData.poster_path}`} alt={`${currentData.original_title} movie poster`} title={`${currentData.original_title} movie poster`} />
+        <div>
+          <MovieRate movieID={movieID} />
+        </div>
         <div className="movie-info__tags">
           {currentTags}
         </div>
