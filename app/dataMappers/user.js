@@ -42,6 +42,17 @@ module.exports = {
     },
 
     /**
+     * Edit password of the user
+     * @returns {Object}
+     */
+    async editPassword(userId, hash) {
+        console.log('je passe dans mon DM', userId, hash);
+        const userUpdated = await client.query(`UPDATE horror_user
+        SET password=$1::text WHERE id=$2`, [hash, userId]);
+        return;
+    },
+
+    /**
      * Delete user in databse
      * @returns nothing
      */
@@ -64,7 +75,7 @@ module.exports = {
      * @returns {Object[]}
      */
     async watchlist(userId) {
-        const result = await client.query('SELECT horror_user_has_movie.*, movie.name FROM horror_user_has_movie JOIN movie ON horror_user_has_movie.movie_id = movie.id WHERE horror_user_has_movie.horror_user_id = $1 AND horror_user_has_movie.watchlist=true', [userId]);
+        const result = await client.query('SELECT movie_id FROM horror_user_has_movie WHERE horror_user_has_movie.horror_user_id = $1 AND horror_user_has_movie.watchlist=true', [userId]);
         return result.rows;
     },
 
@@ -73,7 +84,7 @@ module.exports = {
      * @returns {Object[]}
      */
     async watchedMovie(userId) {
-        const result = await client.query('SELECT watched, rating, movie.id, movie.name FROM horror_user_has_movie JOIN movie ON horror_user_has_movie.movie_id = movie.id WHERE horror_user_has_movie.horror_user_id = $1 AND horror_user_has_movie.watched=true', [userId]);
+        const result = await client.query('SELECT movie_id FROM horror_user_has_movie WHERE horror_user_has_movie.horror_user_id = $1 AND horror_user_has_movie.watched=true', [userId]);
         return result.rows;
     },
 

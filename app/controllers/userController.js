@@ -33,7 +33,7 @@ module.exports = {
      */
     async userLogged(request, response) {
         try {
-            console.log('je passe dans mon loggin controller');
+            
             const {
                 email,
                 password
@@ -48,10 +48,10 @@ module.exports = {
                 const token = jwtMiddleware.generateAccessToken(logginUser);
 
                 const watchlist = await userDataMapper.watchlist(logginUser.id);
-                const resultWatchlist = [...watchlist.map(resultWatchlist => resultWatchlist.tmdb_id)];
+                const resultWatchlist = [...watchlist.map(resultWatchlist => resultWatchlist.movie_id)];
+                
                 const watchedMovie = await userDataMapper.watchedMovie(logginUser.id);
-                const resultWatched = [...watchedMovie.map(resultWatched => resultWatched.tmdb_id)];
-                console.log('watchlist', resultWatched);
+                const resultWatched = [...watchedMovie.map(resultWatched => resultWatched.movie_id)];
     
                 response.json({
                     data: logginUser,
@@ -77,11 +77,10 @@ module.exports = {
      */
     async addUser(request, response) {
         try {
-            console.log('request', request.body);
             const newUser = await request.body;
-            let salt = await bcrypt.genSalt(10);
-            let hash = await bcrypt.hash(newUser.password, salt);
-            console.log('hash', hash);
+            const salt = await bcrypt.genSalt(10);
+            const hash = await bcrypt.hash(newUser.password, salt);
+            
             const userToAdd = await userDataMapper.addNewUser(newUser, hash);
 
             const userAdded = await userDataMapper.getUserById(userToAdd.id);
@@ -122,6 +121,36 @@ module.exports = {
     },
 
     /**
+     * Controller to change the password
+     * @param {Number} request 
+     * @param {Object} request 
+     * @returns {Object} response
+     */
+    async changePasseword(request, response) {
+        try {
+            const toChange = request.body.password;
+            const userId = request.params.id;
+            
+            const salt = await bcrypt.genSalt(10);
+            const hash = await bcrypt.hash(toChange, salt);
+            
+            const editPassword = await userDataMapper.editPassword(userId, hash);
+            
+            response.json({
+                message: 'Le mot de passe a bien été changé',
+                data: userId
+            })
+
+        } catch (error) {
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Désolé une erreur serveur est survenue, impossible de mettre à jour le mot de passe de cet utilisateur, veuillez réessayer ultérieurement.`
+            });
+        }
+    },
+
+    /**
      * Controller to delete a user 
      * @param {Number} request userId in params
      * @param {Oject} response 
@@ -130,7 +159,6 @@ module.exports = {
      */
     async deleteUser(request, response, next) {
         try {
-
             //! Sécuriser l'accès direct via URL de l'API ..
             //! Récupérer token et décrypter pour chopper l'id du mec à supprimer !!
 
@@ -148,8 +176,6 @@ module.exports = {
                     message: `Utilisateur supprimé avec succès.`
                 });
             }
-
-
         } catch (error) {
             console.trace(error);
             response.status(500).json({

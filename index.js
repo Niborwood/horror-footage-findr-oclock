@@ -10,7 +10,7 @@ const expressSwagger = require('express-swagger-generator')(app);
 const options = {
     swaggerDefinition: {
         info: {
-            description: 'Propose une liste de films à voir',
+            description: `Propose une liste de films d''horreur à visionner ce soir`,
             title: 'Horror footage finder',
             version: '1.0.0',
         },

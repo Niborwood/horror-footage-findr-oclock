@@ -35,16 +35,13 @@ module.exports = {
     },
 
     /**
-     *  Get all rating of a movie
+     *  Get average of all rating of a movie
      * @returns {Object}
      */
     async movieRatings(movieId) {
-        const result = await client.query(`SELECT rating, 
-        movie.*
+        const result = await client.query(`SELECT AVG(rating) AS rating
         FROM horror_user_has_movie
-        JOIN movie 
-        ON horror_user_has_movie.movie_id = movie.id
-        WHERE movie.id = $1`, [movieId]);
+        WHERE movie_id = $1`, [movieId]);
         return result.rows[0];
     },
 

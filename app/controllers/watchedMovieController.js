@@ -11,6 +11,7 @@ module.exports = {
     async addWatchedMovie(request, response) {
         try {
             const movieInTable = await movieDataMapper.movieInTable(request.params);
+            console.log('request addwatched',request.params);
             if (!movieInTable) {
                 const movieInWatched = await watchedDataMapper.movieIntoWatched(request.params);
                 response.json({

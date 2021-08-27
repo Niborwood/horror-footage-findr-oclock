@@ -12,7 +12,7 @@ module.exports = {
     async addMovieToWatchlist(request, response) {
         try {
             const alreadyIn = await movieDataMapper.movieInTable(request.params);
-
+            console.log('request addwatlist',request.params);
             if (!alreadyIn) {
                 const movieInWatchlist = await watchlistDataMapper.movieIntoWatchlist(request.params);
                 response.json({
