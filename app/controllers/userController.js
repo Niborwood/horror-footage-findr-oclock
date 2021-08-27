@@ -48,16 +48,16 @@ module.exports = {
                 const token = jwtMiddleware.generateAccessToken(logginUser);
 
                 const watchlist = await userDataMapper.watchlist(logginUser.id);
-                const resultWatchlist = [...watchlist.map(resultWatchlist => resultWatchlist.movie_id)];
+                // const resultWatchlist = [...watchlist.map(resultWatchlist => resultWatchlist)];
                 const watchedMovie = await userDataMapper.watchedMovie(logginUser.id);
-                const resultWatched = [...watchedMovie.map(resultWatched => resultWatched.movie_id)];
+                // const resultWatched = [...watchedMovie.map(resultWatched => resultWatched)];
                 console.log('watchlist', resultWatchlist);
                 console.log('watched', resultWatched);
     
                 response.json({
                     data: logginUser,
-                    watchlist: [resultWatchlist],
-                    watched: [resultWatched],
+                    watchlist: [watchlist],
+                    watched: [watchedMovie],
                     token: token
                 });
             }
