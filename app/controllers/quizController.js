@@ -8,19 +8,27 @@ module.exports = {
      * @param {String} request tags to find movie(s) in params
      * @param {Object} response 
      */
-     async searchMovies(request, response) {
+    async searchMovies(request, response) {
         try {
-            // Split request.query.tags into an array of strings
-            const tags = request.query.tags.split(',');
-            const rawResults = await quizDataMapper.getQuizResults(tags, tags.length);
-            console.log(rawResults);
+            // On transforme le string de chaque tag, séparé par des virgules, en tableau
+            const tags = request.query;
+            for (const key in tags) {
+                if (tags.hasOwnProperty(key)) {
+                    tags[key] = tags[key].split(',');
+                }
+            }
+            // On récupère la longueur de l'objet de tags
+            const nbOfTags = Object.keys(tags).length;
+
+            // On envoie les infos au datamapper
+            const rawResults = await quizDataMapper.getQuizResults(tags, nbOfTags);
 
             // On retravaille les données pour qu'il n'y ait plus qu'un array d'IDs simple (ex: [1,2,3,4,5])
             const results = [...rawResults.map(result => result.id)];
             response.json(results);
         } catch (error) {
             console.trace(error);
-            response.status(500).json({data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver le quiz, veuillez réessayer ultérieurement.'});
+            response.status(500).json({ data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver le quiz, veuillez réessayer ultérieurement.' });
         }
     },
 
@@ -34,26 +42,30 @@ module.exports = {
             const { questionToAsk, answers } = request.body;
             let rawQuizData;
             // Si la question posée est la première, on appelle la méthode getAnswersToFirstQuestion
-            if (questionToAsk === 1) {
+            if (parseInt(questionToAsk, 10) === 1) {
                 rawQuizData = await quizDataMapper.getAnswersToFirstQuestion();
             }
             // Sinon, on appelle la méthode getAnswersToQuestion
             else {
-                rawQuizData = await quizDataMapper.getAnswersToAQuestion(questionToAsk, answers.length, answers);
+                rawQuizData = await quizDataMapper.getAnswersToAQuestion(questionToAsk, answers);
             }
-            const currentQuizData = { 
-                question: rawQuizData[0].title,
-                answers: rawQuizData.map(({id, description, value}) => ({
+            const currentQuizData = {
+                question: {
+                    title: rawQuizData[0].title,
+                    name: rawQuizData[0].name,
+                },
+                answers: rawQuizData.map(({ id, description, value }) => ({
                     id,
                     description,
                     value,
                 }))
             };
 
+
             response.json(currentQuizData);
         } catch (error) {
             console.trace(error);
-            response.status(500).json({data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver les réponses, veuillez réessayer ultérieurement.'});
+            response.status(500).json({ data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver les réponses, veuillez réessayer ultérieurement.' });
         }
     },
 
@@ -71,7 +83,7 @@ module.exports = {
             response.json(fakeResult);
         } catch (error) {
             console.trace(error);
-            response.status(500).json({data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver le quiz, veuillez réessayer ultérieurement.'});
+            response.status(500).json({ data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver le quiz, veuillez réessayer ultérieurement.' });
         }
     }
 
