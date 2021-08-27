@@ -35,8 +35,8 @@ const settings = (store) => (next) => (action) => {
           }
 
           const response = await api.patch(`user/${state.login.id}`, {
-            email: getEmail,
             pseudo: getPseudo,
+            email: getEmail,
           });
           if (response.data) {
             store.dispatch(saveNewLoginState(response.data.data));
