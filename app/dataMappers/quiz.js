@@ -7,7 +7,7 @@ module.exports = {
      * @returns {Object[]}
      */
     async getQuizResults(tags, nbOfTags) {
-        const result = await client.query(`SELECT movie_id
+        const result = await client.query(`SELECT movie.id
         FROM movie_has_tag 
         INNER JOIN tag 
         ON tag.id = movie_has_tag.tag_id 

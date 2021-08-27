@@ -21,6 +21,15 @@ const userSchema = require('../validations/schema/user');
 
 // Les routes :
 
+// Route pour trouver tous les films suivant des critères :
+router.get('/api/v1/searchmovies', quizController.searchMovies); // Anciennement quiz, route de vue. Robin, à tester
+
+// Route pour récupérer toutes les questions du quiz :
+router.post('/api/v1/quiz', quizController.getAnswersToAQuestion); // Robin, à tester
+
+router.get('/api/v1/questions', quizController.getNumberOfQuestions); // Robin, à tester
+
+// Route pour récupérer TOUS les films de la base de données :
 /**
  * Return all movies of the API
  * @route GET /allmovies

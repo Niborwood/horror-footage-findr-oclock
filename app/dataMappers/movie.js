@@ -30,7 +30,7 @@ module.exports = {
         ON movie.id = mt.movie_id 
         INNER JOIN tag 
         ON tag.id = mt.tag_id
-        WHERE id = $1`, [movieId]);
+        WHERE movie.id = $1`, [movieId]);
         return result.rows;
     },
 

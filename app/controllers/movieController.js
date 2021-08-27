@@ -47,13 +47,13 @@ module.exports = {
 
     /**
      * Controller to have the movie(s) result of the quiz
-     * @param {Number} request tmdb_id of the movie in params (tmdbId)
+     * @param {Number} request id of the movie in params (tmdbId)
      * @param {Object} response 
      */
     async movieResult(request, response) {
         try {
-            const rawMovie = await movieDataMapper.getTheMovie(request.params.tmdbId);
-            // On reprend le tmdb_id à partir de rawMovie et on ajoute un array des value
+            const rawMovie = await movieDataMapper.getTheMovie(request.params.movieId);
+            // On reprend le movie.id à partir de rawMovie et on ajoute un array des value
             const movie = rawMovie.map(movie => movie.value);
             response.json(movie);
         } catch (error) {

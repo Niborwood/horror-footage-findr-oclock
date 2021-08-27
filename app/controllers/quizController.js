@@ -13,9 +13,10 @@ module.exports = {
             // Split request.query.tags into an array of strings
             const tags = request.query.tags.split(',');
             const rawResults = await quizDataMapper.getQuizResults(tags, tags.length);
+            console.log(rawResults);
 
-            // On retravaille les données pour qu'il n'y ait plus qu'un array de tmdb_id simple (ex: [1,2,3,4,5])
-            const results = [...rawResults.map(result => result.tmdb_id)];
+            // On retravaille les données pour qu'il n'y ait plus qu'un array d'IDs simple (ex: [1,2,3,4,5])
+            const results = [...rawResults.map(result => result.id)];
             response.json(results);
         } catch (error) {
             console.trace(error);
