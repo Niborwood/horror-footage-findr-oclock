@@ -128,13 +128,16 @@ module.exports = {
      */
     async changePasseword(request, response) {
         try {
-            const toChange = request.body;
+            console.log('Je suis dans le changePassword, controller');
+            const toChange = request.body.pasword;
             const userId = request.params.id;
-
+            console.log('password in body', toChange);
+            console.log('userId', userId);
             const salt = await bcrypt.genSalt(10);
-            const hash = await bcrypt.hash(toChange.password, salt);
-
+            const hash = await bcrypt.hash(toChange, salt);
+            console.log('hash', hash);
             const editPassword = await userDataMapper.editPassword(userId, hash);
+            
             response.json({
                 message: 'Le mot de passe a bien été changé',
                 data: userId

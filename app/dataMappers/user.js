@@ -46,9 +46,10 @@ module.exports = {
      * @returns {Object}
      */
     async editPassword(userId, hash) {
+        console.log('je passe dans mon DM', userId, hash);
         const userUpdated = await client.query(`UPDATE horror_user
         SET password=$1 WHERE id=$2`, [userId, hash]);
-        return userUpdated.rows[0];
+        return;
     },
 
     /**
