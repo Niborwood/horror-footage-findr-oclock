@@ -2,6 +2,7 @@ import {
   PASS_SPLASH,
   TOGGLE_ACTION,
   TOGGLE_MODAL,
+
 } from '../actions/ui';
 import {
   SUBMIT_WATCHLIST_AND_WATCHED,
@@ -27,7 +28,6 @@ const UIreducer = (state = initialState, action) => {
         splashPassed: true,
       };
     case SUBMIT_WATCHLIST_AND_WATCHED:
-      console.log('yo');
       return {
         ...state,
         watchList: action.watchlist,

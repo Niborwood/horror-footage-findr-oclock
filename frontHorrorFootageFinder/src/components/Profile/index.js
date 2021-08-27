@@ -1,10 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-
 import MenuItem from '../MenuItem';
-
 import './profile.scss';
 
 export const Profile = () => (

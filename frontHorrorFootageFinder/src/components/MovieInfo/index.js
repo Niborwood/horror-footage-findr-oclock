@@ -75,7 +75,7 @@ export const MovieInfo = ({
           /5
         </div>
         {/* On passe le format à MovieButtons pour qu'il affiche ou non les deux boutons de quiz */}
-        <MovieButtons format={format} />
+        <MovieButtons format={format} movieID={movieID} />
 
         {/* Affichage conditionnel de la collection si le film en possède une */}
         {currentData.belongs_to_collection
