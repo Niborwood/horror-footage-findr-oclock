@@ -6,11 +6,11 @@ import {
 
 export const initialState = {
   // Intitulé de la question en cours (envoyée par l'API)
-  question: '',
+  question: {},
   // Etape du quiz
   currentQuestion: 1,
   // Tableau des réponses déjà prononcées par l'utilisateur
-  savedAnswers: [],
+  savedAnswers: {},
   // Tableau des réponses à la question en cours (envoyées par l'API)
   currentAnswers: [],
   numberOfQuestions: 1,
@@ -75,7 +75,13 @@ const quizReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        savedAnswers: [...state.savedAnswers, ...cleanedAnswers],
+        savedAnswers: {
+          ...state.savedAnswers,
+          //! A modifier par action.currentQuestion,
+          //! mais ça bug si on skip une question, si c'est possible
+          [state.question.name]: cleanedAnswers,
+          // [action.currentQuestion]: cleanedAnswers,
+        },
         currentQuestion: state.currentQuestion + 1,
         numberOfAnswers: 0,
       };
