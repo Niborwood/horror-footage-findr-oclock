@@ -12,7 +12,7 @@ const initialState = {
   registerConfirmPassword: '',
   registerPseudo: '',
   textConfirm: '',
-  inputMasked: false,
+  inputMasked: true,
   confirmationRegister: false,
 };
 
