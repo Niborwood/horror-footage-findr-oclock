@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -26,7 +29,7 @@ export const Quiz = ({
   getNumberOfQuestions, numberOfQuestions,
   numberOfAnswers, getQuizResults, quizCompleted, firstResult,
 }) => {
-  console.log(numberOfQuestions);
+  console.log('numberOfQuestions: ', numberOfQuestions);
   // On charge le nombre de questions une fois
   useEffect(() => {
     getNumberOfQuestions();
@@ -43,7 +46,7 @@ export const Quiz = ({
       console.log('appel api');
       getQuestionAndAnswers(currentQuestion, savedAnswers);
     } else {
-      console.log('plop :(');
+      console.log('finito :(');
       getQuizResults(savedAnswers);
     }
   }, [currentQuestion, numberOfQuestions]);
@@ -74,13 +77,13 @@ export const Quiz = ({
   // ou non le quiz (quizCompleted)
   return (
     <div className="quiz">
-      <div className="quiz__question">{quizCompleted ? 'Votre found footage n\'attend que vous.' : question}</div>
+      <div className="quiz__question">{quizCompleted ? 'Votre found footage n\'attend que vous.' : question.title}</div>
       <div className="quiz__answers">
         {quizCompleted ? 'Cliquez sur le bouton pour voir le résultat.' : answersList}
       </div>
       <Divider />
       <div className="quiz__next-question">
-        {quizCompleted ? (<Button to={`/movie/${firstResult}`} textContent="Découvrir" />) : (<a onClick={onClickNextQuestion} type="button">Question suivante</a>)}
+        {quizCompleted ? (<Button to={`/movie/${firstResult}`} textContent="Découvrir" />) : (<a onClick={() => { onClickNextQuestion(question.name); }} type="button">Question suivante</a>)}
       </div>
     </div>
   );
@@ -88,16 +91,18 @@ export const Quiz = ({
 
 Quiz.propTypes = {
   // Question & Réponses
-  question: PropTypes.string.isRequired,
+  question: PropTypes.shape({
+    title: PropTypes.string,
+    name: PropTypes.string,
+  }).isRequired,
   currentAnswers: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,
       selected: PropTypes.bool.isRequired,
     }),
   ).isRequired,
-  savedAnswers: PropTypes.arrayOf(
-    PropTypes.string,
-  ).isRequired,
+  savedAnswers: PropTypes.shape({
+  }).isRequired,
   // Données du quiz
   currentQuestion: PropTypes.number.isRequired,
   numberOfQuestions: PropTypes.number.isRequired,
@@ -150,8 +155,8 @@ const mapDispatchToProps = (dispatch) => ({
     //! On peut mieux faire avec mergeProps ?
     dispatch(chooseAnAnswser(answerID));
   },
-  onClickNextQuestion: () => {
-    dispatch(switchToNextQuestion());
+  onClickNextQuestion: (name) => {
+    dispatch(switchToNextQuestion(name));
   },
   getQuestionAndAnswers: (currentQuestion, savedAnswers) => {
     dispatch(fetchQuestionAndAnswers(currentQuestion, savedAnswers));
@@ -161,8 +166,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getQuizResults: (savedAnswers) => {
     // On transforme le tableau de réponses en une chaine de caractères
-    const answers = savedAnswers.join(',');
-    dispatch(fetchQuizResults(answers));
+    for (const key in savedAnswers) {
+      if (savedAnswers.hasOwnProperty(key)) {
+        savedAnswers[key] = savedAnswers[key].join(',');
+      }
+    }
+    dispatch(fetchQuizResults(savedAnswers));
   },
 });
 
