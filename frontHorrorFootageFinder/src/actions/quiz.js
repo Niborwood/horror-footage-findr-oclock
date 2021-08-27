@@ -9,8 +9,9 @@ export const chooseAnAnswser = (updatedAnswerID) => ({
   updatedAnswerID,
 });
 
-export const switchToNextQuestion = () => ({
+export const switchToNextQuestion = (currentQuestion) => ({
   type: SWITCH_TO_NEXT_QUESTION,
+  currentQuestion,
 });
 
 // -------------- Chargement d'une question et de ses réponses --------------
@@ -75,9 +76,7 @@ export const endQuiz = (tmdbIDs) => ({
 // dans le store grâce à l'action END_QUIZ
 export const fetchQuizResults = (tags) => (dispatch) => {
   api.get('/searchmovies/', {
-    params: {
-      tags,
-    },
+    params: tags,
   })
     .then((response) => {
       const { data: tmdbIDs } = response;
