@@ -14,6 +14,8 @@ import {
   ADD_MOVIE_IN_WATCHLIST,
   REMOVE_MOVIE_IN_WATCHED,
   REMOVE_MOVIE_IN_WATCHLIST,
+  addMovieInReducer,
+  removeMovieInReducer,
 } from '../actions/watchlist';
 import {
   RATE_MOVIE, saveRateInState,
@@ -41,6 +43,7 @@ const dataHorror = (store) => (next) => (action) => {
       submitRegister();
       break;
     }
+
     case LOGIN: {
       const login = async () => {
         try {
@@ -58,10 +61,8 @@ const dataHorror = (store) => (next) => (action) => {
           store.dispatch(changeStateWhenConnected(response.data.data, response.data.token));
           store.dispatch(submitWatchlistAndWatched(response.data.watchlist[0],
             response.data.watched[0]));
-
           // eslint-disable-next-line dot-notation
           api.defaults.headers.common['authorization'] = `Bearer ${response.data.token}`;
-
           if (response.data.data.pseudo) {
             store.dispatch(toggleConnected());
             localStorage.setItem({
@@ -78,6 +79,7 @@ const dataHorror = (store) => (next) => (action) => {
       login();
       break;
     }
+
     case RATE_MOVIE: {
       const rateMovieDataBase = async () => {
         try {
@@ -105,14 +107,13 @@ const dataHorror = (store) => (next) => (action) => {
           const getIdUser = state.login.id;
           if (!getWatched.includes(action.newWatchedId)) {
             const response = await api.post(`/user/${getIdUser}/watched/${action.newWatchedId}`);
-            response();
-            console.log('add movie watchlist', response);
+            console.log('add movie watched', response);
+            store.dispatch(addMovieInReducer('watched', action.newWatchedId));
           }
         } catch (error) {
           console.log('error', error);
         }
       };
-
       submitAddMovieInWatched();
       break;
     }
@@ -124,10 +125,10 @@ const dataHorror = (store) => (next) => (action) => {
           const getWatchList = state.ui.watchList;
           if (!getWatchList.includes(action.newWatchlistId)) {
             const getIdUser = state.login.id;
-            console.log('getiduser', getIdUser);
-            const response = await api.post(`/user/${getIdUser}/watched/${action.newWatchlistId}`);
-            response();
+            console.log('getiduser', getWatchList);
+            const response = await api.post(`/user/${getIdUser}/watchlist/${action.newWatchlistId}`);
             console.log('add movie watchlist', response);
+            store.dispatch(addMovieInReducer('watchList', action.newWatchlistId));
           }
         } catch (error) {
           console.log('error', error);
@@ -141,14 +142,12 @@ const dataHorror = (store) => (next) => (action) => {
       const submitRemoveMovieInWatched = async () => {
         try {
           const state = store.getState();
-          const getWatched = state.ui.watched;
-          console.log('getwatched', getWatched);
-          console.log('newWatchlistId', action.movieID);
+          console.log('newWatchlised', action.movieID);
           const getIdUser = state.login.id;
           console.log('getiduser', getIdUser);
           const response = await api.patch(`/user/${getIdUser}/watched/${action.movieID}`);
-          response();
           console.log('remove watched', response);
+          store.dispatch(removeMovieInReducer('watched', action.movieID));
         } catch (error) {
           console.log('error', error);
         }
@@ -156,18 +155,15 @@ const dataHorror = (store) => (next) => (action) => {
       submitRemoveMovieInWatched();
       break;
     }
+
     case REMOVE_MOVIE_IN_WATCHLIST: {
       const submitRemoveMovieInWatchlist = async () => {
         try {
           const state = store.getState();
-          const getWatched = state.ui.watched;
-          console.log('getwatched', getWatched);
-          console.log('newWatchlistId', action.movieID);
           const getIdUser = state.login.id;
-          console.log('getiduser', getIdUser);
-          const response = await api.patch(`/user/${getIdUser}/watched/${action.movieID}`);
-          response();
+          const response = await api.patch(`/user/${getIdUser}/watchlist/${action.movieID}`);
           console.log('remove watchlist', response);
+          store.dispatch(removeMovieInReducer('watchList', action.movieID));
         } catch (error) {
           console.log('error', error);
         }

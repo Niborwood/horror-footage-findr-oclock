@@ -11,6 +11,20 @@ export const addMovieInWatchlist = (newWatchlistId) => ({
   newWatchlistId,
 });
 
+export const ADD_MOVIE_IN_REDUCER = 'ADD_MOVIE_IN_REDUCER';
+export const addMovieInReducer = (name, newMovie) => ({
+  type: ADD_MOVIE_IN_REDUCER,
+  name,
+  newMovie,
+});
+
+export const REMOVE_MOVIE_IN_REDUCER = 'REMOVE_MOVIE_IN_REDUCER';
+export const removeMovieInReducer = (name, idRemoveMovie) => ({
+  type: REMOVE_MOVIE_IN_REDUCER,
+  name,
+  idRemoveMovie,
+});
+
 export const ADD_MOVIE_IN_WATCHED = 'ADD_MOVIE_IN_WATCHED';
 export const addMovieInWatched = (newWatchedId) => ({
   type: ADD_MOVIE_IN_WATCHED,
@@ -30,8 +44,8 @@ export const removeMovieInWatchlist = (movieID) => ({
   movieID,
 });
 
-export const REMOVE_MOVIE_IN_WATCHED = 'REMOVE_MOVIE_IN_WATCHLIST';
+export const REMOVE_MOVIE_IN_WATCHED = 'REMOVE_MOVIE_IN_WATCHED';
 export const removeMovieInWatched = (movieID) => ({
-  type: REMOVE_MOVIE_IN_WATCHLIST,
+  type: REMOVE_MOVIE_IN_WATCHED,
   movieID,
 });

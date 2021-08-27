@@ -33,23 +33,23 @@ export const MovieButtons = ({
   movieID,
   watchlist,
   watched,
-  handleRemoveMovieInWatlist,
-  handlerRemoveMovieInWatched,
+  handleRemoveMovieInWatchlist,
+  handleRemoveMovieInWatched,
   isLogged,
 }) => {
-  console.log('watchlistinjsx', watchlist);
+  console.log('watchlistinjsx');
   return (
     <div className="movie-buttons">
       {/* TEMPORARY version */}
       {isLogged
         ? !watched.includes(movieID)
           ? <Button textContent="Déjà vu" onClick={() => handleAddMovieInWatched(movieID)} />
-          : <Button textContent="retirer de la liste des déjà vu" onClick={() => handlerRemoveMovieInWatched(movieID)} /> : null}
+          : <Button textContent="retirer de la liste des déjà vu" onClick={() => handleRemoveMovieInWatched(movieID)} /> : null}
 
       {isLogged
         ? !watchlist.includes(movieID)
           ? <Button textContent="Ajouter à ma liste" onClick={() => handleAddMovieWatchList(movieID)} />
-          : <Button textContent="retirer de la liste des films à voir" onClick={() => handleRemoveMovieInWatlist(movieID)} /> : null}
+          : <Button textContent="retirer de la liste des films à voir" onClick={() => handleRemoveMovieInWatchlist(movieID)} /> : null}
 
       {/* Affichage conditionnel si le format = full seulement */}
       {format === 'full' && (
@@ -81,8 +81,8 @@ MovieButtons.propTypes = {
   movieID: PropTypes.number.isRequired,
   watchlist: PropTypes.arrayOf(PropTypes.number).isRequired,
   watched: PropTypes.arrayOf(PropTypes.number).isRequired,
-  handleRemoveMovieInWatlist: PropTypes.func.isRequired,
-  handlerRemoveMovieInWatched: PropTypes.func.isRequired,
+  handleRemoveMovieInWatchlist: PropTypes.func.isRequired,
+  handleRemoveMovieInWatched: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
 };
 
@@ -118,11 +118,11 @@ const mapDispatchToProps = (dispatch) => ({
     const action = addMovieInWatched(newWatchedId);
     dispatch(action);
   },
-  handlerRemoveMovieInWatched: (movieID) => {
+  handleRemoveMovieInWatched: (movieID) => {
     const action = removeMovieInWatched(movieID);
     dispatch(action);
   },
-  handleRemoveMovieInWatlist: (movieID) => {
+  handleRemoveMovieInWatchlist: (movieID) => {
     const action = removeMovieInWatchlist(movieID);
     dispatch(action);
   },

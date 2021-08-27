@@ -2,10 +2,11 @@ import {
   PASS_SPLASH,
   TOGGLE_ACTION,
   TOGGLE_MODAL,
-
 } from '../actions/ui';
 import {
   SUBMIT_WATCHLIST_AND_WATCHED,
+  ADD_MOVIE_IN_REDUCER,
+  REMOVE_MOVIE_IN_REDUCER,
 } from '../actions/watchlist';
 
 const initialState = {
@@ -27,6 +28,19 @@ const UIreducer = (state = initialState, action) => {
         ...state,
         splashPassed: true,
       };
+    case ADD_MOVIE_IN_REDUCER:
+      return {
+        ...state,
+        [action.name]: [...state[action.name], action.newMovie],
+      };
+    case REMOVE_MOVIE_IN_REDUCER: {
+      console.log('action.name in remove', action.name);
+      console.log('idmovieremove', action.idRemoveMovie);
+      const newList = state[action.name].filter((movieID) => movieID !== action.idRemoveMovie);
+      return {
+        ...state,
+        [action.name]: newList,
+      }; }
     case SUBMIT_WATCHLIST_AND_WATCHED:
       return {
         ...state,
