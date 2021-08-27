@@ -129,7 +129,7 @@ module.exports = {
     async changePasseword(request, response) {
         try {
             console.log('Je suis dans le changePassword, controller');
-            const toChange = request.body.pasword;
+            const toChange = request.body.password;
             const userId = request.params.id;
             console.log('password in body', toChange);
             console.log('userId', userId);
