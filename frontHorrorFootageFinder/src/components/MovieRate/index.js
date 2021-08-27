@@ -10,7 +10,7 @@ import {
 export const MovieRate = ({ onRateMovie, movieID }) => (
   <Rating
     name="half-rating"
-    defaultValue={2.5}
+    value={2.5}
     precision={0.5}
     onChange={(event) => onRateMovie(event.target.value, movieID)}
   />

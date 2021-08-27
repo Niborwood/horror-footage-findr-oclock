@@ -63,11 +63,14 @@ function loginReducer(state = initialState, {
         token,
       };
     case SAVE_NEW_LOGIN_STATE:
-      return {
-        ...state,
-        pseudo: value.pseudo,
-        loginEmail: value.email,
-      };
+      if (value.pseudo !== undefined || value.email !== undefined) {
+        return {
+          ...state,
+          pseudo: value.pseudo,
+          email: value.email,
+        };
+      } return state;
+
     case CLEAR_STATE:
       return {
         initialState,
