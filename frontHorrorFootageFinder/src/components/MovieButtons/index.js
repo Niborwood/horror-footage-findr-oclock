@@ -31,7 +31,7 @@ export const MovieButtons = ({
   handlerRemoveMovieInWatched,
   isLogged,
 }) => {
-  console.log(watchlist);
+  console.log('watchlistinjsx', watchlist);
   return (
     <div className="movie-buttons">
       {/* t'inquiete ça marche !!! signé: coco et arnaud */}

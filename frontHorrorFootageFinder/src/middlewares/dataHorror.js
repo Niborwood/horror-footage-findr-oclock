@@ -79,12 +79,9 @@ const dataHorror = (store) => (next) => (action) => {
       const submitAddMovieInWatched = async () => {
         try {
           const state = store.getState();
-          if (state.ui.watchlist.includes(action.newWatchedId)) {
-            const getWatched = state.ui.watched;
-            console.log('getwatched', getWatched);
-            console.log('newWatchedId', action.newWatchedId);
-            const getIdUser = state.login.id;
-            console.log('getiduser', getIdUser);
+          const getWatched = state.ui.watched;
+          const getIdUser = state.login.id;
+          if (!getWatched.includes(action.newWatchedId)) {
             const response = await api.post(`/user/${getIdUser}/watched/${action.newWatchedId}`);
             response();
             console.log('add movie watchlist', response);
@@ -100,10 +97,8 @@ const dataHorror = (store) => (next) => (action) => {
       const submitAddMovieInWatchlist = async () => {
         try {
           const state = store.getState();
-          if (state.watchList.includes(action.newWatchlistId)) {
-            const getWatched = state.ui.watched;
-            console.log('getwatched', getWatched);
-            console.log('newWatchlistId', action.newWatchlistId);
+          const getWatchList = state.ui.watchList;
+          if (!getWatchList.includes(action.newWatchlistId)) {
             const getIdUser = state.login.id;
             console.log('getiduser', getIdUser);
             const response = await api.post(`/user/${getIdUser}/watched/${action.newWatchlistId}`);

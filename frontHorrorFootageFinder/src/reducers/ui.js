@@ -5,8 +5,6 @@ import {
 
 } from '../actions/ui';
 import {
-  ADD_MOVIE_IN_WATCHED,
-  ADD_MOVIE_IN_WATCHLIST,
   SUBMIT_WATCHLIST_AND_WATCHED,
 } from '../actions/watchlist';
 
@@ -48,27 +46,6 @@ const UIreducer = (state = initialState, action) => {
       return {
         ...state,
         modal: !state.modal,
-      };
-    case ADD_MOVIE_IN_WATCHLIST:
-      if (state.watchList.includes(action.newWatchlistId)) {
-        return {
-          ...state,
-        };
-      }
-      return {
-        ...state,
-        watchList: [...state.watchList, action.newWatchlistId],
-      };
-
-    case ADD_MOVIE_IN_WATCHED:
-      if (state.watchlist.includes(action.newWatchedId)) {
-        return {
-          ...state,
-        };
-      }
-      return {
-        ...state,
-        watched: [...state.watched, action.newWatchedId],
       };
 
     default:
