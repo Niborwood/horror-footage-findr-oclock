@@ -73,7 +73,7 @@ module.exports = {
      * @returns {Object[]}
      */
     async watchedMovie(userId) {
-        const result = await client.query('SELECT watched, rating, movie.id, movie.name FROM horror_user_has_movie JOIN movie ON horror_user_has_movie.movie_id = movie.id WHERE horror_user_has_movie.horror_user_id = $1 AND horror_user_has_movie.watched=true', [userId]);
+        const result = await client.query('SELECT movie_id FROM horror_user_has_movie WHERE horror_user_has_movie.horror_user_id = $1 AND horror_user_has_movie.watched=true', [userId]);
         return result.rows;
     },
 
