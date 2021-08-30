@@ -90,7 +90,7 @@ const dataHorror = (store) => (next) => (action) => {
             rating: value,
           });
           // TODO dispatch une action pour mettre la note du user dans le state.
-          store.dispatch(saveRateInState(movieID, value));
+          store.dispatch(saveRateInState(movieID, parseFloat(value)));
         } catch (error) {
           console.log('error', error);
         }

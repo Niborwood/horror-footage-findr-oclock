@@ -7,10 +7,10 @@ import {
   rateMovie,
 } from '../../actions/rating';
 
-export const MovieRate = ({ onRateMovie, movieID }) => (
+export const MovieRate = ({ onRateMovie, movieID, userRating }) => (
   <Rating
     name="half-rating"
-    value={2.5}
+    value={userRating}
     precision={0.5}
     onChange={(event) => onRateMovie(event.target.value, movieID)}
   />
@@ -19,9 +19,15 @@ export const MovieRate = ({ onRateMovie, movieID }) => (
 MovieRate.propTypes = {
   onRateMovie: PropTypes.func.isRequired,
   movieID: PropTypes.number.isRequired,
+  userRating: PropTypes.number,
 };
 
-const mapStateToProps = (state) => ({
+MovieRate.defaultProps = {
+  userRating: 0,
+};
+
+const mapStateToProps = ({ movies }, { movieID }) => ({
+  userRating: movies[movieID].userRating,
 });
 
 const mapDispatchToProps = (dispatch) => ({
