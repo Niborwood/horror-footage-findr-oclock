@@ -55,13 +55,14 @@ module.exports = {
             const movieId = request.params.movieId;
             const rawMovie = await movieDataMapper.getTheMovie(movieId);
             // On reprend le movie.id à partir de rawMovie et on ajoute un array des value
-            const tags = rawMovie.map(movie => movie.value);
-            const movieRatings = await movieDataMapper.movieRatings(movieId);
+            console.log(rawMovie);
+            const movie = {
+                id: rawMovie[0].id,
+                tags: rawMovie.map(tag => tag.value),
+                movieRatings: rawMovie[0].rating,
+            };
 
-            response.json({
-                tags, 
-                movieRatings,
-            });
+            response.json(movie);
         } catch (error) {
             console.trace(error);
             response.status(500).json({

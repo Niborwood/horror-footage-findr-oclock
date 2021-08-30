@@ -115,7 +115,6 @@ module.exports = {
         JOIN horror_user ON horror_user_has_movie.horror_user_id = horror_user.id
         JOIN movie ON horror_user_has_movie.movie_id = movie.id
         WHERE horror_user.id = $1 AND movie.id = $2`, [infos.id, infos.movieId]);
-        return result.rows;
+        return result.rows[0];
     }
-
 };
