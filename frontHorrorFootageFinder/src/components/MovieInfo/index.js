@@ -167,7 +167,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchMovieIntData(movieID));
   },
   getUserRatingOnSingleMovie: (userID, movieID) => {
-    console.log('plop');
     dispatch(fetchUserRatingOnSingleMovie(userID, movieID));
   },
 });

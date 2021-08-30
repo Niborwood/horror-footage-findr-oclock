@@ -13,7 +13,7 @@ const initialState = {
   loginEmail: '',
   loginPassword: '',
   pseudo: '',
-  id: '',
+  id: 0,
   token: '',
   errorMessage: false,
 };

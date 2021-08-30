@@ -13,13 +13,14 @@ export const saveRateInState = (movieID, value) => ({
   movieID,
   value,
 });
+
 // Middleware pour récupérer les données depuis l'API interne
 // via Redux-Thunk
 //! Add catch logic !
 export const fetchUserRatingOnSingleMovie = (userID, movieID) => (dispatch) => {
   api.get(`user/${userID}/ratings/movie/${movieID}`)
     .then((response) => {
-      const { rating } = response.data.data[0];
+      const { rating } = response.data;
       dispatch(saveRateInState(movieID, rating));
     });
 };
