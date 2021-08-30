@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink, Redirect } from 'react-router-dom';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import {
   changeInputValue,
@@ -37,6 +38,8 @@ export const Register = ({
       onSubmitForm('confirmation incorrecte');
     } else if (registerEmail.length === 0) {
       onSubmitForm('Un email est nécessaire');
+    } else if (registerPseudo.length > 20) {
+      onSubmitForm('Votre pseudo est trop grand');
     } else {
       onSubmitRegister(registerPseudo, registerEmail, registerConfirmPassword);
       HandleOnChangeConfirmRegister();
@@ -53,12 +56,12 @@ export const Register = ({
         <Field type="text" name="Pseudo" onChange={changeField} />
         <div className="register__form__confirmPassword__container">
           <Field type={inputMasked ? 'password' : 'text'} name="Mot de passe" onChange={changeField} />
-          <button className="register__form__button__masked" type="button" onClick={changetoggleMasked}><div className="register__form__button__masked__rond">.</div></button>
+          <button className="register__form__button__masked" type="button" onClick={changetoggleMasked}><div className="register__form__button__masked__rond">👁</div></button>
         </div>
 
         <div className="register__form__confirmPassword__container">
           <Field type={inputMasked ? 'password' : 'text'} name="Confirmation du mot de passe" onChange={changeField} />
-          <button className="register__form__button__masked" type="button" onClick={changetoggleMasked}><div className="register__form__button__masked__rond">.</div></button>
+          <button className="register__form__button__masked" type="button" onClick={changetoggleMasked}><div className="register__form__button__masked__rond">👁</div></button>
         </div>
 
         {textConfirm}

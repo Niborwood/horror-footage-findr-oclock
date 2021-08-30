@@ -1,11 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
 .register__form__label {
 display: flex;
 flex-direction: column;
 margin-bottom: 1.5em;
 }
 .register__form__input{
+    font-family: 'Space Mono', monospace;
     width: 18em;
-    border: 1px solid lightgray;
     padding:1em;
-    border-radius: 1em;
+    background-color: rgba(195, 195, 195, 0.377); 
+    color: white;
+    &:hover{
+        background-color: white;
+        color: black;
+    }
+    &:focus{
+        background-color: white;
+        color: black;
+    }
+    &::placeholder {
+        font-family: 'VCRMONO';
+        color: rgba(255, 255, 255, 0.678);
+    }
 }
