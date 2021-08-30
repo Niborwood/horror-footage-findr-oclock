@@ -44,3 +44,19 @@ export const CLEAR_STATE = 'CLEAR_STATE';
 export const clearState = () => ({
   type: CLEAR_STATE,
 });
+
+export const LOCALSTORAGEMODIFYLOGIN = 'LOCALSTORAGEMODIFYLOGIN';
+export const localStorageModifyLOGIN = (emailStore, pseudoStore, isLoggedStore, idStore) => ({
+  type: LOCALSTORAGEMODIFYLOGIN,
+  emailStore,
+  pseudoStore,
+  isLoggedStore,
+  idStore,
+});
+
+export const LOCALSTORAGEMODIFYUI = 'LOCALSTORAGEMODIFYUI';
+export const localStorageModifyUI = (watchlistStorage, watchedStorage) => ({
+  type: LOCALSTORAGEMODIFYUI,
+  watchlistStorage,
+  watchedStorage,
+});

@@ -5,6 +5,7 @@ import {
   ERROR_MESSAGE,
   SAVE_NEW_LOGIN_STATE,
   CLEAR_STATE,
+  LOCALSTORAGEMODIFYLOGIN,
 } from '../actions/login';
 
 const initialState = {
@@ -24,6 +25,10 @@ function loginReducer(state = initialState, {
   name,
   value,
   token,
+  emailStore,
+  pseudoStore,
+  isLoggedStore,
+  idStore,
 }) {
   switch (type) {
     case CHANGE_INPUT_VALUE_LOGIN: {
@@ -33,7 +38,6 @@ function loginReducer(state = initialState, {
           loginEmail: value,
         };
       }
-      // Hello
       if (name === 'Mot de passe') {
         return {
           ...state,
@@ -42,6 +46,14 @@ function loginReducer(state = initialState, {
       }
       return state;
     }
+    case LOCALSTORAGEMODIFYLOGIN:
+      return {
+        ...state,
+        email: emailStore,
+        pseudo: pseudoStore,
+        isLogged: isLoggedStore,
+        id: +idStore,
+      };
     case TOGGLE_CONNECTED:
       return {
         ...state,

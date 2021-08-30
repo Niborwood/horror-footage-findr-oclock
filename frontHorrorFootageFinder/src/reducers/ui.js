@@ -8,6 +8,9 @@ import {
   ADD_MOVIE_IN_REDUCER,
   REMOVE_MOVIE_IN_REDUCER,
 } from '../actions/watchlist';
+import {
+  LOCALSTORAGEMODIFYUI,
+} from '../actions/login';
 
 const initialState = {
   splashPassed: true,
@@ -23,6 +26,12 @@ const initialState = {
 
 const UIreducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOCALSTORAGEMODIFYUI:
+      return {
+        ...state,
+        watchList: action.watchlistStorage,
+        watched: action.watchedStorage,
+      };
     case PASS_SPLASH:
       return {
         ...state,
@@ -34,8 +43,6 @@ const UIreducer = (state = initialState, action) => {
         [action.name]: [...state[action.name], action.newMovie],
       };
     case REMOVE_MOVIE_IN_REDUCER: {
-      console.log('action.name in remove', action.name);
-      console.log('idmovieremove', action.idRemoveMovie);
       const newList = state[action.name].filter((movieID) => movieID !== action.idRemoveMovie);
       return {
         ...state,

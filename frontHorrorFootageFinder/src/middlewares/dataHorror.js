@@ -65,11 +65,12 @@ const dataHorror = (store) => (next) => (action) => {
           api.defaults.headers.common['authorization'] = `Bearer ${response.data.token}`;
           if (response.data.data.pseudo) {
             store.dispatch(toggleConnected());
-            localStorage.setItem({
-              token: response.data.token,
-              pseudo: response.data.data.pseudo,
-              email: response.data.data.email,
-            });
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('pseudo', response.data.data.pseudo);
+            localStorage.setItem('email', response.data.data.email);
+            localStorage.setItem('watchlist', response.data.watchlist);
+            localStorage.setItem('watched', response.data.watched);
+            localStorage.setItem('id', response.data.data.id);
           }
         } catch (error) {
           console.log('error', error);
