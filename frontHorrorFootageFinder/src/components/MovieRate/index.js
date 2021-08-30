@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import {
@@ -25,7 +24,6 @@ const StyledRating = withStyles({
 
 export const MovieRate = ({ onRateMovie, movieID, userRating }) => (
   <Box component="fieldset" mb={3} borderColor="transparent">
-    {/* <Typography component="legend">Custom empty icon</Typography> */}
     <StyledRating
       name={`rate-${movieID}`}
       value={userRating}
