@@ -47,14 +47,14 @@ Content-Type: application/json
 
 
 ### Récupération d'un user en fonction de son id
-GET http://localhost:3001/api/v1/user/1/details
+GET http://localhost:3001/api/v1/user/3/details
 
 
 ### Récupération de la watchlist d'un user en fonction de son id
-GET http://localhost:3001/api/v1/user/4/watchlist
+GET http://localhost:3001/api/v1/user/3/watchlist
 
 ### Récupération des films vus par un user en fonction de son id
-GET http://localhost:3001/api/v1/user/1/watched
+GET http://localhost:3001/api/v1/user/3/watched
 
 ### Ajout d'un film à la watchlist
 POST  http://localhost:3001/api/v1/user/6/watchlist/24
@@ -70,10 +70,10 @@ PATCH   http://localhost:3001/api/v1/user/6/watchlist/24
 GET http://localhost:3001/api/v1/selection/3
 
 ### Récupération de toutes les notes d'un seul film
-GET http://localhost:3001/api/v1/movie/89/ratings
+GET http://localhost:3001/api/v1/movie/10086/ratings
 
 ### Récupération de toutes les notes d'un seul utilisateur
-GET http://localhost:3001/api/v1/user/1/ratings
+GET http://localhost:3001/api/v1/user/3/ratings
 
 ### Récupération de le note d'un film donné par un utilisateur
 GET http://localhost:3001/api/v1/user/3/ratings/movie/1
@@ -87,7 +87,7 @@ PATCH   http://localhost:3001/api/v1/user/3/watched/89
 
 
 ### Ajout d'une note à un film :
-POST http://localhost:3001/api/v1/user/3/rating/movie/5
+PUT http://localhost:3001/api/v1/user/1/rating/movie/10086
 Content-Type: application/json
 
 {
@@ -95,7 +95,7 @@ Content-Type: application/json
 }
 
 ### Modification d'une note donné à un film par un user :
-PATCH http://localhost:3001/api/v1/user/3/rating/movie/5
+PATCH http://localhost:3001/api/v1/user/3/rating/movie/10086
 Content-Type: application/json
 
 {

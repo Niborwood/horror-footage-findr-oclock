@@ -31,7 +31,7 @@ module.exports = {
      */
     async allRatingsMovie(request, response) {
         try {
-            const movieId = request.params.tmdbId;
+            const movieId = request.params.movieId;
             const movieRatings = await movieDataMapper.movieRatings(movieId);
             response.json({
                 data: movieRatings

@@ -1,6 +1,7 @@
 const assert = require('chai').assert;
 
 const server = "https://horror-footage-api.herokuapp.com/api/v1";
+// const server = "http://localhost/3001";
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -9,13 +10,13 @@ chai.use(chaiHttp);
 
 
 
-describe('Module to get questions of our quiz', function () {
-    const quizModule = require('../app/controllers/quizController');
+describe('User module', function () {
+    const userModule = require('../app/controllers/userController');
 
-    describe('Method getAnswersToAQuestion', function () {
+    describe('Method addUser', function () {
 
-        it('Should exists a method getAnswersToAQuestion', function () {
-            assert.isFunction(quizModule.getAnswersToAQuestion);
+        it('Should exists a method addUser', function () {
+            assert.isFunction(userModule.addUser);
         });
     });
 });
@@ -47,8 +48,7 @@ describe('Routes of the API', function () {
                 .get("/movie/:movieId" + movieId)
                 .end((error, response) => {
                     response.should.have.status(200);
-                    response.body.should.have.property('id');
-                    response.body.should.have.property('name');
+                    // response.body.should.be.a('object');
                     done();
                 })
         })
@@ -57,7 +57,7 @@ describe('Routes of the API', function () {
     /**
      * Test the POST route
      */
-     describe('POST /register', () => {
+    describe('POST /register', () => {
         it("should post new user", function (done) {
 
             const user = {
@@ -68,10 +68,11 @@ describe('Routes of the API', function () {
 
             chai.request(server)
                 .post("/register")
+                .set('content-type', 'application/json')
                 .send(user)
                 .end((error, response) => {
                     response.should.have.status(200);
-                done();
+                    done();
                 })
         })
     });
@@ -79,10 +80,10 @@ describe('Routes of the API', function () {
     /**
      * Test the PUT route
      */
-     describe('PUT /user/:id/rating/movie/:movieId', () => {
+    describe('PUT /user/:id/rating/movie/:movieId', () => {
         it("should add rating to a movie", function (done) {
 
-            const id = 1;
+            const id = 3;
             const movieId = 10086;
             const rating = {
                 rating: 5
@@ -90,18 +91,19 @@ describe('Routes of the API', function () {
 
             chai.request(server)
                 .put("/user/:id/rating/movie/:movieId" + id, movieId)
+                .set('content-type', 'application/json')
                 .send(rating)
                 .end((error, response) => {
                     response.should.have.status(200);
-                done();
+                    done();
                 })
         })
     });
-     
+
     /**
      * Test the PATCH route
      */
-     describe('PATCH /api/v1/user/:id', () => {
+    describe('PATCH /api/v1/user/:id', () => {
         it("should update a user infos", function (done) {
 
             const id = 3;
@@ -115,7 +117,7 @@ describe('Routes of the API', function () {
                 .send(user)
                 .end((error, response) => {
                     response.should.have.status(200);
-                done();
+                    done();
                 })
         })
     });
@@ -123,7 +125,7 @@ describe('Routes of the API', function () {
     /**
      * Test the DELETE route
      */
-     describe('DELETE /api/v1/user/:id', () => {
+    describe('DELETE /api/v1/user/:id', () => {
         it("should delete a user", function (done) {
 
             const id = 3;
@@ -132,7 +134,7 @@ describe('Routes of the API', function () {
                 .delete("/api/v1/user/:id" + id)
                 .end((error, response) => {
                     response.should.have.status(200);
-                done();
+                    done();
                 })
         })
     });

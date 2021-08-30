@@ -66,7 +66,7 @@ module.exports = {
      * @returns {Object[]}
      */
     async userWithDetails(userId) {
-        const result = await client.query('SELECT movie.id FROM horror_user_has_movie WHERE horror_user_has_movie.horror_user_id = $1 AND (watchlist = true OR watched = true)', [userId]);
+        const result = await client.query('SELECT movie_id FROM horror_user_has_movie WHERE horror_user_has_movie.horror_user_id = $1 AND (watchlist = true OR watched = true)', [userId]);
         return result.rows;
     },
 
