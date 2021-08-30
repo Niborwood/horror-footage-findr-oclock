@@ -60,7 +60,7 @@ module.exports = {
 
             response.json({
                 tags, 
-                movieRatings,
+                movieRatings
             });
         } catch (error) {
             console.trace(error);

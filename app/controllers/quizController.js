@@ -4,7 +4,7 @@ const quizDataMapper = require('../dataMappers/quiz');
 module.exports = {
 
     /**
-     * Controller to search movie with tags in params
+     * Controller to search movie(s) with tags in params
      * @param {String} request tags to find movie(s) in params
      * @param {Object} response 
      */
@@ -33,7 +33,7 @@ module.exports = {
     },
 
     /**
-     * Controller to get question depending on the answers already received
+     * Controller to get question depending on the answers already received, if there is previous question, else an other method is called 
      * @param {Object} request answers' tag, number of answers and questionId
      * @param {Object} response 
      */

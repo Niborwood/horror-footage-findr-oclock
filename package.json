@@ -11,7 +11,12 @@
     "pg": "^8.7.1"
   },
   "scripts": {
-    "start-dev": "node-dev index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "mocha": "^9.1.0"
   }
 }
