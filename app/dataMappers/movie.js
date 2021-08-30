@@ -28,9 +28,9 @@ module.exports = {
         FROM movie_has_tag mt 
         INNER JOIN tag 
         ON tag.id = mt.tag_id
-        INNER JOIN horror_user_has_movie huhm ON huhm.movie_id = mt.movie_id 
-        WHERE mt.movie_id = $1
-        GROUP BY mt.movie_id, tag.value`, [movieId]);
+        LEFT JOIN horror_user_has_movie huhm ON huhm.movie_id = mt.movie_id 
+        GROUP BY mt.movie_id, tag.value
+        HAVING mt.movie_id = $1`, [movieId]);
         return result.rows;
     },
 

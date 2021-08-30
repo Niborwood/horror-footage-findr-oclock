@@ -215,9 +215,7 @@ module.exports = {
         try {
             const infos = request.params;
             const movieRating = await userDataMapper.getRatingMovie(infos);
-            response.json({
-                data: movieRating
-            });
+            response.json(movieRating);
         } catch (error) {
             console.trace(error);
             response.status(500).json({
