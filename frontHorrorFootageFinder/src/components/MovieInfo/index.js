@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchMovie, fetchMovieTags } from '../../actions/movies';
+import { fetchMovie, fetchMovieIntData } from '../../actions/movies';
 
 import MovieButtons from '../MovieButtons';
 import MovieRate from '../MovieRate';
@@ -11,17 +11,19 @@ import Divider from '../Divider';
 import './movieinfo.scss';
 
 export const MovieInfo = ({
-  movieID, getMovie, format, getMovieTags,
-  currentData, currentTags,
+  movieID, getMovie, format, getMovieIntData,
+  currentData, currentTags, isLogged, hffRating,
 }) => {
   // On récupère le film à partir de l'API
   useEffect(() => {
     // On évite de relancer la requête si le film est déjà dans le store
+    // Appel TMDB
     if (!currentData) {
       getMovie(movieID);
     }
+    // Appel API
     if (!currentTags) {
-      getMovieTags(movieID);
+      getMovieIntData(movieID);
     }
   }, [movieID]);
 
@@ -42,7 +44,7 @@ export const MovieInfo = ({
         <div className="movie-info__left-side">
           <img className="movie-info__poster" src={`https://www.themoviedb.org/t/p/w300/${currentData.poster_path}`} alt={`${currentData.original_title} movie poster`} title={`${currentData.original_title} movie poster`} />
           <div>
-            <MovieRate movieID={movieID} />
+            {isLogged && <MovieRate movieID={movieID} />}
           </div>
           <div className="movie-info__tags">
             {currentTags}
@@ -58,7 +60,7 @@ export const MovieInfo = ({
       <div className="movie-info__left-side">
         <img className="movie-info__poster" src={`https://www.themoviedb.org/t/p/w300/${currentData.poster_path}`} alt={`${currentData.original_title} movie poster`} title={`${currentData.original_title} movie poster`} />
         <div>
-          <MovieRate movieID={movieID} />
+          {isLogged && <MovieRate movieID={movieID} />}
         </div>
         <div className="movie-info__tags">
           {currentTags}
@@ -75,31 +77,39 @@ export const MovieInfo = ({
           {currentData.release_date.slice(0, 4)}
         </div>
         <div className="movie-info__rating">
-          Note HFF : 4.3/5
-          <br />
+          {hffRating && (
+            <>
+              Note HFF :
+              {' '}
+              {parseFloat(hffRating).toFixed(1)}
+              /5
+              <br />
+            </>
+          )}
+
           Note TMDB :
           {' '}
-          {currentData.vote_average / 2}
+          {(currentData.vote_average / 2).toFixed(1)}
           /5
         </div>
         {/* On passe le format à MovieButtons pour qu'il affiche ou non les deux boutons de quiz */}
         <MovieButtons format={format} movieID={movieID} />
         <Divider />
 
-        {/* Affichage conditionnel de la collection si le film en possède une */}
-        {currentData.belongs_to_collection
-            && (
-            <div className="movie-info__collection">
-              Collection :
-              {' '}
-              {currentData.belongs_to_collection.name}
-            </div>
-            )}
         {/* Affichage conditionnel de la description si le format est full */}
         {format === 'full' && (
-        <div className="movie-info__description">
-          {currentData.overview}
-        </div>
+          <div className="movie-info__description">
+            {/* Affichage conditionnel de la collection si le film en possède une */}
+            {currentData.belongs_to_collection
+              && (
+                <div className="movie-info__collection">
+                  Collection :
+                  {' '}
+                  {currentData.belongs_to_collection.name}
+                </div>
+              )}
+            {currentData.overview}
+          </div>
         )}
       </div>
     </div>
@@ -121,27 +131,32 @@ MovieInfo.propTypes = {
     }),
   }),
   currentTags: PropTypes.string,
-  getMovieTags: PropTypes.func.isRequired,
+  getMovieIntData: PropTypes.func.isRequired,
+  hffRating: PropTypes.number,
+  isLogged: PropTypes.bool.isRequired,
 };
 
 MovieInfo.defaultProps = {
   currentData: null,
   currentTags: null,
+  hffRating: null,
 };
 
-const mapStateToProps = ({ movies }, { movieID }) => ({
+const mapStateToProps = ({ movies, login: { isLogged } }, { movieID }) => ({
   // Le "?" est indispensable pour éviter une erreur au premier rendu du composant (pas de data)
   currentData: movies[movieID]?.data,
   // L'API nous retourne un array de tags : on le transforme en une string séparée par des ","
   currentTags: movies[movieID]?.tags?.join(', '),
+  hffRating: movies[movieID]?.hffRating,
+  isLogged,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getMovie: (movieID) => {
     dispatch(fetchMovie(movieID, 'data'));
   },
-  getMovieTags: (movieID) => {
-    dispatch(fetchMovieTags(movieID));
+  getMovieIntData: (movieID) => {
+    dispatch(fetchMovieIntData(movieID));
   },
 });
 

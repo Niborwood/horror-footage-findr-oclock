@@ -9,10 +9,12 @@ import {
 
 export const MovieRate = ({ onRateMovie, movieID, userRating }) => (
   <Rating
-    name="half-rating"
+    name={`rate-${movieID}`}
     value={userRating}
     precision={0.5}
-    onChange={(event) => onRateMovie(event.target.value, movieID)}
+    onChange={(event) => {
+      onRateMovie(event.target.value, movieID);
+    }}
   />
 );
 

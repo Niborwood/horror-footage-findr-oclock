@@ -1,5 +1,5 @@
 import {
-  SET_MOVIE_DATA, SET_TOP_MOVIES, SET_MOVIE_TAGS, UPDATE_QUIZ_RESULT_INDEX,
+  SET_MOVIE_DATA, SET_TOP_MOVIES, SET_MOVIE_INT_DATA, UPDATE_QUIZ_RESULT_INDEX,
 } from '../actions/movies';
 
 import {
@@ -53,7 +53,7 @@ const moviesReducer = (state = initialState, action) => {
     }
 
     // Ce case sert à enregistrer les tags d'un film.
-    case SET_MOVIE_TAGS: {
+    case SET_MOVIE_INT_DATA: {
       return {
         ...state,
         [action.movieID]: {
@@ -61,6 +61,7 @@ const moviesReducer = (state = initialState, action) => {
           // On insère les données de notre api dans le state.
           // Ex: state.movies.123.tags
           tags: action.tags,
+          hffRating: action.movieRatings,
         },
       };
     }
