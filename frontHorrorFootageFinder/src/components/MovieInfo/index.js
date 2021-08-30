@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { fetchMovie, fetchMovieIntData } from '../../actions/movies';
+import { fetchUserRatingOnSingleMovie } from '../../actions/rating';
 
 import MovieButtons from '../MovieButtons';
 import MovieRate from '../MovieRate';
@@ -12,7 +13,7 @@ import './movieinfo.scss';
 
 export const MovieInfo = ({
   movieID, getMovie, format, getMovieIntData,
-  currentData, currentTags, isLogged, hffRating,
+  currentData, currentTags, isLogged, hffRating, userID, getUserRatingOnSingleMovie,
 }) => {
   // On récupère le film à partir de l'API
   useEffect(() => {
@@ -24,6 +25,10 @@ export const MovieInfo = ({
     // Appel API
     if (!currentTags) {
       getMovieIntData(movieID);
+    }
+
+    if (isLogged) {
+      getUserRatingOnSingleMovie(userID, movieID);
     }
   }, [movieID]);
 
@@ -134,6 +139,8 @@ MovieInfo.propTypes = {
   getMovieIntData: PropTypes.func.isRequired,
   hffRating: PropTypes.number,
   isLogged: PropTypes.bool.isRequired,
+  userID: PropTypes.number.isRequired,
+  getUserRatingOnSingleMovie: PropTypes.func.isRequired,
 };
 
 MovieInfo.defaultProps = {
@@ -142,13 +149,14 @@ MovieInfo.defaultProps = {
   hffRating: null,
 };
 
-const mapStateToProps = ({ movies, login: { isLogged } }, { movieID }) => ({
+const mapStateToProps = ({ movies, login: { id, isLogged } }, { movieID }) => ({
   // Le "?" est indispensable pour éviter une erreur au premier rendu du composant (pas de data)
   currentData: movies[movieID]?.data,
   // L'API nous retourne un array de tags : on le transforme en une string séparée par des ","
   currentTags: movies[movieID]?.tags?.join(', '),
   hffRating: movies[movieID]?.hffRating,
   isLogged,
+  userID: id,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -157,6 +165,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getMovieIntData: (movieID) => {
     dispatch(fetchMovieIntData(movieID));
+  },
+  getUserRatingOnSingleMovie: (userID, movieID) => {
+    console.log('plop');
+    dispatch(fetchUserRatingOnSingleMovie(userID, movieID));
   },
 });
 
