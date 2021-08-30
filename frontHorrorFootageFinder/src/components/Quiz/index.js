@@ -75,6 +75,7 @@ export const Quiz = ({
   // --------------------- RETURN COMPONENT ---------------------
   // On retourne les données traitées, suivant que l'utilisateur ait complété
   // ou non le quiz (quizCompleted)
+  //! Le question.name est-il nécessaire ?
   return (
     <div className="quiz">
       <div className="quiz__question">{quizCompleted ? 'Votre found footage n\'attend que vous.' : question.title}</div>
@@ -91,10 +92,7 @@ export const Quiz = ({
 
 Quiz.propTypes = {
   // Question & Réponses
-  question: PropTypes.shape({
-    title: PropTypes.string,
-    name: PropTypes.string,
-  }).isRequired,
+  question: PropTypes.string.isRequired,
   currentAnswers: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,

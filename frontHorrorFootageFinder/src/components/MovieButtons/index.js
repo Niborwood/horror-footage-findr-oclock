@@ -20,8 +20,6 @@ import Divider from '../Divider';
 import { updateQuizResultIndex } from '../../actions/movies';
 import { quizInit } from '../../actions/quiz';
 
-//! ON REFACTO CA EN PRIORITE
-
 export const MovieButtons = ({
   format, quizResults,
   resultsLength,
@@ -37,33 +35,56 @@ export const MovieButtons = ({
   handleRemoveMovieInWatched,
   isLogged,
 }) => {
-  console.log('watchlistinjsx');
+  // On enregistre le nombre de réponses restantes dans le cas d'un résultat de quiz
+  const resultsLeft = (resultsLength - currentIndex) - 1;
+
   return (
     <div className="movie-buttons">
-      {/* TEMPORARY version */}
       {isLogged
         ? !watched.includes(movieID)
-          ? <Button textContent="Déjà vu" onClick={() => handleAddMovieInWatched(movieID)} />
-          : <Button textContent="retirer de la liste des déjà vu" onClick={() => handleRemoveMovieInWatched(movieID)} /> : null}
+          ? <Button textContent="Déjà vu ?" onClick={() => handleAddMovieInWatched(movieID)} />
+          : (
+            <Button
+              selected
+              textContent="déjà vu &#10004;"
+              onClick={() => handleRemoveMovieInWatched(movieID)}
+            />
+          ) : null}
 
       {isLogged
         ? !watchlist.includes(movieID)
-          ? <Button textContent="Ajouter à ma liste" onClick={() => handleAddMovieWatchList(movieID)} />
-          : <Button textContent="retirer de la liste des films à voir" onClick={() => handleRemoveMovieInWatchlist(movieID)} /> : null}
+          ? <Button textContent="à voir ?" onClick={() => handleAddMovieWatchList(movieID)} />
+          : (
+            <Button
+              selected
+              textContent="à voir &#10004;"
+              onClick={() => handleRemoveMovieInWatchlist(movieID)}
+            />
+          ) : null}
 
       {/* Affichage conditionnel si le format = full seulement */}
       {format === 'full' && (
-      <>
-        {/* Si le currentIndex dépasse le nombre de résultats, on n'affiche pas le bouton */}
-        {currentIndex < resultsLength - 1 && (
-        <Button
-          to={`/movie/${quizResults[currentIndex + 1]}`}
-          onClick={updateResultsIndex}
-          textContent="Autre résultat"
-        />
-        )}
-        <Button to="/quiz" textContent="Relancer le quiz" onClick={onResetQuizz} />
-      </>
+        <>
+          {/* Si le currentIndex dépasse le nombre de résultats, on n'affiche pas le bouton */}
+          {resultsLeft && (
+            <Button
+              to={`/movie/${quizResults[currentIndex + 1]}`}
+              onClick={updateResultsIndex}
+              textContent="Autre résultat"
+            />
+          )}
+          <Button to="/quiz" textContent="Relancer le quiz" onClick={onResetQuizz} />
+          {resultsLeft > 0
+            && (
+              <div className="movie-buttons__other-results">
+                {resultsLeft}
+                {' '}
+                {resultsLeft === 1 ? 'autre résultat correspond' : 'autres résultats correspondent'}
+                {' '}
+                à votre recherche.
+              </div>
+            )}
+        </>
       )}
     </div>
   );
