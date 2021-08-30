@@ -85,22 +85,24 @@ export function fetchMovie(movieID, format) {
   };
 }
 
-// Fonction d'écriture des tags API des films dans le state
-export const SET_MOVIE_TAGS = 'SET_MOVIE_TAGS';
-export const setMovieTags = (movieID, tags) => ({
-  type: SET_MOVIE_TAGS,
+// Action d'écriture des tags et des moyennes générales des films dans le state
+export const SET_MOVIE_INT_DATA = 'SET_MOVIE_INT_DATA';
+export const setMovieIntData = (movieID, tags, movieRatings) => ({
+  type: SET_MOVIE_INT_DATA,
   movieID,
   tags,
+  movieRatings,
 });
 
-// Création d'un middleware pour la récupération des tags d'un film
+// Création d'un middleware pour la récupération des tags et de la moyenne d'un film
 // et leur inscription dans le state
-export function fetchMovieTags(movieID) {
+export function fetchMovieIntData(movieID) {
   return (dispatch) => {
     api.get(`movie/${movieID}`)
       .then((response) => {
         const { tags, movieRatings } = response.data;
-        dispatch(setMovieTags(movieID, tags, movieRatings));
+        const { rating } = movieRatings;
+        dispatch(setMovieIntData(movieID, tags, rating));
       });
   };
 }

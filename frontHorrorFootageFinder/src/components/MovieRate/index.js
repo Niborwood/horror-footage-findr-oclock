@@ -16,21 +16,23 @@ const StyledRating = withStyles({
     color: '#a50000',
   },
   iconHover: {
-    color: '#a50000',
+    color: '#b73232',
   },
   iconEmpty: {
     color: '#A9A9A9',
   },
 })(Rating);
 
-export const MovieRate = ({ onRateMovie, movieID }) => (
+export const MovieRate = ({ onRateMovie, movieID, userRating }) => (
   <Box component="fieldset" mb={3} borderColor="transparent">
-    <Typography component="legend">Custom empty icon</Typography>
+    {/* <Typography component="legend">Custom empty icon</Typography> */}
     <StyledRating
-      name="half-rating"
-      value={2.5}
+      name={`rate-${movieID}`}
+      value={userRating}
       precision={0.5}
-      onChange={(event) => onRateMovie(event.target.value, movieID)}
+      onChange={(event) => {
+        onRateMovie(event.target.value, movieID);
+      }}
       emptyIcon={<StarBorderIcon fontSize="inherit" />}
     />
   </Box>
@@ -39,9 +41,15 @@ export const MovieRate = ({ onRateMovie, movieID }) => (
 MovieRate.propTypes = {
   onRateMovie: PropTypes.func.isRequired,
   movieID: PropTypes.number.isRequired,
+  userRating: PropTypes.number,
 };
 
-const mapStateToProps = (state) => ({
+MovieRate.defaultProps = {
+  userRating: 0,
+};
+
+const mapStateToProps = ({ movies }, { movieID }) => ({
+  userRating: movies[movieID].userRating,
 });
 
 const mapDispatchToProps = (dispatch) => ({

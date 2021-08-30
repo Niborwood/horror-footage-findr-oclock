@@ -1,3 +1,5 @@
+import api from '../utils/api';
+
 export const RATE_MOVIE = 'RATE_MOVIE';
 export const rateMovie = (value, movieID) => ({
   type: RATE_MOVIE,
@@ -11,3 +13,14 @@ export const saveRateInState = (movieID, value) => ({
   movieID,
   value,
 });
+
+// Middleware pour récupérer les données depuis l'API interne
+// via Redux-Thunk
+//! Add catch logic !
+export const fetchUserRatingOnSingleMovie = (userID, movieID) => (dispatch) => {
+  api.get(`user/${userID}/ratings/movie/${movieID}`)
+    .then((response) => {
+      const { rating } = response.data;
+      dispatch(saveRateInState(movieID, rating));
+    });
+};
