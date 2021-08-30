@@ -38,35 +38,35 @@ export const MovieButtons = ({
   // On enregistre le nombre de réponses restantes dans le cas d'un résultat de quiz
   const resultsLeft = (resultsLength - currentIndex) - 1;
 
-  //! ON REFACTO CA EN PRIORITE
   return (
     <div className="movie-buttons">
-      {/* TEMPORARY version */}
-      {isLogged && !watched.includes(movieID)
-        ? <Button textContent="Déjà vu ?" onClick={() => handleAddMovieInWatched(movieID)} />
-        : (
-          <Button
-            selected
-            textContent="&#10004; déjà vu"
-            onClick={() => handleRemoveMovieInWatched(movieID)}
-          />
-        )}
+      {isLogged
+        ? !watched.includes(movieID)
+          ? <Button textContent="Déjà vu ?" onClick={() => handleAddMovieInWatched(movieID)} />
+          : (
+            <Button
+              selected
+              textContent="déjà vu &#10004;"
+              onClick={() => handleRemoveMovieInWatched(movieID)}
+            />
+          ) : null}
 
-      {isLogged && !watchlist.includes(movieID)
-        ? <Button textContent="à voir ?" onClick={() => handleAddMovieWatchList(movieID)} />
-        : (
-          <Button
-            selected
-            textContent="&#10004; à voir"
-            onClick={() => handleRemoveMovieInWatchlist(movieID)}
-          />
-        )}
+      {isLogged
+        ? !watchlist.includes(movieID)
+          ? <Button textContent="à voir ?" onClick={() => handleAddMovieWatchList(movieID)} />
+          : (
+            <Button
+              selected
+              textContent="à voir &#10004;"
+              onClick={() => handleRemoveMovieInWatchlist(movieID)}
+            />
+          ) : null}
 
       {/* Affichage conditionnel si le format = full seulement */}
       {format === 'full' && (
         <>
           {/* Si le currentIndex dépasse le nombre de résultats, on n'affiche pas le bouton */}
-          {resultsLeft === true && (
+          {resultsLeft && (
             <Button
               to={`/movie/${quizResults[currentIndex + 1]}`}
               onClick={updateResultsIndex}
