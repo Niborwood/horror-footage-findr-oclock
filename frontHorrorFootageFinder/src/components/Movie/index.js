@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import Divider from '../Divider';
 import MovieInfo from '../MovieInfo';
 import MovieProviders from '../MovieProviders';
-import MovieResults from '../MovieResults';
 
 import './movie.scss';
 

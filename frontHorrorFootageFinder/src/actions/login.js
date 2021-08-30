@@ -40,9 +40,9 @@ export const saveNewLoginState = (value) => ({
 });
 
 // on vide le state à la supression du compte ou à la déconnexion:
-export const CLEAR_STATE = 'CLEAR_STATE';
-export const clearState = () => ({
-  type: CLEAR_STATE,
+export const CLEAR_USER = 'CLEAR_USER';
+export const clearUser = () => ({
+  type: CLEAR_USER,
 });
 
 export const LOCALSTORAGEMODIFYLOGIN = 'LOCALSTORAGEMODIFYLOGIN';

@@ -4,7 +4,7 @@ import {
   CHANGE_STATE_WHEN_CONNECTED,
   ERROR_MESSAGE,
   SAVE_NEW_LOGIN_STATE,
-  CLEAR_STATE,
+  CLEAR_USER,
   LOCALSTORAGEMODIFYLOGIN,
 } from '../actions/login';
 
@@ -83,10 +83,9 @@ function loginReducer(state = initialState, {
         };
       } return state;
 
-    case CLEAR_STATE:
-      return {
-        initialState,
-      };
+    case CLEAR_USER:
+      return initialState;
+
     default:
       return state;
   }

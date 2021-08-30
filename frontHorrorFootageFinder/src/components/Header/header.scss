@@ -11,7 +11,7 @@
     justify-content: space-between;
 
     &__leftmenu {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
 
         @include media-min(768px) {
             font-size: 2rem;
@@ -24,7 +24,7 @@
 
     &__accountmenu {
         background: white;
-        width: 120px;
+        width: 150px;
         word-break: break-all;
 
         a {
