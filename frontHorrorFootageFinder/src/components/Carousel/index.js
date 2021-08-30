@@ -1,4 +1,6 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -18,17 +20,51 @@ export const Carousel = ({ format, movies }) => {
     </div>
   ));
 
+  const carouselList = useRef();
+  const onClickArrowRight = () => {
+    carouselList.current.scrollLeft += carouselList.current.offsetWidth;
+  };
+  const onClickArrowLeft = () => {
+    carouselList.current.scrollLeft -= carouselList.current.offsetWidth;
+  };
+
+  // Gestion du slider et des flèches
+  const [fullLeftScroll, setFullLeftScroll] = useState(true);
+  const [fullRightScroll, setFullRightScroll] = useState(false);
+  useEffect(() => {
+    const carouselScrollListener = () => {
+      if (carouselList.current.scrollLeft === 0) {
+        setFullLeftScroll(true);
+      } else if (carouselList.current.scrollLeft >= carouselList.current.offsetWidth * 2 - 1) {
+        setFullRightScroll(true);
+      } else {
+        setFullLeftScroll(false);
+        setFullRightScroll(false);
+      }
+    };
+    carouselList.current?.addEventListener('scroll', carouselScrollListener, { passive: true });
+
+    return () => {
+      carouselList.current?.removeEventListener('scoll', carouselScrollListener);
+    };
+  }, []);
+
   return (
     <div className="carousel">
-      <div className="carousel__arrow-back">
+      {fullLeftScroll || (
+      <div className="carousel__arrow-back" onClick={onClickArrowLeft}>
         <Arrow type="rewind" size="md" />
       </div>
-      <div className="carousel__list">
+      )}
+      <div className="carousel__list" ref={carouselList}>
         {movieList}
       </div>
-      <div className="carousel__arrow-next">
+      {fullRightScroll || (
+      <div className="carousel__arrow-next" onClick={onClickArrowRight}>
         <Arrow type="forward" size="md" />
       </div>
+      )}
+
     </div>
   );
 };
