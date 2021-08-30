@@ -17,19 +17,18 @@ const jwtMiddleware = require('../services/jwt');
 // Mon schema de vérification des infos du user avec joi :
 const validate = require('../validations/validate');
 const userSchema = require('../validations/schema/user');
+const updateUserSchema = require('../validations/schema/updateUser');
+const updatePasswordSchema = require('../validations/schema/updatePassword');
 
 
 // Les routes :
 
-// Route pour trouver tous les films suivant des critères :
-router.get('/api/v1/searchmovies', quizController.searchMovies); // Anciennement quiz, route de vue. Robin, à tester
+router.get('/api/v1/searchmovies', quizController.searchMovies);
 
-// Route pour récupérer toutes les questions du quiz :
-router.post('/api/v1/quiz', quizController.getAnswersToAQuestion); // Robin, à tester
+router.post('/api/v1/quiz', quizController.getAnswersToAQuestion);
 
-router.get('/api/v1/questions', quizController.getNumberOfQuestions); // Robin, à tester
+router.get('/api/v1/questions', quizController.getNumberOfQuestions);
 
-// Route pour récupérer TOUS les films de la base de données :
 /**
  * Return all movies of the API
  * @route GET /allmovies
@@ -45,10 +44,10 @@ router.post('/api/v1/login', userController.userLogged);
 
 router.route('/api/v1/user/:id')
     .get(userController.findUser)
-    .patch(jwtMiddleware.authenticateToken, userController.updateUser)
+    .patch(jwtMiddleware.authenticateToken, validate('body update', updateUserSchema), userController.updateUser)
     .delete(jwtMiddleware.authenticateToken, userController.deleteUser);
 
-router.patch('/api/v1/user/:id/change', jwtMiddleware.authenticateToken, userController.changePasseword);
+router.patch('/api/v1/user/:id/change', jwtMiddleware.authenticateToken, validate('body update password', updatePasswordSchema), userController.changePasseword);
 
 router.get('/api/v1/user/:id/details', userController.getAllDetails);
 
