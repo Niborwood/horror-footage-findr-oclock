@@ -106,7 +106,7 @@ const dataHorror = (store) => (next) => (action) => {
           const getWatched = state.ui.watched;
           const getIdUser = state.login.id;
           if (!getWatched.includes(action.newWatchedId)) {
-            const response = await api.post(`/user/${getIdUser}/watched/${action.newWatchedId}`);
+            const response = await api.post(`user/${getIdUser}/watched/${action.newWatchedId}`);
             console.log('add movie watched', response);
             store.dispatch(addMovieInReducer('watched', action.newWatchedId));
           }
@@ -145,7 +145,7 @@ const dataHorror = (store) => (next) => (action) => {
           console.log('newWatchlised', action.movieID);
           const getIdUser = state.login.id;
           console.log('getiduser', getIdUser);
-          const response = await api.patch(`/user/${getIdUser}/watched/${action.movieID}`);
+          const response = await api.patch(`user/${getIdUser}/watched/${action.movieID}`);
           console.log('remove watched', response);
           store.dispatch(removeMovieInReducer('watched', action.movieID));
         } catch (error) {
