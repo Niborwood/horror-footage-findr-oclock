@@ -29,12 +29,13 @@ export function Login({
       <form className="login__form" onSubmit={onSubmit}>
         <Field name="Email" type="email" onChange={changeField} />
         <Field name="Mot de passe" type="password" onChange={changeField} />
+        {textErrorMessage}
         <Button className="" textContent="Valider" type="submit" />
       </form>
       <Divider />
       <NavLink to="/register" className="login__to-register">pas encore de compte ?</NavLink>
       <Button className="button__home" to="/" textContent="Retour à l'accueil" />
-      {textErrorMessage}
+
     </div>
   );
 }
