@@ -16,7 +16,7 @@ export function MenuItem({
       type="button"
       value={value}
     >
-      {to ? <NavLink to={to}>{textContent}</NavLink> : textContent }
+      {to ? <NavLink to={to}>{textContent}</NavLink> : <div className="menu-item-ui__simple">{textContent}</div> }
     </button>
   );
 }

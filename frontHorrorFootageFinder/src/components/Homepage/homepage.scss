@@ -6,6 +6,12 @@
 
 .homepage {
     text-align: center;
+    @include media-min(768px) {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+    }
 
     &__main {
         height: 80vh;
@@ -13,6 +19,15 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin: auto;
+
+
+        @include media-min(768px) {
+            margin:0;
+            text-align: right;
+            align-items: flex-end;
+        }
+        
     }
 
     &__title {
@@ -28,5 +43,12 @@
 
     &__play-button {
         margin-top: 1rem;
+    }
+}
+
+#home-carousel {
+    @include media-min(768px) {
+        width: 30%;
+        min-width: 300px;
     }
 }

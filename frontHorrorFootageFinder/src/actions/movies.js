@@ -100,9 +100,9 @@ export function fetchMovieIntData(movieID) {
   return (dispatch) => {
     api.get(`movie/${movieID}`)
       .then((response) => {
-        const { tags, movieRatings } = response.data;
-        const { rating } = movieRatings;
-        dispatch(setMovieIntData(movieID, tags, rating));
+        // const { tags, movieRatings } = response.data;
+        //! A fixer plus joliement que ça
+        dispatch(setMovieIntData(movieID, response.data.tags, response.data.movieRatings?.rating));
       });
   };
 }

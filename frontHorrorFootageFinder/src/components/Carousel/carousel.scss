@@ -1,8 +1,14 @@
+@mixin media-min($_min-width) {
+    @media screen and (min-width: $_min-width) {
+        &{ @content; }
+    }
+  }
+
 .carousel {
     position: relative;
 
     &__list {
-        width: calc(100vw - 3rem);
+        width: 100%;
         overflow-x: auto;
         white-space: nowrap;
     }
