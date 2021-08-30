@@ -23,14 +23,14 @@ module.exports = {
      * @returns {Object[]}
      */
     async getTheMovie(movieId) {
-        const result = await client.query(`SELECT movie.id, 
-        tag.value 
-        FROM movie
-        INNER JOIN movie_has_tag mt 
-        ON movie.id = mt.movie_id 
+        const result = await client.query(`SELECT mt.movie_id AS id, 
+        tag.value, AVG(rating) AS rating 
+        FROM movie_has_tag mt 
         INNER JOIN tag 
         ON tag.id = mt.tag_id
-        WHERE movie.id = $1`, [movieId]);
+        INNER JOIN horror_user_has_movie huhm ON huhm.movie_id = mt.movie_id 
+        WHERE mt.movie_id = $1
+        GROUP BY mt.movie_id, tag.value`, [movieId]);
         return result.rows;
     },
 

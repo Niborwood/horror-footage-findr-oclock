@@ -117,5 +117,4 @@ module.exports = {
         WHERE horror_user.id = $1 AND movie.id = $2`, [infos.id, infos.movieId]);
         return result.rows;
     }
-
 };
