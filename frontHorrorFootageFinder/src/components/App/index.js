@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { localStorageModifyLOGIN, localStorageModifyUI } from '../../actions/login';
 
 import './App.scss';
 
@@ -18,7 +19,25 @@ import Watchlist from '../Watchlist';
 import Settings from '../Settings';
 import Login from '../Login';
 
-function App({ splashPassed }) {
+function App({
+  splashPassed,
+  handleLocalStorageModifyLOGIN,
+  handleLocalStorageModifyUI,
+}) {
+  if (localStorage.length > 0) {
+    const email = localStorage.getItem('email');
+    const pseudo = localStorage.getItem('pseudo');
+    const id = localStorage.getItem('id');
+    const watchlistItem = localStorage.getItem('watchlist');
+    const watchlistArray = watchlistItem.split(',');
+    const watchlistFinalResult = watchlistArray.map((element) => parseInt(element, 10));
+    const watchedItem = localStorage.getItem('watched');
+    const watchedArray = watchedItem.split(',');
+    const watchedFinalResult = watchedArray.map((element) => parseInt(element, 10));
+
+    handleLocalStorageModifyLOGIN(email, pseudo, true, id);
+    handleLocalStorageModifyUI(watchlistFinalResult, watchedFinalResult);
+  }
   return (
     <div className="app">
       { splashPassed || <Redirect to="/splash" />}
@@ -67,13 +86,23 @@ function App({ splashPassed }) {
 
 App.propTypes = {
   splashPassed: PropTypes.bool.isRequired,
+  handleLocalStorageModifyLOGIN: PropTypes.func.isRequired,
+  handleLocalStorageModifyUI: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ ui: { splashPassed } }) => ({
   splashPassed,
 });
 
-const mapDispatchToProps = (/* dispatch */) => ({
+const mapDispatchToProps = (dispatch) => ({
+  handleLocalStorageModifyLOGIN: (email, pseudo, bool, id) => {
+    const action = localStorageModifyLOGIN(email, pseudo, bool, id);
+    dispatch(action);
+  },
+  handleLocalStorageModifyUI: (watchlistStorage, watchedStorage) => {
+    const action = localStorageModifyUI(watchlistStorage, watchedStorage);
+    dispatch(action);
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -193,6 +193,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(closeInput());
   },
   onDeleteAccount: () => {
+    localStorage.clear();
     dispatch(deleteAccount());
   },
   changeTextInfo: (value) => {
@@ -202,6 +203,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(toggleModal());
   },
   signOut: () => {
+    localStorage.clear();
     dispatch(clearState());
   },
 });
