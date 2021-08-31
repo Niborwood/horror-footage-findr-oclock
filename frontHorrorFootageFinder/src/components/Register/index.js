@@ -49,7 +49,7 @@ export const Register = ({
     return <Redirect to="/login" />;
   }
   return (
-    <div className="register___container">
+    <div className="register___container menu-holder">
       <h1 className="register___title">Register</h1>
       <form className="register__form" onSubmit={onSubmit}>
         <Field type="email" name="Email" onChange={changeField} />

@@ -1,5 +1,13 @@
 @use '../../assets/styles/vars';
 
+@mixin media-min($_min-width) {
+  @media screen and (min-width: $_min-width) {
+    & {
+      @content;
+    }
+  }
+}
+
 .app {
   display: flex;
   text-transform: uppercase;
@@ -8,11 +16,15 @@
   padding-bottom: 1rem;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1rem 3rem;
+  padding: 1rem;
   box-sizing: border-box;
   color: white;
   max-width: 1400px;
   margin: auto;
+
+  @include media-min(768px) {
+    padding: 1rem 3rem;
+  }
 
   &__content {
     margin: auto 0;
@@ -22,8 +34,12 @@
 
 .menu-holder {
   background-color: vars.$blue-primary;
-  width: fit-content;
+  width: auto;
   padding: 2rem 3rem;
+
+  @include media-min(520px) {
+    width: fit-content;
+  }
 }
 
 *::-webkit-scrollbar {

@@ -24,7 +24,7 @@ export function Login({
     onLogin();
   };
   return (
-    <div className="login__container">
+    <div className="login__container menu-holder">
       <h1 className="login___title">Login</h1>
       <form className="login__form" onSubmit={onSubmit}>
         <Field name="Email" type="email" onChange={changeField} />

@@ -73,16 +73,15 @@ export const MovieButtons = ({
             />
           ) : null}
           <Button to="/quiz" textContent="Relancer le quiz" onClick={onResetQuizz} />
-          {resultsLeft > 0
-            ? (
-              <div className="movie-buttons__other-results">
-                {resultsLeft}
-                {' '}
-                {resultsLeft === 1 ? 'autre résultat correspond' : 'autres résultats correspondent'}
-                {' '}
-                à votre recherche.
-              </div>
-            ) : null}
+          {resultsLeft > 0 ? (
+            <div className="movie-buttons__other-results">
+              {resultsLeft}
+              {' '}
+              {resultsLeft === 1 ? 'autre résultat correspond' : 'autres résultats correspondent'}
+              {' '}
+              à votre recherche.
+            </div>
+          ) : null}
         </>
       )}
     </div>

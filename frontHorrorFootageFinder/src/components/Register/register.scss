@@ -12,7 +12,6 @@ align-items: center;
 justify-items: center;
 padding: 2rem;
 @include media-min(768px) {
-    width: 100%;
     display: flex;
     align-items: flex-start;
 }

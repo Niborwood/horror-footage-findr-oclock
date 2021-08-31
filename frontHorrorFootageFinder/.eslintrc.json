@@ -24,5 +24,13 @@
         "import/no-named-as-default": 0,
         "linebreak-style": 0,
         "no-unused-vars": "warn"
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"],
+                "moduleDirectory": ["node_modules", "src/"]
+            }
+        }
     }
 }
