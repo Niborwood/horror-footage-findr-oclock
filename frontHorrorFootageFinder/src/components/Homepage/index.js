@@ -42,11 +42,13 @@ export const Homepage = ({ loadTopMovies, topMovies: { loaded, tmdbIDs } }) => {
         </p>
         <Button to="/quiz" textContent="● Lancer le quiz ●" className="button-ui__launch" />
 
-        <h2 className="homepage__title">
-          Sélection
-        </h2>
-        <p className="homepage__subtitle">Découvrez les 3 films qui angoissent notre communauté</p>
-        <Button onClick={scrollToHomepageCarousel} to="/#homepage-selection" textContent="Découvrir" />
+        <div className="homepage__login">
+          <h2 className="homepage__title">
+            Gérez votre filmothèque
+          </h2>
+          <p className="homepage__subtitle">Notez les films et marquez vos résultats comme vus ou à voir.</p>
+          <Button to="/login" textContent="Se connecter" />
+        </div>
       </div>
 
       <div id="home-carousel" ref={homepageCarousel}>

@@ -4,10 +4,11 @@
   min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 1rem 3rem;
   box-sizing: border-box;
-  background: #151718;
   color: white;
+  max-width: 1400px;
+  margin: auto;
 
   &__content {
     margin: auto 0;
@@ -21,9 +22,11 @@
 }
 
 *::-webkit-scrollbar-track {
-  background: #333; /* color of the tracking area */
+  background: #333;
+  /* color of the tracking area */
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: white; /* color of the scroll thumb */
+  background-color: white;
+  /* color of the scroll thumb */
 }
