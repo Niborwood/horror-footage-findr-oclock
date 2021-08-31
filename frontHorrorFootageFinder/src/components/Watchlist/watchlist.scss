@@ -1,5 +1,11 @@
+@use '../../assets/styles/vars';
+
 .watchlist__text{
+    background: vars.$blue-primary;
+    padding: 2rem 3rem;
+    max-width: 300px;
+
     &__link{
-        color:#a50000;
+        color: vars.$red-primary;;
     }
 }

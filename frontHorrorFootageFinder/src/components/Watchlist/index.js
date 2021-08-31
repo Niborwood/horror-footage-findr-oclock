@@ -30,6 +30,9 @@ export const Watchlist = ({ watchlist, watched }) => (
           <p>
             Vous n&apos;avez pas de film dans votre
             liste de films à voir où dans celle de films vus.
+            {' '}
+            <br />
+            <br />
             un petit
             {' '}
             <NavLink className="watchlist__text__link" to="/quiz">quiz</NavLink>
