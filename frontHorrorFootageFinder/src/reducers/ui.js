@@ -19,7 +19,7 @@ const initialState = {
     toggleSound: false,
     // chaque nouvel état par défaut de toggle s'ajoute ici
   },
-  watchList: [],
+  watchlist: [],
   watched: [],
   modal: false,
 };
@@ -29,7 +29,7 @@ const UIreducer = (state = initialState, action) => {
     case LOCALSTORAGEMODIFYUI:
       return {
         ...state,
-        watchList: action.watchlistStorage,
+        watchlist: action.watchlistStorage,
         watched: action.watchedStorage,
       };
     case PASS_SPLASH:
@@ -37,13 +37,17 @@ const UIreducer = (state = initialState, action) => {
         ...state,
         splashPassed: true,
       };
-    case ADD_MOVIE_IN_REDUCER:
+    case ADD_MOVIE_IN_REDUCER: {
+      const newList = [...state[action.name], action.newMovie];
+      localStorage.setItem(action.name, newList.join());
       return {
         ...state,
         [action.name]: [...state[action.name], action.newMovie],
       };
+    }
     case REMOVE_MOVIE_IN_REDUCER: {
       const newList = state[action.name].filter((movieID) => movieID !== action.idRemoveMovie);
+      localStorage.setItem(action.name, newList.join());
       return {
         ...state,
         [action.name]: newList,
@@ -51,7 +55,7 @@ const UIreducer = (state = initialState, action) => {
     case SUBMIT_WATCHLIST_AND_WATCHED:
       return {
         ...state,
-        watchList: action.watchlist,
+        watchlist: action.watchlist,
         watched: action.watched,
       };
     case TOGGLE_ACTION:

@@ -119,7 +119,7 @@ const mapStateToProps = ({
   quizResults,
   resultsLength: quizResults.length,
   currentIndex,
-  watchlist: ui.watchList,
+  watchlist: ui.watchlist,
   watched: ui.watched,
   isLogged: login.isLogged,
 
