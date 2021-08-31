@@ -45,7 +45,7 @@ Button.propTypes = {
 Button.defaultProps = {
   onClick: () => {},
   to: null,
-  className: null,
+  className: '',
   type: 'button',
   value: null,
   selected: false,

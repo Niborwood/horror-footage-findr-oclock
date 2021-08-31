@@ -46,7 +46,6 @@ export function fetchMovie(movieID, format, isSeries) {
   // On construit le coeur de la requête selon les données qu'on souhaite obtenir
   // et l'ID TMDB du film souhaité
   let request;
-  console.log('isSeries ?', isSeries);
   switch (format) {
     case 'data':
       request = `${isSeries ? 'tv' : 'movie'}/${movieID}`;
@@ -68,7 +67,6 @@ export function fetchMovie(movieID, format, isSeries) {
         // Selon le format de données souhaités,
         // on conditionne là où chercher les datas dans response
         // on transfère le format (data, providers...) pour que le reducer sache où ranger l'info
-        console.log(response.data);
         switch (format) {
           case 'data':
             dispatch(setCurrentMovie(movieID, response.data, format));

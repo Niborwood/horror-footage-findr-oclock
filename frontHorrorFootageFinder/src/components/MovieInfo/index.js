@@ -8,6 +8,7 @@ import { fetchUserRatingOnSingleMovie } from '../../actions/rating';
 import MovieButtons from '../MovieButtons';
 import MovieRate from '../MovieRate';
 import Divider from '../Divider';
+import MovieProviders from '../MovieProviders';
 
 import './movieinfo.scss';
 
@@ -64,7 +65,7 @@ export const MovieInfo = ({
   }
 
   return (
-    <div className="movie-info">
+    <div className={`movie-info ${format === 'full' && 'movie-info__full'}`}>
       {/* LEFT SIDE */}
       <div className="movie-info__left-side">
         <img className="movie-info__poster" src={`https://www.themoviedb.org/t/p/w300/${currentData.poster_path}`} alt={`${currentData.original_title} movie poster`} title={`${currentData.original_title} movie poster`} />
@@ -107,9 +108,10 @@ export const MovieInfo = ({
 
         {/* Affichage conditionnel de la description si le format est full */}
         {format === 'full' && (
-          <div className="movie-info__description">
-            {/* Affichage conditionnel de la collection si le film en possède une */}
-            {currentData.belongs_to_collection
+          <>
+            <div className="movie-info__description">
+              {/* Affichage conditionnel de la collection si le film en possède une */}
+              {currentData.belongs_to_collection
               && (
                 <div className="movie-info__collection">
                   Collection :
@@ -117,8 +119,11 @@ export const MovieInfo = ({
                   {currentData.belongs_to_collection.name}
                 </div>
               )}
-            {currentData.overview}
-          </div>
+              {currentData.overview}
+            </div>
+            <Divider />
+            <MovieProviders movieID={movieID} />
+          </>
         )}
       </div>
     </div>
@@ -167,7 +172,6 @@ const mapStateToProps = ({ movies, login: { id, isLogged } }, { movieID }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getMovie: (movieID, isSeries) => {
-    console.log('dans le composant', isSeries);
     dispatch(fetchMovie(movieID, 'data', isSeries));
   },
   getMovieIntData: (movieID) => {
