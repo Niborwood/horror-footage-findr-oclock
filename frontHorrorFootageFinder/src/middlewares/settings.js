@@ -3,7 +3,7 @@ import {
 } from '../actions/settings';
 import {
   saveNewLoginState,
-  clearState,
+  clearUser,
 } from '../actions/login';
 import api from '../utils/api';
 
@@ -72,7 +72,7 @@ const settings = (store) => (next) => (action) => {
         const state = store.getState();
         try {
           await api.delete(`user/${state.login.id}`);
-          store.dispatch(clearState());
+          store.dispatch(clearUser());
         } catch (error) {
           console.log('error', error);
         }

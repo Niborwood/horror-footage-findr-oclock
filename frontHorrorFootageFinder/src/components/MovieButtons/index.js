@@ -14,7 +14,6 @@ import './moviebuttons.scss';
 
 // COMPOSANTS EXTERNES
 import Button from '../Button';
-import Divider from '../Divider';
 
 // IMPORTS D'ACTIONS
 import { updateQuizResultIndex } from '../../actions/movies';
@@ -65,8 +64,8 @@ export const MovieButtons = ({
       {/* Affichage conditionnel si le format = full seulement */}
       {format === 'full' && (
         <>
-          {/* Si le currentIndex dépasse le nombre de résultats, on n'affiche pas le bouton */}
-          {resultsLeft && (
+          {/* Seulement s'il reste d'autres résultats, on affiche le bouton */}
+          {resultsLeft > 0 && (
             <Button
               to={`/movie/${quizResults[currentIndex + 1]}`}
               onClick={updateResultsIndex}
@@ -74,16 +73,16 @@ export const MovieButtons = ({
             />
           )}
           <Button to="/quiz" textContent="Relancer le quiz" onClick={onResetQuizz} />
-          {resultsLeft > 0
-            && (
-              <div className="movie-buttons__other-results">
-                {resultsLeft}
-                {' '}
-                {resultsLeft === 1 ? 'autre résultat correspond' : 'autres résultats correspondent'}
-                {' '}
-                à votre recherche.
-              </div>
-            )}
+          {resultsLeft
+             && (
+             <div className="movie-buttons__other-results">
+               {resultsLeft}
+               {' '}
+               {resultsLeft === 1 ? 'autre résultat correspond' : 'autres résultats correspondent'}
+               {' '}
+               à votre recherche.
+             </div>
+             )}
         </>
       )}
     </div>

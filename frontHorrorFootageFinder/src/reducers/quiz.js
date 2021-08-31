@@ -5,6 +5,7 @@ import {
 } from '../actions/quiz';
 
 export const initialState = {
+  isPlaying: false,
   // Intitulé de la question en cours (envoyée par l'API)
   question: {},
   // Etape du quiz
@@ -50,6 +51,7 @@ const quizReducer = (state = initialState, action) => {
     case QUIZ_INIT:
       return {
         ...initialState,
+        isPlaying: true,
         numberOfQuestions: action.nbOfQuestions,
       };
 
@@ -59,15 +61,7 @@ const quizReducer = (state = initialState, action) => {
       answers = state.currentAnswers.filter((answer) => answer.selected === true);
       // Si aucune réponse n'est sélectionnée, on les sélectionne toutes
       if (answers.length === 0) {
-        //! Version pour sélectionner plusieurs bonnes réponses
-        // answers = state.currentAnswers.map((answer) => ({ ...answer, selected: true }));
-        //! Version simplifiée à effacer : on sélectionne la 1ere réponse
-        answers = state.currentAnswers.map((answer, index) => {
-          if (index === 0) {
-            return { ...answer, selected: !answer.selected };
-          }
-          return answer;
-        });
+        answers = state.currentAnswers.map((answer) => ({ ...answer, selected: true }));
       }
 
       // On retire les paramètres superflus des tags pour renvoyer seulement leur value
@@ -90,6 +84,7 @@ const quizReducer = (state = initialState, action) => {
     case END_QUIZ:
       return {
         ...state,
+        isPlaying: false,
         currentAnswers: [],
         currentQuestion: 1,
         question: '',

@@ -21,15 +21,16 @@ import {
 // COMPONENT IMPORTS
 import Button from '../Button';
 import Divider from '../Divider';
+import Arrow from '../Arrow';
 
 // QUIZ COMPONENT
+//! Renommer "currentQuestion" en "currentStep" pour clarifier la donnée
 export const Quiz = ({
   question, onClickAnswer, onClickNextQuestion,
   currentQuestion, currentAnswers, savedAnswers, getQuestionAndAnswers,
   getNumberOfQuestions, numberOfQuestions,
   numberOfAnswers, getQuizResults, quizCompleted, firstResult,
 }) => {
-  console.log('numberOfQuestions: ', numberOfQuestions);
   // On charge le nombre de questions une fois
   useEffect(() => {
     getNumberOfQuestions();
@@ -38,15 +39,12 @@ export const Quiz = ({
   // A chaque fois que la question change, on relance une requête à l'API
   // qui nous retourne les réponses/tags en fonction des filtres précédents
   useEffect(() => {
-    console.log('Question numéro :', currentQuestion);
     // Si la currentQuestion ne dépasse pas le nombre de questions,
     // on charge une question et ses réponses dans le state
     //! A retravailler pour éviter un appel inutile en fin de quiz
     if (numberOfQuestions && (currentQuestion <= numberOfQuestions)) {
-      console.log('appel api');
       getQuestionAndAnswers(currentQuestion, savedAnswers);
     } else {
-      console.log('finito :(');
       getQuizResults(savedAnswers);
     }
   }, [currentQuestion, numberOfQuestions]);
@@ -55,7 +53,6 @@ export const Quiz = ({
   // d'être posée : on peut directement passer à la prochaine question
   useEffect(() => {
     if (numberOfAnswers === 1) {
-      console.log('question', currentQuestion, 'skipped !');
       onClickNextQuestion();
     }
   }, [numberOfAnswers]);
@@ -72,6 +69,11 @@ export const Quiz = ({
     />
   ));
 
+  // A chaque rendu, on compte le nombre de réponses sélectionnées. Suivant ce nombre,
+  // le texte de la question change.
+  const numberOfSelectedAnswers = currentAnswers.filter((answer) => answer.selected === true);
+  const nextQuestionText = numberOfSelectedAnswers.length === 0 ? 'Passer cette question (tout me va)' : 'Question suivante';
+
   // --------------------- RETURN COMPONENT ---------------------
   // On retourne les données traitées, suivant que l'utilisateur ait complété
   // ou non le quiz (quizCompleted)
@@ -84,7 +86,13 @@ export const Quiz = ({
       </div>
       <Divider />
       <div className="quiz__next-question">
-        {quizCompleted ? (<Button to={`/movie/${firstResult}`} textContent="Découvrir" />) : (<a onClick={() => { onClickNextQuestion(question.name); }} type="button">Question suivante</a>)}
+        {quizCompleted ? (<Button to={`/movie/${firstResult}`} textContent="Découvrir" />) : (
+          <a onClick={() => { onClickNextQuestion(question.name); }} type="button">
+            <Arrow />
+            {' '}
+            {nextQuestionText}
+          </a>
+        )}
       </div>
     </div>
   );
@@ -92,7 +100,10 @@ export const Quiz = ({
 
 Quiz.propTypes = {
   // Question & Réponses
-  question: PropTypes.string.isRequired,
+  question: PropTypes.shape({
+    name: PropTypes.string,
+    title: PropTypes.string,
+  }).isRequired,
   currentAnswers: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,

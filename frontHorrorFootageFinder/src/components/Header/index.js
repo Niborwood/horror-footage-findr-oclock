@@ -5,22 +5,36 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+// SCSS
 import './header.scss';
 
-const Header = ({ pseudo }) => {
+// COMPOSANTS EXTERNES
+import Arrow from '../Arrow';
+
+// RENDU DU COMPOSANT
+const Header = ({ pseudo, isPlaying }) => {
   let cameraDisplay;
   if (pseudo !== undefined) {
     if (pseudo.slice(-1).toLowerCase() === 's') {
-      cameraDisplay = "' CAMERA";
+      cameraDisplay = "' CAMERA::MENU";
     } else {
-      cameraDisplay = "'S CAMERA";
+      cameraDisplay = "'S CAMERA::MENU";
     }
   }
 
   return (
     <header className="header">
       <div className="header__leftmenu">
-        <div className="header__stby">STBY</div>
+        <div className="header__stby">
+          {isPlaying ? (
+            <>
+              <Arrow />
+              {' '}
+              PLAY
+            </>
+          ) : 'STBY'}
+
+        </div>
         <div className="header__accountmenu">
           {pseudo ? (
             <NavLink to="/profile">
@@ -55,6 +69,7 @@ const Header = ({ pseudo }) => {
 
 Header.propTypes = {
   pseudo: PropTypes.string,
+  isPlaying: PropTypes.bool.isRequired,
 };
 
 Header.defaultProps = {
@@ -63,6 +78,7 @@ Header.defaultProps = {
 
 const mapStateToProps = (state) => ({
   pseudo: state.login.pseudo,
+  isPlaying: state.quiz.isPlaying,
 });
 
 const mapDispatchToProps = {

@@ -20,7 +20,7 @@ import {
 import {
   toggleModal,
 } from '../../actions/ui';
-import { clearState } from '../../actions/login';
+import { clearUser } from '../../actions/login';
 
 export const Settings = ({
   textInfo,
@@ -204,7 +204,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   signOut: () => {
     localStorage.clear();
-    dispatch(clearState());
+    dispatch(clearUser());
   },
 });
 

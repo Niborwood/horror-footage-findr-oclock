@@ -11,21 +11,22 @@
         width: 100%;
         overflow-x: auto;
         white-space: nowrap;
+        display: flex;
+        align-items: flex-start;
     }
 
     &__movie {
         display: inline-block;
-        width: 100%;
+        min-width: 100%;
     }
 
-    &__arrow-back {
+    &__arrow-back, &__arrow-next {
         position: absolute;
         top: 34%;
+        cursor: pointer;
     }
 
     &__arrow-next {
-        position: absolute;
-        top: 34%;
         right: 1rem;
     }
 }
