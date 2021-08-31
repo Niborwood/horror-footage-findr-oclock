@@ -9,8 +9,6 @@
 }
 
 .movie-info {
-    margin-top: 2rem;
-
     &__full {
         @include media-min(768px) {
             display: flex;

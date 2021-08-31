@@ -47,7 +47,7 @@ export const Settings = ({
   }, []);
 
   return (
-    <div className="settings">
+    <div className="settings menu-holder">
       {modal
         ? (
           <Modal
