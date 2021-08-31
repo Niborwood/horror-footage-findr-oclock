@@ -111,7 +111,6 @@ const dataHorror = (store) => (next) => (action) => {
           if (!getWatched.includes(action.newWatchedId)) {
             api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
             const response = await api.post(`user/${getIdUser}/watched/${action.newWatchedId}`);
-            console.log('add movie watched', response);
             store.dispatch(addMovieInReducer('watched', action.newWatchedId));
           }
         } catch (error) {
@@ -126,13 +125,13 @@ const dataHorror = (store) => (next) => (action) => {
       const submitAddMovieInWatchlist = async () => {
         try {
           const state = store.getState();
-          const getWatchList = state.ui.watchList;
-          if (!getWatchList.includes(action.newWatchlistId)) {
+          const getWatchlist = state.ui.watchlist;
+          if (!getWatchlist.includes(action.newWatchlistId)) {
             const getIdUser = state.login.id;
             api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
             const response = await api.post(`/user/${getIdUser}/watchlist/${action.newWatchlistId}`);
             console.log('add movie watchlist', response);
-            store.dispatch(addMovieInReducer('watchList', action.newWatchlistId));
+            store.dispatch(addMovieInReducer('watchlist', action.newWatchlistId));
           }
         } catch (error) {
           console.log('error', error);
@@ -169,7 +168,7 @@ const dataHorror = (store) => (next) => (action) => {
           api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
           const response = await api.patch(`/user/${getIdUser}/watchlist/${action.movieID}`);
           console.log('remove watchlist', response);
-          store.dispatch(removeMovieInReducer('watchList', action.movieID));
+          store.dispatch(removeMovieInReducer('watchlist', action.movieID));
         } catch (error) {
           console.log('error', error);
         }
