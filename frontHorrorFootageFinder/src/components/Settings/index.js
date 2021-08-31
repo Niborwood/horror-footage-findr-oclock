@@ -174,7 +174,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onClickEdit: (event) => {
     event.preventDefault();
-    dispatch(toggleFieldInput(event.target.value));
+    dispatch(toggleFieldInput(event.currentTarget.value));
   },
   onClickCancel: () => {
     dispatch(cancelSettingsChange());

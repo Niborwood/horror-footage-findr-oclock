@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -16,7 +18,7 @@ export function MenuItem({
       type="button"
       value={value}
     >
-      {to ? <NavLink to={to}>{textContent}</NavLink> : <div className="menu-item-ui__simple">{textContent}</div> }
+      {to ? <NavLink to={to}>{textContent}</NavLink> : <div className="menu-item-ui__simple" value={value}>{textContent}</div> }
     </button>
   );
 }

@@ -7,6 +7,7 @@
     border: none;
     cursor: pointer;
     color: #fff;
+    width: fit-content;
 
     a, &__simple {
         display: inline-block;
@@ -15,11 +16,11 @@
         padding: 0.5rem 0.25rem;
     }
 
-    &:hover, &__simple:hover {
+    &:hover, &__simple:hover, &:hover &__simple {
         background-color: #fff;
         color: black;
 
-        & a {
+        & a, &:hover a {
             color: black;
         }
     }
