@@ -29,6 +29,7 @@ function loginReducer(state = initialState, {
   pseudoStore,
   isLoggedStore,
   idStore,
+  tokenStore,
 }) {
   switch (type) {
     case CHANGE_INPUT_VALUE_LOGIN: {
@@ -47,12 +48,14 @@ function loginReducer(state = initialState, {
       return state;
     }
     case LOCALSTORAGEMODIFYLOGIN:
+      console.log('token in reducer', tokenStore);
       return {
         ...state,
         email: emailStore,
         pseudo: pseudoStore,
         isLogged: isLoggedStore,
         id: +idStore,
+        token: tokenStore,
       };
     case TOGGLE_CONNECTED:
       return {

@@ -25,6 +25,8 @@ function App({
   handleLocalStorageModifyUI,
 }) {
   if (localStorage.length > 0) {
+    const token = localStorage.getItem('token');
+    console.log(token);
     const email = localStorage.getItem('email');
     const pseudo = localStorage.getItem('pseudo');
     const id = localStorage.getItem('id');
@@ -35,7 +37,7 @@ function App({
     const watchedArray = watchedItem.split(',');
     const watchedFinalResult = watchedArray.map((element) => parseInt(element, 10));
 
-    handleLocalStorageModifyLOGIN(email, pseudo, true, id);
+    handleLocalStorageModifyLOGIN(email, pseudo, true, id, token);
     handleLocalStorageModifyUI(watchlistFinalResult, watchedFinalResult);
   }
   return (
@@ -95,8 +97,8 @@ const mapStateToProps = ({ ui: { splashPassed } }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleLocalStorageModifyLOGIN: (email, pseudo, bool, id) => {
-    const action = localStorageModifyLOGIN(email, pseudo, bool, id);
+  handleLocalStorageModifyLOGIN: (email, pseudo, bool, id, token) => {
+    const action = localStorageModifyLOGIN(email, pseudo, bool, id, token);
     dispatch(action);
   },
   handleLocalStorageModifyUI: (watchlistStorage, watchedStorage) => {
