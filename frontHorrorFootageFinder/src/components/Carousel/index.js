@@ -29,6 +29,7 @@ export const Carousel = ({ format, movies }) => {
   };
 
   // Gestion du slider et des flèches
+  //! Gérer la taille dynamique du 2 (movies.length ?)
   const [fullLeftScroll, setFullLeftScroll] = useState(true);
   const [fullRightScroll, setFullRightScroll] = useState(false);
   useEffect(() => {

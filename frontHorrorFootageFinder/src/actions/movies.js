@@ -40,19 +40,20 @@ export const setCurrentMovie = (movieID, tmdbData, format) => ({
 // Middleware pour récupérer les données depuis l'API tierce TMDB (movieInfo, movieProviders)
 // via Redux-Thunk
 //! Add catch logic !
-export function fetchMovie(movieID, format) {
+export function fetchMovie(movieID, format, isSeries) {
   // On conditionne les paramètres de requêtes (API, langage)
 
   // On construit le coeur de la requête selon les données qu'on souhaite obtenir
   // et l'ID TMDB du film souhaité
   let request;
+  console.log('isSeries ?', isSeries);
   switch (format) {
     case 'data':
-      request = `movie/${movieID}`;
+      request = `${isSeries ? 'tv' : 'movie'}/${movieID}`;
       break;
 
     case 'providers':
-      request = `movie/${movieID}/watch/providers`;
+      request = `${isSeries ? 'tv' : 'movie'}/${movieID}/watch/providers`;
       break;
 
     default:
@@ -67,6 +68,7 @@ export function fetchMovie(movieID, format) {
         // Selon le format de données souhaités,
         // on conditionne là où chercher les datas dans response
         // on transfère le format (data, providers...) pour que le reducer sache où ranger l'info
+        console.log(response.data);
         switch (format) {
           case 'data':
             dispatch(setCurrentMovie(movieID, response.data, format));

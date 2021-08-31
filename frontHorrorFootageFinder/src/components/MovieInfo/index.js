@@ -15,22 +15,26 @@ export const MovieInfo = ({
   movieID, getMovie, format, getMovieIntData,
   currentData, currentTags, isLogged, hffRating, userID, getUserRatingOnSingleMovie,
 }) => {
+  // On check si le film est une série ou non (bool)
+  const isSeries = currentTags?.includes('series');
+
   // On récupère le film à partir de l'API
   useEffect(() => {
-    // On évite de relancer la requête si le film est déjà dans le store
-    // Appel TMDB
-    if (!currentData) {
-      getMovie(movieID);
-    }
     // Appel API
     if (!currentTags) {
       getMovieIntData(movieID);
+    }
+    // On évite de relancer la requête si le film est déjà dans le store
+    // On envoie si c'est une série
+    // Appel TMDB
+    if (!currentData && isSeries !== undefined) {
+      getMovie(movieID, isSeries);
     }
 
     if (isLogged) {
       getUserRatingOnSingleMovie(userID, movieID);
     }
-  }, [movieID]);
+  }, [movieID, currentTags]);
 
   // On empêche l'effet de bord si les datas du film
   // ne sont pas encore récupérées : si les datas d'un film sont vides, on retourne le loading.
@@ -75,11 +79,11 @@ export const MovieInfo = ({
       {/* RIGHT SIDE */}
       <div className="movie-info__right-side">
         <div className="movie-info__title">
-          {currentData.original_title}
+          {isSeries ? currentData.original_name : currentData.original_title}
           {' '}
           -
           {' '}
-          {currentData.release_date.slice(0, 4)}
+          {isSeries ? currentData.first_air_date.slice(0, 4) : currentData.release_date.slice(0, 4)}
         </div>
         <div className="movie-info__rating">
           {hffRating && (
@@ -128,8 +132,10 @@ MovieInfo.propTypes = {
   currentData: PropTypes.shape({
     poster_path: PropTypes.string,
     original_title: PropTypes.string,
+    original_name: PropTypes.string,
     release_date: PropTypes.string,
     overview: PropTypes.string,
+    first_air_date: PropTypes.string,
     vote_average: PropTypes.number,
     belongs_to_collection: PropTypes.shape({
       name: PropTypes.string,
@@ -160,8 +166,9 @@ const mapStateToProps = ({ movies, login: { id, isLogged } }, { movieID }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getMovie: (movieID) => {
-    dispatch(fetchMovie(movieID, 'data'));
+  getMovie: (movieID, isSeries) => {
+    console.log('dans le composant', isSeries);
+    dispatch(fetchMovie(movieID, 'data', isSeries));
   },
   getMovieIntData: (movieID) => {
     dispatch(fetchMovieIntData(movieID));
