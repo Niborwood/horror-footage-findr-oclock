@@ -17,8 +17,8 @@ const jwtMiddleware = require('../services/jwt');
 // Mon schema de vérification des infos du user avec joi :
 const validate = require('../validations/validate');
 const userSchema = require('../validations/schema/user');
-const updateUserSchema = require('../validations/schema/updateUser');
-const updatePasswordSchema = require('../validations/schema/updatePassword');
+// const updateUserSchema = require('../validations/schema/updateUser');
+// const updatePasswordSchema = require('../validations/schema/updatePassword');
 
 
 // Les routes :
@@ -44,10 +44,10 @@ router.post('/api/v1/login', userController.userLogged);
 
 router.route('/api/v1/user/:id')
     .get(userController.findUser)
-    .patch(jwtMiddleware.authenticateToken, validate('body update', updateUserSchema), userController.updateUser)
+    .patch(jwtMiddleware.authenticateToken, userController.updateUser) //  validate('body update', updateUserSchema),
     .delete(jwtMiddleware.authenticateToken, userController.deleteUser);
 
-router.patch('/api/v1/user/:id/change', jwtMiddleware.authenticateToken, validate('body update password', updatePasswordSchema), userController.changePasseword);
+router.patch('/api/v1/user/:id/change', jwtMiddleware.authenticateToken, userController.changePasseword); //  validate('body update password', updatePasswordSchema),
 
 router.get('/api/v1/user/:id/details', userController.getAllDetails);
 
