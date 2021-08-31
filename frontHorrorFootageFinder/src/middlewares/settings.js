@@ -1,3 +1,4 @@
+/* eslint-disable dot-notation */
 import {
   SUBMIT_SETTINGS, DELETE_ACCOUNT, updateTextInfo,
 } from '../actions/settings';
@@ -25,6 +26,8 @@ const settings = (store) => (next) => (action) => {
             // sinon on ne lance pas la requête
             if (state.settings.newPassword === state.settings.newPasswordConfirm) {
               getPassword = state.settings.newPassword;
+              // eslint-disable-next-line dot-notation
+              api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
               response = await api.patch(`user/${state.login.id}/change`, {
                 password: getPassword,
               });
@@ -71,6 +74,7 @@ const settings = (store) => (next) => (action) => {
       const deleteAccount = async () => {
         const state = store.getState();
         try {
+          api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
           await api.delete(`user/${state.login.id}`);
           store.dispatch(clearUser());
         } catch (error) {
