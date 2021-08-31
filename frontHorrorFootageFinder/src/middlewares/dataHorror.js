@@ -1,3 +1,4 @@
+/* eslint-disable dot-notation */
 /* eslint-disable no-console */
 import {
   LOGIN,
@@ -87,6 +88,7 @@ const dataHorror = (store) => (next) => (action) => {
           const state = store.getState();
           const { value } = action;
           const { movieID } = action;
+          api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
           await api.put(`user/${state.login.id}/rating/movie/${movieID}`, {
             rating: value,
           });
@@ -107,6 +109,7 @@ const dataHorror = (store) => (next) => (action) => {
           const getWatched = state.ui.watched;
           const getIdUser = state.login.id;
           if (!getWatched.includes(action.newWatchedId)) {
+            api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
             const response = await api.post(`user/${getIdUser}/watched/${action.newWatchedId}`);
             console.log('add movie watched', response);
             store.dispatch(addMovieInReducer('watched', action.newWatchedId));
@@ -126,7 +129,7 @@ const dataHorror = (store) => (next) => (action) => {
           const getWatchList = state.ui.watchList;
           if (!getWatchList.includes(action.newWatchlistId)) {
             const getIdUser = state.login.id;
-            console.log('getiduser', getWatchList);
+            api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
             const response = await api.post(`/user/${getIdUser}/watchlist/${action.newWatchlistId}`);
             console.log('add movie watchlist', response);
             store.dispatch(addMovieInReducer('watchList', action.newWatchlistId));
@@ -146,6 +149,7 @@ const dataHorror = (store) => (next) => (action) => {
           console.log('newWatchlised', action.movieID);
           const getIdUser = state.login.id;
           console.log('getiduser', getIdUser);
+          api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
           const response = await api.patch(`user/${getIdUser}/watched/${action.movieID}`);
           console.log('remove watched', response);
           store.dispatch(removeMovieInReducer('watched', action.movieID));
@@ -162,6 +166,7 @@ const dataHorror = (store) => (next) => (action) => {
         try {
           const state = store.getState();
           const getIdUser = state.login.id;
+          api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
           const response = await api.patch(`/user/${getIdUser}/watchlist/${action.movieID}`);
           console.log('remove watchlist', response);
           store.dispatch(removeMovieInReducer('watchList', action.movieID));
