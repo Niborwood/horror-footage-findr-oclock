@@ -1,5 +1,13 @@
 @use '../../assets/styles/vars';
 
+@mixin media-min($_min-width) {
+    @media screen and (min-width: $_min-width) {
+        & {
+            @content;
+        }
+    }
+}
+
 .movie-info {
     margin-top: 2rem;
 
@@ -12,14 +20,17 @@
     &__tags {
         font-size: .8rem;
         font-style: italic;
+        margin: 0 auto;
         margin-bottom : 1rem;
         white-space: break-spaces;
+        width: 70%;
     }
 
     &__title {
         font-size: vars.$h2-font-size;
         margin-bottom: .25rem;
         font-weight: bold;
+        white-space: break-spaces;
     }
 
     &__rating {

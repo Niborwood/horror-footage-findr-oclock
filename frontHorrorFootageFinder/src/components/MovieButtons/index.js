@@ -65,15 +65,15 @@ export const MovieButtons = ({
       {format === 'full' && (
         <>
           {/* Seulement s'il reste d'autres résultats, on affiche le bouton */}
-          {resultsLeft > 0 && (
+          {resultsLeft > 0 ? (
             <Button
               to={`/movie/${quizResults[currentIndex + 1]}`}
               onClick={updateResultsIndex}
               textContent="Autre résultat"
             />
-          )}
+          ) : null}
           <Button to="/quiz" textContent="Relancer le quiz" onClick={onResetQuizz} />
-          {resultsLeft
+          {resultsLeft > 0
             ? (
               <div className="movie-buttons__other-results">
                 {resultsLeft}
