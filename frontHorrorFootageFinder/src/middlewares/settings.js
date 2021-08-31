@@ -49,10 +49,13 @@ const settings = (store) => (next) => (action) => {
               getEmail = state.login.email;
             }
 
+            api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
             response = await api.patch(`user/${state.login.id}`, {
               pseudo: getPseudo,
               email: getEmail,
             });
+            localStorage.setItem('pseudo', getPseudo);
+            localStorage.setItem('email', getEmail);
           }
           // on vérifie qu'il y a une réponse (utilise pour renvoyer
           // un message d'erreur sur la foncirmation du password)
