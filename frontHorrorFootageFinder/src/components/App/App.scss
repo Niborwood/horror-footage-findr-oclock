@@ -1,18 +1,29 @@
+@use '../../assets/styles/vars';
+
 .app {
   display: flex;
   text-transform: uppercase;
   min-height: 100vh;
+  max-height: 100vh;
+  padding-bottom: 1rem;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 1rem 3rem;
   box-sizing: border-box;
-  background: #151718;
   color: white;
+  max-width: 1400px;
+  margin: auto;
 
   &__content {
     margin: auto 0;
     // max-width: 600px;
   }
+}
+
+.menu-holder {
+  background-color: vars.$blue-primary;
+  width: fit-content;
+  padding: 2rem 3rem;
 }
 
 *::-webkit-scrollbar {
@@ -21,9 +32,11 @@
 }
 
 *::-webkit-scrollbar-track {
-  background: #333; /* color of the tracking area */
+  background: vars.$black-primary;
+  /* color of the tracking area */
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: white; /* color of the scroll thumb */
+  background-color: white;
+  /* color of the scroll thumb */
 }

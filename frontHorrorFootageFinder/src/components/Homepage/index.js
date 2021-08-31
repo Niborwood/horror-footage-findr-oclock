@@ -9,7 +9,7 @@ import { getTopMovies } from '../../actions/movies';
 
 import './homepage.scss';
 
-export const Homepage = ({ loadTopMovies, topMovies: { loaded, tmdbIDs } }) => {
+export const Homepage = ({ loadTopMovies, topMovies: { loaded, tmdbIDs }, isLogged }) => {
   // Appel à l'API interne pour récupérer les 3 films les plus populaires
   // selon les utilisateurs du site
 
@@ -42,11 +42,17 @@ export const Homepage = ({ loadTopMovies, topMovies: { loaded, tmdbIDs } }) => {
         </p>
         <Button to="/quiz" textContent="● Lancer le quiz ●" className="button-ui__launch" />
 
-        <h2 className="homepage__title">
-          Sélection
-        </h2>
-        <p className="homepage__subtitle">Découvrez les 3 films qui angoissent notre communauté</p>
-        <Button onClick={scrollToHomepageCarousel} to="/#homepage-selection" textContent="Découvrir" />
+        <div className="homepage__login">
+          <h2 className="homepage__title">
+            Gérez votre filmothèque
+          </h2>
+          <p className="homepage__subtitle">Notez les films et marquez vos résultats comme vus ou à voir.</p>
+          {isLogged ? (
+            <Button to="/profile" textContent="Mon profil" />
+          ) : (
+            <Button to="/login" textContent="Se connecter" />
+          )}
+        </div>
       </div>
 
       <div id="home-carousel" ref={homepageCarousel}>
@@ -58,6 +64,7 @@ export const Homepage = ({ loadTopMovies, topMovies: { loaded, tmdbIDs } }) => {
 
 Homepage.propTypes = {
   loadTopMovies: PropTypes.func.isRequired,
+  isLogged: PropTypes.bool.isRequired,
   topMovies: PropTypes.shape({
     loaded: PropTypes.bool.isRequired,
     tmdbIDs: PropTypes.arrayOf(
@@ -66,8 +73,9 @@ Homepage.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = ({ movies: { topMovies } }) => ({
+const mapStateToProps = ({ movies: { topMovies }, login: { isLogged } }) => ({
   topMovies,
+  isLogged,
 });
 
 const mapDispatchToProps = (dispatch) => ({

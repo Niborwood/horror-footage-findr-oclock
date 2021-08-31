@@ -4,7 +4,7 @@ import MenuItem from '../MenuItem';
 import './profile.scss';
 
 export const Profile = () => (
-  <div>
+  <div className="menu-holder">
     <h1 className="profile__main-title">Compte Utilisateur</h1>
     <div className="profile__container">
       <MenuItem to="/watchlist" textContent="watchlist" />

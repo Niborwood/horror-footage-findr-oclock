@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import Divider from '../Divider';
 import MovieInfo from '../MovieInfo';
-import MovieProviders from '../MovieProviders';
 
 import './movie.scss';
 
@@ -32,14 +30,6 @@ export const Movie = ({
   return (
     <div className="single-movie">
       <MovieInfo movieID={tmdbID} format={format} />
-      { format === 'full' && (
-      <>
-        <Divider />
-        <MovieProviders movieID={tmdbID} />
-        {/* <Divider />
-        <MovieResults /> */}
-      </>
-      )}
     </div>
   );
 };
