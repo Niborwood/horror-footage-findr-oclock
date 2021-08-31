@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import MenuTitle from '../MenuTitle';
 import MenuItem from '../MenuItem';
 import Modal from '../Modal';
 
@@ -63,7 +64,7 @@ export const Settings = ({
       <div>
         <form onSubmit={onSubmitSettings}>
           <p className="settings__info">{textInfo}</p>
-          <h2 className="settings__sub-title">informations utilisateur</h2>
+          <MenuTitle content="informations utilisateur" />
           <div className="settings__item"> pseudo : </div>
           {/* le même schéma se reproduit 3 fois
           (pour le pseudo, le mail, le password) à factoriser ?
@@ -98,7 +99,7 @@ export const Settings = ({
                 <button type="button" value="emailInput" onClick={onClickEdit} className="settings__button">edit</button>
               </div>
             )}
-          <h2 className="settings__sub-title">Securite</h2>
+          <MenuTitle content="securite" />
           <div className="security-container">
             {passwordInput
               ? (

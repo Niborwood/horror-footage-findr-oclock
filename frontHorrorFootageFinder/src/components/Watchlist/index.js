@@ -5,15 +5,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './watchlist.scss';
 import Carousel from '../Carousel';
+import MenuTitle from '../MenuTitle';
 
 export const Watchlist = ({ watchlist, watched }) => (
   <div>
     <div className="container__watchlist">
-      <h1>WatchList</h1>
+      <MenuTitle content="Films à voir" />
       <Carousel format="small" movies={watchlist} />
     </div>
     <div className="container__watched">
-      <h1>Watched</h1>
+      <MenuTitle content="deja vu" />
       <Carousel format="small" movies={watched} />
     </div>
   </div>
