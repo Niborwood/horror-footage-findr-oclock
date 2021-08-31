@@ -47,6 +47,8 @@
 .security-container {
     display: flex;
     flex-direction: column;
+    width: 60%;
+    min-width: 300px;
 
     & .settings__button {
         margin: 0.4rem 1rem 0.4rem 0rem;

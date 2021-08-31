@@ -16,9 +16,9 @@ const Header = ({ pseudo, isPlaying }) => {
   let cameraDisplay;
   if (pseudo !== undefined) {
     if (pseudo.slice(-1).toLowerCase() === 's') {
-      cameraDisplay = "' CAMERA";
+      cameraDisplay = "' CAMERA::MENU";
     } else {
-      cameraDisplay = "'S CAMERA";
+      cameraDisplay = "'S CAMERA::MENU";
     }
   }
 
