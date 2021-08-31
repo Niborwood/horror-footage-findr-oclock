@@ -76,18 +76,32 @@ module.exports = {
      * @param {Oject} response 
      */
     async addUser(request, response) {
+        //! Pas de vérif de si le mec existe déjà !!
         try {
             const newUser = await request.body;
-            const salt = await bcrypt.genSalt(10);
-            const hash = await bcrypt.hash(newUser.password, salt);
-            
-            const userToAdd = await userDataMapper.addNewUser(newUser, hash);
 
-            const userAdded = await userDataMapper.getUserById(userToAdd.id);
-            response.json({
-                data: userAdded
-            });
+            const reallyNew = await userDataMapper.getUserByEmail(newUser.email);
 
+            if(!reallyNew) {
+                console.log('cet utilisateur peut etre cree');
+
+                const salt = await bcrypt.genSalt(10);
+                const hash = await bcrypt.hash(newUser.password, salt);
+                
+                const userToAdd = await userDataMapper.addNewUser(newUser, hash);
+    
+                const userAdded = await userDataMapper.getUserById(userToAdd.id);
+                response.json({
+                    data: userAdded
+                });
+            } else {
+                console.log('cette adresse email est déjà utilisée');
+
+                response.status(500).json({
+                    data: [],
+                    error: `Désolé impossible de créer cet utilisateur, l'adresse email est déjà utilisée.`
+                });
+            }
         } catch (error) {
             console.trace(error);
             response.status(500).json({

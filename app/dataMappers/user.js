@@ -13,6 +13,16 @@ module.exports = {
     },
 
     /**
+     * Get user by email
+     * @returns {Object}
+     */
+     async getUserByEmail(email) {
+        const result = await client.query(`SELECT pseudo, email FROM horror_user WHERE email = $1`, [email]);
+        console.log('result', result.rows[0]);
+        return result.rows[0];
+    },
+
+    /**
      * Add new user in database
      * @returns {Object[]}
      */
