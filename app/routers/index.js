@@ -11,7 +11,7 @@ const ratingController = require('../controllers/ratingController');
 const quizController = require('../controllers/quizController');
 const errorController = require('../controllers/errorController');
 
-// Le middleware de vérification du token avant l'accès au route :
+// Le middleware de vérification du token avant l'accès aux routes :
 const jwtMiddleware = require('../services/jwt');
 
 // Mon schema de vérification des infos du user avec joi :
