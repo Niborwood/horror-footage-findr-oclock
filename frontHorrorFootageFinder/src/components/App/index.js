@@ -41,7 +41,7 @@ function App({
     handleLocalStorageModifyUI(watchlistFinalResult, watchedFinalResult);
   }
 
-  // Quand on lance l'appli si la date actuel dépasse de 3h (1 080 000 ms) la
+  // Quand on lance l'appli si la date actuel dépasse de 3h (10 800 000 ms) la
   // date de création du token on clear le localStorage
   if ((Date.now() - 10800000) > parseInt(localStorage.getItem('timeStamp'), 10)) {
     localStorage.clear();
