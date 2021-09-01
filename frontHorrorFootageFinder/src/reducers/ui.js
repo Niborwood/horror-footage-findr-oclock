@@ -19,19 +19,29 @@ const initialState = {
     toggleSound: false,
     // chaque nouvel état par défaut de toggle s'ajoute ici
   },
-  watchlist: [],
-  watched: [],
+  watchlist: null,
+  watched: null,
   modal: false,
 };
 
 const UIreducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOCALSTORAGEMODIFYUI:
+    case LOCALSTORAGEMODIFYUI: {
+      let watchListStorage = null;
+      let watchedStorage = null;
+      console.log('watchlist', action.watchlistStorage);
+
+      watchListStorage = action.watchlistStorage;
+
+      console.log('watched', action.watchedStorage);
+
+      watchedStorage = action.watchedStorage;
+
       return {
         ...state,
-        watchlist: action.watchlistStorage,
-        watched: action.watchedStorage,
-      };
+        watchlist: watchListStorage,
+        watched: watchedStorage,
+      }; }
     case PASS_SPLASH:
       return {
         ...state,
