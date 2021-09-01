@@ -4,24 +4,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+
+// SCSS
 import './watchlist.scss';
+
+// COMPOSANTS EXTERNES
 import Carousel from '../Carousel';
 import MenuTitle from '../MenuTitle';
+import Divider from '../Divider';
 
+// COMPOSANT
 export const Watchlist = ({ watchlist, watched }) => (
-  <div>
+  <div className="watchlist-page">
     {watchlist.length > 0
     && (
     <div className="container__watchlist">
       <MenuTitle content="Films à voir" title="main" />
-      <Carousel format="small" movies={watchlist} />
+      <Carousel format="small" movies={watchlist} watchlist />
     </div>
     )}
+    <Divider />
     {watched.length > 0
     && (
     <div className="container__watched">
       <MenuTitle content="deja vu" title="main" />
-      <Carousel format="small" movies={watched} />
+      <Carousel format="small" movies={watched} watchlist />
     </div>
     )}
     {watchlist.length === 0 && watched.length === 0
