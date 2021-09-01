@@ -8,7 +8,7 @@ export const Profile = () => (
     <h1 className="profile__main-title">Compte Utilisateur</h1>
     <div className="profile__container">
       <MenuItem to="/watchlist" textContent="watchlist" />
-      <MenuItem to="/settings" textContent="settings" />
+      <MenuItem to="/settings" textContent="paramètres" />
       <MenuItem to="/" textContent="Retour à la page d'accueil" />
     </div>
   </div>

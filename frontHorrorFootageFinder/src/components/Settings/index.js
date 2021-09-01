@@ -60,7 +60,7 @@ export const Settings = ({
           />
         )
         : null}
-      <h1 className="settings__title">settings</h1>
+      <h1 className="settings__title">Paramètres</h1>
       <div>
         <form onSubmit={onSubmitSettings}>
           <p className="settings__info">{textInfo}</p>
