@@ -8,7 +8,10 @@ import MenuTitle from '../MenuTitle';
 import MenuItem from '../MenuItem';
 import Modal from '../Modal';
 
+// SCSS
 import './settings.scss';
+
+// IMPORTS D'ACTIONS
 import {
   toggleFieldInput,
   cancelSettingsChange,
@@ -23,6 +26,7 @@ import {
 } from '../../actions/ui';
 import { clearUser } from '../../actions/login';
 
+// RENDU DU COMPOSANT
 export const Settings = ({
   textInfo,
   pseudo,
@@ -60,41 +64,42 @@ export const Settings = ({
           />
         )
         : null}
-      <MenuTitle content="settings" title="main" />
+      <MenuTitle content="parametres" title="main" />
       <div>
         <form onSubmit={onSubmitSettings}>
           <p className="settings__info">{textInfo}</p>
           <MenuTitle content="informations utilisateur" title="sub" />
-          <div className="settings__item"> pseudo : </div>
+          <MenuTitle content="pseudo :" title="sub-alt" />
           {/* le même schéma se reproduit 3 fois
           (pour le pseudo, le mail, le password) à factoriser ?
           on check le bool input false > on affiche un bouton edit
                                  true  > on affiche l'input pour modif le profile */}
           {pseudoInput
             ? (
-              <div>
+              <div className="settings__input-holder">
                 <input type="text" className="settings__input" placeholder={pseudo} field="newPseudo" onChange={onChangeEditField} />
                 <button type="submit" className="settings__button">valider</button>
                 <button type="button" className="settings__button" onClick={onClickCancel}>annuler</button>
               </div>
             )
             : (
-              <div>
+              <div className="settings__input-holder">
                 {pseudo}
                 <button type="button" value="pseudoInput" onClick={onClickEdit} className="settings__button">edit</button>
               </div>
             )}
-          <div className="settings__item"> email : </div>
+          <MenuTitle content="email :" title="sub-alt" />
+
           {emailInput
             ? (
-              <div>
+              <div className="settings__input-holder">
                 <input type="email" className="settings__input" placeholder={email} field="newEmail" onChange={onChangeEditField} />
                 <button type="submit" className="settings__button">valider</button>
                 <button type="button" className="settings__button" onClick={onClickCancel}>annuler</button>
               </div>
             )
             : (
-              <div>
+              <div className="settings__input-holder">
                 {email}
                 <button type="button" value="emailInput" onClick={onClickEdit} className="settings__button">edit</button>
               </div>

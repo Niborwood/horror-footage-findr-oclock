@@ -33,7 +33,7 @@ export const Homepage = ({ loadTopMovies, topMovies: { loaded, tmdbIDs }, isLogg
     <div className="homepage">
       <div className="homepage__main">
         <h2 className="homepage__title">
-          Votre tape n&apos;attend que vous.
+          Votre cassette n&apos;attend que vous.
         </h2>
         <p className="homepage__subtitle">
           En quelques questions,
