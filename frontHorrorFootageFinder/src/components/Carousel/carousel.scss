@@ -30,12 +30,12 @@
         right: 1rem;
     }
 
-    .movie-info__tags {
-        min-height: 3rem;
-    }
+    // .movie-info__tags {
+    //     min-height: 2.5rem;
+    // }
 
     .movie-info__title {
-        min-height: 5rem;
+        min-height: 3rem;
     }
 
     .movie-info__poster {
@@ -48,6 +48,10 @@
         @include media-min(768px) {
             min-width: 50%;
             max-width: 50%;
+
+            .movie-info__tags {
+                min-height: 2.5rem;
+            }
         }
         @include media-min(1024px) {
             min-width: 25%;

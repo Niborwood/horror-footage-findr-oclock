@@ -34,11 +34,13 @@
 
 .menu-holder {
   background-color: vars.$blue-primary;
-  width: auto;
+  width: max-content;
   padding: 2rem 3rem;
+  margin: auto;
 
   @include media-min(520px) {
     width: fit-content;
+    margin: 0;
   }
 }
 
