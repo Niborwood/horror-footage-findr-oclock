@@ -53,11 +53,15 @@ module.exports = {
                 const watchedMovie = await userDataMapper.watchedMovie(logginUser.id);
                 const resultWatched = [...watchedMovie.map(resultWatched => resultWatched.movie_id)];
     
+                const time = Date.now();
+                console.log('date', time);
+
                 response.json({
                     data: logginUser,
                     watchlist: [resultWatchlist],
                     watched: [resultWatched],
-                    token: token
+                    token: token,
+                    time: time
                 });
             }
 

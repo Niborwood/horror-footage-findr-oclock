@@ -8,11 +8,14 @@
     "express-swagger-generator": "^1.1.17",
     "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
+    "nodemailer": "^6.6.3",
+    "nodemailer-smtp-transport": "^2.7.4",
     "pg": "^8.7.1"
   },
   "scripts": {
     "start": "node index.js",
-    "test": "mocha"
+    "test": "mocha",
+    "mail": "node email.js"
   },
   "devDependencies": {
     "chai": "^4.3.4",
