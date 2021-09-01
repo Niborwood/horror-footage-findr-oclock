@@ -41,7 +41,7 @@ export const MovieButtons = ({
     <div className="movie-buttons">
       {isLogged
         ? !watched.includes(movieID)
-          ? <Button textContent="Déjà vu ?" onClick={() => handleAddMovieInWatched(movieID)} />
+          ? <Button textContent="Déjà vu ?" onClick={() => { handleAddMovieInWatched(movieID); handleRemoveMovieInWatchlist(movieID); }} />
           : (
             <Button
               selected
@@ -50,7 +50,7 @@ export const MovieButtons = ({
             />
           ) : null}
 
-      {isLogged
+      {isLogged && !watched.includes(movieID)
         ? !watchlist.includes(movieID)
           ? <Button textContent="à voir ?" onClick={() => handleAddMovieWatchList(movieID)} />
           : (
