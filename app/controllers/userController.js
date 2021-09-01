@@ -285,7 +285,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Pas super ta mélodi, impossible de la fredonner ..`
+                error: `Pas super ta mélodie de notes, impossible de la fredonner ..`
             });
         }
     }
