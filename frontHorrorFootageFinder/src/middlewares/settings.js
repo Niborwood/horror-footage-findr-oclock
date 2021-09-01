@@ -66,7 +66,6 @@ const settings = (store) => (next) => (action) => {
             }
           }
         } catch (error) {
-          console.log('error', error);
           store.dispatch(updateTextInfo('Erreur lors de la modifications des informations personnelles'));
         }
       };
@@ -81,7 +80,7 @@ const settings = (store) => (next) => (action) => {
           await api.delete(`user/${state.login.id}`);
           store.dispatch(clearUser());
         } catch (error) {
-          console.log('error', error);
+          store.dispatch(updateTextInfo('Erreur lors de la suppression du compte'));
         }
       };
       deleteAccount();

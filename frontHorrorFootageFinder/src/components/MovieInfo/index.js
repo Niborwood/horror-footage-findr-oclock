@@ -2,16 +2,21 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+// SCSS
+import './movieinfo.scss';
+
+// IMPORT D'ACTIONS/DISPATCH
 import { fetchMovie, fetchMovieIntData } from '../../actions/movies';
 import { fetchUserRatingOnSingleMovie } from '../../actions/rating';
 
+// COMPOSANTS EXTERNES
 import MovieButtons from '../MovieButtons';
 import MovieRate from '../MovieRate';
 import Divider from '../Divider';
 import MovieProviders from '../MovieProviders';
+import Error from '../Error';
 
-import './movieinfo.scss';
-
+// RENDU DU COMPOSANT
 export const MovieInfo = ({
   movieID, getMovie, format, getMovieIntData,
   currentData, currentTags, isLogged, hffRating, userID, getUserRatingOnSingleMovie,
@@ -38,10 +43,12 @@ export const MovieInfo = ({
     }
   }, [movieID, currentTags]);
 
+  // S'il y a une erreur TMDB ou d'API interne, on affiche une erreur
+  // On n'affiche le bouton retour que si le format est full (hors carousel)
   if (error) {
     return (
       <div>
-        {errorMessage}
+        <Error errorMessage={errorMessage} goBackToHome={format === 'full'} />
       </div>
     );
   }

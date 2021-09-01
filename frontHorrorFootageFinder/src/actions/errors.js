@@ -11,3 +11,9 @@ export const selectionError = (errorMessage) => ({
   type: SELECTION_ERROR,
   errorMessage,
 });
+
+export const QUIZ_ERROR = 'QUIZ_ERROR';
+export const quizError = (errorMessage) => ({
+  type: QUIZ_ERROR,
+  errorMessage,
+});

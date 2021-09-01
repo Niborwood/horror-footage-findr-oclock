@@ -3,12 +3,16 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+// SCSS
+import './homepage.scss';
+
+// COMPOSANTS EXTERNES
 import Button from '../Button';
 import Carousel from '../Carousel';
+import Error from '../Error';
 
+// IMPORTS D'ACTIONS/DISPATCH
 import { getTopMovies } from '../../actions/movies';
-
-import './homepage.scss';
 
 export const Homepage = ({
   loadTopMovies,
@@ -56,16 +60,19 @@ export const Homepage = ({
         </div>
       </div>
 
-      {loaded ? (
-        <div id="home-carousel">
-          <h2 className="homepage__title">
-            La sélection
-          </h2>
-          <p className="homepage__subtitle">Découvrez les 3 films qui effraient le plus nos membres</p>
-          <Carousel format="small" movies={tmdbIDs} />
-        </div>
-      ) : errorSelection ? (
-        <div>{errorMessage}</div>) : <div>Chargement...</div>}
+      <div id="home-carousel">
+        {loaded ? (
+          <>
+            <h2 className="homepage__title">
+              La sélection
+            </h2>
+            <p className="homepage__subtitle">Découvrez les 3 films qui effraient le plus nos membres</p>
+            <Carousel format="small" movies={tmdbIDs} />
+          </>
+        )
+          : errorSelection ? (
+            <Error errorMessage={errorMessage} />) : <div>Chargement...</div>}
+      </div>
 
     </div>
   );

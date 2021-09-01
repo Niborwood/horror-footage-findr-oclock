@@ -4,6 +4,10 @@ import {
   END_QUIZ, RESET_QUIZ,
 } from '../actions/quiz';
 
+import {
+  QUIZ_ERROR,
+} from '../actions/errors';
+
 export const initialState = {
   isPlaying: false,
   // Intitulé de la question en cours (envoyée par l'API)
@@ -17,10 +21,24 @@ export const initialState = {
   numberOfQuestions: 1,
   numberOfAnswers: 0,
   quizCompleted: false,
+  errorAPI: {
+    error: false,
+    errorMessage: '',
+  },
 };
 
 const quizReducer = (state = initialState, action) => {
   switch (action.type) {
+    case QUIZ_ERROR: {
+      return {
+        ...state,
+        errorAPI: {
+          error: true,
+          errorMessage: action.errorMessage,
+        },
+      };
+    }
+
     case CHOOSE_AN_ANSWER: {
     // On mappe sur les réponses du state pour retourner
     // les réponses avec la sélection de l'utilisateur suivant l'id de l'élément
@@ -87,7 +105,7 @@ const quizReducer = (state = initialState, action) => {
         isPlaying: false,
         currentAnswers: [],
         currentQuestion: 1,
-        question: '',
+        question: {},
         quizCompleted: true,
       };
 
