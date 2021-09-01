@@ -1,0 +1,96 @@
+.fantome {
+   background-image: url("https://cdn.pixabay.com/photo/2017/10/24/14/58/halloween-2884806_960_720.png");
+   height: 250px ;
+   width: 90px;
+   position: absolute;
+   top: 10rem;
+   left: 25rem;
+   background-position: 320px;
+    background-size: cover;
+   animation-name: ghostAppearance;
+   animation-iteration-count:infinite;
+   animation-duration: 10s;
+}
+@keyframes ghostAppearance {
+   0%{
+ opacity: 0;
+   } 
+   10% {
+    opacity: 0.3;
+   }
+   11% {
+    opacity: 0.45;
+   }
+   12% {
+    opacity: 0.60;
+   }
+   13% {
+    opacity: 0.80;
+   }
+   14% {
+    opacity: 0.90;
+   }
+   15%{
+    opacity: 1;   
+    position: absolute;
+    top:17.5rem;
+    left: 15.625rem;
+   }
+   30% {
+    opacity: 0.80;
+   }
+   50% {
+    opacity: 0.50;
+    position: absolute;
+    top:17.5rem;
+    right: 15.625rem;
+   }
+   55% {
+    opacity: 0.50;
+    position: absolute;
+    top:17.5rem;
+    right: 15.625rem;
+   }
+   58%{
+   
+   }
+   60% {
+
+   }
+   65% {
+    position: absolute;
+    left:35rem;
+    top: 40rem;
+   }
+   70%{
+  
+   }
+   90%{
+    position: absolute;
+    left:80rem;
+   
+   }
+   100% {
+opacity: 0;
+   }
+}
+.notfound{
+    &__container{display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+    &__text{
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    &__link{
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color:#a50000;
+    }
+    &__kill{
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+}

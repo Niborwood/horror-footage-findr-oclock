@@ -18,6 +18,7 @@ import Profile from '../Profile';
 import Watchlist from '../Watchlist';
 import Settings from '../Settings';
 import Login from '../Login';
+import NotFound from '../NotFound';
 
 function App({
   splashPassed,
@@ -36,7 +37,6 @@ function App({
     } else {
       watchlistArray = [];
     }
-
     const watchedItem = localStorage.getItem('watched');
     let watchedArray = watchedItem.split(',');
     if (watchedItem.length > 0) {
@@ -84,6 +84,9 @@ function App({
 
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="*">
+              <NotFound />
             </Route>
           </main>
           <Footer />
