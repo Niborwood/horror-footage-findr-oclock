@@ -5,7 +5,7 @@ import './profile.scss';
 
 export const Profile = () => (
   <div className="menu-holder">
-    <h1 className="profile__main-title">Compte Utilisateur</h1>
+    <MenuTitle content="compte utilisateur" title="main" />
     <div className="profile__container">
       <MenuItem to="/watchlist" textContent="watchlist" />
       <MenuItem to="/settings" textContent="settings" />

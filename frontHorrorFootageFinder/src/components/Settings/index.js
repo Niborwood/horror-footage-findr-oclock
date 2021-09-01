@@ -60,11 +60,11 @@ export const Settings = ({
           />
         )
         : null}
-      <h1 className="settings__title">settings</h1>
+      <MenuTitle content="settings" title="main" />
       <div>
         <form onSubmit={onSubmitSettings}>
           <p className="settings__info">{textInfo}</p>
-          <MenuTitle content="informations utilisateur" />
+          <MenuTitle content="informations utilisateur" title="sub" />
           <div className="settings__item"> pseudo : </div>
           {/* le même schéma se reproduit 3 fois
           (pour le pseudo, le mail, le password) à factoriser ?
@@ -99,7 +99,7 @@ export const Settings = ({
                 <button type="button" value="emailInput" onClick={onClickEdit} className="settings__button">edit</button>
               </div>
             )}
-          <MenuTitle content="securite" />
+          <MenuTitle content="securite" title="sub" />
           <div className="security-container">
             {passwordInput
               ? (
