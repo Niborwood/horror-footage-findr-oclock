@@ -2,12 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink, Redirect } from 'react-router-dom';
+
+// SCSS
+import './login.scss';
+
+// IMPORTS D'ACTION/DISPATCH
 import { changeInputValueLogin, login } from '../../actions/login';
+
+// COMPOSANTS EXTERNES
 import Field from '../Field';
 import Button from '../Button';
 import Divider from '../Divider';
-import './login.scss';
 
+// RENDU DE COMPOSANT
 export function Login({
   changeField, onLogin, isLogged, errorMessage,
 }) {
@@ -30,7 +37,7 @@ export function Login({
         <Field name="Email" type="email" onChange={changeField} />
         <Field name="Mot de passe" type="password" onChange={changeField} />
         {textErrorMessage}
-        <Button className="" textContent="Valider" type="submit" />
+        <Button className="login__validate" textContent="Valider" type="submit" />
       </form>
       <Divider />
       <NavLink to="/register" className="login__to-register">pas encore de compte ?</NavLink>
@@ -59,6 +66,11 @@ Login.propTypes = {
   changeField: PropTypes.func.isRequired,
   onLogin: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
-  errorMessage: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.bool,
 };
+
+Login.defaultProps = {
+  errorMessage: false,
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

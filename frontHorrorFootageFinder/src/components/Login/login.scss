@@ -19,6 +19,13 @@
     }
 }
 
+.login__validate {
+    align-self: center;
+    @include media-min(768px) {
+        align-self: auto;
+    }
+}
+
 .login___title {
     margin-bottom: 4rem;
     font-size: 2rem;

@@ -28,18 +28,18 @@
 
   &__content {
     margin: auto 0;
-    // max-width: 600px;
   }
 }
 
 .menu-holder {
   background-color: vars.$blue-primary;
-  width: max-content;
+  width: fit-content;
   padding: 2rem 3rem;
   margin: auto;
 
   @include media-min(520px) {
-    width: fit-content;
+    width: auto;
+    max-width: 400px;
     margin: 0;
   }
 }

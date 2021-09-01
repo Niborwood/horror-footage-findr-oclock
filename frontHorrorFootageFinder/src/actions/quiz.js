@@ -1,4 +1,5 @@
 import api from '../utils/api';
+import { quizError } from './errors';
 
 // Quiz Action
 export const CHOOSE_AN_ANSWER = 'CHOOSE_AN_ANSWER';
@@ -40,7 +41,8 @@ export const fetchQuestionAndAnswers = (questionId, answers) => (dispatch) => {
       dispatch(loadQuestionAndAnswers(question, controlledAnswers));
     })
     .catch((error) => {
-      console.log(error);
+      const errorMessage = error.response.data.error;
+      dispatch(quizError(errorMessage));
     });
 };
 
@@ -61,7 +63,8 @@ export const loadQuestionsNumber = () => (dispatch) => {
       dispatch(quizInit(nbOfQuestions));
     })
     .catch((error) => {
-      console.log(error);
+      const errorMessage = error.response.data.error;
+      dispatch(quizError(errorMessage));
     });
 };
 
@@ -83,7 +86,8 @@ export const fetchQuizResults = (tags) => (dispatch) => {
       dispatch(endQuiz(tmdbIDs));
     })
     .catch((error) => {
-      console.log(error);
+      const errorMessage = error.response.data.error;
+      dispatch(quizError(errorMessage));
     });
 };
 // reset quiz (en test)

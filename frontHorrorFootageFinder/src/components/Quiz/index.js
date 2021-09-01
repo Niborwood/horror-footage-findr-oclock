@@ -22,6 +22,7 @@ import {
 import Button from '../Button';
 import Divider from '../Divider';
 import Arrow from '../Arrow';
+import Error from '../Error';
 
 // QUIZ COMPONENT
 //! Renommer "currentQuestion" en "currentStep" pour clarifier la donnée
@@ -30,6 +31,7 @@ export const Quiz = ({
   currentQuestion, currentAnswers, savedAnswers, getQuestionAndAnswers,
   getNumberOfQuestions, numberOfQuestions,
   numberOfAnswers, getQuizResults, quizCompleted, firstResult,
+  error, errorMessage,
 }) => {
   // On charge le nombre de questions une fois
   useEffect(() => {
@@ -57,6 +59,12 @@ export const Quiz = ({
     }
   }, [numberOfAnswers]);
 
+  // S'il y a une erreur de réponse API, on s'arrête là et on affiche un message d'erreur :
+  if (error) {
+    return <Error errorMessage={errorMessage} goBackToHome />;
+  }
+
+  // Si tout va bien, on continue :
   // On mappe sur les réponses de l'API pour leur donner forme avec le composant Button
   const answersList = currentAnswers.map((answer) => (
     <Button
@@ -77,7 +85,6 @@ export const Quiz = ({
   // --------------------- RETURN COMPONENT ---------------------
   // On retourne les données traitées, suivant que l'utilisateur ait complété
   // ou non le quiz (quizCompleted)
-  //! Le question.name est-il nécessaire ?
   return (
     <div className="quiz">
       <div className="quiz__question">{quizCompleted ? 'Votre found footage n\'attend que vous.' : question.title}</div>
@@ -87,7 +94,7 @@ export const Quiz = ({
       <Divider />
       <div className="quiz__next-question">
         {quizCompleted ? (<Button to={`/movie/${firstResult}`} textContent="Découvrir" />) : (
-          <a onClick={() => { onClickNextQuestion(question.name); }} type="button">
+          <a onClick={onClickNextQuestion} type="button">
             <Arrow />
             {' '}
             {nextQuestionText}
@@ -125,6 +132,9 @@ Quiz.propTypes = {
   getQuestionAndAnswers: PropTypes.func.isRequired,
   getNumberOfQuestions: PropTypes.func.isRequired,
   getQuizResults: PropTypes.func.isRequired,
+  // Gestion des erreurs
+  error: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired,
 };
 
 Quiz.defaultProps = {
@@ -141,6 +151,10 @@ const mapStateToProps = (
       numberOfQuestions,
       numberOfAnswers,
       quizCompleted,
+      errorAPI: {
+        error,
+        errorMessage,
+      },
     },
     movies: {
       quizResults: {
@@ -157,6 +171,8 @@ const mapStateToProps = (
   numberOfAnswers,
   quizCompleted,
   firstResult,
+  error,
+  errorMessage,
 });
 
 const mapDispatchToProps = (dispatch) => ({

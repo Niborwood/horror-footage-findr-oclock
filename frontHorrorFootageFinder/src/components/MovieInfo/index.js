@@ -2,19 +2,25 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+// SCSS
+import './movieinfo.scss';
+
+// IMPORT D'ACTIONS/DISPATCH
 import { fetchMovie, fetchMovieIntData } from '../../actions/movies';
 import { fetchUserRatingOnSingleMovie } from '../../actions/rating';
 
+// COMPOSANTS EXTERNES
 import MovieButtons from '../MovieButtons';
 import MovieRate from '../MovieRate';
 import Divider from '../Divider';
 import MovieProviders from '../MovieProviders';
+import Error from '../Error';
 
-import './movieinfo.scss';
-
+// RENDU DU COMPOSANT
 export const MovieInfo = ({
   movieID, getMovie, format, getMovieIntData,
   currentData, currentTags, isLogged, hffRating, userID, getUserRatingOnSingleMovie,
+  error, errorMessage,
 }) => {
   // On check si le film est une série ou non (bool)
   const isSeries = currentTags?.includes('series');
@@ -36,6 +42,16 @@ export const MovieInfo = ({
       getUserRatingOnSingleMovie(userID, movieID);
     }
   }, [movieID, currentTags]);
+
+  // S'il y a une erreur TMDB ou d'API interne, on affiche une erreur
+  // On n'affiche le bouton retour que si le format est full (hors carousel)
+  if (error) {
+    return (
+      <div>
+        <Error errorMessage={errorMessage} goBackToHome={format === 'full'} />
+      </div>
+    );
+  }
 
   // On empêche l'effet de bord si les datas du film
   // ne sont pas encore récupérées : si les datas d'un film sont vides, on retourne le loading.
@@ -134,6 +150,8 @@ MovieInfo.propTypes = {
   movieID: PropTypes.number.isRequired,
   getMovie: PropTypes.func.isRequired,
   format: PropTypes.string.isRequired,
+  error: PropTypes.bool,
+  errorMessage: PropTypes.string,
   currentData: PropTypes.shape({
     poster_path: PropTypes.string,
     original_title: PropTypes.string,
@@ -158,6 +176,8 @@ MovieInfo.defaultProps = {
   currentData: null,
   currentTags: null,
   hffRating: null,
+  error: false,
+  errorMessage: '',
 };
 
 const mapStateToProps = ({ movies, login: { id, isLogged } }, { movieID }) => ({
@@ -166,6 +186,8 @@ const mapStateToProps = ({ movies, login: { id, isLogged } }, { movieID }) => ({
   // L'API nous retourne un array de tags : on le transforme en une string séparée par des ","
   currentTags: movies[movieID]?.tags?.join(', '),
   hffRating: movies[movieID]?.hffRating,
+  error: movies[movieID]?.error,
+  errorMessage: movies[movieID]?.errorMessage,
   isLogged,
   userID: id,
 });

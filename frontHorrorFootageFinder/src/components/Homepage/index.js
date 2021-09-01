@@ -1,15 +1,25 @@
-import React, { useEffect, useRef } from 'react';
+/* eslint-disable no-nested-ternary */
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Button from '../Button';
-import Carousel from '../Carousel';
-
-import { getTopMovies } from '../../actions/movies';
-
+// SCSS
 import './homepage.scss';
 
-export const Homepage = ({ loadTopMovies, topMovies: { loaded, tmdbIDs }, isLogged }) => {
+// COMPOSANTS EXTERNES
+import Button from '../Button';
+import Carousel from '../Carousel';
+import Error from '../Error';
+
+// IMPORTS D'ACTIONS/DISPATCH
+import { getTopMovies } from '../../actions/movies';
+
+export const Homepage = ({
+  loadTopMovies,
+  topMovies: { loaded, tmdbIDs }, isLogged,
+  errorMessage,
+  errorSelection,
+}) => {
   // Appel à l'API interne pour récupérer les 3 films les plus populaires
   // selon les utilisateurs du site
 
@@ -18,16 +28,11 @@ export const Homepage = ({ loadTopMovies, topMovies: { loaded, tmdbIDs }, isLogg
   }, []);
 
   // Gestion du bouton "Découvrir" pour le carousel de sélection
-  const homepageCarousel = useRef(null);
-  const scrollToHomepageCarousel = () => {
-    homepageCarousel.current.scrollIntoView({
-      behavior: 'smooth',
-    });
-  };
-
-  if (!loaded) {
-    return <div>Loading...</div>;
-  }
+  // const scrollToHomepageCarousel = () => {
+  //   homepageCarousel.current.scrollIntoView({
+  //     behavior: 'smooth',
+  //   });
+  // };
 
   return (
     <div className="homepage">
@@ -55,13 +60,20 @@ export const Homepage = ({ loadTopMovies, topMovies: { loaded, tmdbIDs }, isLogg
         </div>
       </div>
 
-      <div id="home-carousel" ref={homepageCarousel}>
-        <h2 className="homepage__title">
-          La sélection
-        </h2>
-        <p className="homepage__subtitle">Découvrez les 3 films qui effraient le plus nos membres</p>
-        <Carousel format="small" movies={tmdbIDs} />
+      <div id="home-carousel">
+        {loaded ? (
+          <>
+            <h2 className="homepage__title">
+              La sélection
+            </h2>
+            <p className="homepage__subtitle">Découvrez les 3 films qui effraient le plus nos membres</p>
+            <Carousel format="small" movies={tmdbIDs} />
+          </>
+        )
+          : errorSelection ? (
+            <Error errorMessage={errorMessage} />) : <div>Chargement...</div>}
       </div>
+
     </div>
   );
 };
@@ -75,11 +87,20 @@ Homepage.propTypes = {
       PropTypes.number,
     ),
   }).isRequired,
+  errorSelection: PropTypes.bool,
+  errorMessage: PropTypes.string,
+};
+
+Homepage.defaultProps = {
+  errorSelection: false,
+  errorMessage: '',
 };
 
 const mapStateToProps = ({ movies: { topMovies }, login: { isLogged } }) => ({
   topMovies,
   isLogged,
+  errorSelection: topMovies.error,
+  errorMessage: topMovies.errorMessage,
 });
 
 const mapDispatchToProps = (dispatch) => ({
