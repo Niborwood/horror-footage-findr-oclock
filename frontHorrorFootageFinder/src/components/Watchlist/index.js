@@ -13,14 +13,14 @@ export const Watchlist = ({ watchlist, watched }) => (
     {watchlist.length > 0
     && (
     <div className="container__watchlist">
-      <MenuTitle content="Films à voir" />
+      <MenuTitle content="Films à voir" title="sub" />
       <Carousel format="small" movies={watchlist} />
     </div>
     )}
     {watched.length > 0
     && (
     <div className="container__watched">
-      <MenuTitle content="deja vu" />
+      <MenuTitle content="deja vu" title="sub" />
       <Carousel format="small" movies={watched} />
     </div>
     )}
