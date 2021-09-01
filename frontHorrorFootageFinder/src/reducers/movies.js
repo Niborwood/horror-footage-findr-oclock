@@ -1,6 +1,5 @@
 import {
   SET_MOVIE_DATA, SET_TOP_MOVIES, SET_MOVIE_INT_DATA, UPDATE_QUIZ_RESULT_INDEX,
-  MOVIE_ERROR,
 } from '../actions/movies';
 
 import {
@@ -10,6 +9,10 @@ import {
 import {
   SAVE_RATE_IN_STATE,
 } from '../actions/rating';
+
+import {
+  MOVIE_ERROR,
+} from '../actions/errors';
 
 const initialState = {
   topMovies: {
