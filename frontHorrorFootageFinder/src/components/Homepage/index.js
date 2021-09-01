@@ -56,6 +56,10 @@ export const Homepage = ({ loadTopMovies, topMovies: { loaded, tmdbIDs }, isLogg
       </div>
 
       <div id="home-carousel" ref={homepageCarousel}>
+        <h2 className="homepage__title">
+          La sélection
+        </h2>
+        <p className="homepage__subtitle">Découvrez les 3 films qui effraient le plus nos membres</p>
         <Carousel format="small" movies={tmdbIDs} />
       </div>
     </div>

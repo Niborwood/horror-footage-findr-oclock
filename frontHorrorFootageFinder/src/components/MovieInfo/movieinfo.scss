@@ -19,29 +19,27 @@
             .movie-buttons {
                 justify-content: flex-start;
             }
-    
+
             .MuiBox-root {
                 text-align: center;
             }
+
+            &__poster {
+                width: auto;
+            }
+
+            &__left-side {
+                margin-right: 2rem;
+            }
         }
 
-        
-    }
 
-    &__left-side {
-        @include media-min(768px) {
-            margin-right: 2rem;
-        }
     }
 
     &__poster {
         border: 3px solid white;
         margin-bottom: .5rem;
         width: 200px;
-
-        @include media-min(768px) {
-            width: auto;
-        }
     }
 
     &__tags {
@@ -64,7 +62,7 @@
         font-weight: bold;
         white-space: break-spaces;
 
-        
+
     }
 
     &__rating {
@@ -80,9 +78,9 @@
     &__description {
         font-size: 1.1rem;
         line-height: 1.1rem;
+
         @include media-min(768px) {
             padding-right: 3rem;
         }
     }
 }
-

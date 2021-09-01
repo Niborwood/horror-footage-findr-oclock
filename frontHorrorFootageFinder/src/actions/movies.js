@@ -1,13 +1,20 @@
 // Movies Actions
 import api, { tmdbAPI } from '../utils/api';
 
+// Action de gestion d'erreur
+export const MOVIE_ERROR = 'MOVIE_ERROR';
+export const movieError = (movieID) => ({
+  type: MOVIE_ERROR,
+  movieID,
+});
+
 // Gestion du nombre de films vus dans les résultats de quiz
 export const UPDATE_QUIZ_RESULT_INDEX = 'UPDATE_QUIZ_RESULT_INDEX';
 export const updateQuizResultIndex = () => ({
   type: UPDATE_QUIZ_RESULT_INDEX,
 });
 
-// Fonction d'écriture du top 3 de la page d'accueil dans le state
+// Action d'écriture du top 3 de la page d'accueil dans le state
 export const SET_TOP_MOVIES = 'SET_TOP_MOVIES';
 export const setTopMovies = (movies) => ({
   type: SET_TOP_MOVIES,
@@ -29,7 +36,7 @@ export const getTopMovies = (nbOfMovies) => (dispatch) => {
     });
 };
 
-// Fonction d'écriture des données API des films dans le state
+// Action d'écriture des données API des films dans le state
 export const SET_MOVIE_DATA = 'SET_MOVIE_DATA';
 export const setCurrentMovie = (movieID, tmdbData, format) => ({
   type: SET_MOVIE_DATA,
