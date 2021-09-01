@@ -104,11 +104,11 @@ export const MovieInfo = ({
         </div>
         {/* On passe le format à MovieButtons pour qu'il affiche ou non les deux boutons de quiz */}
         <MovieButtons format={format} movieID={movieID} />
-        <Divider />
 
         {/* Affichage conditionnel de la description si le format est full */}
         {format === 'full' && (
           <>
+            <Divider />
             <div className="movie-info__description">
               {/* Affichage conditionnel de la collection si le film en possède une */}
               {currentData.belongs_to_collection

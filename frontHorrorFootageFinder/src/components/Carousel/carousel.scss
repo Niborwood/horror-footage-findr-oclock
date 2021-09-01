@@ -29,4 +29,29 @@
     &__arrow-next {
         right: 1rem;
     }
+
+    .movie-info__tags {
+        min-height: 3rem;
+    }
+
+    .movie-info__title {
+        min-height: 5rem;
+    }
+
+    .movie-info__poster {
+        min-height: 306px;
+    }
+}
+
+.carousel-watchlist {
+    .carousel__movie {
+        @include media-min(768px) {
+            min-width: 50%;
+            max-width: 50%;
+        }
+        @include media-min(1024px) {
+            min-width: 25%;
+            max-width: 25%;
+        }
+    }
 }

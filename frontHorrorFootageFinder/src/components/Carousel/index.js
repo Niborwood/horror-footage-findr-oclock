@@ -12,7 +12,7 @@ import './carousel.scss';
 // Le Carousel peux prendre deux formats :
 // - format="small", avec l'affiche, les tags, le titre, les notes et les boutons de vues
 // - format="mini", seulement avec l'affiche
-export const Carousel = ({ format, movies }) => {
+export const Carousel = ({ format, movies, watchlist }) => {
   // On mappe la liste d'IDs TMDB reçus pour en afficher chaque composant Movie
   const movieList = movies.map((id) => (
     <div key={id} className="carousel__movie">
@@ -51,7 +51,7 @@ export const Carousel = ({ format, movies }) => {
   }, []);
 
   return (
-    <div className="carousel">
+    <div className={`carousel ${watchlist && ' carousel-watchlist'}`}>
       {fullLeftScroll || (
       <div className="carousel__arrow-back" onClick={onClickArrowLeft}>
         <Arrow type="rewind" size="md" />
@@ -75,10 +75,12 @@ Carousel.propTypes = {
   movies: PropTypes.arrayOf(
     PropTypes.number,
   ).isRequired,
+  watchlist: PropTypes.bool,
 };
 
 Carousel.defaultProps = {
   format: 'small',
+  watchlist: false,
 };
 
 const mapStateToProps = () => ({

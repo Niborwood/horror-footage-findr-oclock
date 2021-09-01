@@ -9,19 +9,19 @@ import Carousel from '../Carousel';
 import MenuTitle from '../MenuTitle';
 
 export const Watchlist = ({ watchlist, watched }) => (
-  <div>
+  <div className="watchlist-page">
     {watchlist.length > 0
     && (
     <div className="container__watchlist">
       <MenuTitle content="Films à voir" title="main" />
-      <Carousel format="small" movies={watchlist} />
+      <Carousel format="small" movies={watchlist} watchlist />
     </div>
     )}
     {watched.length > 0
     && (
     <div className="container__watched">
       <MenuTitle content="deja vu" title="main" />
-      <Carousel format="small" movies={watched} />
+      <Carousel format="small" movies={watched} watchlist />
     </div>
     )}
     {watchlist.length === 0 && watched.length === 0
