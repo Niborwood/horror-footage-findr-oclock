@@ -15,13 +15,13 @@ module.exports = {
             if (!movieInTable) {
                 const movieInWatched = await watchedDataMapper.movieIntoWatched(request.params);
                 response.json({
-                    message: 'Le film a bien été ajouté à la liste des films vus',
+                    message: `Ouah t'as vu ce film sérieux ?`,
                     data: movieInWatched
                 });
             } else {
                 const movieWatched = await watchedDataMapper.movieWatched(request.params);
                 response.json({
-                    message: 'Le film peut tranquillement passer à "vu"',
+                    message: `"vu" ça veut dire sans les mains devant les yeux tu sais ?`,
                     data: movieWatched
                 });
             }
@@ -29,7 +29,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible d'indiquer que le film a été vu, veuillez réessayer ultérieurement.`
+                error: `De toute façon on ne te croyais pas, personne n'a vus ce film !`
             });
         }
     },
@@ -43,7 +43,7 @@ module.exports = {
         try {
             const changeWatched = await watchedDataMapper.changeValueWatched(request.params);
             response.json({
-                message: 'La valeur de watched a bien été modifiée',
+                message: `Tu changes d'avis comme de chemise, non ?`,
                 data: changeWatched
             })
 
@@ -51,7 +51,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible d'indiquer de mettre à jour la valeur de watched, veuillez réessayer ultérieurement.`
+                error: `Vu ou pas vu, l'important c'est que tu saches que ce film existe, merci à nous !`
             });
         }
     }

@@ -21,13 +21,13 @@ module.exports = {
 
                 const createRelation = await ratingDataMapper.addRelationAndRating(infos, rating);
                 response.json({
-                    message: 'La relation a bien été crée, et la note ajoutée',
+                    message: `Ca fait du bien d'être celui qui note pour une fois hein ?`,
                     data: createRelation
                 })
             } else {
                 const relationExistsAlready = await ratingDataMapper.editMovieRating(infos, rating);
                 response.json({
-                    message: 'La note a bien été ajoutée',
+                    message: `A ce rythme là c'est bientôt un opéra !`,
                     data: relationExistsAlready
                 })
             }
@@ -36,7 +36,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: 'Désolé une erreur serveur est survenue, impossible d\'ajouter une note à ce film, veuillez réessayer ultérieurement.'
+                error: 'Les premiers seront les derniers alors à quoi bon mettre des notes hein ?'
             });
         }
     }

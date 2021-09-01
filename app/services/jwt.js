@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const JWT_SIGN_SECRET = process.env.JWT_SECRET;
-
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
 
 
 module.exports = {
@@ -11,9 +11,14 @@ module.exports = {
    * @returns {Object} the token
    */
   generateAccessToken(user) {
-
     return jwt.sign(user, JWT_SIGN_SECRET, {
-      expiresIn: '10800s'
+      expiresIn: '1800s'
+    })
+  },
+
+  generateRefreshToken(user) {
+    return jwt.sign(user, REFRESH_TOKEN_SECRET, {
+      expiresIn: '1y'
     })
   },
 
@@ -24,7 +29,7 @@ module.exports = {
    * @param {*} next to exit of the function
    * @returns 
    */
-  authenticateToken(request, response, next) {
+   authenticateToken(request, response, next) {
     const authHeader = request.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 

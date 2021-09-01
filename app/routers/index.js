@@ -42,6 +42,9 @@ router.post('/api/v1/register', validate('body', userSchema), userController.add
 
 router.post('/api/v1/login', userController.userLogged);
 
+//! Si on met en place le refresh token :
+// router.post('/api/v1/refreshtoken', userController.getRefreshToken);
+
 router.route('/api/v1/user/:id')
     .get(userController.findUser)
     .patch(jwtMiddleware.authenticateToken, userController.updateUser) //  validate('body update', updateUserSchema),

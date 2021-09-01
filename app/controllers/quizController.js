@@ -28,7 +28,7 @@ module.exports = {
             response.json(results);
         } catch (error) {
             console.trace(error);
-            response.status(500).json({ data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver le quiz, veuillez réessayer ultérieurement.' });
+            response.status(500).json({ data: [], error: `Bah les quiz c'est pour les intellos, vas plutot jouer de la tronçonneuse !` });
         }
     },
 
@@ -65,7 +65,7 @@ module.exports = {
             response.json(currentQuizData);
         } catch (error) {
             console.trace(error);
-            response.status(500).json({ data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver les réponses, veuillez réessayer ultérieurement.' });
+            response.status(500).json({ data: [], error: `La vie, la mort, j't'en pose des questions moi ?` });
         }
     },
 
@@ -83,7 +83,7 @@ module.exports = {
             response.json(fakeResult);
         } catch (error) {
             console.trace(error);
-            response.status(500).json({ data: [], error: 'Désolé une erreur serveur est survenue, impossible de trouver le quiz, veuillez réessayer ultérieurement.' });
+            response.status(500).json({ data: [], error: `J'ai plus d'doigts, j'peux pas compter .. Désolée !` });
         }
     }
 
