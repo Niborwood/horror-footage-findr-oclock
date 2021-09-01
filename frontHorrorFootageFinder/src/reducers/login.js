@@ -16,7 +16,6 @@ const initialState = {
   pseudo: '',
   id: 0,
   token: '',
-  errorMessage: false,
 };
 
 // eslint-disable-next-line consistent-return
@@ -48,7 +47,6 @@ function loginReducer(state = initialState, {
       return state;
     }
     case LOCALSTORAGEMODIFYLOGIN:
-      console.log('token in reducer', tokenStore);
       return {
         ...state,
         email: emailStore,

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink, Redirect } from 'react-router-dom';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import {
   changeInputValue,

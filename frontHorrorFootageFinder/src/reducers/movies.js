@@ -11,7 +11,7 @@ import {
 } from '../actions/rating';
 
 import {
-  MOVIE_ERROR,
+  MOVIE_ERROR, SELECTION_ERROR,
 } from '../actions/errors';
 
 const initialState = {
@@ -32,6 +32,17 @@ const moviesReducer = (state = initialState, action) => {
         topMovies: {
           loaded: true,
           tmdbIDs: action.movies,
+        },
+      };
+
+    case SELECTION_ERROR:
+      return {
+        ...state,
+        topMovies: {
+          ...state.topMovies,
+          loaded: false,
+          error: true,
+          errorMessage: action.errorMessage,
         },
       };
 

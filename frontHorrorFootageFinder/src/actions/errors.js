@@ -5,3 +5,9 @@ export const movieError = (movieID, errorMessage) => ({
   movieID,
   errorMessage,
 });
+
+export const SELECTION_ERROR = 'SELECTION_ERROR';
+export const selectionError = (errorMessage) => ({
+  type: SELECTION_ERROR,
+  errorMessage,
+});

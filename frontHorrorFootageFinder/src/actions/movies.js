@@ -1,6 +1,6 @@
 // Movies Actions
 import api, { tmdbAPI } from '../utils/api';
-import { movieError } from './errors';
+import { movieError, selectionError } from './errors';
 
 // Gestion du nombre de films vus dans les résultats de quiz
 export const UPDATE_QUIZ_RESULT_INDEX = 'UPDATE_QUIZ_RESULT_INDEX';
@@ -26,7 +26,8 @@ export const getTopMovies = (nbOfMovies) => (dispatch) => {
       const topTmdbMovies = data.map(({ id: tmdbID }) => (tmdbID));
       dispatch(setTopMovies(topTmdbMovies));
     }).catch((error) => {
-      console.log(error);
+      const errorMessage = error.response.data.error;
+      dispatch(selectionError(errorMessage));
     });
 };
 
