@@ -72,6 +72,7 @@ const dataHorror = (store) => (next) => (action) => {
             localStorage.setItem('watchlist', response.data.watchlist);
             localStorage.setItem('watched', response.data.watched);
             localStorage.setItem('id', response.data.data.id);
+            localStorage.setItem('timeStamp', response.data.time);
           }
         } catch (error) {
           console.log('error', error);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -39,6 +39,13 @@ function App({
     handleLocalStorageModifyLOGIN(email, pseudo, true, id, token);
     handleLocalStorageModifyUI(watchlistFinalResult, watchedFinalResult);
   }
+
+  // Quand on lance l'appli si la date actuel dépasse de 3h (10 800 000 ms) la
+  // date de création du token on clear le localStorage
+  if ((Date.now() - 10800000) > parseInt(localStorage.getItem('timeStamp'), 10)) {
+    localStorage.clear();
+  }
+
   return (
     <div className="app">
       { splashPassed || <Redirect to="/splash" />}
