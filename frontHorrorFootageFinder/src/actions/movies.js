@@ -3,9 +3,10 @@ import api, { tmdbAPI } from '../utils/api';
 
 // Action de gestion d'erreur
 export const MOVIE_ERROR = 'MOVIE_ERROR';
-export const movieError = (movieID) => ({
+export const movieError = (movieID, errorMessage) => ({
   type: MOVIE_ERROR,
   movieID,
+  errorMessage,
 });
 
 // Gestion du nombre de films vus dans les résultats de quiz
@@ -88,6 +89,9 @@ export function fetchMovie(movieID, format, isSeries) {
             dispatch(setCurrentMovie(movieID, response.data, format));
             break;
         }
+      })
+      .catch((error) => {
+        dispatch(movieError(movieID));
       });
   };
 }
@@ -109,6 +113,11 @@ export function fetchMovieIntData(movieID) {
       .then((response) => {
         const { tags, movieRatings } = response.data;
         dispatch(setMovieIntData(movieID, tags, movieRatings));
+      })
+      .catch((error) => {
+        const errorMessage = error.response.data.error;
+        console.log(errorMessage);
+        dispatch(movieError(movieID, errorMessage));
       });
   };
 }

@@ -1,5 +1,6 @@
 import {
   SET_MOVIE_DATA, SET_TOP_MOVIES, SET_MOVIE_INT_DATA, UPDATE_QUIZ_RESULT_INDEX,
+  MOVIE_ERROR,
 } from '../actions/movies';
 
 import {
@@ -28,6 +29,16 @@ const moviesReducer = (state = initialState, action) => {
         topMovies: {
           loaded: true,
           tmdbIDs: action.movies,
+        },
+      };
+
+    case MOVIE_ERROR:
+      return {
+        ...state,
+        [action.movieID]: {
+          ...state[action.movieID],
+          error: true,
+          errorMessage: action.errorMessage,
         },
       };
 
