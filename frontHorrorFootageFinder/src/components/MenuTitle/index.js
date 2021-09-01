@@ -4,14 +4,25 @@ import { connect } from 'react-redux';
 
 import './menuTitle.scss';
 
-export function MenuTitle({ content }) {
+// content pour le texte du titre
+// title peut prendre 3 valeurs: "main", "sub", "sub-alt"
+export function MenuTitle({ content, title }) {
   return (
-    <h2 className="menu-title">{content}</h2>
+    <>
+      { title === 'main' ? <h2 className="menu-title__main">{content}</h2> : null }
+      { title === 'sub' ? <h2 className="menu-title__sub">{content}</h2> : null }
+      { title === 'sub-alt' ? <h3 className="menu-title__sub-alt">{content}</h3> : null }
+    </>
   );
 }
 
 MenuTitle.propTypes = {
   content: PropTypes.string.isRequired,
+  title: PropTypes.string,
+};
+
+MenuTitle.defaultProps = {
+  title: 'sub',
 };
 
 const mapStateToProps = () => ({

@@ -1,14 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MenuItem from '../MenuItem';
+
+// SCSS
 import './profile.scss';
 
+// COMPOSANTS IMPORTES
+import MenuTitle from '../MenuTitle';
+
+// RENDU DU COMPOSANT
 export const Profile = () => (
   <div className="menu-holder">
-    <h1 className="profile__main-title">Compte Utilisateur</h1>
+    <MenuTitle content="compte utilisateur" title="main" />
     <div className="profile__container">
       <MenuItem to="/watchlist" textContent="watchlist" />
+<<<<<<< HEAD
       <MenuItem to="/settings" textContent="paramètres" />
+=======
+      <MenuItem to="/settings" textContent="parametres" />
+>>>>>>> front
       <MenuItem to="/" textContent="Retour à la page d'accueil" />
     </div>
   </div>
