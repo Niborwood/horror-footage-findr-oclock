@@ -69,8 +69,12 @@ const dataHorror = (store) => (next) => (action) => {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('pseudo', response.data.data.pseudo);
             localStorage.setItem('email', response.data.data.email);
-            localStorage.setItem('watchlist', response.data.watchlist);
-            localStorage.setItem('watched', response.data.watched);
+            if (response.data.watchlist !== null) {
+              localStorage.setItem('watchlist', response.data.watchlist);
+            }
+            if (response.data.watched !== null) {
+              localStorage.setItem('watched', response.data.watched);
+            }
             localStorage.setItem('id', response.data.data.id);
             localStorage.setItem('timeStamp', response.data.time);
           }

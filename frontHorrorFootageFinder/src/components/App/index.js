@@ -30,14 +30,23 @@ function App({
     const pseudo = localStorage.getItem('pseudo');
     const id = localStorage.getItem('id');
     const watchlistItem = localStorage.getItem('watchlist');
-    const watchlistArray = watchlistItem.split(',');
-    const watchlistFinalResult = watchlistArray.map((element) => parseInt(element, 10));
+    let watchlistArray = watchlistItem.split(',');
+    if (watchlistItem.length > 0) {
+      watchlistArray = watchlistArray.map((element) => parseInt(element, 10));
+    } else {
+      watchlistArray = [];
+    }
+
     const watchedItem = localStorage.getItem('watched');
-    const watchedArray = watchedItem.split(',');
-    const watchedFinalResult = watchedArray.map((element) => parseInt(element, 10));
+    let watchedArray = watchedItem.split(',');
+    if (watchedItem.length > 0) {
+      watchedArray = watchedArray.map((element) => parseInt(element, 10));
+    } else {
+      watchedArray = [];
+    }
 
     handleLocalStorageModifyLOGIN(email, pseudo, true, id, token);
-    handleLocalStorageModifyUI(watchlistFinalResult, watchedFinalResult);
+    handleLocalStorageModifyUI(watchlistArray, watchedArray);
   }
 
   // Quand on lance l'appli si la date actuel dépasse de 3h (10 800 000 ms) la
