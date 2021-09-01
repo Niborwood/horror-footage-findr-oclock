@@ -2,7 +2,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './404.scss';
-// import imageFantome from 'https://cdn.pixabay.com/photo/2013/07/13/11/47/woman-158669_960_720.png';
 
 export default function NotFound() {
   return (
