@@ -55,4 +55,14 @@
             align-self: auto;
         }
     }
+
+    &__discover-results {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        @include media-min(768px) {
+            align-items: flex-end;
+        }
+    }
 }

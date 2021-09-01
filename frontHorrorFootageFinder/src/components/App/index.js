@@ -1,12 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { localStorageModifyLOGIN, localStorageModifyUI } from '../../actions/login';
 
+// SCSS
 import './App.scss';
 
-// Arnaud: rassembler tout ça en un seul import {toto, tata, titi} from ???
+// IMPORT D'ACTION/DISPATCH
+import { localStorageModifyLOGIN, localStorageModifyUI } from '../../actions/login';
+
+// COMPOSANTS EXTERNES
+//! Arnaud: rassembler tout ça en un seul import {toto, tata, titi} from ???
 import Quiz from '../Quiz';
 import Header from '../Header';
 import Footer from '../Footer';
@@ -19,6 +23,7 @@ import Watchlist from '../Watchlist';
 import Settings from '../Settings';
 import Login from '../Login';
 
+// RENDU DE COMPOSANT
 function App({
   splashPassed,
   handleLocalStorageModifyLOGIN,

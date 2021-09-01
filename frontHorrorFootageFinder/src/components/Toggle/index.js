@@ -24,7 +24,7 @@ import { toggleAction } from '../../actions/ui';
 export const Toggle = ({
   textContent, name, triggerToggle, currentToggle,
 }) => (
-  <label htmlFor={name} className={`toggle-ui ${currentToggle && 'toggle-ui__checked'}`}>
+  <label htmlFor={name} className={`toggle-ui ${currentToggle ? 'toggle-ui__checked' : ''}`}>
     <input
       type="checkbox"
       name={name}

@@ -3,7 +3,7 @@ import {
 } from '../actions/movies';
 
 import {
-  END_QUIZ,
+  END_QUIZ, EDIT_QUIZ_ANSWERS,
 } from '../actions/quiz';
 
 import {
@@ -112,6 +112,16 @@ const moviesReducer = (state = initialState, action) => {
         },
       };
     }
+
+    // Si l'utilisateur veut modifier la liste des films à afficher
+    case EDIT_QUIZ_ANSWERS:
+      return {
+        ...state,
+        quizResults: {
+          ...state.quizResults,
+          tmdbIDs: action.tmdbIDs,
+        },
+      };
 
     case UPDATE_QUIZ_RESULT_INDEX: {
       return {

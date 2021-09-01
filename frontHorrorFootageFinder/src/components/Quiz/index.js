@@ -15,7 +15,7 @@ import './Quiz.scss';
 import {
   chooseAnAnswser, switchToNextQuestion,
   fetchQuestionAndAnswers, loadQuestionsNumber,
-  fetchQuizResults,
+  fetchQuizResults, editQuizAnswers,
 } from '../../actions/quiz';
 
 // COMPONENT IMPORTS
@@ -23,6 +23,7 @@ import Button from '../Button';
 import Divider from '../Divider';
 import Arrow from '../Arrow';
 import Error from '../Error';
+import Toggle from '../Toggle';
 
 // QUIZ COMPONENT
 //! Renommer "currentQuestion" en "currentStep" pour clarifier la donnée
@@ -31,7 +32,8 @@ export const Quiz = ({
   currentQuestion, currentAnswers, savedAnswers, getQuestionAndAnswers,
   getNumberOfQuestions, numberOfQuestions,
   numberOfAnswers, getQuizResults, quizCompleted, firstResult,
-  error, errorMessage,
+  error, errorMessage, isLogged, excludeWatched,
+  editQuizAnswersExcludingWatched,
 }) => {
   // On charge le nombre de questions une fois
   useEffect(() => {
@@ -47,7 +49,7 @@ export const Quiz = ({
     if (numberOfQuestions && (currentQuestion <= numberOfQuestions)) {
       getQuestionAndAnswers(currentQuestion, savedAnswers);
     } else {
-      getQuizResults(savedAnswers);
+      getQuizResults(savedAnswers, excludeWatched);
     }
   }, [currentQuestion, numberOfQuestions]);
 
@@ -93,7 +95,14 @@ export const Quiz = ({
       </div>
       <Divider />
       <div className="quiz__next-question">
-        {quizCompleted ? (<Button to={`/movie/${firstResult}`} textContent="Découvrir" />) : (
+        {quizCompleted ? (
+          <div className="quiz__discover-results">
+            {excludeWatched
+              ? <Button onClick={() => { editQuizAnswersExcludingWatched([574466, 169219]); }} to={`/movie/${firstResult}`} textContent="Découvrir +" />
+              : <Button to={`/movie/${firstResult}`} textContent="Découvrir" />}
+            {isLogged && <Toggle name="toggleExcludingWatched" textContent="Exclure les films déjà vus" />}
+          </div>
+        ) : (
           <a onClick={onClickNextQuestion} type="button">
             <Arrow />
             {' '}
@@ -125,6 +134,8 @@ Quiz.propTypes = {
   numberOfAnswers: PropTypes.number.isRequired,
   quizCompleted: PropTypes.bool.isRequired,
   firstResult: PropTypes.number,
+  isLogged: PropTypes.bool.isRequired,
+  excludeWatched: PropTypes.bool.isRequired,
   // Gestions des clics
   onClickAnswer: PropTypes.func.isRequired,
   onClickNextQuestion: PropTypes.func.isRequired,
@@ -132,6 +143,7 @@ Quiz.propTypes = {
   getQuestionAndAnswers: PropTypes.func.isRequired,
   getNumberOfQuestions: PropTypes.func.isRequired,
   getQuizResults: PropTypes.func.isRequired,
+  editQuizAnswersExcludingWatched: PropTypes.func.isRequired,
   // Gestion des erreurs
   error: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string.isRequired,
@@ -161,6 +173,14 @@ const mapStateToProps = (
         tmdbIDs: [firstResult],
       },
     },
+    login: {
+      isLogged,
+    },
+    ui: {
+      toggles: {
+        toggleExcludingWatched: excludeWatched,
+      },
+    },
   },
 ) => ({
   question,
@@ -173,6 +193,8 @@ const mapStateToProps = (
   firstResult,
   error,
   errorMessage,
+  isLogged,
+  excludeWatched,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -197,6 +219,9 @@ const mapDispatchToProps = (dispatch) => ({
       }
     }
     dispatch(fetchQuizResults(savedAnswers));
+  },
+  editQuizAnswersExcludingWatched: (savedAnswers) => {
+    dispatch(editQuizAnswers(savedAnswers));
   },
 });
 
