@@ -26,7 +26,6 @@ function App({
 }) {
   if (localStorage.length > 0) {
     const token = localStorage.getItem('token');
-    console.log(token);
     const email = localStorage.getItem('email');
     const pseudo = localStorage.getItem('pseudo');
     const id = localStorage.getItem('id');

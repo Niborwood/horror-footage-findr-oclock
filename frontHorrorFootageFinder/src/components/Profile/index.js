@@ -14,11 +14,7 @@ export const Profile = () => (
     <MenuTitle content="compte utilisateur" title="main" />
     <div className="profile__container">
       <MenuItem to="/watchlist" textContent="watchlist" />
-<<<<<<< HEAD
-      <MenuItem to="/settings" textContent="paramètres" />
-=======
       <MenuItem to="/settings" textContent="parametres" />
->>>>>>> front
       <MenuItem to="/" textContent="Retour à la page d'accueil" />
     </div>
   </div>

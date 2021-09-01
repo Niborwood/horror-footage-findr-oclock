@@ -110,7 +110,7 @@ const dataHorror = (store) => (next) => (action) => {
           const getIdUser = state.login.id;
           if (!getWatched.includes(action.newWatchedId)) {
             api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
-            const response = await api.post(`user/${getIdUser}/watched/${action.newWatchedId}`);
+            await api.post(`user/${getIdUser}/watched/${action.newWatchedId}`);
             store.dispatch(addMovieInReducer('watched', action.newWatchedId));
           }
         } catch (error) {

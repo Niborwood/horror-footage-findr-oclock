@@ -64,11 +64,7 @@ export const Settings = ({
           />
         )
         : null}
-<<<<<<< HEAD
-      <h1 className="settings__title">Paramètres</h1>
-=======
       <MenuTitle content="parametres" title="main" />
->>>>>>> front
       <div>
         <form onSubmit={onSubmitSettings}>
           <p className="settings__info">{textInfo}</p>
