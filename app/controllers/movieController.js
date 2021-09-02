@@ -19,7 +19,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: 'Désolé une erreur serveur est survenue, veuillez réessayer ultérieurement.'
+                error: `De toute façon, ce sont tous des navets, pas la peine d'en faire une sélection`
             });
         }
     },
@@ -40,7 +40,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: 'Désolé une erreur serveur est survenue, impossible de récupérer les notes de ce film, veuillez réessayer ultérieurement.'
+                error: 'Pour avoir des notes il faudrait déjà que des gens aient vu ce film ..'
             });
         }
     },
@@ -67,7 +67,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: 'Désolé une erreur serveur est survenue, impossible de trouver le film, veuillez réessayer ultérieurement.'
+                error: `Désolé mais c'est pas ici qu'Harry rencontre Sally ..`
             });
         }
     },
@@ -87,7 +87,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: 'Désolé une erreur serveur est survenue, impossible de rappatrier tous les films, veuillez réessayer ultérieurement.'
+                error: 'Tu veux vraiment voir tous ces films ?! Il fait beau dehors, sors !'
             });
         }
     }

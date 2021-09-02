@@ -3,21 +3,21 @@ const client = require('../client');
 module.exports = {
 
     /**
-     * Get the X movies with better ratings
+     * Get the X movies with better ratings, order by AVG AND number of ratings
      * @returns {Object[]}
      */
     async getBetterMovies(limit) {
         const result = await client.query(`SELECT AVG(rating) AS rating,
+        count(rating),
         movie.id
         FROM horror_user_has_movie
         JOIN movie ON horror_user_has_movie.movie_id = movie.id
         GROUP BY movie.id
-        ORDER BY AVG(rating) DESC
+        ORDER BY rating DESC, count(rating) DESC
         LIMIT $1`, [limit]);
         return result.rows;
     },
 
-    // Robin !
     /**
      * Get the movie depending of his id
      * @returns {Object[]}

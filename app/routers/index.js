@@ -42,6 +42,9 @@ router.post('/api/v1/register', validate('body', userSchema), userController.add
 
 router.post('/api/v1/login', userController.userLogged);
 
+//! Si on met en place le refresh token :
+// router.post('/api/v1/refreshtoken', userController.getRefreshToken);
+
 router.route('/api/v1/user/:id')
     .get(userController.findUser)
     .patch(jwtMiddleware.authenticateToken, userController.updateUser) //  validate('body update', updateUserSchema),
@@ -68,9 +71,9 @@ router.get('/api/v1/user/:id/ratings/movie/:movieId', userController.oneRating);
 
 router.get('/api/v1/movie/:movieId/ratings', movieController.allRatingsMovie);
 
-router.post('/api/v1/quiz', quizController.getAnswersToAQuestion); // Robin, à tester
+router.post('/api/v1/quiz', quizController.getAnswersToAQuestion);
 
-router.get('/api/v1/searchmovies', quizController.searchMovies); // Anciennement quiz, route de vue. Robin, à tester
+router.get('/api/v1/searchmovies', quizController.searchMovies);
 
 router.get('/api/v1/movie/:movieId', movieController.movieResult);
 

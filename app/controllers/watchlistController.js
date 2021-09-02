@@ -12,17 +12,17 @@ module.exports = {
     async addMovieToWatchlist(request, response) {
         try {
             const alreadyIn = await movieDataMapper.movieInTable(request.params);
-            console.log('request addwatlist',request.params);
+            console.log('request addwatchlist',request.params);
             if (!alreadyIn) {
                 const movieInWatchlist = await watchlistDataMapper.movieIntoWatchlist(request.params);
                 response.json({
-                    message: 'Le film a bien été ajouté à la watchlist',
+                    message: 'Tu vas vraiment oser le visionner ?',
                     data: movieInWatchlist
                 });
             } else {
                 const movieWatchlist = await watchlistDataMapper.movieWatchlist(request.params);
                 response.json({
-                    message: 'Le film peut tranquillement passer dans la watchlist',
+                    message: 'Tu promets que tu vas le regarder hein ?',
                     data: movieWatchlist
                 });
             }
@@ -30,7 +30,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: 'Désolé une erreur serveur est survenue, impossible d\'ajouter le film dans la watchlist, veuillez réessayer ultérieurement.'
+                error: `Bah de toute façon on sait tous que tu ne l'aurais jamais visionner ce film !`
             });
         }
     },
@@ -44,14 +44,14 @@ module.exports = {
         try {
             const editWatchlist = await watchlistDataMapper.editMovieWatchlist(request.params);
             response.json({
-                message: 'La watchlist a bien été mise à jour',
+                message: 'Elle commence à être longue comme le bras cette liste !',
                 data: editWatchlist
             });
         } catch (error) {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: 'Désolé une erreur serveur est survenue, impossible de modifier la watchlist, veuillez réessayer ultérieurement.'
+                error: 'Des listes, toujours des listes, fais marcher ta mémoire un peu !'
             });
         }
     }

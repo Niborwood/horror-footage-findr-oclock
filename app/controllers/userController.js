@@ -21,7 +21,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de trouver cet utilisateur, veuillez réessayer ultérieurement.`
+                error: `Cet utilisateur ne fait plus parti des vivants, veuillez le rechercher dans l'autre monde.`
             });
         }
     },
@@ -43,9 +43,10 @@ module.exports = {
             const comparedPassword = await bcrypt.compare(password, logginUser.password);
             
             if (comparedPassword === true) {
-                
-                //! Appel à la fonction dans jwt.js, qui me renvoie mon token tout chaud :)
+
                 const token = jwtMiddleware.generateAccessToken(logginUser);
+
+                // const refreshToken = jwtMiddleware.generateRefreshToken(logginUser);
 
                 const watchlist = await userDataMapper.watchlist(logginUser.id);
                 const resultWatchlist = [...watchlist.map(resultWatchlist => resultWatchlist.movie_id)];
@@ -53,11 +54,17 @@ module.exports = {
                 const watchedMovie = await userDataMapper.watchedMovie(logginUser.id);
                 const resultWatched = [...watchedMovie.map(resultWatched => resultWatched.movie_id)];
     
+                const time = Date.now();
+
+                // console.log('refreshToken', refreshToken);
+
                 response.json({
                     data: logginUser,
                     watchlist: [resultWatchlist],
                     watched: [resultWatched],
-                    token: token
+                    token: token,
+                    // refreshToken: refreshToken,
+                    time: time
                 });
             }
 
@@ -65,9 +72,35 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de vous connecter, veuillez réessayer ultérieurement.`
+                error: `C'est la pleine lune, vous êtes sûr de vous rappeler de vos identifiants de loup garou ?`
             });
         }
+    },
+
+    //! Cette fonction est en cours d'installation ..
+    async getRefreshToken(request, response) {
+        //! LE FRONT DOIT RENVOYER L'ID DU MEC ;)
+        //! J'ai mis dans le body ici, mais ça peut être ailleurs ..
+        const userId = request.body.id;
+
+        const authHeader = req.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1];
+    
+        if (!token) {
+            return response.sendStatus(401).message('pPas envie de blaguer avec le refreshToken, tue moi.');
+        }
+
+        //! Je ne comprends pas cette partie :
+        jwt.verify(token, REFRESH_TOKEN_SECRET, (error, userId) => {
+            if (error) {
+                return response.sendStatus(401)
+            }
+        })
+
+        const refreshedToken = jwtMiddleware.generateRefreshToken(user);
+        response.send({
+            accessToken: refreshedToken
+        })
     },
 
     /**
@@ -76,23 +109,36 @@ module.exports = {
      * @param {Oject} response 
      */
     async addUser(request, response) {
+
         try {
             const newUser = await request.body;
-            const salt = await bcrypt.genSalt(10);
-            const hash = await bcrypt.hash(newUser.password, salt);
-            
-            const userToAdd = await userDataMapper.addNewUser(newUser, hash);
 
-            const userAdded = await userDataMapper.getUserById(userToAdd.id);
-            response.json({
-                data: userAdded
-            });
+            const reallyNew = await userDataMapper.getUserByEmail(newUser.email);
 
+            if(!reallyNew) {
+
+                const salt = await bcrypt.genSalt(10);
+                const hash = await bcrypt.hash(newUser.password, salt);
+                
+                const userToAdd = await userDataMapper.addNewUser(newUser, hash);
+    
+                const userAdded = await userDataMapper.getUserById(userToAdd.id);
+
+                response.json({
+                    data: userAdded
+                });
+
+            } else {
+                response.status(500).json({
+                    data: [],
+                    error: `Tu es un voleur d'adresse email, ou tu as juste besoin d'un jus de carotte pour retrouver la mémoire ?`
+                });
+            }
         } catch (error) {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de créer cet utilisateur, veuillez réessayer ultérieurement.`
+                error: `Désolée cher Balrog, vous ne pouvez pas passer en BDD .. (pour l'instant)`
             });
         }
     },
@@ -115,7 +161,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de mettre à jour cet utilisateur, veuillez réessayer ultérieurement.`
+                error: `Un coup vampire, ou coup fantôme, on a du mal à suivre ..`
             });
         }
     },
@@ -137,7 +183,7 @@ module.exports = {
             const editPassword = await userDataMapper.editPassword(userId, hash);
             
             response.json({
-                message: 'Le mot de passe a bien été changé',
+                message: `Maintenant il faut que tu t'en rappelles !`,
                 data: userId
             })
 
@@ -145,7 +191,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de mettre à jour le mot de passe de cet utilisateur, veuillez réessayer ultérieurement.`
+                error: `C'est quoi le mot Elfique pour "ami" ? Trouve et recommence !`
             });
         }
     },
@@ -159,28 +205,26 @@ module.exports = {
      */
     async deleteUser(request, response, next) {
         try {
-            //! Sécuriser l'accès direct via URL de l'API ..
-            //! Récupérer token et décrypter pour chopper l'id du mec à supprimer !!
-
+            
             const userId = request.params.id;
             const userToDelete = await userDataMapper.getUserById(request.params.id);
 
             if (!userToDelete) {
                 response.json({
-                    message: `Cet utilisateur n'existe pas.`
+                    message: `Supprimer un utilisateur avant sa naissance c'est malin, mais impossible !`
                 })
                 return next();
             } else {
                 await userDataMapper.deleteUser(userId);
                 response.json({
-                    message: `Utilisateur supprimé avec succès.`
+                    message: `Hasta la vista, baby !`
                 });
             }
         } catch (error) {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de supprimer cet utilisateur, veuillez réessayer ultérieurement.`
+                error: `Ahah tu croyais nous échapper aussi facilement ?`
             });
         }
     },
@@ -201,7 +245,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible d'obtenir les détails de cet utilisateur, veuillez réessayer ultérieurement.`
+                error: `Ta curiosité devra attendre, impossible d'avoir les détails ..`
             });
         }
     },
@@ -220,13 +264,13 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de récupérer la note que cet utilisateur a donné au film, veuillez réessayer ultérieurement.`
+                error: `Tu veux la note donnée aux effets spéciaux, aux acteurs, au chef op' ..? Je suis confuse.`
             });
         }
     },
 
     /**
-     * Controlle to have all ratings given by one user
+     * Controller to have all ratings given by one user
      * @param {Number} request userId in params
      * @param {Object} response 
      */
@@ -241,7 +285,7 @@ module.exports = {
             console.trace(error);
             response.status(500).json({
                 data: [],
-                error: `Désolé une erreur serveur est survenue, impossible de récupérer les notes données par cet utilisateur veuillez réessayer ultérieurement.`
+                error: `Pas super ta mélodie de notes, impossible de la fredonner ..`
             });
         }
     }

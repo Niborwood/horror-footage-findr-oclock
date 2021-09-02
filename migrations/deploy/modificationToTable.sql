@@ -4,7 +4,6 @@ BEGIN;
 
 ALTER TABLE "horror_user_has_movie"  
     ALTER COLUMN "watchlist" DROP NOT NULL,
-    ALTER COLUMN "watched" DROP NOT NULL,
-    ALTER COLUMN "rating" DROP NOT NULL;
+    ALTER COLUMN "watched" DROP NOT NULL;
 
 COMMIT;
