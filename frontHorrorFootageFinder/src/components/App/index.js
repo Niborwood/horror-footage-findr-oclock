@@ -18,6 +18,7 @@ import Profile from '../Profile';
 import Watchlist from '../Watchlist';
 import Settings from '../Settings';
 import Login from '../Login';
+import Credits from '../Credits';
 
 function App({
   splashPassed,
@@ -91,6 +92,11 @@ function App({
 
             <Route path="/login">
               <Login />
+            </Route>
+
+            {/* test crédits */}
+            <Route path="/credits">
+              <Credits />
             </Route>
           </main>
           <Footer />
