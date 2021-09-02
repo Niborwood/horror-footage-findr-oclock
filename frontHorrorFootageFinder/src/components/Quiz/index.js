@@ -97,9 +97,17 @@ export const Quiz = ({
         <div className="quiz__answers">
           {quizCompleted ? 'Cliquez sur le bouton pour voir le résultat.' : answersList}
         </div>
+
         <Divider />
         <div className="quiz__next-question">
-          {quizCompleted ? (<Button to={`/movie/${firstResult}`} textContent="Découvrir" />) : (
+          {quizCompleted ? (
+            <div className="quiz__discover-results">
+              {excludeWatched
+                ? <Button onClick={() => { editQuizAnswersExcludingWatched([574466, 169219]); }} to={`/movie/${firstResult}`} textContent="Découvrir" />
+                : <Button to={`/movie/${firstResult}`} textContent="Découvrir" />}
+              {isLogged && <Toggle name="toggleExcludingWatched" textContent="Exclure les films déjà vus" />}
+            </div>
+          ) : (
             <a onClick={onClickNextQuestion} type="button">
               <Arrow />
               {' '}
@@ -107,24 +115,6 @@ export const Quiz = ({
             </a>
           )}
         </div>
-      </div>
-
-      <Divider />
-      <div className="quiz__next-question">
-        {quizCompleted ? (
-          <div className="quiz__discover-results">
-            {excludeWatched
-              ? <Button onClick={() => { editQuizAnswersExcludingWatched([574466, 169219]); }} to={`/movie/${firstResult}`} textContent="Découvrir" />
-              : <Button to={`/movie/${firstResult}`} textContent="Découvrir" />}
-            {isLogged && <Toggle name="toggleExcludingWatched" textContent="Exclure les films déjà vus" />}
-          </div>
-        ) : (
-          <a onClick={onClickNextQuestion} type="button">
-            <Arrow />
-            {' '}
-            {nextQuestionText}
-          </a>
-        )}
       </div>
       <Footer />
     </>
