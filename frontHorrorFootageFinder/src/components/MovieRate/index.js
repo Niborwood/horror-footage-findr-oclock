@@ -6,7 +6,7 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import {
-  addMovieInWatched,
+  addMovieInWatched, removeMovieInWatchlist,
 } from '../../actions/watchlist';
 
 import {
@@ -30,6 +30,7 @@ export const MovieRate = ({
   movieID,
   userRating,
   handleAddMovieInWatched,
+  handleRemoveMovieInWatchlist,
 }) => (
   <Box component="fieldset" mb={3} borderColor="transparent">
     <StyledRating
@@ -39,6 +40,7 @@ export const MovieRate = ({
       onChange={(event) => {
         onRateMovie(event.target.value, movieID);
         handleAddMovieInWatched(movieID);
+        handleRemoveMovieInWatchlist(movieID);
       }}
       emptyIcon={<StarBorderIcon fontSize="inherit" />}
     />
@@ -50,6 +52,7 @@ MovieRate.propTypes = {
   movieID: PropTypes.number.isRequired,
   userRating: PropTypes.number,
   handleAddMovieInWatched: PropTypes.func.isRequired,
+  handleRemoveMovieInWatchlist: PropTypes.func.isRequired,
 };
 
 MovieRate.defaultProps = {
@@ -66,6 +69,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleAddMovieInWatched: (newWatchedId) => {
     const action = addMovieInWatched(newWatchedId);
+    dispatch(action);
+  },
+  handleRemoveMovieInWatchlist: (movieID) => {
+    const action = removeMovieInWatchlist(movieID);
     dispatch(action);
   },
 });

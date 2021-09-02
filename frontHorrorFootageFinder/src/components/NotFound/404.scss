@@ -148,6 +148,9 @@ opacity: 0;
  }
 .notfound{
     &__container{display:flex;
+        height: 100vh;
+        width: auto;
+        overflow: hidden;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -160,6 +163,7 @@ opacity: 0;
         font-size: 3rem;
         margin-bottom: 1rem;
         color:#a50000;
+        text-decoration: underline;
     }
     &__kill{
         font-size: 3rem;

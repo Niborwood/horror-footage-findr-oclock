@@ -12,7 +12,7 @@ export default function NotFound() {
       <div className="notfound__container">
         <span className="notfound__text">There&apos;s nothing here. You should leave. Now!</span>
         <NavLink className="notfound__link" to="/">GO HOME</NavLink>
-        <span className="notfound__kill">OR I kill you!</span>
+        <span className="notfound__kill">OR I&rsquo;ll kill you!</span>
       </div>
 
     </>
