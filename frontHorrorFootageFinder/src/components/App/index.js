@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 // SCSS
 import './App.scss';
+import './scanlines.scss';
 
 // IMPORT D'ACTION/DISPATCH
 import { localStorageModifyLOGIN, localStorageModifyUI } from '../../actions/login';
@@ -61,47 +62,45 @@ function App({
   }
 
   return (
-    <div className="app">
-      { splashPassed || <Redirect to="/splash" />}
-
-      <Switch>
-        {/* En tant qu'application basée sur l'expérience utilisateur,
-      le splash passe toujours avant la home, d'où cette redirection. */}
-        <Route path="/splash" component={Splash} />
-        <>
-          <Header />
-          <main className="app__content">
-            <Route exact path="/">
-              <Homepage />
-            </Route>
-            <Route path="/movie/:id">
-              <Movie />
-            </Route>
-            <Route path="/quiz">
-              <Quiz />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
-
-            <Route path="/profile">
-              <Profile />
-            </Route>
-            <Route path="/watchlist">
-              <Watchlist />
-            </Route>
-            <Route path="/settings">
-              <Settings />
-            </Route>
-
-            <Route path="/login">
-              <Login />
-            </Route>
-          </main>
-          <Footer />
-        </>
-      </Switch>
-
+    <div className="app-wrapper scanlines">
+      <div className="app">
+        { splashPassed || <Redirect to="/splash" />}
+        <Switch>
+          {/* En tant qu'application basée sur l'expérience utilisateur,
+        le splash passe toujours avant la home, d'où cette redirection. */}
+          <Route path="/splash" component={Splash} />
+          <>
+            <Header />
+            <main className="app__content">
+              <Route exact path="/">
+                <Homepage />
+              </Route>
+              <Route path="/movie/:id">
+                <Movie />
+              </Route>
+              <Route path="/quiz">
+                <Quiz />
+              </Route>
+              <Route path="/register">
+                <Register />
+              </Route>
+              <Route path="/profile">
+                <Profile />
+              </Route>
+              <Route path="/watchlist">
+                <Watchlist />
+              </Route>
+              <Route path="/settings">
+                <Settings />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+            </main>
+            <Footer />
+          </>
+        </Switch>
+      </div>
     </div>
   );
 }
