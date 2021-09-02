@@ -7,6 +7,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Header from '../Header';
+import Footer from '../Footer';
 
 // SCSS
 import './Quiz.scss';
@@ -79,22 +81,26 @@ export const Quiz = ({
   // ou non le quiz (quizCompleted)
   //! Le question.name est-il nécessaire ?
   return (
-    <div className="quiz">
-      <div className="quiz__question">{quizCompleted ? 'Votre found footage n\'attend que vous.' : question.title}</div>
-      <div className="quiz__answers">
-        {quizCompleted ? 'Cliquez sur le bouton pour voir le résultat.' : answersList}
+    <>
+      <Header />
+      <div className="quiz">
+        <div className="quiz__question">{quizCompleted ? 'Votre found footage n\'attend que vous.' : question.title}</div>
+        <div className="quiz__answers">
+          {quizCompleted ? 'Cliquez sur le bouton pour voir le résultat.' : answersList}
+        </div>
+        <Divider />
+        <div className="quiz__next-question">
+          {quizCompleted ? (<Button to={`/movie/${firstResult}`} textContent="Découvrir" />) : (
+            <a onClick={() => { onClickNextQuestion(question.name); }} type="button">
+              <Arrow />
+              {' '}
+              {nextQuestionText}
+            </a>
+          )}
+        </div>
       </div>
-      <Divider />
-      <div className="quiz__next-question">
-        {quizCompleted ? (<Button to={`/movie/${firstResult}`} textContent="Découvrir" />) : (
-          <a onClick={() => { onClickNextQuestion(question.name); }} type="button">
-            <Arrow />
-            {' '}
-            {nextQuestionText}
-          </a>
-        )}
-      </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

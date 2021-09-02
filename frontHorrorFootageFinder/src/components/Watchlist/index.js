@@ -7,42 +7,48 @@ import { NavLink } from 'react-router-dom';
 import './watchlist.scss';
 import Carousel from '../Carousel';
 import MenuTitle from '../MenuTitle';
+import Header from '../Header';
+import Footer from '../Footer';
 
 export const Watchlist = ({ watchlist, watched }) => (
-  <div>
-    {watchlist.length > 0
+  <>
+    <Header />
+    <div>
+      {watchlist.length > 0
     && (
     <div className="container__watchlist">
       <MenuTitle content="Films à voir" title="main" />
       <Carousel format="small" movies={watchlist} />
     </div>
     )}
-    {watched.length > 0
+      {watched.length > 0
     && (
     <div className="container__watched">
       <MenuTitle content="deja vu" title="main" />
       <Carousel format="small" movies={watched} />
     </div>
     )}
-    {watchlist.length === 0 && watched.length === 0
-      ? (
-        <div className="watchlist__text">
-          <p>
-            Vous n&apos;avez pas de film dans votre
-            liste de films à voir où dans celle de films vus.
-            {' '}
-            <br />
-            <br />
-            un petit
-            {' '}
-            <NavLink className="watchlist__text__link" to="/quiz">quiz</NavLink>
-            {' '}
-            pour y remédier?
-          </p>
+      {watchlist.length === 0 && watched.length === 0
+        ? (
+          <div className="watchlist__text">
+            <p>
+              Vous n&apos;avez pas de film dans votre
+              liste de films à voir où dans celle de films vus.
+              {' '}
+              <br />
+              <br />
+              un petit
+              {' '}
+              <NavLink className="watchlist__text__link" to="/quiz">quiz</NavLink>
+              {' '}
+              pour y remédier?
+            </p>
 
-        </div>
-      ) : ''}
-  </div>
+          </div>
+        ) : ''}
+    </div>
+    <Footer />
+  </>
 );
 Watchlist.propTypes = {
   watchlist: PropTypes.array.isRequired,

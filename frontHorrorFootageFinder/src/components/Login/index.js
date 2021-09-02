@@ -6,6 +6,8 @@ import { changeInputValueLogin, login } from '../../actions/login';
 import Field from '../Field';
 import Button from '../Button';
 import Divider from '../Divider';
+import Header from '../Header';
+import Footer from '../Footer';
 import './login.scss';
 
 export function Login({
@@ -24,19 +26,23 @@ export function Login({
     onLogin();
   };
   return (
-    <div className="login__container menu-holder">
-      <h1 className="login___title">Login</h1>
-      <form className="login__form" onSubmit={onSubmit}>
-        <Field name="Email" type="email" onChange={changeField} />
-        <Field name="Mot de passe" type="password" onChange={changeField} />
-        {textErrorMessage}
-        <Button className="" textContent="Valider" type="submit" />
-      </form>
-      <Divider />
-      <NavLink to="/register" className="login__to-register">pas encore de compte ?</NavLink>
-      <Button className="button__home" to="/" textContent="Retour à l'accueil" />
+    <>
+      <Header />
+      <div className="login__container menu-holder">
+        <h1 className="login___title">Login</h1>
+        <form className="login__form" onSubmit={onSubmit}>
+          <Field name="Email" type="email" onChange={changeField} />
+          <Field name="Mot de passe" type="password" onChange={changeField} />
+          {textErrorMessage}
+          <Button className="" textContent="Valider" type="submit" />
+        </form>
+        <Divider />
+        <NavLink to="/register" className="login__to-register">pas encore de compte ?</NavLink>
+        <Button className="button__home" to="/" textContent="Retour à l'accueil" />
 
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 }
 const mapStateToProps = (state) => ({
