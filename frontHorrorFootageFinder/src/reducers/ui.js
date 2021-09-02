@@ -17,6 +17,7 @@ const initialState = {
   toggles: {
     toggleAnimations: false,
     toggleSound: false,
+    toggleExcludingWatched: false,
     // chaque nouvel état par défaut de toggle s'ajoute ici
   },
   watchlist: null,
@@ -29,12 +30,8 @@ const UIreducer = (state = initialState, action) => {
     case LOCALSTORAGEMODIFYUI: {
       let watchListStorage = null;
       let watchedStorage = null;
-      console.log('watchlist', action.watchlistStorage);
 
       watchListStorage = action.watchlistStorage;
-
-      console.log('watched', action.watchedStorage);
-
       watchedStorage = action.watchedStorage;
 
       return {

@@ -75,6 +75,14 @@ export const endQuiz = (tmdbIDs) => ({
   type: END_QUIZ,
   tmdbIDs,
 });
+
+// Si l'utilisateur le décide, on retire les réponses qu'il a déjà vues.
+export const EDIT_QUIZ_ANSWERS = 'EDIT_QUIZ_ANSWERS';
+export const editQuizAnswers = (tmdbIDs) => ({
+  type: EDIT_QUIZ_ANSWERS,
+  tmdbIDs,
+});
+
 // Grâce à Redux-Thunk, on appelle l'API TMDB et on enregistre les réponses
 // dans le store grâce à l'action END_QUIZ
 export const fetchQuizResults = (tags) => (dispatch) => {

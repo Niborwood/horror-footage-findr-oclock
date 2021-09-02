@@ -21,17 +21,17 @@ html {
 }
 }
 
-body {
-  margin: 0;
-  font-family: 'VCRMONO', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: #151718;
-  background-image: url("/assets/images/static.gif");
-  background-size: cover;
-  background-blend-mode: overlay;
-  background-position: center;
-}
+// body {
+//   margin: 0;
+//   font-family: 'VCRMONO', sans-serif;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+//   background: #151718;
+//   background-image: url("/assets/images/static.gif");
+//   background-size: cover;
+//   background-blend-mode: overlay;
+//   background-position: center;
+// }
 
 .font-red {
   color: vars.$red-primary;
