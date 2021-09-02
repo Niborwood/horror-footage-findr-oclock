@@ -191,7 +191,14 @@ INSERT INTO "horror_user" ("pseudo", "email", "password") VALUES
 
 INSERT INTO "horror_user_has_movie" ("movie_id", "horror_user_id", "watchlist", "watched", "rating") VALUES
 
-    ('10086', '3', 'true', 'true', '2');
+    ('10086', '3', 'true', 'true', '2'),
+    ('10086', '2', 'true', 'true', '5'),
+    ('10086', '1', 'true', 'true', '4'),
+    ('267806', '3', 'true', 'true', '2'),
+    ('267806', '4', 'true', 'true', '3'),
+    ('84348', '4', 'true', 'true', '5'),
+    ('84348', '2', 'true', 'true', '5'),
+    ('462036', '1', 'true', 'true', '5');
 
 INSERT INTO "movie_has_tag" ("movie_id", "tag_id") VALUES
 

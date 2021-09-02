@@ -18,7 +18,7 @@ CREATE TABLE "horror_user_has_movie" (
     "horror_user_id" int NOT NULL REFERENCES "horror_user"("id") ON DELETE CASCADE,
     "watchlist" boolean NOT NULL DEFAULT FALSE,
     "watched" boolean NOT NULL DEFAULT FALSE,
-    "rating" real NOT NULL DEFAULT 0
+    "rating" real DEFAULT NULL
 );
 
 CREATE TABLE "question" (
