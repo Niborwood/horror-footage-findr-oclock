@@ -1,6 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 import './footer.scss';
 import Clock from '../Clock';
@@ -11,6 +12,7 @@ const Footer = () => (
       SLP
       <Clock />
     </div>
+    <NavLink className="footer__link" to="/credits">Credits</NavLink>
     <div>Mentions Légales</div>
   </footer>
 );
