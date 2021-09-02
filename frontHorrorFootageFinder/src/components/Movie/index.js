@@ -24,7 +24,6 @@ export const Movie = ({
     paramMovieID = parseInt(id, 10);
   }
   const tmdbID = movieID || paramMovieID;
-
   // On fait des rendus en fonction de la taille spécifiée dans le format
   // Si format = small, on fait un rendu compact -> juste MovieInfo sans les boutons de quiz
   // Si format = mini, on fait un rendu mini -> juste MovieInfo sans le résumé i les boutons de quiz
