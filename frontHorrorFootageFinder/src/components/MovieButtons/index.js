@@ -72,7 +72,7 @@ export const MovieButtons = ({
               textContent="Autre résultat"
             />
           ) : null}
-          <Button to="/quiz" textContent="Relancer le quiz" onClick={onResetQuizz} />
+          <Button to="/quiz" textContent="Lancer le quiz" onClick={onResetQuizz} />
           {resultsLeft > 0 ? (
             <div className="movie-buttons__other-results">
               {resultsLeft}

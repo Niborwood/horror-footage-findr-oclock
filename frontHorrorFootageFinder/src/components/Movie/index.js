@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 
 import MovieInfo from '../MovieInfo';
 import Header from '../Header';
@@ -33,7 +33,7 @@ export const Movie = ({
     <>
       { format === 'full' && <Header /> }
       <div className="single-movie">
-        <MovieInfo movieID={tmdbID} format={format} />
+        { format === 'full' ? <MovieInfo movieID={tmdbID} format={format} /> : <NavLink to={`/movie/${movieID}`}><MovieInfo movieID={tmdbID} format={format} /></NavLink> }
       </div>
       { format === 'full' && <Footer />}
     </>
