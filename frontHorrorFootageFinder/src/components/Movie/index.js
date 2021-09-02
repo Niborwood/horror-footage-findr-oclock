@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import MovieInfo from '../MovieInfo';
+import Header from '../Header';
+import Footer from '../Footer';
 
 import './movie.scss';
 
@@ -28,9 +30,13 @@ export const Movie = ({
   // Si format = mini, on fait un rendu mini -> juste MovieInfo sans le résumé i les boutons de quiz
   // Si format = full (par défaut si pas de format spécifié), on fait un rendu complet
   return (
-    <div className="single-movie">
-      <MovieInfo movieID={tmdbID} format={format} />
-    </div>
+    <>
+      { format === 'full' && <Header /> }
+      <div className="single-movie">
+        <MovieInfo movieID={tmdbID} format={format} />
+      </div>
+      { format === 'full' && <Footer />}
+    </>
   );
 };
 Movie.propTypes = {

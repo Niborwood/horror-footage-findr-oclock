@@ -13,6 +13,8 @@ import Error from '../Error';
 
 // IMPORTS D'ACTIONS/DISPATCH
 import { getTopMovies } from '../../actions/movies';
+import Header from '../Header';
+import Footer from '../Footer';
 
 export const Homepage = ({
   loadTopMovies,
@@ -35,46 +37,49 @@ export const Homepage = ({
   // };
 
   return (
-    <div className="homepage">
-      <div className="homepage__main">
-        <h2 className="homepage__title">
-          Votre cassette n&apos;attend que vous.
-        </h2>
-        <p className="homepage__subtitle">
-          En quelques questions,
-          <br />
-          Trouvez le found footage parfait à voir ce soir.
-        </p>
-        <Button to="/quiz" textContent="● Lancer le quiz ●" className="button-ui__launch" />
-
-        <div className="homepage__login">
+    <>
+      <Header />
+      <div className="homepage">
+        <div className="homepage__main">
           <h2 className="homepage__title">
-            Gérez votre filmothèque
+            Votre cassette n&apos;attend que vous.
           </h2>
-          <p className="homepage__subtitle">Notez les films et marquez vos résultats comme vus ou à voir.</p>
-          {isLogged ? (
-            <Button to="/profile" textContent="Mon profil" />
-          ) : (
-            <Button to="/login" textContent="Se connecter" />
-          )}
+          <p className="homepage__subtitle">
+            En quelques questions,
+            <br />
+            Trouvez le found footage parfait à voir ce soir.
+          </p>
+          <Button to="/quiz" textContent="● Lancer le quiz ●" className="button-ui__launch" />
+
+          <div className="homepage__login">
+            <h2 className="homepage__title">
+              Gérez votre filmothèque
+            </h2>
+            <p className="homepage__subtitle">Notez les films et marquez vos résultats comme vus ou à voir.</p>
+            {isLogged ? (
+              <Button to="/profile" textContent="Mon profil" />
+            ) : (
+              <Button to="/login" textContent="Se connecter" />
+            )}
+          </div>
+        </div>
+
+        <div id="home-carousel">
+          {loaded ? (
+            <>
+              <h2 className="homepage__title">
+                La sélection
+              </h2>
+              <p className="homepage__subtitle">Découvrez les 3 films qui effraient le plus nos membres</p>
+              <Carousel format="small" movies={tmdbIDs} />
+            </>
+          )
+            : errorSelection ? (
+              <Error errorMessage={errorMessage} />) : <div>Chargement...</div>}
         </div>
       </div>
-
-      <div id="home-carousel">
-        {loaded ? (
-          <>
-            <h2 className="homepage__title">
-              La sélection
-            </h2>
-            <p className="homepage__subtitle">Découvrez les 3 films qui effraient le plus nos membres</p>
-            <Carousel format="small" movies={tmdbIDs} />
-          </>
-        )
-          : errorSelection ? (
-            <Error errorMessage={errorMessage} />) : <div>Chargement...</div>}
-      </div>
-
-    </div>
+      <Footer />
+    </>
   );
 };
 

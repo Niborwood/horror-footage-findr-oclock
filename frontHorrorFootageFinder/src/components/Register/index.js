@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink, Redirect } from 'react-router-dom';
+import Header from '../Header';
+import Footer from '../Footer';
 
 import {
   changeInputValue,
@@ -48,27 +50,31 @@ export const Register = ({
     return <Redirect to="/login" />;
   }
   return (
-    <div className="register___container menu-holder">
-      <h1 className="register___title">Register</h1>
-      <form className="register__form" onSubmit={onSubmit}>
-        <Field type="email" name="Email" onChange={changeField} />
-        <Field type="text" name="Pseudo" onChange={changeField} />
-        <div className="register__form__confirmPassword__container">
-          <Field type={inputMasked ? 'password' : 'text'} name="Mot de passe" onChange={changeField} />
-          <button className="register__form__button__masked" type="button" onClick={changetoggleMasked}><div className="register__form__button__masked__rond">👁</div></button>
-        </div>
+    <>
+      <Header />
+      <div className="register___container menu-holder">
+        <h1 className="register___title">Register</h1>
+        <form className="register__form" onSubmit={onSubmit}>
+          <Field type="email" name="Email" onChange={changeField} />
+          <Field type="text" name="Pseudo" onChange={changeField} />
+          <div className="register__form__confirmPassword__container">
+            <Field type={inputMasked ? 'password' : 'text'} name="Mot de passe" onChange={changeField} />
+            <button className="register__form__button__masked" type="button" onClick={changetoggleMasked}><div className="register__form__button__masked__rond">👁</div></button>
+          </div>
 
-        <div className="register__form__confirmPassword__container">
-          <Field type={inputMasked ? 'password' : 'text'} name="Confirmation du mot de passe" onChange={changeField} />
-          <button className="register__form__button__masked" type="button" onClick={changetoggleMasked}><div className="register__form__button__masked__rond">👁</div></button>
-        </div>
+          <div className="register__form__confirmPassword__container">
+            <Field type={inputMasked ? 'password' : 'text'} name="Confirmation du mot de passe" onChange={changeField} />
+            <button className="register__form__button__masked" type="button" onClick={changetoggleMasked}><div className="register__form__button__masked__rond">👁</div></button>
+          </div>
 
-        {textConfirm}
-        <Button type="submit" textContent="Valider" />
-      </form>
-      <Divider />
-      <NavLink to="/login" className="register__form__link">j&apos;ai déjà un compte</NavLink>
-    </div>
+          {textConfirm}
+          <Button type="submit" textContent="Valider" />
+        </form>
+        <Divider />
+        <NavLink to="/login" className="register__form__link">j&apos;ai déjà un compte</NavLink>
+      </div>
+      <Footer />
+    </>
   );
 };
 

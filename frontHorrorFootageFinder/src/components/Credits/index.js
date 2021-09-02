@@ -1,15 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+// SCSS
 import './credits.scss';
 import { CreditsElement } from '../CreditsElement';
+
+import Header from '../Header';
+import Footer from '../Footer';
 
 import tmdbLogo from '../../assets/images/tmdb-logo.svg';
 import screen from '../../assets/images/screen.jpg';
 
-export const Credits = (props) => (
-  <div>
+export const Credits = () => (
+  <>
+    <Header />
     <div className="tv-img">
       <img src={screen} alt="télé" />
       <div className="fade-effect" />
@@ -29,7 +34,8 @@ export const Credits = (props) => (
         </div>
       </div>
     </div>
-  </div>
+    <Footer />
+  </>
 );
 
 Credits.propTypes = {
