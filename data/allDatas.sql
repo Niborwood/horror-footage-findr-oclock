@@ -182,12 +182,12 @@ INSERT INTO "tag" ("description", "value", "question_id") VALUES
     ('WTF', 'wtf', '6'), 
     ('Des vampires', 'vampires', '6');
 
-INSERT INTO "horror_user" ("pseudo", "email", "password") VALUES
+INSERT INTO "horror_user" ("pseudo", "email", "password", "status", "code") VALUES
 
-    ('sadelena', 'sadelena@truc.fr', 'testillon'),
-    ('robinozo', 'robinozo@truc.fr', 'jkiffhorror'),
-    ('correntinus', 'correntinus@truc.fr', 'tchoutchou'),
-    ('arnhost', 'arnhost@truc.fr', 'intheforest');
+    ('sadelena', 'sadelena@truc.fr', 'testillon', 'true', 'testibulle456987'),
+    ('robinozo', 'robinozo@truc.fr', 'jkiffhorror', 'true', 'bimbamboumrosebonbon'),
+    ('correntinus', 'correntinus@truc.fr', 'tchoutchou', 'true', 'letrainarriveengare147852'),
+    ('arnhost', 'arnhost@truc.fr', 'intheforest', 'true', 'desboisdanslaforet123654');
 
 INSERT INTO "horror_user_has_movie" ("movie_id", "horror_user_id", "watchlist", "watched", "rating") VALUES
 

@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 
 const jwtMiddleware = require('../services/jwt');
 
+const emailController = require('../controllers/emailController');
+
 
 module.exports = {
 
@@ -33,7 +35,7 @@ module.exports = {
      */
     async userLogged(request, response) {
         try {
-            
+
             const {
                 email,
                 password
@@ -41,33 +43,49 @@ module.exports = {
 
             const logginUser = await userDataMapper.logginUser(email);
             const comparedPassword = await bcrypt.compare(password, logginUser.password);
-            
-            if (comparedPassword === true) {
 
-                const token = jwtMiddleware.generateAccessToken(logginUser);
+            // Ici je vérifie le status de l'utilisateur en même temps que son mot de passe :
+            if (logginUser.status === true) {
 
-                // const refreshToken = jwtMiddleware.generateRefreshToken(logginUser);
 
-                const watchlist = await userDataMapper.watchlist(logginUser.id);
-                const resultWatchlist = [...watchlist.map(resultWatchlist => resultWatchlist.movie_id)];
-                
-                const watchedMovie = await userDataMapper.watchedMovie(logginUser.id);
-                const resultWatched = [...watchedMovie.map(resultWatched => resultWatched.movie_id)];
-    
-                const time = Date.now();
+                if (comparedPassword === true) {
 
-                // console.log('refreshToken', refreshToken);
+                    const token = jwtMiddleware.generateAccessToken(logginUser);
 
-                response.json({
-                    data: logginUser,
-                    watchlist: [resultWatchlist],
-                    watched: [resultWatched],
-                    token: token,
-                    // refreshToken: refreshToken,
-                    time: time
+                    // const refreshToken = jwtMiddleware.generateRefreshToken(logginUser);
+
+                    const watchlist = await userDataMapper.watchlist(logginUser.id);
+                    const resultWatchlist = [...watchlist.map(resultWatchlist => resultWatchlist.movie_id)];
+
+                    const watchedMovie = await userDataMapper.watchedMovie(logginUser.id);
+                    const resultWatched = [...watchedMovie.map(resultWatched => resultWatched.movie_id)];
+
+                    const time = Date.now();
+
+                    // console.log('refreshToken', refreshToken);
+
+                    response.json({
+                        data: logginUser,
+                        watchlist: [resultWatchlist],
+                        watched: [resultWatched],
+                        token: token,
+                        // refreshToken: refreshToken,
+                        time: time
+                    });
+                } else {
+                    console.trace(error);
+                    response.status(500).json({
+                        data: [],
+                        error: `Un petit verre de jus de carotte et tu devrais te rappeler de ton mot de passe ..`
+                    });
+                }
+            } else {
+                console.log('Un petit clic sur votre email de validation et tout devrait bien se passer ..');
+                response.status(500).json({
+                    data: [],
+                    error: `Un petit clic sur votre email de validation et tout devrait bien se passer ..`
                 });
             }
-
         } catch (error) {
             console.trace(error);
             response.status(500).json({
@@ -85,7 +103,7 @@ module.exports = {
 
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1];
-    
+
         if (!token) {
             return response.sendStatus(401).message('pPas envie de blaguer avec le refreshToken, tue moi.');
         }
@@ -115,17 +133,27 @@ module.exports = {
 
             const reallyNew = await userDataMapper.getUserByEmail(newUser.email);
 
-            if(!reallyNew) {
+            if (!reallyNew) {
 
                 const salt = await bcrypt.genSalt(10);
                 const hash = await bcrypt.hash(newUser.password, salt);
-                
-                const userToAdd = await userDataMapper.addNewUser(newUser, hash);
-    
+
+                //! Je crée un token qui sera stoqué en bdd ..
+                const confirmationCode = jwtMiddleware.generateAccessToken(newUser);
+
+                const userToAdd = await userDataMapper.addNewUser(newUser, hash, confirmationCode);
+
                 const userAdded = await userDataMapper.getUserById(userToAdd.id);
 
+                emailController.sendConfirmationEmail(
+                    userAdded.pseudo,
+                    userAdded.email,
+                    confirmationCode
+                );
+
                 response.json({
-                    data: userAdded
+                    message: "Bienvenue chez nous ! Il ne vous reste plus qu'à vous rendre dans votre boîte mail pour cliquer sur le lien de confirmation ..",
+                    data: userAdded,
                 });
 
             } else {
@@ -139,6 +167,40 @@ module.exports = {
             response.status(500).json({
                 data: [],
                 error: `Désolée cher Balrog, vous ne pouvez pas passer en BDD .. (pour l'instant)`
+            });
+        }
+    },
+
+    /**
+     * Verification of the confirmation code, and changing of the status to can log 
+     * @param {Text} request Confirmation code in parameters
+     * @param {Link} response Link to login
+     */
+    async verifyUser(request, response) {
+
+        try {
+            const confirmationCode = request.params.confirmationCode;
+            const foundCodeUser = await userDataMapper.findCode(confirmationCode);
+
+            if (!foundCodeUser) {
+                console.trace(error, `Tu n'existes pas dans notre univers, étrange ..`);
+                response.status(500).json({
+                    data: [],
+                    error: `Tu n'existes pas dans notre univers, étrange ..`
+                });
+            } else {
+                const statusModify = await userDataMapper.changeStatus(foundCodeUser.id);
+
+                if(statusModify) {
+                    response.redirect('http://localhost:3000/login');
+                }
+            }
+
+        } catch (error) {
+            console.trace(error);
+            response.status(500).json({
+                data: [],
+                error: `Mauvais code, as-tu vraiment clické sur le lien d'activation`
             });
         }
     },
@@ -176,12 +238,12 @@ module.exports = {
         try {
             const toChange = request.body.password;
             const userId = request.params.id;
-            
+
             const salt = await bcrypt.genSalt(10);
             const hash = await bcrypt.hash(toChange, salt);
-            
+
             const editPassword = await userDataMapper.editPassword(userId, hash);
-            
+
             response.json({
                 message: `Maintenant il faut que tu t'en rappelles !`,
                 data: userId
@@ -205,7 +267,7 @@ module.exports = {
      */
     async deleteUser(request, response, next) {
         try {
-            
+
             const userId = request.params.id;
             const userToDelete = await userDataMapper.getUserById(request.params.id);
 
@@ -237,7 +299,7 @@ module.exports = {
     async getAllDetails(request, response) {
         try {
             const userDetails = await userDataMapper.userWithDetails(request.params.id);
-            
+
             response.json({
                 data: userDetails
             });
