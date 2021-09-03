@@ -98,11 +98,15 @@ MovieButtons.propTypes = {
   handleAddMovieWatchList: PropTypes.func.isRequired,
   handleAddMovieInWatched: PropTypes.func.isRequired,
   movieID: PropTypes.number.isRequired,
-  watchlist: PropTypes.arrayOf(PropTypes.number).isRequired,
-  watched: PropTypes.arrayOf(PropTypes.number).isRequired,
+  watchlist: PropTypes.arrayOf(PropTypes.number),
+  watched: PropTypes.arrayOf(PropTypes.number),
   handleRemoveMovieInWatchlist: PropTypes.func.isRequired,
   handleRemoveMovieInWatched: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
+};
+MovieButtons.defaultProps = {
+  watchlist: [],
+  watched: [],
 };
 
 const mapStateToProps = ({

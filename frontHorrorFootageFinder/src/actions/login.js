@@ -26,8 +26,9 @@ export const login = () => ({
 
 export const ERROR_MESSAGE = 'ERROR_MESSAGE';
 
-export const errorMessage = () => ({
+export const errorMessage = (value) => ({
   type: ERROR_MESSAGE,
+  value,
 });
 
 // END LOGIN REFACTO

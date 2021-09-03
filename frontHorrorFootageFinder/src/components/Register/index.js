@@ -71,7 +71,7 @@ export const Register = ({
           <Button type="submit" textContent="Valider" />
         </form>
         <Divider />
-        <NavLink to="/login" className="register__form__link">j&apos;ai déjà un compte</NavLink>
+        <NavLink to="/confirmation" className="register__form__link" textContent="Un mail vous a été envoyé pour confirmer votre compte">j&apos;ai déjà un compte</NavLink>
       </div>
       <Footer />
     </>
