@@ -65,4 +65,10 @@
             align-items: flex-end;
         }
     }
+
+    &__help {
+        font-size: .9rem;
+        font-style: italic;
+        margin-top: 1rem;
+    }
 }

@@ -10,11 +10,12 @@ import './homepage.scss';
 import Button from '../Button';
 import Carousel from '../Carousel';
 import Error from '../Error';
+import Header from '../Header';
+import Loading from '../Loading';
+import Footer from '../Footer';
 
 // IMPORTS D'ACTIONS/DISPATCH
 import { getTopMovies } from '../../actions/movies';
-import Header from '../Header';
-import Footer from '../Footer';
 
 export const Homepage = ({
   loadTopMovies,
@@ -75,7 +76,7 @@ export const Homepage = ({
             </>
           )
             : errorSelection ? (
-              <Error errorMessage={errorMessage} />) : <div>Chargement...</div>}
+              <Error errorMessage={errorMessage} />) : <Loading />}
         </div>
       </div>
       <Footer />

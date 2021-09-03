@@ -4,7 +4,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../Header';
@@ -35,12 +35,56 @@ export const Quiz = ({
   getNumberOfQuestions, numberOfQuestions,
   numberOfAnswers, getQuizResults, quizCompleted, firstResult,
   error, errorMessage, isLogged, excludeWatched,
-  editQuizAnswersExcludingWatched,
+  editQuizAnswersExcludingWatched, watched, quizResults,
 }) => {
   // On charge le nombre de questions une fois
   useEffect(() => {
     getNumberOfQuestions();
   }, []);
+
+  // On veut vérifier si tous les éléments contenus dans l'array "watched"
+  // sont présents dans l'array "savedAnswers"
+  // uniquement quand quizCompleted change de valeur
+  // On le met dans un useEffect pour éviter qu'il ne refasse le test à chaque rendu
+  const [allResultsAreWatched, setAllResultsAreWatched] = useState(false);
+  useEffect(() => {
+    // On réinitialise le hook "allResultsAreWatched" au cas où on ait eu "true" à un précédent quiz
+    setAllResultsAreWatched(false);
+    // On ne lance la logique que si le quiz est terminé
+    if (quizCompleted) {
+      // On compare les deux tableaux
+      const watchedAnswersAreInSavedAnswers = JSON.stringify(watched)
+      === JSON.stringify(quizResults);
+      // Si tous les éléments de "watched" sont présents dans "savedAnswers",
+      // on l'indique dans le hook
+      if (watchedAnswersAreInSavedAnswers) {
+        setAllResultsAreWatched(true);
+      }
+    }
+  }, [quizCompleted]);
+
+  // Le lien vers le premier film change si on exclue ou non les films déjà vus.
+  const [firstResultLink, setFirstResultLink] = useState(null);
+  useEffect(() => {
+    setFirstResultLink(firstResult);
+  }, [firstResult]);
+  // Fonction à passer au toggle
+  const onClickToggleExclude = () => {
+    const excludedQuizResults = quizResults.filter((movieID) => !watched.includes(movieID));
+    setFirstResultLink(excludedQuizResults[0]);
+  };
+
+  // Grâce à la conjonction des deux logiques ci-dessus, on détermine le rendu à afficher
+  const displayExcludeToggle = !allResultsAreWatched
+    ? (
+      <Toggle
+        onClick={onClickToggleExclude}
+        name="toggleExcludingWatched"
+        textContent="Exclure les films déjà vus"
+      />
+    ) : (
+      <div>Vous avez déjà vu tous les films de ce résultat.</div>
+    );
 
   // A chaque fois que la question change, on relance une requête à l'API
   // qui nous retourne les réponses/tags en fonction des filtres précédents
@@ -93,7 +137,15 @@ export const Quiz = ({
     <>
       <Header />
       <div className="quiz">
-        <div className="quiz__question">{quizCompleted ? 'Votre found footage n\'attend que vous.' : question.title}</div>
+        <div className="quiz__question">
+          {quizCompleted ? 'Votre found footage n\'attend que vous.' : (
+            <>
+              {question.title}
+              <div className="quiz__help">Vous pouvez sélectionner une ou plusieurs réponses.</div>
+            </>
+          )}
+
+        </div>
         <div className="quiz__answers">
           {quizCompleted ? 'Cliquez sur le bouton pour voir le résultat.' : answersList}
         </div>
@@ -103,9 +155,9 @@ export const Quiz = ({
           {quizCompleted ? (
             <div className="quiz__discover-results">
               {excludeWatched
-                ? <Button onClick={() => { editQuizAnswersExcludingWatched([574466, 169219]); }} to={`/movie/${firstResult}`} textContent="Découvrir" />
+                ? <Button onClick={() => { editQuizAnswersExcludingWatched(watched, quizResults); }} to={`/movie/${firstResultLink}`} textContent="Découvrir" />
                 : <Button to={`/movie/${firstResult}`} textContent="Découvrir" />}
-              {isLogged && <Toggle name="toggleExcludingWatched" textContent="Exclure les films déjà vus" />}
+              {isLogged && displayExcludeToggle}
             </div>
           ) : (
             <a onClick={onClickNextQuestion} type="button">
@@ -143,6 +195,8 @@ Quiz.propTypes = {
   firstResult: PropTypes.number,
   isLogged: PropTypes.bool.isRequired,
   excludeWatched: PropTypes.bool.isRequired,
+  watched: PropTypes.arrayOf(PropTypes.number),
+  quizResults: PropTypes.arrayOf(PropTypes.number).isRequired,
   // Gestions des clics
   onClickAnswer: PropTypes.func.isRequired,
   onClickNextQuestion: PropTypes.func.isRequired,
@@ -158,6 +212,7 @@ Quiz.propTypes = {
 
 Quiz.defaultProps = {
   firstResult: null,
+  watched: [],
 };
 
 const mapStateToProps = (
@@ -177,6 +232,7 @@ const mapStateToProps = (
     },
     movies: {
       quizResults: {
+        tmdbIDs: quizResults,
         tmdbIDs: [firstResult],
       },
     },
@@ -187,6 +243,7 @@ const mapStateToProps = (
       toggles: {
         toggleExcludingWatched: excludeWatched,
       },
+      watched,
     },
   },
 ) => ({
@@ -202,6 +259,8 @@ const mapStateToProps = (
   errorMessage,
   isLogged,
   excludeWatched,
+  watched,
+  quizResults,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -227,8 +286,12 @@ const mapDispatchToProps = (dispatch) => ({
     }
     dispatch(fetchQuizResults(savedAnswers));
   },
-  editQuizAnswersExcludingWatched: (savedAnswers) => {
-    dispatch(editQuizAnswers(savedAnswers));
+  editQuizAnswersExcludingWatched: (watched, quizResults) => {
+    // On exclue de quizResults les films déjà vus présents dans watched
+    const excludedQuizResults = quizResults.filter((movieID) => !watched.includes(movieID));
+    console.log(excludedQuizResults);
+    // On modifie le state des quizResults en conséquence
+    dispatch(editQuizAnswers(excludedQuizResults));
   },
 });
 

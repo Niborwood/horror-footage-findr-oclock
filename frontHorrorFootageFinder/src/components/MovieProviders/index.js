@@ -2,11 +2,17 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+// IMPORT D'ACTIONS/DISPATCH
 import { fetchMovie } from '../../actions/movies';
 import mapProviders from '../../utils/mapProviders';
 
+// SCSS
 import './movieprovider.scss';
 
+// COMPOSANTS EXTERNES
+import Loading from '../Loading';
+
+// RENDU DU COMPOSANT
 export const MovieProviders = ({
   movieID, getMovieProviders, currentProviders,
 }) => {
@@ -21,7 +27,7 @@ export const MovieProviders = ({
   // On empêche l'effet de bord si les datas du film
   // ne sont pas encore récupérées : si les datas d'un film sont vides, on retourne le loading.
   if (!currentProviders) {
-    return <div className="loading-container">Loading...</div>;
+    return <Loading />;
   }
 
   // On récupère les providers du film à partir du state
