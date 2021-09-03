@@ -15,14 +15,13 @@ const transport = nodemailer.createTransport({
 module.exports = {
 
     /**
-     * To send email to confirm creation of the account
+     * Send email to confirm creation of the account
      * @param {Text} pseudo 
      * @param {Text} email 
      * @param {Text} confirmationCode 
      */
     sendConfirmationEmail(pseudo, email, confirmationCode) {
-        console.log("Check, je suis dans ma fonction envoyeuse de mail");
-        console.log('pseudo, email, confirmationCode', pseudo, email, confirmationCode);
+
         transport.sendMail({
             from: sender,
             to: email,

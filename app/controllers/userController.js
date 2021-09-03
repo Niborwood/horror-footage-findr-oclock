@@ -47,7 +47,6 @@ module.exports = {
             // Ici je vérifie le status de l'utilisateur en même temps que son mot de passe :
             if (logginUser.status === true) {
 
-
                 if (comparedPassword === true) {
 
                     const token = jwtMiddleware.generateAccessToken(logginUser);
