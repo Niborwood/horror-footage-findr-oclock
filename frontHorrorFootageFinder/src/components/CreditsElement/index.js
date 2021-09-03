@@ -16,7 +16,7 @@ CreditsElement.propTypes = {
   text: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = () => ({
 
 });
 

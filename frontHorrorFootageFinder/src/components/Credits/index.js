@@ -41,7 +41,7 @@ export const Credits = () => (
 Credits.propTypes = {
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = () => ({
 
 });
 

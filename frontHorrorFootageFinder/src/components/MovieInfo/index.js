@@ -16,6 +16,7 @@ import MovieRate from '../MovieRate';
 import Divider from '../Divider';
 import MovieProviders from '../MovieProviders';
 import Error from '../Error';
+import Loading from '../Loading';
 
 // RENDU DU COMPOSANT
 export const MovieInfo = ({
@@ -57,7 +58,7 @@ export const MovieInfo = ({
   // On empêche l'effet de bord si les datas du film
   // ne sont pas encore récupérées : si les datas d'un film sont vides, on retourne le loading.
   if (!currentData || !currentTags) {
-    return <div className="loading-container">Loading...</div>;
+    return <Loading />;
   }
 
   // On récupère les informations du film à partir du state
