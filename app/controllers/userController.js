@@ -104,7 +104,7 @@ module.exports = {
         const token = authHeader && authHeader.split(' ')[1];
 
         if (!token) {
-            return response.sendStatus(401).message('pPas envie de blaguer avec le refreshToken, tue moi.');
+            return response.sendStatus(401).message('Pas envie de blaguer avec le refreshToken, tue moi.');
         }
 
         //! Je ne comprends pas cette partie :
@@ -144,16 +144,16 @@ module.exports = {
 
                 const userAdded = await userDataMapper.getUserById(userToAdd.id);
 
+                response.json({
+                    message: "Bienvenue chez nous ! Il ne te reste plus qu'à te rendre dans ta boîte mail pour cliquer sur le lien de confirmation ..",
+                    data: userAdded,
+                });
+
                 emailController.sendConfirmationEmail(
                     userAdded.pseudo,
                     userAdded.email,
                     confirmationCode
                 );
-
-                response.json({
-                    message: "Bienvenue chez nous ! Il ne vous reste plus qu'à vous rendre dans votre boîte mail pour cliquer sur le lien de confirmation ..",
-                    data: userAdded,
-                });
 
             } else {
                 response.status(500).json({
