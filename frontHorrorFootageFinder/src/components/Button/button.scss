@@ -11,11 +11,14 @@
     box-sizing: border-box;
     font-weight: bold;
     text-transform: uppercase;
+    animation: textShadow 1.6s infinite;
 
     a {
         color: vars.$black-primary;
         display: inline-block;
         padding: 1rem;
+    animation: textShadow 1.6s infinite;
+        
     }
 
     &__content {
@@ -26,7 +29,8 @@
         font-size: vars.$h2-font-size;
     }
 
-    &__selected, &:hover {
+    &__selected,
+    &:hover {
         background: vars.$black-primary;
         border: 3px solid white;
         color: white;

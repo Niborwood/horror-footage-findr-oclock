@@ -18,3 +18,9 @@ export const TOGGLE_MODAL = 'TOGGLE_MODAL';
 export const toggleModal = () => ({
   type: TOGGLE_MODAL,
 });
+
+// Glitch
+export const TOGGLE_GLITCH = 'TOGGLE_GLITCH';
+export const toggleGlitch = () => ({
+  type: TOGGLE_GLITCH,
+});

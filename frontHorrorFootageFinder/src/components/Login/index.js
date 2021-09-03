@@ -15,6 +15,7 @@ import Button from '../Button';
 import Divider from '../Divider';
 import Header from '../Header';
 import Footer from '../Footer';
+import MenuTitle from '../MenuTitle';
 
 // RENDU DE COMPOSANT
 export function Login({
@@ -36,7 +37,7 @@ export function Login({
     <>
       <Header />
       <div className="login__container menu-holder">
-        <h1 className="login___title">Login</h1>
+        <MenuTitle title="main" content="S'identifier" />
         <form className="login__form" onSubmit={onSubmit}>
           <Field name="Email" type="email" onChange={changeField} />
           <Field name="Mot de passe" type="password" onChange={changeField} />

@@ -2,6 +2,7 @@ import {
   PASS_SPLASH,
   TOGGLE_ACTION,
   TOGGLE_MODAL,
+  TOGGLE_GLITCH,
 } from '../actions/ui';
 import {
   SUBMIT_WATCHLIST_AND_WATCHED,
@@ -23,6 +24,7 @@ const initialState = {
   watchlist: null,
   watched: null,
   modal: false,
+  glitch: false,
 };
 
 const UIreducer = (state = initialState, action) => {
@@ -78,6 +80,12 @@ const UIreducer = (state = initialState, action) => {
       return {
         ...state,
         modal: !state.modal,
+      };
+
+    case TOGGLE_GLITCH:
+      return {
+        ...state,
+        glitch: !state.glitch,
       };
 
     default:

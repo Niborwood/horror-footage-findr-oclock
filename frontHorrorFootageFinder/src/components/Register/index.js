@@ -16,6 +16,7 @@ import {
 import Field from '../Field';
 import Button from '../Button';
 import Divider from '../Divider';
+import MenuTitle from '../MenuTitle';
 import './register.scss';
 
 export const Register = ({
@@ -53,7 +54,7 @@ export const Register = ({
     <>
       <Header />
       <div className="register___container menu-holder">
-        <h1 className="register___title">Register</h1>
+        <MenuTitle title="main" content="Creation de compte" />
         <form className="register__form" onSubmit={onSubmit}>
           <Field type="email" name="Email" onChange={changeField} />
           <Field type="text" name="Pseudo" onChange={changeField} />

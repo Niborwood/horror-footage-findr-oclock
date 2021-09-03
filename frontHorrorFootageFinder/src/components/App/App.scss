@@ -49,6 +49,14 @@
   width: fit-content;
   padding: 2rem 3rem;
   margin: auto;
+  box-sizing: border-box;
+  max-width: 300px;
+
+  @include media-min(320px) {
+    width: auto;
+    max-width: none;
+    margin: 0;
+  }
 
   @include media-min(520px) {
     width: auto;

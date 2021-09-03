@@ -43,7 +43,7 @@ export const Homepage = ({
       <div className="homepage">
         <div className="homepage__main">
           <h2 className="homepage__title">
-            Votre cassette n&apos;attend que vous.
+            &gt;: Votre cassette n&apos;attend que vous.
           </h2>
           <p className="homepage__subtitle">
             En quelques questions,
@@ -54,7 +54,7 @@ export const Homepage = ({
 
           <div className="homepage__login">
             <h2 className="homepage__title">
-              Gérez votre filmothèque
+              &gt;: Gérez votre filmothèque
             </h2>
             <p className="homepage__subtitle">Notez les films et marquez vos résultats comme vus ou à voir.</p>
             {isLogged ? (
@@ -69,7 +69,7 @@ export const Homepage = ({
           {loaded ? (
             <>
               <h2 className="homepage__title">
-                La sélection
+                &gt;: La sélection
               </h2>
               <p className="homepage__subtitle">Découvrez les 3 films qui effraient le plus nos membres</p>
               <Carousel format="small" movies={tmdbIDs} />

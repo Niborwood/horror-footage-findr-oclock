@@ -17,8 +17,9 @@ import './Quiz.scss';
 import {
   chooseAnAnswser, switchToNextQuestion,
   fetchQuestionAndAnswers, loadQuestionsNumber,
-  fetchQuizResults, editQuizAnswers,
+  fetchQuizResults, editQuizAnswers, resetQuiz,
 } from '../../actions/quiz';
+import { toggleGlitch } from '../../actions/ui';
 
 // COMPONENT IMPORTS
 import Button from '../Button';
@@ -26,6 +27,7 @@ import Divider from '../Divider';
 import Arrow from '../Arrow';
 import Error from '../Error';
 import Toggle from '../Toggle';
+import Glitch from '../Glitch';
 
 // QUIZ COMPONENT
 //! Renommer "currentQuestion" en "currentStep" pour clarifier la donnée
@@ -35,11 +37,17 @@ export const Quiz = ({
   getNumberOfQuestions, numberOfQuestions,
   numberOfAnswers, getQuizResults, quizCompleted, firstResult,
   error, errorMessage, isLogged, excludeWatched,
-  editQuizAnswersExcludingWatched, watched, quizResults,
+  editQuizAnswersExcludingWatched, watched, quizResults, onResetQuiz,
+  onToggleGlitch, glitch,
 }) => {
   // On charge le nombre de questions une fois
   useEffect(() => {
     getNumberOfQuestions();
+    onToggleGlitch();
+
+    return () => {
+      onResetQuiz();
+    };
   }, []);
 
   // On veut vérifier si tous les éléments contenus dans l'array "watched"
@@ -89,6 +97,7 @@ export const Quiz = ({
   // A chaque fois que la question change, on relance une requête à l'API
   // qui nous retourne les réponses/tags en fonction des filtres précédents
   useEffect(() => {
+    onToggleGlitch();
     // Si la currentQuestion ne dépasse pas le nombre de questions,
     // on charge une question et ses réponses dans le state
     //! A retravailler pour éviter un appel inutile en fin de quiz
@@ -135,6 +144,7 @@ export const Quiz = ({
   // ou non le quiz (quizCompleted)
   return (
     <>
+      {glitch && <Glitch />}
       <Header />
       <div className="quiz">
         <div className="quiz__question">
@@ -156,7 +166,7 @@ export const Quiz = ({
             <div className="quiz__discover-results">
               {excludeWatched
                 ? <Button onClick={() => { editQuizAnswersExcludingWatched(watched, quizResults); }} to={`/movie/${firstResultLink}`} textContent="Découvrir" />
-                : <Button to={`/movie/${firstResult}`} textContent="Découvrir" />}
+                : <Button onClick={onToggleGlitch} to={`/movie/${firstResult}`} textContent="Découvrir" />}
               {isLogged && displayExcludeToggle}
             </div>
           ) : (
@@ -187,6 +197,7 @@ Quiz.propTypes = {
   ).isRequired,
   savedAnswers: PropTypes.shape({
   }).isRequired,
+  glitch: PropTypes.bool.isRequired,
   // Données du quiz
   currentQuestion: PropTypes.number.isRequired,
   numberOfQuestions: PropTypes.number.isRequired,
@@ -205,6 +216,8 @@ Quiz.propTypes = {
   getNumberOfQuestions: PropTypes.func.isRequired,
   getQuizResults: PropTypes.func.isRequired,
   editQuizAnswersExcludingWatched: PropTypes.func.isRequired,
+  onResetQuiz: PropTypes.func.isRequired,
+  onToggleGlitch: PropTypes.func.isRequired,
   // Gestion des erreurs
   error: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string.isRequired,
@@ -244,6 +257,7 @@ const mapStateToProps = (
         toggleExcludingWatched: excludeWatched,
       },
       watched,
+      glitch,
     },
   },
 ) => ({
@@ -261,6 +275,7 @@ const mapStateToProps = (
   excludeWatched,
   watched,
   quizResults,
+  glitch,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -289,9 +304,14 @@ const mapDispatchToProps = (dispatch) => ({
   editQuizAnswersExcludingWatched: (watched, quizResults) => {
     // On exclue de quizResults les films déjà vus présents dans watched
     const excludedQuizResults = quizResults.filter((movieID) => !watched.includes(movieID));
-    console.log(excludedQuizResults);
     // On modifie le state des quizResults en conséquence
     dispatch(editQuizAnswers(excludedQuizResults));
+  },
+  onResetQuiz: () => {
+    dispatch(resetQuiz());
+  },
+  onToggleGlitch: () => {
+    dispatch(toggleGlitch());
   },
 });
 
