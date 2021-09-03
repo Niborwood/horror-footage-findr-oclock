@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+// COMPOSANTS EXTERNES
 import MovieInfo from '../MovieInfo';
 import Header from '../Header';
 import Footer from '../Footer';
 
+// IMPORT D'ACTION/DISPATCH
+import { clearQuizResult } from '../../actions/movies';
+
+// SCSS
 import './movie.scss';
 
+// RENDU DU COMPOSANT
 export const Movie = ({
-  format, movieID,
+  format, movieID, onClearQuizResult,
 }) => {
+  // Si l'utilisateur part de la page de résultat de film, on nettoie le state
+  useEffect(() => () => {
+    onClearQuizResult();
+  }, []);
   // On récupère l'id du film soit :
   // - à partir de la route /movie/{id} (résultat de recherche)
   // On le parse pour qu'il soit un nombre et qu'on puisse valider
@@ -42,6 +52,8 @@ Movie.propTypes = {
   // FROM PARENT
   format: PropTypes.string,
   movieID: PropTypes.number,
+  // FROM STORE
+  onClearQuizResult: PropTypes.func.isRequired,
 };
 
 Movie.defaultProps = {
@@ -52,7 +64,8 @@ Movie.defaultProps = {
 const mapStateToProps = () => ({
 });
 
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = (dispatch) => ({
+  onClearQuizResult: () => { dispatch(clearQuizResult()); },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Movie);

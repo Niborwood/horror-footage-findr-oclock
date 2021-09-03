@@ -115,3 +115,9 @@ export function fetchMovieIntData(movieID) {
       });
   };
 }
+
+// Clear Quiz Result
+export const CLEAR_QUIZ_RESULT = 'CLEAR_QUIZ_RESULT';
+export const clearQuizResult = () => ({
+  type: CLEAR_QUIZ_RESULT,
+});

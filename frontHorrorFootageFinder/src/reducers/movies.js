@@ -1,5 +1,5 @@
 import {
-  SET_MOVIE_DATA, SET_TOP_MOVIES, SET_MOVIE_INT_DATA, UPDATE_QUIZ_RESULT_INDEX,
+  SET_MOVIE_DATA, SET_TOP_MOVIES, SET_MOVIE_INT_DATA, UPDATE_QUIZ_RESULT_INDEX, CLEAR_QUIZ_RESULT,
 } from '../actions/movies';
 
 import {
@@ -123,12 +123,24 @@ const moviesReducer = (state = initialState, action) => {
         },
       };
 
+    // On gère l'avancée dans les résultats de quiz
     case UPDATE_QUIZ_RESULT_INDEX: {
       return {
         ...state,
         quizResults: {
           ...state.quizResults,
           currentIndex: state.quizResults.currentIndex + 1,
+        },
+      };
+    }
+
+    // On gère la suppression des résultats de quiz
+    case CLEAR_QUIZ_RESULT: {
+      return {
+        ...state,
+        quizResults: {
+          tmdbIDs: [],
+          currentIndex: 0,
         },
       };
     }
