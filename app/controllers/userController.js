@@ -191,7 +191,7 @@ module.exports = {
                 const statusModify = await userDataMapper.changeStatus(foundCodeUser.id);
 
                 if(statusModify) {
-                    response.redirect('http://localhost:3000/login');
+                    response.redirect('https://horror-footage-finder.netlify.app/login');
                 }
             }
 

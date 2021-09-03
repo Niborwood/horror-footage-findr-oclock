@@ -33,7 +33,7 @@ module.exports = {
 
         <p>Alors comme ça tu aimes les films d'horreur .. Sûr qu'avec nous tu ne seras pas déçu.e ! Confirme juste ton adresse email en cliquant sur ce lien et on se retrouve de l'autre côté ! Bou hou .. </p>
 
-        <a href=http://localhost:3001/api/v1/confirm/${confirmationCode}> Click here</a>
+        <a href=https://horror-footage-api.herokuapp.com/api/v1/confirm/${confirmationCode}> Click here</a>
         </div>`,
 
 
