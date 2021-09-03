@@ -16,6 +16,7 @@ const initialState = {
   pseudo: '',
   id: 0,
   token: '',
+  errorMessage: '',
 };
 
 // eslint-disable-next-line consistent-return
@@ -63,7 +64,7 @@ function loginReducer(state = initialState, {
     case ERROR_MESSAGE:
       return {
         ...state,
-        errorMessage: !state.isLogged,
+        errorMessage: value,
       };
     case CHANGE_STATE_WHEN_CONNECTED:
       return {

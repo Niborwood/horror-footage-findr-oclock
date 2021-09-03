@@ -25,6 +25,7 @@ import Settings from '../Settings';
 import Login from '../Login';
 import Credits from '../Credits';
 import NotFound from '../NotFound';
+import Confirmation from '../pageConfirm';
 
 // RENDU DE COMPOSANT
 function App({
@@ -95,6 +96,9 @@ function App({
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/confirmation">
+            <Confirmation />
           </Route>
           {/* test crédits */}
           <Route path="/credits">
