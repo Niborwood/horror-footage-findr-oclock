@@ -13,7 +13,7 @@ $scan-width: 2px;
 $scan-crt: true;
 
 // frames-per-second (should be > 1), only applies if $scan-crt: true;
-$scan-fps: 60;
+$scan-fps: 10;
 
 // scanline-color (rgba)
 $scan-color: rgba(#a8a291, .3);

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 // SCSS
 import './movieinfo.scss';
@@ -64,11 +65,18 @@ export const MovieInfo = ({
   // sera récupéré à partir du state : state.movie.123.data
   // Le currentMovie n'est jamais un objet vide, car s'il l'est, on returne le Loading ci-dessus.
 
+  const poster = format !== 'full' ? (
+    <NavLink to={`/movie/${movieID}`}>
+      <img className="movie-info__poster" src={`https://www.themoviedb.org/t/p/w300/${currentData.poster_path}`} alt={`${currentData.original_title} movie poster`} title={`${currentData.original_title} movie poster`} />
+    </NavLink>
+  )
+    : (<img className="movie-info__poster" src={`https://www.themoviedb.org/t/p/w300/${currentData.poster_path}`} alt={`${currentData.original_title} movie poster`} title={`${currentData.original_title} movie poster`} />);
+
   if (format === 'mini') {
     return (
       <div className="movie-info">
         <div className="movie-info__left-side">
-          <img className="movie-info__poster" src={`https://www.themoviedb.org/t/p/w300/${currentData.poster_path}`} alt={`${currentData.original_title} movie poster`} title={`${currentData.original_title} movie poster`} />
+          {poster}
           <div>
             {isLogged && <MovieRate movieID={movieID} />}
           </div>
@@ -84,7 +92,7 @@ export const MovieInfo = ({
     <div className={`movie-info ${format === 'full' && 'movie-info__full'}`}>
       {/* LEFT SIDE */}
       <div className="movie-info__left-side">
-        <img className="movie-info__poster" src={`https://www.themoviedb.org/t/p/w300/${currentData.poster_path}`} alt={`${currentData.original_title} movie poster`} title={`${currentData.original_title} movie poster`} />
+        {poster}
         <div>
           {isLogged && <MovieRate movieID={movieID} />}
         </div>

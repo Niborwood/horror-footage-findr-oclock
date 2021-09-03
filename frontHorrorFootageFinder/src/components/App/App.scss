@@ -8,6 +8,10 @@
   }
 }
 
+* {
+  animation: textShadow 1.6s infinite;
+}
+
 .app-wrapper {
   margin: 0;
   font-family: 'VCRMONO', sans-serif;
@@ -18,7 +22,6 @@
   background-size: cover;
   background-blend-mode: overlay;
   background-position: center;
-  animation: textShadow 1.6s infinite;
 }
 
 .app {
