@@ -23,6 +23,8 @@ const userSchema = require('../validations/schema/user');
 
 // Les routes :
 
+router.get('/api/v1/confirm/:confirmationCode', userController.verifyUser);
+
 router.get('/api/v1/searchmovies', quizController.searchMovies);
 
 router.post('/api/v1/quiz', quizController.getAnswersToAQuestion);

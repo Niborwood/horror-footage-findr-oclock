@@ -5,3 +5,5 @@ initializing 2021-08-17T11:18:13Z Sophie Seignon <sophie.seignon@gmail.com> # In
 movieName 2021-08-17T13:02:02Z Sophie Seignon <sophie.seignon@gmail.com> # Nom du film pour nous faciliter les tests en développement
 modificationToTable 2021-08-20T11:07:13Z Sophie Seignon <sophie.seignon@gmail.com> # Modification de l'une de mes tables
 column_value 2021-08-23T07:41:18Z Sophie Seignon <sophie.seignon@gmail.com> # Ajout d'une colonne 'value' dans la table tag
+status 2021-09-02T13:50:38Z Sophie Seignon <sophie.seignon@gmail.com> # Nouvelle colonne status pour vérifier l'email
+code 2021-09-03T08:04:46Z Sophie Seignon <sophie.seignon@gmail.com> # Nouvelle colonne 'code' dans la table 'horror_user'

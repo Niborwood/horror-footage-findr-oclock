@@ -8,7 +8,7 @@ module.exports = {
      * @returns {Object}
      */
     async getUserById(userId) {
-        const result = await client.query(`SELECT pseudo FROM horror_user WHERE id = $1`, [userId]);
+        const result = await client.query(`SELECT id, pseudo, email FROM horror_user WHERE id = $1`, [userId]);
         return result.rows[0];
     },
 
@@ -17,8 +17,7 @@ module.exports = {
      * @returns {Object}
      */
      async getUserByEmail(email) {
-        const result = await client.query(`SELECT pseudo, email FROM horror_user WHERE email = $1`, [email]);
-        console.log('result', result.rows[0]);
+        const result = await client.query(`SELECT pseudo, email, status FROM horror_user WHERE email = $1`, [email]);
         return result.rows[0];
     },
 
@@ -26,9 +25,29 @@ module.exports = {
      * Add new user in database
      * @returns {Object[]}
      */
-    async addNewUser(newUser, hash) {
-        const result = await client.query(`INSERT INTO horror_user (pseudo, email, password) VALUES
-        ($1, $2, $3) RETURNING id`, [newUser.pseudo, newUser.email, hash]);
+    async addNewUser(newUser, hash, confirmationCode) {
+        const result = await client.query(`INSERT INTO horror_user (pseudo, email, password, code) VALUES
+        ($1, $2, $3, $4) RETURNING id`, [newUser.pseudo, newUser.email, hash, confirmationCode]);
+        console.log('result.rows[0]', result.rows[0]);
+        return result.rows[0];
+    },
+
+    /**
+     * Verify that the code exists in database
+     * @returns {Object}
+     */
+    async findCode(code) {
+        const result = await client.query(`SELECT id, pseudo, code FROM horror_user WHERE code = $1`, [code]);
+        return result.rows[0];
+    },
+
+    /**
+     * Change the user status to can log from now
+     * @param {Number} id 
+     * @returns {Object[]}
+     */
+    async changeStatus(id) {
+        const result = await client.query(`UPDATE horror_user SET status=true WHERE id = $1 RETURNING status`, [id]);
         return result.rows;
     },
 
@@ -53,10 +72,9 @@ module.exports = {
 
     /**
      * Edit password of the user
-     * @returns {Object}
+     * @returns nothing
      */
     async editPassword(userId, hash) {
-        console.log('je passe dans mon DM', userId, hash);
         const userUpdated = await client.query(`UPDATE horror_user
         SET password=$1::text WHERE id=$2`, [hash, userId]);
         return;
