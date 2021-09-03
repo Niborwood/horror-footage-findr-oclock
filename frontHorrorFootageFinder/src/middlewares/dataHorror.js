@@ -55,7 +55,7 @@ const dataHorror = (store) => (next) => (action) => {
             email: getEmail,
             password: getPassword,
           });
-          console.log('data', response.data);
+          console.log('data', response.error);
           console.log('token', response.data.token);
           console.log('response watched', response.data.watched);
           console.log('response watchlist', response.data.watchlist);
@@ -79,8 +79,8 @@ const dataHorror = (store) => (next) => (action) => {
             localStorage.setItem('timeStamp', response.data.time);
           }
         } catch (error) {
-          console.log('error', error);
-          store.dispatch(errorMessage());
+          console.dir(error.response.data.error);
+          store.dispatch(errorMessage(error.response.data.error));
         }
       };
       login();

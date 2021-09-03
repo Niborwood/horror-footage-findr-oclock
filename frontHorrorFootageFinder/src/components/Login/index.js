@@ -18,7 +18,10 @@ import Footer from '../Footer';
 
 // RENDU DE COMPOSANT
 export function Login({
-  changeField, onLogin, isLogged, errorMessage,
+  changeField,
+  onLogin,
+  isLogged,
+  errorMessage,
 }) {
   let textErrorMessage = '';
   if (errorMessage) {
@@ -40,7 +43,7 @@ export function Login({
         <form className="login__form" onSubmit={onSubmit}>
           <Field name="Email" type="email" onChange={changeField} />
           <Field name="Mot de passe" type="password" onChange={changeField} />
-          {textErrorMessage}
+          {errorMessage}
           <Button className="login__validate" textContent="Valider" type="submit" />
         </form>
         <Divider />
@@ -72,11 +75,11 @@ Login.propTypes = {
   changeField: PropTypes.func.isRequired,
   onLogin: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
-  errorMessage: PropTypes.bool,
+  errorMessage: PropTypes.string,
 };
 
 Login.defaultProps = {
-  errorMessage: false,
+  errorMessage: '',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
