@@ -11,14 +11,11 @@
     box-sizing: border-box;
     font-weight: bold;
     text-transform: uppercase;
-    animation: textShadow 1.6s infinite;
 
     a {
         color: vars.$black-primary;
         display: inline-block;
         padding: 1rem;
-    animation: textShadow 1.6s infinite;
-        
     }
 
     &__content {
@@ -37,6 +34,19 @@
 
         a {
             color: white;
+        }
+    }
+
+    &__animated {
+        animation: textShadow 1.6s infinite;
+
+        a {
+            animation: textShadow 1.6s infinite;
+        }
+
+        .button-ui__selected,
+        &:hover {
+            animation: flicker 0.1s steps(5, end);
         }
     }
 }

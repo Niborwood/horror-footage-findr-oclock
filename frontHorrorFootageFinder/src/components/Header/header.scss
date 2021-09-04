@@ -28,15 +28,36 @@
         background: white;
         width: 150px;
 
+        &:hover {
+            background: transparent;
+            &::before {
+                content: '>:';
+            }
+
+            a {
+                color: white;
+            }
+        }
+
+        &__animated {
+            a &:hover, &:hover {
+                animation: flicker 0.1s steps(5, end);
+            }
+        }
+
         a {
             color: vars.$black-primary;
+
+            &:hover {
+                color: white;
+            }
         }
 
         @include media-min(768px) {
             width: 100%;
         }
     }
-    
+
     &__account-link {
         a {
             word-break: break-word;
@@ -51,5 +72,10 @@
         @include media-min(768px) {
             font-size: 3rem;
         }
+    }
+
+    &__animations {
+        margin-top: .5rem;
+        font-size: 1rem;
     }
 }

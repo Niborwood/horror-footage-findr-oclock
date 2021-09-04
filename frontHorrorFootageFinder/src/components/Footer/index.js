@@ -13,7 +13,6 @@ const Footer = () => (
       <Clock />
     </div>
     <NavLink className="footer__link" to="/credits">Credits</NavLink>
-    <div>Mentions Légales</div>
   </footer>
 );
 

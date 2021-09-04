@@ -10,9 +10,10 @@ import './header.scss';
 
 // COMPOSANTS EXTERNES
 import Arrow from '../Arrow';
+import Toggle from '../Toggle';
 
 // RENDU DU COMPOSANT
-const Header = ({ pseudo, isPlaying }) => {
+const Header = ({ pseudo, isPlaying, toggleAnimations }) => {
   let cameraDisplay;
   if (pseudo !== undefined) {
     if (pseudo.slice(-1).toLowerCase() === 's') {
@@ -35,14 +36,16 @@ const Header = ({ pseudo, isPlaying }) => {
           ) : 'STBY'}
 
         </div>
-        <div className="header__accountmenu">
+        <div className={`header__accountmenu ${toggleAnimations && 'header__accountmenu__animated'}`}>
           {pseudo ? (
             <NavLink to="/profile">
               {pseudo}
               {cameraDisplay}
             </NavLink>
           ) : <NavLink to="/login">CAMERA INCONNUE/:?? LOGIN?</NavLink> }
-
+        </div>
+        <div className="header__animations">
+          <Toggle textContent={toggleAnimations ? 'Animations activées' : 'Animations désactivées'} name="toggleAnimations" />
         </div>
       </div>
 
@@ -70,6 +73,7 @@ const Header = ({ pseudo, isPlaying }) => {
 Header.propTypes = {
   pseudo: PropTypes.string,
   isPlaying: PropTypes.bool.isRequired,
+  toggleAnimations: PropTypes.bool.isRequired,
 };
 
 Header.defaultProps = {
@@ -79,6 +83,7 @@ Header.defaultProps = {
 const mapStateToProps = (state) => ({
   pseudo: state.login.pseudo,
   isPlaying: state.quiz.isPlaying,
+  toggleAnimations: state.ui.toggles.toggleAnimations,
 });
 
 const mapDispatchToProps = {

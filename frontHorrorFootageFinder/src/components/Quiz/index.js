@@ -38,12 +38,12 @@ export const Quiz = ({
   numberOfAnswers, getQuizResults, quizCompleted, firstResult,
   error, errorMessage, isLogged, excludeWatched,
   editQuizAnswersExcludingWatched, watched, quizResults, onResetQuiz,
-  onToggleGlitch, glitch,
+  onToggleGlitch, glitch, toggleAnimations,
 }) => {
   // On charge le nombre de questions une fois
   useEffect(() => {
-    getNumberOfQuestions();
     onToggleGlitch();
+    getNumberOfQuestions();
 
     return () => {
       onResetQuiz();
@@ -144,7 +144,7 @@ export const Quiz = ({
   // ou non le quiz (quizCompleted)
   return (
     <>
-      {glitch && <Glitch />}
+      {(glitch && toggleAnimations) && <Glitch />}
       <Header />
       <div className="quiz">
         <div className="quiz__question">
@@ -208,6 +208,7 @@ Quiz.propTypes = {
   excludeWatched: PropTypes.bool.isRequired,
   watched: PropTypes.arrayOf(PropTypes.number),
   quizResults: PropTypes.arrayOf(PropTypes.number).isRequired,
+  toggleAnimations: PropTypes.bool.isRequired,
   // Gestions des clics
   onClickAnswer: PropTypes.func.isRequired,
   onClickNextQuestion: PropTypes.func.isRequired,
@@ -255,6 +256,7 @@ const mapStateToProps = (
     ui: {
       toggles: {
         toggleExcludingWatched: excludeWatched,
+        toggleAnimations,
       },
       watched,
       glitch,
@@ -276,6 +278,7 @@ const mapStateToProps = (
   watched,
   quizResults,
   glitch,
+  toggleAnimations,
 });
 
 const mapDispatchToProps = (dispatch) => ({
