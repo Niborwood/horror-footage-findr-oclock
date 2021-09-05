@@ -8,12 +8,28 @@
   }
 }
 
+// Animation en keyframes d'un effet de flicker
+@keyframes flicker {
+  0% {
+      background-color: #fff;
+  }
+  50% {
+      background-color: transparent;
+  }
+  100% {
+      background-color: #fff;
+  }
+}
+
 .app-wrapper {
   margin: 0;
   font-family: 'VCRMONO', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #151718;
+}
+
+.app-wrapper__animated {
   background-image: url("/assets/images/static.gif");
   background-size: cover;
   background-blend-mode: overlay;

@@ -33,10 +33,12 @@ export const Carousel = ({ format, movies, watchlist }) => {
   const [fullLeftScroll, setFullLeftScroll] = useState(true);
   const [fullRightScroll, setFullRightScroll] = useState(false);
   useEffect(() => {
+    console.log(movies.length);
     const carouselScrollListener = () => {
       if (carouselList.current.scrollLeft === 0) {
         setFullLeftScroll(true);
-      } else if (carouselList.current.scrollLeft >= carouselList.current.offsetWidth * 2 - 1) {
+      } else if (carouselList.current.scrollLeft
+        >= carouselList.current.offsetWidth * (movies.length - 2) - 1) {
         setFullRightScroll(true);
       } else {
         setFullLeftScroll(false);

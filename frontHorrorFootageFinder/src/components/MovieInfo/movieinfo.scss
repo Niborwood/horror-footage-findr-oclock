@@ -26,6 +26,9 @@
 
             .movie-info__poster {
                 width: auto;
+                &:hover {
+                    animation: flicker 0.4s steps(1, end);
+                }
             }
 
             .movie-info__left-side {

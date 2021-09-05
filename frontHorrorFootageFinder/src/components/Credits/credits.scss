@@ -1,9 +1,11 @@
+@use '../../assets/styles/vars';
+
 .fade-effect {
     position: absolute;
     width: 640px;
     height: 535px;
     top: 0;
-    box-shadow: inset 0px 0px 40px 50px black
+    box-shadow: inset 0px 0px 40px 50px vars.$black-primary;
 }
 
 .tv-img {

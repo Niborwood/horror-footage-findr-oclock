@@ -24,10 +24,6 @@ export function Login({
   isLogged,
   errorMessage,
 }) {
-  let textErrorMessage = '';
-  if (errorMessage) {
-    textErrorMessage = 'Identifiants incorrectes';
-  }
   if (isLogged) {
     // redirection sur la page d'accueil si l'utilisateur est logé
     return <Redirect to="/" />;

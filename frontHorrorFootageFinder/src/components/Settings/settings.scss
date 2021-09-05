@@ -15,6 +15,7 @@
         text-transform: uppercase;
         border: none;
         margin: 0 0.2rem 0 0.2rem;
+        animation: flicker 0.1s steps (5,end);
     }
 
     &__input {

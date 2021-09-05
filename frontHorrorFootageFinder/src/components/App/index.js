@@ -32,6 +32,7 @@ function App({
   splashPassed,
   handleLocalStorageModifyLOGIN,
   handleLocalStorageModifyUI,
+  toggleAnimations,
 }) {
   if (localStorage.length > 0) {
     const token = localStorage.getItem('token');
@@ -64,7 +65,7 @@ function App({
   }
 
   return (
-    <div className="app-wrapper scanlines">
+    <div className={`app-wrapper ${toggleAnimations && 'scanlines app-wrapper__animated'}`}>
       <div className="app">
         { splashPassed || <Redirect to="/splash" />}
         <Switch>
@@ -119,10 +120,12 @@ App.propTypes = {
   splashPassed: PropTypes.bool.isRequired,
   handleLocalStorageModifyLOGIN: PropTypes.func.isRequired,
   handleLocalStorageModifyUI: PropTypes.func.isRequired,
+  toggleAnimations: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ ui: { splashPassed } }) => ({
+const mapStateToProps = ({ ui: { splashPassed, toggles: { toggleAnimations } } }) => ({
   splashPassed,
+  toggleAnimations,
 });
 
 const mapDispatchToProps = (dispatch) => ({

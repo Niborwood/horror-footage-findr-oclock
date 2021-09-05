@@ -1,3 +1,5 @@
+
+
 .menu-item-ui {
     font-family: inherit;
     text-transform: uppercase;
@@ -19,11 +21,11 @@
     &:hover, &__simple:hover, &:hover &__simple {
         background-color: #fff;
         color: black;
+        animation: flicker 0.1s steps(15, end);
 
         & a, &:hover a {
             color: black;
         }
     }
-
-
 }
+

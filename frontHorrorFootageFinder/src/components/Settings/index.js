@@ -89,7 +89,7 @@ export const Settings = ({
               : (
                 <div className="settings__input-holder">
                   {pseudo}
-                  <button type="button" value="pseudoInput" onClick={onClickEdit} className="settings__button">edit</button>
+                  <button type="button" value="pseudoInput" onClick={onClickEdit} className="settings__button">modifier</button>
                 </div>
               )}
             <MenuTitle content="email :" title="sub-alt" />
@@ -105,7 +105,7 @@ export const Settings = ({
               : (
                 <div className="settings__input-holder">
                   {email}
-                  <button type="button" value="emailInput" onClick={onClickEdit} className="settings__button">edit</button>
+                  <button type="button" value="emailInput" onClick={onClickEdit} className="settings__button">modifier</button>
                 </div>
               )}
             <MenuTitle content="securite" title="sub" />
@@ -139,7 +139,7 @@ export const Settings = ({
               <div className="settings__section__separator" />
               <MenuItem
                 onClick={() => {
-                  navigator.clipboard.writeText('http://localhost:3000/');
+                  navigator.clipboard.writeText('https://horror-footage-finder.netlify.app/');
                   changeTextInfo('lien copié dans le presse-papier');
                 }}
                 textContent="Partager le site"

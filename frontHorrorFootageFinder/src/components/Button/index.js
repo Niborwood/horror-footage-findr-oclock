@@ -17,10 +17,11 @@ import './button.scss';
 // - value (string, facultatif) : la valeur du bouton (ex: 'mockumentary').
 export function Button({
   textContent, onClick, to, className, type, value, selected,
+  toggleAnimations,
 }) {
   return (
     <button
-      className={`button-ui ${className} ${selected ? 'button-ui__selected' : ''}`}
+      className={`button-ui ${className} ${selected && 'button-ui__selected'} ${toggleAnimations && 'button-ui__animated'}`}
       onClick={onClick}
       // eslint-disable-next-line react/button-has-type
       type={type || 'button'}
@@ -33,6 +34,7 @@ export function Button({
 }
 
 Button.propTypes = {
+  // FROM PARENT
   textContent: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   to: PropTypes.string,
@@ -40,6 +42,8 @@ Button.propTypes = {
   type: PropTypes.string,
   value: PropTypes.string,
   selected: PropTypes.bool,
+  // FROM STORE
+  toggleAnimations: PropTypes.bool.isRequired,
 };
 
 Button.defaultProps = {
@@ -51,7 +55,8 @@ Button.defaultProps = {
   selected: false,
 };
 
-const mapStateToProps = () => ({
+const mapStateToProps = ({ ui: { toggles: { toggleAnimations } } }) => ({
+  toggleAnimations,
 });
 
 const mapDispatchToProps = () => ({

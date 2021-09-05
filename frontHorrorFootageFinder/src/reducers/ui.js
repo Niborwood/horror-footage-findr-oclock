@@ -16,7 +16,7 @@ import {
 const initialState = {
   splashPassed: true,
   toggles: {
-    toggleAnimations: false,
+    toggleAnimations: true,
     toggleSound: false,
     toggleExcludingWatched: false,
     // chaque nouvel état par défaut de toggle s'ajoute ici

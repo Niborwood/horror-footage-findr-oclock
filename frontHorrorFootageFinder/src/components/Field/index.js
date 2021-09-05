@@ -9,7 +9,7 @@ export default function Field({ name, onChange, type }) {
   return (
     <>
       <label className="register__form__label" htmlFor={name}>
-        {name}
+        {/* {name} */}
         <input type={type} className="register__form__input" name={name} placeholder={name} onChange={handleChange} />
       </label>
     </>
