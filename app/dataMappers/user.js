@@ -17,7 +17,7 @@ module.exports = {
      * @returns {Object}
      */
      async getUserByEmail(email) {
-        const result = await client.query(`SELECT pseudo, email, status FROM horror_user WHERE email = $1`, [email]);
+        const result = await client.query(`SELECT id, pseudo, email, status FROM horror_user WHERE email = $1`, [email]);
         return result.rows[0];
     },
 

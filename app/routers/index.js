@@ -52,7 +52,7 @@ router.route('/api/v1/user/:id')
     .patch(jwtMiddleware.authenticateToken, userController.updateUser) //  validate('body update', updateUserSchema),
     .delete(jwtMiddleware.authenticateToken, userController.deleteUser);
 
-router.patch('/api/v1/user/:id/change', jwtMiddleware.authenticateToken, userController.changePasseword); //  validate('body update password', updatePasswordSchema),
+router.patch('/api/v1/user/:id/change', jwtMiddleware.authenticateToken, userController.changePassword); //  validate('body update password', updatePasswordSchema),
 
 router.get('/api/v1/user/:id/details', userController.getAllDetails);
 

@@ -7,13 +7,14 @@ module.exports = {
      * @returns {Object[]}
      */
     async getBetterMovies(limit) {
-        const result = await client.query(`SELECT AVG(rating) AS rating,
+        const result = await client.query(`SELECT AVG(rating),
         count(rating),
         movie.id
         FROM horror_user_has_movie
         JOIN movie ON horror_user_has_movie.movie_id = movie.id
+        WHERE rating IS NOT NULL
         GROUP BY movie.id
-        ORDER BY rating DESC, count(rating) DESC
+        ORDER BY AVG(rating) DESC, count(rating) DESC
         LIMIT $1`, [limit]);
         return result.rows;
     },

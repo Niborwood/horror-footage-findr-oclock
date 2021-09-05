@@ -1,9 +1,12 @@
 const userDataMapper = require('../dataMappers/user');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const jwtMiddleware = require('../services/jwt');
 
 const emailController = require('../controllers/emailController');
+
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
 
 
 module.exports = {
@@ -44,14 +47,22 @@ module.exports = {
             const logginUser = await userDataMapper.logginUser(email);
             const comparedPassword = await bcrypt.compare(password, logginUser.password);
 
-            // Ici je vérifie le status de l'utilisateur en même temps que son mot de passe :
+            // Ici je vérifie le status de l'utilisateur puis son mot de passe :
             if (logginUser.status === true) {
+
+                console.log('je passe la 1ere verif');
 
                 if (comparedPassword === true) {
 
-                    const token = jwtMiddleware.generateAccessToken(logginUser);
+                    console.log('je passe la 2eme verif');
+                    console.log('mon logginUser', logginUser);
+                    const user = await userDataMapper.getUserByEmail(email);
+                    console.log('user', user);
 
-                    // const refreshToken = jwtMiddleware.generateRefreshToken(logginUser);
+                    const token = await jwtMiddleware.generateAccessToken(user);
+                    console.log('token', token);
+
+                    // const refreshToken = await jwtMiddleware.generateRefreshToken(user);
 
                     const watchlist = await userDataMapper.watchlist(logginUser.id);
                     const resultWatchlist = [...watchlist.map(resultWatchlist => resultWatchlist.movie_id)];
@@ -63,6 +74,8 @@ module.exports = {
 
                     // console.log('refreshToken', refreshToken);
 
+                    // tokenList[refreshToken] = {"token": token, "refreshToken": refreshToken};
+
                     response.json({
                         data: logginUser,
                         watchlist: [resultWatchlist],
@@ -71,6 +84,7 @@ module.exports = {
                         // refreshToken: refreshToken,
                         time: time
                     });
+
                 } else {
                     console.trace(error);
                     response.status(500).json({
@@ -96,28 +110,31 @@ module.exports = {
 
     //! Cette fonction est en cours d'installation ..
     async getRefreshToken(request, response) {
-        //! LE FRONT DOIT RENVOYER L'ID DU MEC ;)
-        //! J'ai mis dans le body ici, mais ça peut être ailleurs ..
-        const userId = request.body.id;
 
-        const authHeader = req.headers['authorization'];
-        const token = authHeader && authHeader.split(' ')[1];
+        const authHeader = request.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1]; // || request.body.token || request.query.token;
+        console.log('token', token);
 
         if (!token) {
-            return response.sendStatus(401).message('Pas envie de blaguer avec le refreshToken, tue moi.');
+        return response.sendStatus(401);
         }
 
-        //! Je ne comprends pas cette partie :
-        jwt.verify(token, REFRESH_TOKEN_SECRET, (error, userId) => {
+        jwt.verify(token, REFRESH_TOKEN_SECRET, async (error, userDetokenise) => {
             if (error) {
-                return response.sendStatus(401)
+              return response.sendStatus(401)
             }
-        })
+          
+            //! Vérifier que le mec existe toujours en BDD, et ensuite générer un refresh token :
+            const userExists = await userDataMapper.getUserByEmail(userDetokenise.email);
+            console.log('userExists', userExists);
 
-        const refreshedToken = jwtMiddleware.generateRefreshToken(user);
-        response.send({
-            accessToken: refreshedToken
-        })
+            //! Puis supprimer des infos du token, la date de fin par exemple, parce que sinon il n'en produira pas de nouvelle ..
+            delete userDetokenise.iat;
+            delete userDetokenise.exp;
+
+            const refreshedToken = jwtMiddleware.generateAccessToken(userDetokenise);
+            console.log('refreshedToken', refreshedToken);            
+          })      
     },
 
     /**
@@ -213,6 +230,9 @@ module.exports = {
      */
     async updateUser(request, response) {
         try {
+
+            console.log('je peux modifier mon user');
+
             const infosToModify = request.body;
             const infoId = request.params.id;
             const editUser = await userDataMapper.modifyUser(infosToModify, infoId);
@@ -234,7 +254,7 @@ module.exports = {
      * @param {Object} request 
      * @returns {Object} response
      */
-    async changePasseword(request, response) {
+    async changePassword(request, response) {
         try {
             const toChange = request.body.password;
             const userId = request.params.id;
