@@ -5,37 +5,37 @@ flex-direction: column;
 margin-bottom: 1.5em;
 margin-top: 1rem;
 }
-// .register__form__input{
-//     font-family: 'Space Mono', monospace;
-//     width: 18em;
-//     padding:1em;
-//     background-color: rgba(195, 195, 195, 0.377); 
-//     color: white;
-//     &:hover{
-//         background-color: white;
-//         color: black;
-//     }
-//     &:focus{
-//         background-color: white;
-//         color: black;
-//     }
-//     &::placeholder {
-//         font-family: 'VCRMONO';
-//         color: rgba(255, 255, 255, 0.678);
-//     }
-// }
-
-.register__form__input {
+.register__form__input{
     font-family: 'Space Mono', monospace;
     width: 18em;
-    padding: .2rem;
-    border:none;
-    border-bottom: 2px dashed white;
-    background: transparent;
+    padding:.5em;
+    background-color: rgba(195, 195, 195, 0.377); 
     color: white;
-    margin: .5rem 0;
+    &:hover{
+        background-color: white;
+        color: black;
+    }
+    &:focus{
+        background-color: white;
+        color: black;
+    }
     &::placeholder {
-        text-transform: uppercase;
-        color: white;
+        font-family: 'VCRMONO';
+        color: rgba(255, 255, 255, 0.678);
     }
 }
+
+// .register__form__input {
+//     font-family: 'Space Mono', monospace;
+//     width: 18em;
+//     padding: .2rem;
+//     border:none;
+//     border-bottom: 2px dashed white;
+//     background: transparent;
+//     color: white;
+//     margin: .5rem 0;
+//     &::placeholder {
+//         text-transform: uppercase;
+//         color: white;
+//     }
+// }
