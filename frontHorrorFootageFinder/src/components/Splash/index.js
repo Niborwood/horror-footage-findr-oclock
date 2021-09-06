@@ -41,7 +41,7 @@ export const Splash = ({
       }, splashTime / 2);
       setTimeout(() => {
         onToggleGlitch();
-      }, splashTime - 350);
+      }, splashTime - 750);
       setTimeout(() => {
         localStorage.setItem('splashPassed', true);
       }, splashTime);

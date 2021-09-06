@@ -8,7 +8,31 @@
     height: 100vh;
     background-color: vars.$black-primary;
     z-index: 9999;
+}
+
+.glitch-ui__1 {
+    background-image: url("/assets/images/glitch1.gif");
+    background-size: cover;
+    background-blend-mode: luminosity;
+    background-position: center;
+}
+
+.glitch-ui__2 {
     background-image: url("/assets/images/glitch2.gif");
+    background-size: cover;
+    background-blend-mode: luminosity;
+    background-position: center;
+}
+
+.glitch-ui__3 {
+    background-image: url("/assets/images/glitch3.gif");
+    background-size: cover;
+    background-blend-mode: luminosity;
+    background-position: center;
+}
+
+.glitch-ui__4 {
+    background-image: url("/assets/images/glitch4.gif");
     background-size: cover;
     background-blend-mode: luminosity;
     background-position: center;

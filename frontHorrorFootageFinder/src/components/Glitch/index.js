@@ -10,6 +10,8 @@ import { toggleGlitch } from '../../actions/ui';
 
 // RENDU DU COMPOSANT
 export const Glitch = ({ glitch, onToggleGlitch }) => {
+  const splashPassedInLocalStorage = localStorage.getItem('splashPassed');
+
   if (!glitch) {
     return null;
   }
@@ -17,18 +19,20 @@ export const Glitch = ({ glitch, onToggleGlitch }) => {
   const glitchDiv = useRef(null);
   useEffect(() => {
     const glitchEffect = setTimeout(() => {
-    //   glitchDiv.current.classList.add('glitch-ui__hide');
       // Close the timeout between 0.2 and 0.8 secondes randomly
       onToggleGlitch();
-    }, Math.random() * (400 - 200) + 450);
+    }, Math.random() * (400 - 200) + 750);
 
     return () => {
       clearTimeout(glitchEffect);
     };
   }, [glitch]);
 
+  // Get a random number between 1 and 4
+  const randomGlitch = Math.floor(Math.random() * (4 - 1) + 1);
+
   return (
-    <div className="glitch-ui" ref={glitchDiv} />
+    <div className={`glitch-ui glitch-ui__${!splashPassedInLocalStorage ? '1' : randomGlitch}`} ref={glitchDiv} />
   );
 };
 
