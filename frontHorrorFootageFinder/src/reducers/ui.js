@@ -14,7 +14,7 @@ import {
 } from '../actions/login';
 
 const initialState = {
-  splashPassed: true,
+  splashPassed: false,
   toggles: {
     toggleAnimations: true,
     toggleSound: false,
