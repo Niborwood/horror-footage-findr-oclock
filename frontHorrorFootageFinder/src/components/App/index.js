@@ -40,7 +40,7 @@ function App({
   const id = localStorage.getItem('id');
   const watchlistItem = localStorage.getItem('watchlist');
 
-  if (token && email && pseudo && id && watchlistItem) {
+  if (token && email && pseudo && id) {
     let watchlistArray = watchlistItem.split(',');
     if (watchlistItem.length > 0) {
       watchlistArray = watchlistArray.map((element) => parseInt(element, 10));
