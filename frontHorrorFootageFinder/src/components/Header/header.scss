@@ -30,6 +30,7 @@
 
         &:hover {
             background: transparent;
+
             &::before {
                 content: '>:';
             }
@@ -40,7 +41,9 @@
         }
 
         &__animated {
-            a &:hover, &:hover {
+
+            a &:hover,
+            &:hover {
                 animation: flicker 0.1s steps(5, end);
             }
         }

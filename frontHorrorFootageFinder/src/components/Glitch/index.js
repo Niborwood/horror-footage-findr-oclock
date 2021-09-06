@@ -20,7 +20,7 @@ export const Glitch = ({ glitch, onToggleGlitch }) => {
     //   glitchDiv.current.classList.add('glitch-ui__hide');
       // Close the timeout between 0.2 and 0.8 secondes randomly
       onToggleGlitch();
-    }, Math.random() * (400 - 200) + 350);
+    }, Math.random() * (400 - 200) + 450);
 
     return () => {
       clearTimeout(glitchEffect);

@@ -34,12 +34,13 @@ function App({
   handleLocalStorageModifyUI,
   toggleAnimations,
 }) {
-  if (localStorage.length > 0) {
-    const token = localStorage.getItem('token');
-    const email = localStorage.getItem('email');
-    const pseudo = localStorage.getItem('pseudo');
-    const id = localStorage.getItem('id');
-    const watchlistItem = localStorage.getItem('watchlist');
+  const token = localStorage.getItem('token');
+  const email = localStorage.getItem('email');
+  const pseudo = localStorage.getItem('pseudo');
+  const id = localStorage.getItem('id');
+  const watchlistItem = localStorage.getItem('watchlist');
+
+  if (token && email && pseudo && id && watchlistItem) {
     let watchlistArray = watchlistItem.split(',');
     if (watchlistItem.length > 0) {
       watchlistArray = watchlistArray.map((element) => parseInt(element, 10));
@@ -65,7 +66,8 @@ function App({
   }
 
   return (
-    <div className={`app-wrapper ${toggleAnimations && 'scanlines app-wrapper__animated'}`}>
+  // <div className={`app-wrapper ${toggleAnimations && 'scanlines app-wrapper__animated'}`}>
+    <div className={`app-wrapper ${toggleAnimations && 'app-wrapper__animated'}`}>
       <div className="app">
         { splashPassed || <Redirect to="/splash" />}
         <Switch>

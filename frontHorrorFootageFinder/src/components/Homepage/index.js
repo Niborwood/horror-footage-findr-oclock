@@ -17,6 +17,7 @@ import Footer from '../Footer';
 // IMPORTS D'ACTIONS/DISPATCH
 import { getTopMovies } from '../../actions/movies';
 
+// RENDU DU COMPOSANT
 export const Homepage = ({
   loadTopMovies,
   topMovies: { loaded, tmdbIDs }, isLogged,
@@ -102,7 +103,10 @@ Homepage.defaultProps = {
   errorMessage: '',
 };
 
-const mapStateToProps = ({ movies: { topMovies }, login: { isLogged } }) => ({
+const mapStateToProps = ({
+  movies: { topMovies },
+  login: { isLogged },
+}) => ({
   topMovies,
   isLogged,
   errorSelection: topMovies.error,
