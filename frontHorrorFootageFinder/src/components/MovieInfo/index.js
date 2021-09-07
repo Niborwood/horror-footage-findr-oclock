@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 // SCSS
 import './movieinfo.scss';
+import './vhs.scss';
 
 // IMPORT D'ACTIONS/DISPATCH
 import { fetchMovie, fetchMovieIntData } from '../../actions/movies';
@@ -22,7 +23,7 @@ import Loading from '../Loading';
 export const MovieInfo = ({
   movieID, getMovie, format, getMovieIntData,
   currentData, currentTags, isLogged, hffRating, userID, getUserRatingOnSingleMovie,
-  error, errorMessage,
+  error, errorMessage, tmdbIDs,
 }) => {
   // On check si le film est une série ou non (bool)
   const isSeries = currentTags?.includes('series');
@@ -92,8 +93,24 @@ export const MovieInfo = ({
   return (
     <div className={`movie-info ${format === 'full' && 'movie-info__full'}`}>
       {/* LEFT SIDE */}
+      {/* ICI on peut checker dans le state si tmdbid.length > 0 si oui, c'est qu'on
+      est après un quizz et on peut jouer l'animation */}
       <div className="movie-info__left-side">
-        {poster}
+        {tmdbIDs.length > 0
+        && (
+        <div className="wrapper__vhs">
+          <div id="vhs-background" />
+          <div id="vhs">
+            <span id="dyan">Dynamicron</span>
+            T-120
+            <div id="footer">
+              <span id="footer-vhs">VHS</span>
+              <span id="footer-vid">VIDEO CASSETTE</span>
+            </div>
+          </div>
+          {poster}
+        </div>
+        )}
         <div>
           {isLogged && <MovieRate movieID={movieID} />}
         </div>
@@ -179,6 +196,7 @@ MovieInfo.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   userID: PropTypes.number.isRequired,
   getUserRatingOnSingleMovie: PropTypes.func.isRequired,
+  tmdbIDs: PropTypes.arrayOf,
 };
 
 MovieInfo.defaultProps = {
@@ -187,6 +205,7 @@ MovieInfo.defaultProps = {
   hffRating: null,
   error: false,
   errorMessage: '',
+  tmdbIDs: [],
 };
 
 const mapStateToProps = ({ movies, login: { id, isLogged } }, { movieID }) => ({
@@ -199,6 +218,7 @@ const mapStateToProps = ({ movies, login: { id, isLogged } }, { movieID }) => ({
   errorMessage: movies[movieID]?.errorMessage,
   isLogged,
   userID: id,
+  tmdbIDs: movies.quizResults.tmdbIDs,
 });
 
 const mapDispatchToProps = (dispatch) => ({

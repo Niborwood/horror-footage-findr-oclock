@@ -37,9 +37,12 @@
     }
 
     &__poster {
+        position: relative;
+        z-index: 2;
         border: 3px solid white;
         margin-bottom: .5rem;
         width: 200px;
+       
     }
 
     &__tags {
