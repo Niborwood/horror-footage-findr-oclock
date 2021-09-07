@@ -19,7 +19,6 @@ export const Glitch = ({ glitch, onToggleGlitch }) => {
   const glitchDiv = useRef(null);
   useEffect(() => {
     const glitchEffect = setTimeout(() => {
-      // Close the timeout between 0.2 and 0.8 secondes randomly
       onToggleGlitch();
     }, Math.random() * (400 - 200) + 750);
 

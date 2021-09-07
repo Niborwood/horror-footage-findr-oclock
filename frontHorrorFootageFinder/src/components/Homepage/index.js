@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -24,19 +24,11 @@ export const Homepage = ({
   errorMessage,
   errorSelection,
 }) => {
-  // Appel à l'API interne pour récupérer les 3 films les plus populaires
-  // selon les utilisateurs du site
-
   useEffect(() => {
+    // Appel à l'API interne pour récupérer les 3 films les plus populaires
+    // selon les utilisateurs du site
     loadTopMovies(3);
   }, []);
-
-  // Gestion du bouton "Découvrir" pour le carousel de sélection
-  // const scrollToHomepageCarousel = () => {
-  //   homepageCarousel.current.scrollIntoView({
-  //     behavior: 'smooth',
-  //   });
-  // };
 
   return (
     <>

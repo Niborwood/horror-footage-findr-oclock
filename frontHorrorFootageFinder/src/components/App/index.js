@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+// GIF IMPORTS
+import staticBG from '../../assets/images/static-wb.gif';
+import glitch1 from '../../assets/images/glitch1-wb.gif';
+import glitch2 from '../../assets/images/glitch2-wb.gif';
+import glitch3 from '../../assets/images/glitch3-wb.gif';
+import glitch4 from '../../assets/images/glitch4-wb.gif';
 
 // SCSS
 import './App.scss';
@@ -11,7 +18,6 @@ import './scanlines.scss';
 import { localStorageModifyLOGIN, localStorageModifyUI } from '../../actions/login';
 
 // COMPOSANTS EXTERNES
-//! Arnaud: rassembler tout ça en un seul import {toto, tata, titi} from ???
 import Quiz from '../Quiz';
 // import Header from '../Header';
 // import Footer from '../Footer';
@@ -25,6 +31,7 @@ import Settings from '../Settings';
 import Login from '../Login';
 import Credits from '../Credits';
 import NotFound from '../NotFound';
+import Loading from '../Loading';
 import Confirmation from '../pageConfirm';
 
 // RENDU DE COMPOSANT
@@ -34,6 +41,38 @@ function App({
   handleLocalStorageModifyUI,
   toggleAnimations,
 }) {
+  const [imgsLoaded, setImgsLoaded] = useState(false);
+  const gifsToLoad = [staticBG, glitch1, glitch2, glitch3, glitch4];
+
+  useEffect(() => {
+    const loadImage = (image) => new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = image;
+      img.onload = () => {
+        setTimeout(() => {
+          resolve(image);
+        }, 2000);
+      };
+      img.onerror = () => {
+        reject(image);
+      };
+    });
+
+    Promise.all(gifsToLoad.map((image) => loadImage(image))).finally(() => {
+      setImgsLoaded(true);
+    });
+  }, []);
+
+  if (!imgsLoaded) {
+    return (
+      <div className="app-wrapper">
+        <div className="app app__loading">
+          <Loading />
+        </div>
+      </div>
+    );
+  }
+
   const token = localStorage.getItem('token');
   const email = localStorage.getItem('email');
   const pseudo = localStorage.getItem('pseudo');
