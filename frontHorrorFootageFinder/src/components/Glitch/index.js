@@ -29,7 +29,7 @@ export const Glitch = ({ glitch, onToggleGlitch }) => {
   }, [glitch]);
 
   // Get a random number between 1 and 4
-  const randomGlitch = Math.floor(Math.random() * (4 - 1) + 1);
+  const randomGlitch = Math.floor(Math.random() * (5 - 1) + 1);
 
   return (
     <div className={`glitch-ui glitch-ui__${!splashPassedInLocalStorage ? '1' : randomGlitch}`} ref={glitchDiv} />
