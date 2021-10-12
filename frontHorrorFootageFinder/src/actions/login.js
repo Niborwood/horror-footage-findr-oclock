@@ -13,10 +13,9 @@ export const toggleConnected = () => ({
 });
 
 export const CHANGE_STATE_WHEN_CONNECTED = 'CHANGE_STATE_WHEN_CONNECTED';
-export const changeStateWhenConnected = (value, token) => ({
+export const changeStateWhenConnected = (value) => ({
   type: CHANGE_STATE_WHEN_CONNECTED,
   value,
-  token,
 });
 
 export const LOGIN = 'LOGIN';
@@ -52,14 +51,12 @@ export const localStorageModifyLOGIN = (
   pseudoStore,
   isLoggedStore,
   idStore,
-  tokenStore,
 ) => ({
   type: LOCALSTORAGEMODIFYLOGIN,
   emailStore,
   pseudoStore,
   isLoggedStore,
   idStore,
-  tokenStore,
 });
 
 export const LOCALSTORAGEMODIFYUI = 'LOCALSTORAGEMODIFYUI';
