@@ -15,7 +15,6 @@ const initialState = {
   loginPassword: '',
   pseudo: '',
   id: 0,
-  token: '',
   errorMessage: '',
 };
 
@@ -24,12 +23,10 @@ function loginReducer(state = initialState, {
   type,
   name,
   value,
-  token,
   emailStore,
   pseudoStore,
   isLoggedStore,
   idStore,
-  tokenStore,
 }) {
   switch (type) {
     case CHANGE_INPUT_VALUE_LOGIN: {
@@ -54,7 +51,6 @@ function loginReducer(state = initialState, {
         pseudo: pseudoStore,
         isLogged: isLoggedStore,
         id: +idStore,
-        token: tokenStore,
       };
     case TOGGLE_CONNECTED:
       return {
@@ -74,7 +70,6 @@ function loginReducer(state = initialState, {
         email: value.email,
         loginEmail: '',
         loginPassword: '',
-        token,
       };
     case SAVE_NEW_LOGIN_STATE:
       if (value.pseudo !== undefined || value.email !== undefined) {

@@ -73,13 +73,12 @@ function App({
     );
   }
 
-  const token = localStorage.getItem('token');
   const email = localStorage.getItem('email');
   const pseudo = localStorage.getItem('pseudo');
   const id = localStorage.getItem('id');
   const watchlistItem = localStorage.getItem('watchlist');
 
-  if (token && email && pseudo && id) {
+  if (email && pseudo && id) {
     let watchlistArray = watchlistItem.split(',');
     if (watchlistItem.length > 0) {
       watchlistArray = watchlistArray.map((element) => parseInt(element, 10));
@@ -94,7 +93,7 @@ function App({
       watchedArray = [];
     }
 
-    handleLocalStorageModifyLOGIN(email, pseudo, true, id, token);
+    handleLocalStorageModifyLOGIN(email, pseudo, true, id);
     handleLocalStorageModifyUI(watchlistArray, watchedArray);
   }
 
@@ -170,8 +169,8 @@ const mapStateToProps = ({ ui: { splashPassed, toggles: { toggleAnimations } } }
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleLocalStorageModifyLOGIN: (email, pseudo, bool, id, token) => {
-    const action = localStorageModifyLOGIN(email, pseudo, bool, id, token);
+  handleLocalStorageModifyLOGIN: (email, pseudo, bool, id) => {
+    const action = localStorageModifyLOGIN(email, pseudo, bool, id);
     dispatch(action);
   },
   handleLocalStorageModifyUI: (watchlistStorage, watchedStorage) => {

@@ -1,5 +1,7 @@
 /* eslint-disable dot-notation */
 /* eslint-disable no-console */
+import Cookies from 'universal-cookie';
+
 import {
   LOGIN,
   toggleConnected,
@@ -55,14 +57,12 @@ const dataHorror = (store) => (next) => (action) => {
             email: getEmail,
             password: getPassword,
           });
-          store.dispatch(changeStateWhenConnected(response.data.data, response.data.token));
+
+          store.dispatch(changeStateWhenConnected(response.data.data));
           store.dispatch(submitWatchlistAndWatched(response.data.watchlist[0],
             response.data.watched[0]));
-          // eslint-disable-next-line dot-notation
-          api.defaults.headers.common['authorization'] = `Bearer ${response.data.token}`;
           if (response.data.data.pseudo) {
             store.dispatch(toggleConnected());
-            localStorage.setItem('token', response.data.token);
             localStorage.setItem('pseudo', response.data.data.pseudo);
             localStorage.setItem('email', response.data.data.email);
             if (response.data.watchlist !== null) {
@@ -89,7 +89,7 @@ const dataHorror = (store) => (next) => (action) => {
           const state = store.getState();
           const { value } = action;
           const { movieID } = action;
-          api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
+          // api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
           await api.put(`user/${state.login.id}/rating/movie/${movieID}`, {
             rating: value,
           });
@@ -110,7 +110,7 @@ const dataHorror = (store) => (next) => (action) => {
           const getWatched = state.ui.watched;
           const getIdUser = state.login.id;
           if (!getWatched.includes(action.newWatchedId)) {
-            api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
+            // api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
             await api.post(`user/${getIdUser}/watched/${action.newWatchedId}`);
             store.dispatch(addMovieInReducer('watched', action.newWatchedId));
           }
@@ -129,7 +129,7 @@ const dataHorror = (store) => (next) => (action) => {
           const getWatchlist = state.ui.watchlist;
           if (!getWatchlist.includes(action.newWatchlistId)) {
             const getIdUser = state.login.id;
-            api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
+            // api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
             await api.post(`/user/${getIdUser}/watchlist/${action.newWatchlistId}`);
             store.dispatch(addMovieInReducer('watchlist', action.newWatchlistId));
           }
@@ -148,7 +148,7 @@ const dataHorror = (store) => (next) => (action) => {
           console.log('newWatchlised', action.movieID);
           const getIdUser = state.login.id;
           console.log('getiduser', getIdUser);
-          api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
+          // api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
           const response = await api.patch(`user/${getIdUser}/watched/${action.movieID}`);
           console.log('remove watched', response);
           store.dispatch(removeMovieInReducer('watched', action.movieID));
@@ -165,7 +165,7 @@ const dataHorror = (store) => (next) => (action) => {
         try {
           const state = store.getState();
           const getIdUser = state.login.id;
-          api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
+          // api.defaults.headers.common['authorization'] = `Bearer ${state.login.token}`;
           await api.patch(`/user/${getIdUser}/watchlist/${action.movieID}`);
           store.dispatch(removeMovieInReducer('watchlist', action.movieID));
         } catch (error) {
