@@ -10,8 +10,8 @@ module.exports = {
     async movieSelection(request, response) {
         try {
             const limit = request.params.limit;
-
             const betterMovies = await movieDataMapper.getBetterMovies(limit);
+
             response.json({
                 data: betterMovies
             });
@@ -80,6 +80,7 @@ module.exports = {
     async getAllMovies(_, response) {
         try {
             const allMovies = await movieDataMapper.allMovies();
+            
             response.json({
                 data: allMovies
             });

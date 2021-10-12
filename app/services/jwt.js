@@ -37,8 +37,9 @@ module.exports = {
    * @returns 
    */
    authenticateToken(request, response, next) {
-    const authHeader = request.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // || request.body.token || request.query.token;
+    // const authHeader = request.headers['authorization'];
+    // const token = authHeader && authHeader.split(' ')[1]; // || request.body.token || request.query.token;
+    const token = request.cookies.token;
     console.log('token', token);
 
     if (!token) {

@@ -60,7 +60,6 @@ module.exports = {
                     console.log('user', user);
 
                     const token = await jwtMiddleware.generateAccessToken(user);
-                    console.log('token', token);
 
                     // const refreshToken = await jwtMiddleware.generateRefreshToken(user);
 
@@ -72,15 +71,23 @@ module.exports = {
 
                     const time = Date.now();
 
+                    //! Refresh Token TODO
                     // console.log('refreshToken', refreshToken);
-
                     // tokenList[refreshToken] = {"token": token, "refreshToken": refreshToken};
+
+                    response.cookie('token', token, {
+                        path: '/',
+                        httpOnly: true,
+                        // maxAge: 6000,
+                    })
+
+                    response.cookie('plop', 'plop');
 
                     response.json({
                         data: logginUser,
                         watchlist: [resultWatchlist],
                         watched: [resultWatched],
-                        token: token,
+                        // token: token,
                         // refreshToken: refreshToken,
                         time: time
                     });
