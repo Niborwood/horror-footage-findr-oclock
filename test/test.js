@@ -42,13 +42,12 @@ describe('Routes of the API', function () {
     describe('GET /movie/:movieId', () => {
         it("should get one movie by ID", function (done) {
 
-            const movieId = 10086;
-
             chai.request(server)
-                .get("/movie/:movieId" + movieId)
+                .get("/movie/:movieId")
+                .set('content-type', 'application/json')
+                .send({movieId: 10086})
                 .end((error, response) => {
-                    response.should.have.status(200);
-                    // response.body.should.be.a('object');
+                    response.body.should.be.a('object');
                     done();
                 })
         })
@@ -60,18 +59,16 @@ describe('Routes of the API', function () {
     describe('POST /register', () => {
         it("should post new user", function (done) {
 
-            const user = {
-                pseudo: "trululu",
-                email: "trululu@gmail.fr",
-                password: "test"
-            };
-
             chai.request(server)
                 .post("/register")
                 .set('content-type', 'application/json')
-                .send(user)
+                .send({
+                    pseudo: "trululu",
+                    email: "trululu@gmail.fr",
+                    password: "test"
+                })
                 .end((error, response) => {
-                    response.should.have.status(200);
+                    response.body.should.be.a('object');
                     done();
                 })
         })
@@ -83,18 +80,16 @@ describe('Routes of the API', function () {
     describe('PUT /user/:id/rating/movie/:movieId', () => {
         it("should add rating to a movie", function (done) {
 
-            const id = 3;
-            const movieId = 10086;
-            const rating = {
-                rating: 5
-            };
-
             chai.request(server)
-                .put("/user/:id/rating/movie/:movieId" + id, movieId)
+                .put("/user/:id/rating/movie/:movieId")
                 .set('content-type', 'application/json')
-                .send(rating)
+                .send({
+                    rating: 2,
+                    id: 1,
+                    movieId: 10086,
+                })
                 .end((error, response) => {
-                    response.should.have.status(200);
+                    response.should.be.a('object');
                     done();
                 })
         })
@@ -106,17 +101,15 @@ describe('Routes of the API', function () {
     describe('PATCH /api/v1/user/:id', () => {
         it("should update a user infos", function (done) {
 
-            const id = 3;
-            const user = {
-                pseudo: "treuleuh",
-                email: "trululu@gmail.fr"
-            };
-
-            chai.request(server)
-                .patch("/api/v1/user/:id" + id)
-                .send(user)
+           chai.request(server)
+                .patch("/api/v1/user/:id")
+                .send({
+                    id: 3,
+                    pseudo: "treuleuh",
+                    email: "trululu@gmail.fr"
+                })
                 .end((error, response) => {
-                    response.should.have.status(200);
+                    response.should.be.a('object');
                     done();
                 })
         })
@@ -127,13 +120,14 @@ describe('Routes of the API', function () {
      */
     describe('DELETE /api/v1/user/:id', () => {
         it("should delete a user", function (done) {
-
-            const id = 3;
-
+    
             chai.request(server)
-                .delete("/api/v1/user/:id" + id)
+                .delete("/api/v1/user/:id")
+                .send({
+                    id: 3
+                })
                 .end((error, response) => {
-                    response.should.have.status(200);
+                    response.should.be.a('object');
                     done();
                 })
         })
