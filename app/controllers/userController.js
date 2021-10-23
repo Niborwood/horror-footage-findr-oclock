@@ -78,10 +78,12 @@ module.exports = {
                     response.cookie('token', token, {
                         path: '/',
                         httpOnly: true,
+                        sameSite: "None",
+                        secure: true,
                         // maxAge: 6000,
                     })
 
-                    response.cookie('plop', 'plop');
+                    // response.cookie('plop', 'plop');
 
                     response.json({
                         data: logginUser,
