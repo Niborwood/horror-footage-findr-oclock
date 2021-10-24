@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import api from '../../utils/api';
 
 // GIF IMPORTS

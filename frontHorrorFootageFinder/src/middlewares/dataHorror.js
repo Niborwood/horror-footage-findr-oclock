@@ -1,6 +1,5 @@
 /* eslint-disable dot-notation */
 /* eslint-disable no-console */
-import Cookies from 'universal-cookie';
 
 import {
   LOGIN,
