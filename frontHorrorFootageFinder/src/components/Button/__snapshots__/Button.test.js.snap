@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button testing renders as the v1 version of Button comoponent with className, onClick, selected, type & value 1`] = `
+<button
+  className="button-ui  false button-ui__animated"
+  onClick={[Function]}
+  selected={false}
+  type="button"
+  value={null}
+>
+  <div
+    className="button-ui__content"
+  >
+    Animations activées
+  </div>
+</button>
+`;

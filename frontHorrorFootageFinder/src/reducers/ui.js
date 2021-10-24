@@ -13,7 +13,7 @@ import {
   LOCALSTORAGEMODIFYUI,
 } from '../actions/login';
 
-const initialState = {
+export const initialState = {
   splashPassed: false,
   toggles: {
     toggleAnimations: true,
