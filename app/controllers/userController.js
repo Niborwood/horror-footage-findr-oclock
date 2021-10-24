@@ -83,13 +83,10 @@ module.exports = {
                         // maxAge: 6000,
                     })
 
-                    // response.cookie('plop', 'plop');
-
                     response.json({
                         data: logginUser,
                         watchlist: [resultWatchlist],
                         watched: [resultWatched],
-                        // token: token,
                         // refreshToken: refreshToken,
                         time: time
                     });
@@ -379,6 +376,14 @@ module.exports = {
                 error: `Pas super ta mélodie de notes, impossible de la fredonner ..`
             });
         }
-    }
+    },
+
+    /**
+     * Controller to get CSRF token
+     * @param {Object} response
+     */
+    async getCsrfToken(request, response) {
+        response.json({ csrfToken: request.csrfToken() });
+    },
 
 };

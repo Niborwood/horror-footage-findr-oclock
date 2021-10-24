@@ -48,7 +48,7 @@ app.use((req, res, next) => {
     // res.header('Access-Control-Allow-Origin', ['http://localhost:3000']); // Ancienne version unique
 
     res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-CSRF-TOKEN');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, OPTIONS, PUT, DELETE');
     // response to preflight request
     if (req.method === 'OPTIONS') {
@@ -63,9 +63,19 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({
     extended: true
 }));
-
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
+
+
+// CSRF PROTECTION, TO PLACE AFTER COOKIE COOKIE-PARSER
+const csrf = require('csurf');
+const csrfProtection = csrf({
+    cookie: {
+        httpOnly: true,
+        secure: true, // only set cookies over https, to remove when in localhost
+    }
+});
+app.use(csrfProtection);
 
 // ROUTER
 app.use(router);

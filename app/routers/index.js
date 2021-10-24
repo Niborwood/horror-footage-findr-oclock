@@ -79,6 +79,9 @@ router.get('/api/v1/searchmovies', quizController.searchMovies);
 
 router.get('/api/v1/movie/:movieId', movieController.movieResult);
 
+// CSRF TOKEN ROUTE
+router.get('/api/v1/csrf-token', userController.getCsrfToken);
+
 router.use(errorController.resourceNotFound);
 
 module.exports = router;
