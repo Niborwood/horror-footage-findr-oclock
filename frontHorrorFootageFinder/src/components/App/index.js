@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import api from '../../utils/api';
 
 // GIF IMPORTS
 import staticBG from '../../assets/images/static-wb.gif';
@@ -44,23 +46,33 @@ function App({
   const [imgsLoaded, setImgsLoaded] = useState(false);
   const gifsToLoad = [staticBG, glitch1, glitch2, glitch3, glitch4];
 
+  // Get CSRF Token and use it in every axios request
+  const getCsrfToken = async () => {
+    const { data: { csrfToken } } = await api.get('/csrf-token');
+    // Make API requests with CSRF Token
+    api.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+  };
+
   useEffect(() => {
+    // Loading GIF Images to ensure smooth animations
     const loadImage = (image) => new Promise((resolve, reject) => {
       const img = new Image();
       img.src = image;
       img.onload = () => {
         setTimeout(() => {
           resolve(image);
-        }, 2000);
+        }, 1000);
       };
       img.onerror = () => {
         reject(image);
       };
     });
-
     Promise.all(gifsToLoad.map((image) => loadImage(image))).finally(() => {
       setImgsLoaded(true);
     });
+
+    // Get CSRF Token
+    getCsrfToken();
   }, []);
 
   if (!imgsLoaded) {
