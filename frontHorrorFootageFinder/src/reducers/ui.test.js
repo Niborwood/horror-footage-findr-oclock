@@ -1,4 +1,5 @@
 import UIReducer, { initialState as uiInitState } from './ui';
+import { toggleAction } from '../actions/ui';
 
 describe('UI Reducer test', () => {
   // Check the initialState is correct
@@ -11,7 +12,7 @@ describe('UI Reducer test', () => {
     // Should default to true
     expect(uiInitState.toggles.toggleAnimations).toEqual(true);
     // Should toggle to false
-    expect(UIReducer(uiInitState, { type: 'TOGGLE_ACTION', toggleName: 'toggleAnimations' })).toEqual({
+    expect(UIReducer(uiInitState, toggleAction('toggleAnimations'))).toEqual({
       ...uiInitState,
       toggles: {
         ...uiInitState.toggles,

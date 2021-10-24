@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactTestRenderer from 'react-test-renderer';
 import { Provider } from 'react-redux';
 import { render, screen } from '@testing-library/react';
 import sinon from 'sinon';
@@ -30,5 +29,15 @@ describe('Toggle testing', () => {
     );
     expect(stub.called).toBe(true);
     stub.restore();
+  });
+
+  // Test if the component displays the correct textContent
+  it('should display the correct textContent', () => {
+    render(
+      <Provider store={store}>
+        <Toggle name="toggleAnimations" textContent="Animations activées" />
+      </Provider>,
+    );
+    expect(screen.getByText('Animations activées')).toBeInTheDocument();
   });
 });
