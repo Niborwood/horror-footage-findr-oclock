@@ -72,7 +72,8 @@ const csrf = require('csurf');
 const csrfProtection = csrf({
     cookie: {
         httpOnly: true,
-        secure: true, // only set cookies over https, to remove when in localhost
+        secure: true, // only set cookies over https, to remove when in localhost,
+        sameSite: 'None',
     }
 });
 app.use(csrfProtection);
