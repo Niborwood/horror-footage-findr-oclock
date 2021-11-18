@@ -149,30 +149,20 @@ module.exports = {
      * @param {Oject} response 
      */
     async addUser(request, response) {
-
         try {
             const newUser = await request.body;
-
             const reallyNew = await userDataMapper.getUserByEmail(newUser.email);
-
             if (!reallyNew) {
-
                 const salt = await bcrypt.genSalt(10);
                 const hash = await bcrypt.hash(newUser.password, salt);
-
-                //! Je crée un token qui sera stoqué en bdd ..
                 const confirmationCode = jwtMiddleware.generateAccessToken(newUser);
-
                 const userToAdd = await userDataMapper.addNewUser(newUser, hash, confirmationCode);
-
                 const userAdded = await userDataMapper.getUserById(userToAdd.id);
-
                 emailController.sendConfirmationEmail(
                     userAdded.pseudo,
                     userAdded.email,
                     confirmationCode
                 );
-                
                 response.json({
                     message: "Bienvenue chez nous ! Il ne te reste plus qu'à te rendre dans ta boîte mail pour cliquer sur le lien de confirmation ..",
                     data: userAdded,
@@ -182,7 +172,7 @@ module.exports = {
             } else {
                 response.status(500).json({
                     data: [],
-                    error: `Tu es un voleur d'adresse email, ou tu as juste besoin d'un jus de carotte pour retrouver la mémoire ?`
+                    error: `Email déjà présent chez nous!`
                 });
             }
         } catch (error) {
